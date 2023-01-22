@@ -15,8 +15,11 @@ Note:
 1. Responsibilities of an engine and the runtime are not clearly defined. The only concrete thing that can be said here is that a runtime is a complete/practical thing, whereas an engine is more of a compiler.
 2. I've used runtime to mean both (engine + "components of the runtime other than engine") and to mean "components of the runtime other than engine". Both are used interchangeably.
 
-In a nutshell, the engine is what converts the code to/from a language various parts of the runtime can understand. The runtime components that talk to the OS. Diagrammatically:
+- Let's visualize the components - the engine is what converts the code to/from a language various parts of the runtime can understand. The runtime components than talk to the OS. Diagrammatically:
 1. Engine <-- consumes JS
 2. Engine <--> Runtime
 3. Runtime <--> OS
 4. OS <--> Hardware
+5. Hardware <--> Outside world
+
+In a nutshell, a JavaScript runtime is a program that let's us run JavaScript outside the browser (in the real world - meaning "all terminal commands work").
