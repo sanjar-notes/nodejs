@@ -1,0 +1,99 @@
+{
+  "strategy": "default",
+  "matchStrategy": "prefix",
+  "maxNumberOfSuggestions": 5,
+  "maxNumberOfWordsAsPhrase": 3,
+  "minNumberOfCharactersTriggered": 0,
+  "minNumberOfWordsTriggeredPhrase": 1,
+  "complementAutomatically": true,
+  "delayMilliSeconds": 0,
+  "disableSuggestionsDuringImeOn": false,
+  "insertAfterCompletion": true,
+  "firstCharactersDisableSuggestions": ":/^",
+  "showMatchStrategy": true,
+  "showComplementAutomatically": true,
+  "showIndexingStatus": true,
+  "descriptionOnSuggestion": "Short",
+  "selectSuggestionKeys": "Tab",
+  "additionalCycleThroughSuggestionsKeys": "None",
+  "disableUpDownKeysForCycleThroughSuggestionsKeys": false,
+  "openSourceFileKey": "None",
+  "propagateEsc": false,
+  "enableCurrentFileComplement": true,
+  "currentFileMinNumberOfCharacters": 0,
+  "onlyComplementEnglishOnCurrentFileComplement": false,
+  "enableCurrentVaultComplement": true,
+  "currentVaultMinNumberOfCharacters": 0,
+  "includeCurrentVaultPathPrefixPatterns": "",
+  "excludeCurrentVaultPathPrefixPatterns": "",
+  "includeCurrentVaultOnlyFilesUnderCurrentDirectory": false,
+  "enableCustomDictionaryComplement": true,
+  "customDictionaryPaths": "https://raw.githubusercontent.com/dwyl/english-words/master/words.txt",
+  "columnDelimiter": "Tab",
+  "customDictionaryWordRegexPattern": "",
+  "delimiterToHideSuggestion": "",
+  "delimiterToDivideSuggestionsForDisplayFromInsertion": "",
+  "caretLocationSymbolAfterComplement": "",
+  "displayedTextSuffix": " => ...",
+  "enableInternalLinkComplement": true,
+  "suggestInternalLinkWithAlias": false,
+  "excludeInternalLinkPathPrefixPatterns": "",
+  "enableFrontMatterComplement": true,
+  "frontMatterComplementMatchStrategy": "inherit",
+  "insertCommaAfterFrontMatterCompletion": false,
+  "intelligentSuggestionPrioritization": {
+    "maxDaysToKeepHistory": 30,
+    "maxNumberOfHistoryToKeep": 0
+  },
+  "showLogAboutPerformanceInConsole": false,
+  "selectionHistoryTree": {
+    "ECMAScript": {
+      "ECMAScript": {
+        "currentFile": {
+          "count": 4,
+          "lastUpdated": 1674400809973
+        }
+      }
+    },
+    "explosion": {
+      "explosion": {
+        "customDictionary": {
+          "count": 1,
+          "lastUpdated": 1674400452036
+        }
+      }
+    },
+    "epic": {
+      "epic": {
+        "customDictionary": {
+          "count": 1,
+          "lastUpdated": 1674400455157
+        }
+      }
+    },
+    "interchangeable": {
+      "interchangeable": {
+        "customDictionary": {
+          "count": 2,
+          "lastUpdated": 1674400800269
+        }
+      }
+    },
+    "interchangeably": {
+      "interchangeably": {
+        "customDictionary": {
+          "count": 1,
+          "lastUpdated": 1674400801965
+        }
+      }
+    },
+    "Netflix": {
+      "Netflix": {
+        "currentVault": {
+          "count": 1,
+          "lastUpdated": 1674400815150
+        }
+      }
+    }
+  }
+}
