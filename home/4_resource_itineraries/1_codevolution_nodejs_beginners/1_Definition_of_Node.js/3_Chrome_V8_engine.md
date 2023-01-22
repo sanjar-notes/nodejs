@@ -30,4 +30,4 @@ This *C++ program* with a lot of other functionality is Node.js.
 ## Summary
 - In 2008, Google created a JS engine called V8.
 - V8 can be used independently or as a part in C++ programs.
-- This means we can write a C++ program that accepts JS and interacts with the computer (outside the browser). This is the core idea behind Node.js
+- This means we can write a C++ program that accepts JS and interacts with the computer (outside the browser). This is the core idea behind Node.js.
