@@ -1,0 +1,98 @@
+# 9. Local modules
+Created Monday 23 January 2023 at 11:18 pm
+
+- Local modules are modules we create. 
+- Each JavaScript file is a module.
+
+## Break a file into modules
+Suppose all our code is written into a single file `app.js`.
+```js
+// file 1 - util code
+const add = (a, b) => a + b;
+
+// file 2 - app code
+const sum = add(1, 2) 
+console.log(sum); 
+```
+We wish to split the code into two files (for better organization).
+
+Suppose we do this segregation? 
+But how do we tell Node to run both files in proper order and make the `add` function available to the second file.
+
+This is where CommonJS comes in. JavaScript, for a long time, didn't have a module system. It was only later that a module system was standardized. "CommonJS" was the first standard (that's still supported by all systems). It uses a function and object approach to export and import code between modules.
+
+
+## How to import/export
+1. To import (and therefore run a module) - use the `require` function which takes the path of the module(file) as argument. `require` is available inside every file.
+`myMain.js`
+```js
+const addFunction = require('./add.js');
+
+console.log(addFunction(1, 2));
+```
+2. To export something (variable or object or class) - use the `module` object, specifically the `module.object` attribute. module is available inside every file.
+`add.js`
+```js
+const add = (a, b) => a + b;
+
+module.exports = add;
+```
+To run the app, just run `myMain.js`.
+
+Note:
+1. **Names don't matter** - There's no need to use the same name for importing and executing stuff. Common JS uses a function (`require`) and an object `module` to for export/import - so names don't matter.
+2. **Importing a module executes it** - A file will execute completely, if it exports something. i.e. you can't import stuff from a file without running that file.
+3. **Omit `.js` extension** - we can omit the `.js` extension in `require`. This is optional.
+4. **"Loading" a file** - `require`ing a module that exports nothing will just run the file. There will be no errors. This is also called "loading" a file, which is sometimes needed, e.g. we wish to do things in order but they are unrelated, so "exporting" doesn't make sense, but loading them from a single file is definitely better than providing multiple arguments to `node` in the correct order.
+5. **Running require(`s`) multiple times has no effect** - Using the "imported" and "stored" code doesn't run the dependency module again. We can use it as many times as we want. Of course, if we use `require` again, the dependency module will run be run again. FIXME
+6. **"Named" and "default" exports** - `module.exports` is the single source of exports from a file. So, if we need to export only one thing, one can directly write to it. But for importing multiple things, we just import an object or an array containing the things we wish to export. It works the same way.
+	```js
+	// mathFuncs.js
+	const add = (a, b) => a + b;
+
+	module.exports = {
+		add,
+		subtract: (a, b) => a - b
+	}
+
+	// or equivalently
+	module.exports.add = add;
+	module.exports.subtract = (a, b) => a - b };
+	```
+
+
+## Local modules execution flow
+Add some print statements in the code above.
+`myMain.js`
+```js
+console.log("myMain.js started execution");
+
+const addFunction = require('./add.js');
+
+console.log("back in myMain.js");
+
+console.log(addFunction(1, 2));
+
+console.log("myMain.js finished execution");
+```
+`add.js`
+```js
+console.log("Inside add.js")
+const add = (a, b) => a + b;
+
+console.log("Still executing add.js");
+
+module.exports = add; // file execution does not stop here
+
+console.log("Completing add.js execution"); // this DOES execute
+```
+This is the flow.
+Note: "exporting" does not end execution of a file, i.e. it's not like a `return` inside function.
+
+
+## More about local modules
+- Each module is isolated from all others, by default. 
+- **In other words**, Node.js does not 'watch' all files in the projects before running something. The scenario where multiple files are run is If a file (file `app.js`) imports another one (`sound.js`),  and is run, the other file (`sound.js`) will be run, but only because it was imported.
+- It's best to have a single top-level file (module) which imports some modules (which import some other module ...). This makes it easier to run the app, since only a single argument needed to be passed.
+
+This is sufficient to work on any Node.js project, but we'll dive a little deeper and see how modules work.
