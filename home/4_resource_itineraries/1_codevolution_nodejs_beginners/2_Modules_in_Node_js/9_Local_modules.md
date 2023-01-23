@@ -44,8 +44,7 @@ Note:
 2. **Importing a module executes it** - A file will execute completely, if it exports something. i.e. you can't import stuff from a file without running that file.
 3. **Omit `.js` extension** - we can omit the `.js` extension in `require`. This is optional.
 4. **"Loading" a file** - `require`ing a module that exports nothing will just run the file. There will be no errors. This is also called "loading" a file, which is sometimes needed, e.g. we wish to do things in order but they are unrelated, so "exporting" doesn't make sense, but loading them from a single file is definitely better than providing multiple arguments to `node` in the correct order.
-5. **Running require(`s`) multiple times has no effect** - Using the "imported" and "stored" code doesn't run the dependency module again. We can use it as many times as we want. Of course, if we use `require` again, the dependency module will run be run again. FIXME
-6. **"Named" and "default" exports** - `module.exports` is the single source of exports from a file. So, if we need to export only one thing, one can directly write to it. But for importing multiple things, we just import an object or an array containing the things we wish to export. It works the same way.
+5. **"Named" and "default" exports** - `module.exports` is the single source of exports from a file. So, if we need to export only one thing (a "default" export), one can directly write to it. But for importing multiple things, we just import an object or an array containing the things we wish to export. It works the same way.
 	```js
 	// mathFuncs.js
 	const add = (a, b) => a + b;
