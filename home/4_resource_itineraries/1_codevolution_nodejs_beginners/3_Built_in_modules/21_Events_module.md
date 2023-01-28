@@ -29,6 +29,12 @@ emitter.emit("order-pizza");
 ```
 Event identifiers can be strings or `Symbol`.
 
+Note (optional - not part of the course): 
+- `.once` - used to register a callback that executes only the first time (same syntax as `.on`)
+- `.addListener` is an alias of `.on`
+- `.removeListener(eventNameOrSymbol, callback)` - removes an existing listener for the given event. Note: this removes only one instance of the listener - i.e. it won't remove duplicates if they exist.
+- `.removeAllListeners(eventNameOrSymbol, callback)` - like `.removeListener` but removes all instances.
+- `.eventNames()` - returns an array of all events.
 
 ## Examples and patterns
 ### 1. Pass data with an event - callback arguments
