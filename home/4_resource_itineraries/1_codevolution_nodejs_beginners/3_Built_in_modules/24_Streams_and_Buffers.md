@@ -38,6 +38,31 @@ Examples:
 
 ## Writing some code
 `Buffer` is available globally without importing.
+- [Code](https://github.com/exemplar-codes/codevolution-nodejs/commit/c5623674cad1bdb19fbca5e00dc31bf22c703166): using the "Buffer" class.
+- [Code](https://github.com/exemplar-codes/codevolution-nodejs/commit/147ee60013a120e8655c627e540f254a1cf65b85): Writing to buffers
 
-- Node.js internally uses buffers when required, and we may never need to work with buffers directly.
+- Node.js uses buffers internally when required, and we may never need to work with buffers directly.
 - We could have worked well with `fs`, `http` without the knowledge of buffers in this level of detail. But knowing fundamentals is a good thing.
+
+
+## Opinion - BLOBs are not common in core business servers (FIXME: guess)
+Working with stream, buffers, receiving/sending large files is not a usual thing for most server side apps.
+
+The reason is that core business web-apps (servers) work mostly with text data (JSON) etc. All images, videos, files in apps are not uploaded/downloaded from/to the server. Instead the server just provides "links" (text) with some authorization data to clients. Clients then download files from 3rd part cloud computing storage services, as needed. Uploads too, are handled this way, i.e. client side code directly uploads to the external service, and shows progress/success based on responses from the external service. Upon success, the client receives a URL and auth data from the external service, which is passed along to the core business server, which stores the link + data.
+
+In other words, APIs in core business web-servers don't work with BLOBs. They offload all BLOBs to external services and just work with URLs and authorization data (which is text).
+
+
+**Q1**: Don't we still need to work with streams since we do have to write client side upload code, based on which we show progress?
+**A1**: Mostly no. External storage services provide a SDKs (for both client and server) that do the uploading and expose "scalar" values that we can poll against, or it provides events that do something equivalent. We use these for showing progress.
+
+**Q2**: Why do businesses use 3rd party services for large storage?
+**A2**: On prem-servers are rare, unless it's a very big business. I'll assume that the business is already using cloud services even for small "scalar data". 
+There are many reasons for using 3rd party services for large storage:
+1. Using a simple compute + storage service is expensive, compared to a storage service offered by the same platform.
+2. Having a dedicated endpoint for BLOBs makes development easy, as compared to having both BLOB APIs and "scalar" APIs run on the same server, since a BLOB operation could significantly hinder even small "scalar" API requests.
+3. Development/maintenance costs - writing custom BLOB APIs, using file databases means hiring more developers with niche experience - this can be very expensive, especially for small businesses. Maintaining the code is another task.
+
+BTW, using cloud services also has it's own challenges - huge accidental expenses, large bills in general, vendor lock in, lack of customization, rate limits etc.
+
+This is becoming even more common, as 3rd party services and cloud computing is becoming popular.
