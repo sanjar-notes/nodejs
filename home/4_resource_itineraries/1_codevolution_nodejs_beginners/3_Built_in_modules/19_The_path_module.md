@@ -1,9 +1,9 @@
 # 19. The path module
 Created Friday 27 January 2023 at 12:16 am
 
-# path module
-The "path" module is meant for manipulating paths. 
-I doesn't *do* anything - for that you need the "fs" module.
+## path module
+Meant for manipulating paths (filesystem locations).
+I doesn't *do* anything - for that you'll need the "fs" module.
 
 ## Two path related convenience variables
 Node.js provides two convenience variables that are available by default (no import needed). They are:
