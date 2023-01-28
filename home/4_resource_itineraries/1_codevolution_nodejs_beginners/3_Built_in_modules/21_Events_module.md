@@ -27,13 +27,14 @@ emitter.on("order-pizza", () => { console.log("Order placed"); });
 
 emitter.emit("order-pizza");
 ```
-Event identifiers can be strings or `Symbol`.
+- Event identifiers can be strings or `Symbol`.
+- A "listener" a short term for "registered callback for an event".
 
 Note (optional - not part of the course): 
 - `.once` - used to register a callback that executes only the first time (same syntax as `.on`)
 - `.addListener` is an alias of `.on`
-- `.removeListener(eventNameOrSymbol, callback)` - removes an existing listener for the given event. Note: this removes only one instance of the listener - i.e. it won't remove duplicates if they exist.
-- `.removeAllListeners(eventNameOrSymbol, callback)` - like `.removeListener` but removes all instances.
+- `.removeListener(eventNameOrSymbol, callback)` - removes an existing listener for the given event. Of course, the callback cannot be an anonymous function here, since function comparison is intractable. Note: this removes only one instance of the listener - i.e. it won't remove duplicates if they exist.
+- `.removeAllListeners(eventNameOrSymbol)` - remove all registered callbacks for a given event.
 - `.eventNames()` - returns an array of all events.
 
 ## Examples and patterns
