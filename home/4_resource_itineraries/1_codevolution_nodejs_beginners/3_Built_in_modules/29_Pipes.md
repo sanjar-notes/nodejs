@@ -1,7 +1,7 @@
 # 29. Pipes
 Created Sunday 29 January 2023 at 07:36 pm
 
-// rough done. Not immediately important. Just for fundamentals
+// FIXME: rough done. Not immediately important. Just for fundamentals
 In the previous lesson, we learnt about streams to read and write files.
 This seems to be a common pattern in server programming and systems programming.
 Node.js has a simpler and better pattern that does the same - called piping.

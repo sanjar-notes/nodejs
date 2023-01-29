@@ -1,7 +1,7 @@
 # 30. HTTP module
 Created Sunday 29 January 2023 at 10:34 pm
 
-// rough 
+// FIXME: rough 
 Let's understand how the web works.
 
 - Computers connected to the internet are called clients and servers (they can be both at the same time too).

@@ -1,7 +1,7 @@
 # 28. Streams
 Created Sunday 29 January 2023 at 06:42 pm
 
-// rough - done. Not immediately important. Just for fundamentals
+// FIXME: rough - done. Not immediately important. Just for fundamentals
 Let's learn about streams using the fs module.
 
 A stream is a sequence of data that is being moved from one point to another over time.
