@@ -1,4 +1,36 @@
 # 31. Creating a Node server
 Created Sunday 29 January 2023 at 10:45 pm
 
+// rough
 Let's write code to create a web server.
+
+Also, the `http` module extends the EventEmitter class.
+
+To create a server, use the `http.createServer(callback)`. The "callback" here is the request listener, i.e. it runs when a request is received.
+
+The callback receives two arguments -  request and response. The request param contains info about the request. The response argument is used to "build" the response we wish to send back. Of course, they can be named anything. Popular names are (req, res), (request, response).
+
+We can end request processing (and start responding) by using `response.end(some_string)` method which optionally accepts a string. `.end` responds with text content.
+
+To start listening for requests (i.e. start the server), use the `myServer.listen(port_number[, callback])` method. Think of it as a door number in an apartment that has many houses. Optionally, we can pass a callback function that's called when the server starts. It has no params.
+
+[Code](https://github.com/exemplar-codes/codevolution-nodejs/commit/089f7f8b64123ed80746eefc487a9af2c563ae64)
+
+So, it's very easy to get started with making servers with Node.js.
+
+---
+Although not necessary, it is a a good practice to specify the "Content-Type" header. "Content-Type": "text/plain" is the one if `response.end(string)` is used. Technically, browsers guess (default being "text/plain") the response "Content-Type" is it's not specified.
+
+[Code](https://github.com/exemplar-codes/codevolution-nodejs/commit/12f6d1c5c25c03695994fc6c8472a88d4c660221)
+
+---
+Let's go through the flow once again:
+1. The server starts are listens for incoming requests at the give port.
+2. When a request is received, Node.js runs the callback. This happens for each incoming request.
+3. Node.js automatically injects request and response params in the callback.
+4. request object contains data and related methods about the request.
+5. response object is an "actionable" parameter, i.e. response object is used to run code, "build" the response and finally send the response. It also contains data.
+
+---
+- To run the server on a free and random port, pass 0 as the port number
+- To get the assigned port number, use `myServer.address().port` once the server starts, for example, inside the `myServer.listen` callback.
