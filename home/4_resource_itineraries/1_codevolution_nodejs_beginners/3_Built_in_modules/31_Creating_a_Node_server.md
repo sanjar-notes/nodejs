@@ -34,3 +34,19 @@ Let's go through the flow once again:
 ---
 - To run the server on a free and random port, pass 0 as the port number
 - To get the assigned port number, use `myServer.address().port` once the server starts, for example, inside the `myServer.listen` callback.
+
+Example:
+```js
+const http = require("node:http");
+
+const server = http.createServer((req, res) => {
+  res.writeHead(200); // status code
+  res.end("Hello world");
+});
+
+server.listen(0, () => {
+  // 0 means random port
+  console.log(`Server started on PORT ${server.address().port}`);
+});
+```
+[Code](https://github.com/exemplar-codes/codevolution-nodejs/commit/875e861a984dcbf0cba58e559a18abf9e2dfa055)
