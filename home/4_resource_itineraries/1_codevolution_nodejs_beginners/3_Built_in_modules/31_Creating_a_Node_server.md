@@ -12,6 +12,8 @@ The callback receives two arguments -  request and response. The request param c
 
 We can end request processing (and start responding) by using `response.end(some_string)` method which optionally accepts a string. `res.end()`(optionally with preceding `res.write()`) is meant for building the [response](https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview#responses) body.
 
+`res.writeHead(statusCode [, headerObject])` can be used to specify the response status code and (optionally) header values.
+
 To start listening for requests (i.e. start the server), use the `myServer.listen(port_number[, callback])` method. Think of it as a door number in an apartment that has many houses. Optionally, we can pass a callback function that's called when the server starts. It has no params.
 
 [Code](https://github.com/exemplar-codes/codevolution-nodejs/commit/089f7f8b64123ed80746eefc487a9af2c563ae64)
