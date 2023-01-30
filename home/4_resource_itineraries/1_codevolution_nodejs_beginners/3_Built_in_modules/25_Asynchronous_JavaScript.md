@@ -30,3 +30,5 @@ I already know these.
 2. Callbacks, promises, async-await
 
 Note: all these "improvements" constructs - event-loop, task-queues, "single-threaded" wrappers are parts of the runtime, not the JS engine.
+
+[Polling vs Interrupts - document](../../../../assets/ChatGPT-interrupts-vs-polling.pdf)
