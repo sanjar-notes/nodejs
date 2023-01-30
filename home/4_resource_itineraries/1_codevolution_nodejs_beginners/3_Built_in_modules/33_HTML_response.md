@@ -44,3 +44,5 @@ To avoid this, we can use streams. Note that doing this result in a *slower* res
 
 Here, the response a continuous stream that takes a long time. i.e. the client will receive data in chunks.
 (FIXME: how is this continuous, I mean yes, multiple TCP transfers make sense, but aren't we calling `.end` once. Maybe there's something going on with "keep-alive).
+
+FIXME: I'm getting confused between buffers, streams and `fs` functions (when and where do they expose/return streams).
