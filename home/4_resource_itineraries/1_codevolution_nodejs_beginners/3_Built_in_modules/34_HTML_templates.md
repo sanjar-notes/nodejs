@@ -24,3 +24,17 @@ Here's a basic dynamic server with a template HTML file containing a single plac
   res.end(htmlFileContents);
 }
 ```
+
+---
+Injecting dynamic data using string replacement is fine. But this doesn't scale:
+1. There could be collisions with placeholders.
+2. What if we want to add a list of things dynamically, string interpolation would be too much work, i.e. we would have to write the nested HTML for the element too.
+3. The page content and the server code are tightly coupled.
+4. What if we really want to display some characters that occur in the placeholder as is?
+
+A good solution for these problems is to use a "web template engine". A template engine is a tool that:
+1. Defines a [DSL](https://en.wikipedia.org/wiki/Domain-specific_language) for viewable content.
+2. Defines "programming" constructs like loops, conditionals that can be used for viewable content.
+3. Has some server-side plugin that can be used to interface with the DSL. i.e. connect JavaScript (programming language) to the DSL ("view definition language"?).
+
+Examples - [Pug - JavaScript](https://pugjs.org/api/getting-started.html), [Jinja - Python](https://en.wikipedia.org/wiki/Jinja_(template_engine)), [ERB - Ruby on Rails](https://guides.rubyonrails.org/layouts_and_rendering.html).
