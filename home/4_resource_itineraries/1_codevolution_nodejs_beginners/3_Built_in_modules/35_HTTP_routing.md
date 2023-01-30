@@ -1,6 +1,6 @@
 # 35. HTTP routing
 Created Monday 30 January 2023 at 03:43 pm
-
+// rough
 [Currently](https://github.com/exemplar-codes/codevolution-nodejs/commit/f024b46b376893c3be766e3a26b4fa0b231b9eb8), we return the same response for all routes (try it). This is of course, not the case in the real world.
 
 The default route is `/`. Note that by route, we mean the URI.

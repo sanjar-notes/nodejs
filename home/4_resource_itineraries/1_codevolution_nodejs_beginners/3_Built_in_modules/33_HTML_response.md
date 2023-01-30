@@ -1,6 +1,6 @@
 ## 33. HTML response
 Created Monday 30 January 2023 at 12:33 pm
-
+// rough
 Just like with text and JSON response, set the correct "Content-Type" ("text/html") and send the HTML as a string using `res.end()` (optionally with`res.write()`).
 
 [Code](https://github.com/exemplar-codes/codevolution-nodejs/commit/00715f610d73485a1e210d22c407f7551e9012ce

@@ -1,6 +1,6 @@
 # 32. JSON response
 Created Monday 30 January 2023 at 12:07 pm
-
+// rough
 In the previous video, we responded with plain text by using `res.end` and set "Content-Type" header to "text/plain" using `res.writeHead`.
 
 Similarly, we can send JSON (as the response body) by populating the response body (using `res.end()`). Important checks when sending JSON data:

@@ -1,6 +1,6 @@
 # 34. HTML templates
 Created Monday 30 January 2023 at 02:30 pm
-
+// rough
 Sending HTML "as is" is fine. A server that does this is called a "static server".
 
 But this is not enough. It is very common to have a page which has some dynamic part, depending on whose making the request or some other criteria. Example - a profile page, that greets the user. Assuming we know who the user each, we should display their name.
