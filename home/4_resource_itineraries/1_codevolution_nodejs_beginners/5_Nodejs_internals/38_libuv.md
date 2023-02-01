@@ -14,4 +14,4 @@ How does libuv help with asynchronous and non-blocking nature? It does so with t
 1. Thread pool
 2. Event loop
 
-Of course, these are a small part of libuv. These constructs are enough for us to understand how Node.js handles these 3 problems (of synchronous, blocking and single-threaded execution).
+Of course, these are a small part of libuv, but they are enough for us to understand how Node.js handles these 3 problems (of synchronous, blocking and single-threaded execution).
