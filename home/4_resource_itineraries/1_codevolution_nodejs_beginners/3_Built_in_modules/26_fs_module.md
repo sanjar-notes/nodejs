@@ -12,7 +12,7 @@ const fs = require("node:fs");
 
 
 ## fs API
-- `readFileSync("some_path" [,encoding])` - returns contents of the file as a "buffer" by default. 
+- `readFileSync("some_path" [,encoding])` - returns all contents of the file as a "buffer" by default. 
 	- If "utf-8" (or "UTF-8") encoding is specified, returns the file contents as a `string`. 
 	- Executes synchronously (blocking).
 - `writeFileSync("some_path", content [, option])` - write given content to the file. 
