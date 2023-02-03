@@ -9,7 +9,6 @@ A few things to consider when choosing a package from the registry:
 4. Issues (too many for a simple thing means not a good package)
 
 ---
-
 To install a package from the registry, run the following command (inside the directory):
 ```bash
 npm install myPackageName
@@ -18,6 +17,13 @@ npm install myPackageName
 npm install myPackage@x.y.z # installs version x.y.z
 ```
 Packages installed this way are installed "locally", i.e. they are meant to be used only by the current project.
+
+---
+Locally installed packages are stored inside a folder named "node_modules" (this is done automatically).
+- This folder contains raw source code used by the library.
+- It's not meant to be version controlled. It's usually ignored using the `.gitignore` file.
+- It should not be edited. If this is needed, something's probably wrong with the approach/solution.
+- It can be regenerated anytime by running `npm install` (which installs all dependencies).
 
 ---
 Packages can be installed globally by using the `-g` option, by running the following command (location does not matter here):
