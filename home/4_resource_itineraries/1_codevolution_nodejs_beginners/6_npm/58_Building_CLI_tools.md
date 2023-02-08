@@ -26,5 +26,6 @@ console.log()
 
 The command can now be used directly in the terminal.
 
+Note: Like all other Node.js projects, we can install and use 3rd party modules.
 
 [Code](https://github.com/exemplar-codes/codevolution-nodejs/commit/2062dd8b3da1c86a3c97d56672d2f81f451584c1)
