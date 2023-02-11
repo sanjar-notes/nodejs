@@ -63,11 +63,25 @@ console.log(os.cpus().length);
 - It manages clusters in an optimal way, dynamically.
 - As it manages clusters, there's no need for master code, and so, no need to import or use the`cluster` module. Just run a app code file as usual, using `pm2` instead of `node` command.
 
-PM2 is installed globally. Syntax to run and stop:
+PM2 is installed globally. Syntax - start, stop, delete, list, monit:
 ```bash
+## Start - start/resume
 pm2 start index.js -i 0 # dynamic mode, manage number of workers automatically and optimally
 pm2 start index.js -i 2 # static mode, run fixed number of workers
 
-pm2 stop index.js       # stop (pause) workers, but pm2 remembers stopped workers
-pm2 delete index.js     # permanently stop, i.e. stop and clear pm2's memory
+## Stop, actually pause
+pm2 stop index.js       # Note: pm2 remembers stopped workers
+pm2 stop all
+
+# Stop, permanently, i.e. stop
+pm2 delete index.js     # Note: also clear pm2's memory
+pm2 delete all
+
+# List - name, cpu and memory usage
+pm2 list index.js
+pm2 list all
+
+# Monitor - detailed stats
+pm2 monit index.js
+pm2 monit all
 ```
