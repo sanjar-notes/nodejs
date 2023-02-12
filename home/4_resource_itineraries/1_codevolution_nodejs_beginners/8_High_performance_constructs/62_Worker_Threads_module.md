@@ -77,6 +77,9 @@ async function slow() {
 // experimenting machine has 8 CPUs
 [slow(), fast()]             // OK
 [slow(), slow(), fast()]     // OK
-[slow() /*6 times*/, fast()] // 6 cores for slow, 1 for OS, 1 for the main thread (fast)
-[slow() /*7 times*/, fast()] // 7 cores for slow. 1 for main thread competing with OS.
+[slow() /*6 times*/, fast()] // OK. 6 cores for slow, 1 for OS, 1 for the main thread (fast)
+[slow() /*7 times*/, fast()] // 7 cores for slow. 1 for main thread competing with OS. May still run fast
+
+[slow() /*8 times*/, fast()] // 7 cores for slow, 1 for main thread competing with OS.
+// main thread will defer creating a thread for the last /slow request, until one of the previous 7 end. In this case, this last (8th) slow will take double the time, or more (since OS is competing).
 ```
