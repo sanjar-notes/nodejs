@@ -63,7 +63,8 @@ console.log(os.cpus().length);
 ## How does this solve the issue
 The server starts - it's running on the main thread (single thread and single core - say t1 on c1). The first request (slow) is received, the main thread spins up a worker thread. Now since the main-thread is busy listening for requests, the worker-thread actually runs on a different core (say t2 on c2). The second request (fast endpoint arrives), it's received by the main-thread, which is free, and is handled (by t1 on c1). That's it.
 
-Experiment 3: Had there been another call for slow, yet another thread would have spun up (and handled by yet another core  t3 on c3). Let's test this - run /slow, /slow and /fast. Expectation, all take the same time, as if called individually when the server is free. I'm assuming all other processes, including OS are running on a single CPU core. **Confirmed, works!**. Client side code:
+Experiment 3: Had there been another call for slow, yet another thread would have spun up (and handled by yet another core  t3 on c3). Let's test this - run /slow, /slow and /fast. Expectation, all take the same time, as if called individually when the server is free. I'm assuming all other processes, including OS are running on a single CPU core. **Confirmed, works!**. 
+[Server code](https://github.com/exemplar-codes/codevolution-nodejs/commit/0e24dbbf749bb0f291029293be205603f1e477fd), client side code:
 ```js
 async function fast() {
 	fetch('http://localhost:8000').then(_ => _.json()).then(console.log);
