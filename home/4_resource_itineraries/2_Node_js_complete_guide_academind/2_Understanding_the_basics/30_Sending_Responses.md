@@ -24,4 +24,20 @@ const server = http.createServer((req, res) => {
 
 server.listen(3000, () => console.log("Server running on port 3000"));
 ```
-Note: we can use a single `write` to send the whole text. `http` module can handle chunking.
+Note: we can use a single `write` to send the whole text. `http` module handles chunking and transmission automatically.
+
+
+## Optional - streaming stuff
+It's very easy to "stream" stuff, since the response param is a stream.
+
+Most browsers can directly consume popular MIME types (atleast Chrome).
+
+Common data types:
+- Text - need to set headers `Content-Type: text/plain` and `X-Content-Type-Options: nosniff`. [Code](https://github.com/exemplar-codes/nodejs-server-academind/commit/a251ee567861b835c46c9e17c1c8106f4aeb8236)
+- HTML - set `Content-Type: text/html`. [Code](https://github.com/exemplar-codes/nodejs-server-academind/commit/665951340266df242d7573aba4a249e122d68ef2)
+- Music (mp3) - set `Content-Type: audio/mpeg`. [Code](https://github.com/exemplar-codes/nodejs-server-academind/commit/66d92a21d7efc55e103b3e312b395ac5889a8dcb)
+- Images (jpg or jpeg) - set `Content-Type: image/jpeg`. [Code](https://github.com/exemplar-codes/nodejs-server-academind/commit/77081114e9f10e3440873640993cb3a6a1f315bd)
+
+Note: 
+- Derived: This isn't actually a new thing, `res.write()` does chunking automatically anyway. It's just that the streaming is more noticeable for large files.
+- No client code was needed here. Simply visiting the endpoint worked.
