@@ -24,6 +24,7 @@ node index.js   # example
 # (optionally) can omit the extension if it's .js
 node index
 
-# (optionally) omit file name, runs index.js
-node .
+# (optionally) directory name, runs index.js inside it
+node .                      # from inside the folder
+node path/to/my-project-dir # from outside
 ```
