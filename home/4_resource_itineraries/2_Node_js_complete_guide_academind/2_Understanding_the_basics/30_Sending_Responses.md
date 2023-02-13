@@ -24,7 +24,21 @@ const server = http.createServer((req, res) => {
 
 server.listen(3000, () => console.log("Server running on port 3000"));
 ```
-Note: we can use a single `write` to send the whole text. `http` module handles chunking and transmission automatically.
+Note: 
+- We can use a single `write` to send the whole text. `http` module handles chunking and transmission automatically.
+- `res.end()` doesn't end the callback function. Also, `res.end()` it should be the last interaction with `res`. Thus, we may need to `return` from the function, if there's an unguarded interaction with `res`. For example:
+```js
+(req, res) => {
+	if(req.url === '/') {
+		res.write("Hello");
+		res.end();
+		// return; if missing
+	}
+
+	res.write("Page not found"); // ...we get an error
+	res.end();
+}
+```
 
 
 ## Optional - streaming stuff
