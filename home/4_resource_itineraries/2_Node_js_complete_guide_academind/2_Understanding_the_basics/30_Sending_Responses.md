@@ -41,3 +41,4 @@ Common data types:
 Note: 
 - Derived: This isn't actually a new thing, `res.write()` does chunking automatically anyway. It's just that the streaming is more noticeable for large files.
 - No client code was needed here. Simply visiting the endpoint worked.
+- Of course, this was a very simple scenario. Streaming data is a complex engineering problem that depends on the application, environment, size of the system etc.
