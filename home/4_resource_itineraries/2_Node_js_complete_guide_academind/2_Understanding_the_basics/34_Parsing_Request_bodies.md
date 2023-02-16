@@ -1,5 +1,6 @@
 # 34. Parsing Request bodies
-Created Tuesday 14 February 2023 at 06:44 pm
+Created Thursday 16 February 2023 at 09:10 am
+
 
 # Situation
 With the `http` module, the request param doesn't have anything like `request.data`. Instead, the incoming data is sent as a stream.
