@@ -41,4 +41,6 @@ We use "nodemon" to restart the app if any file is edited.
 ```
 
 
-See for more info: https://code.visualstudio.com/docs/nodejs/nodejs-debugging
+## Further reading/help
+1. Node.js docs - https://nodejs.org/en/docs/guides/debugging-getting-started/
+2. VScode docs - https://code.visualstudio.com/docs/nodejs/nodejs-debugging
