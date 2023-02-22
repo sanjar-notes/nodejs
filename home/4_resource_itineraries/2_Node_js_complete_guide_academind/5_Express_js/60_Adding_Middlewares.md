@@ -33,3 +33,12 @@ app.use((req, res, next) => {});
 
 app.listen(3000, () => console.log('Server running on port 3000'));
 ```
+
+## My understanding of middleware (not in course)
+Structuring/organizing/classification of middlewares:
+1. Simplest - seen above
+2. Multi-file
+3. Route based
+4. HTTP verb based
+5. Router
+![](../../../../assets/express-middlewares.drawio.svg)
