@@ -35,6 +35,15 @@ app.listen(3000, () => console.log('Server running on port 3000'));
 ```
 
 ## My understanding of middleware (not in course)
+### Mechanics of middlewares
+1. All top-level express code are middlewares.
+2. Middlewares don't have nesting. Router may look like nesting, but they're actually a syntactic sugar for linearity. There's no possibility of branching.
+3. Middle-wares are evaluated top-down.
+4. A middleware runs only if it's the first one in the app or if the one before it executed `next()`.
+5. Middlewares can consume other middlewares to give a new middleware. This can be used for non-route organization into files.
+6. If a middleware does not call `next`, it has to send a response
+
+### Types of constructs in Express
 Structuring/organizing/classification of middlewares:
 1. Simplest - seen above
 2. Multi-file
