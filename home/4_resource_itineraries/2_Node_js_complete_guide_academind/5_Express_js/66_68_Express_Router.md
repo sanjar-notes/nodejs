@@ -60,4 +60,4 @@ Note:
 - Things learnt - app.METHOD always needs the path param, even if it is `'/'`.
 - Standard rules apply, unless specified otherwise.
 - The router path trimming feature assumes all paths in the router have a common prefix.
-- The router can be used without the path trimming feature. This is actually the better way to do multi-file middleware/route organization.
+- The router can be used without the path trimming feature also (i.e. don't specify a path while registering). This is actually the better way to do multi-file middleware/route organization (instead of using `express()` to make the child).
