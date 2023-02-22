@@ -29,3 +29,8 @@ Express.js is:
 1. Popularity - the \*most popular and extensively used
 2. Minimalistic - doesn't add too much functionality out of the box.
 3. Extensibility - Express.js has an excellent plugin system, and there are lots of packages of common tasks that can be hooked into Express
+
+
+## About Express.js
+1. It uses the `http` module heavily
+2. Many functions from the `http` module can be used as is. But they're not used commonly since they are primitive compared to what Express provides.
