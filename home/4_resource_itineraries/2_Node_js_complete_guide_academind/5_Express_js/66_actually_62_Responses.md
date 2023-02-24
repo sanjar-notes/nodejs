@@ -4,6 +4,7 @@ Created Thursday 23 February 2023 at 12:27 am
 # Situation
 obvs
 
+
 ## Syntax
 ```js
 const express = require("express");
@@ -17,13 +18,16 @@ app.use((req, res) => {
 app.listen(3000, () => console.log("Server running on port 3000"));
 ```
 
-1. S*end* variables - Express.js exposes a `.send` function on the response param. This is supposes to be the "convenient" default over `http.req.end` (which is still available if needed). It behaves in the usual way, i.e. ends the response. It accepts all *JSONable* data types `String`, `Boolean`, `Array`, `Object`. Accepts `Buffer` too.
-2. S*end* a file (not download) - `sendFiles("absolute_file_path")` or alternatively `sendFiles("relative_path", {root: ""})`. Zip files will be automatically be downloaded in the browser, as they're not consumable directly.
-3. `res.write()` is still available, for multi-packet response. FIXME? Not very useful though, since Express streams large data automatically.
-4. Status code - Use `res.status(200)`. Doubt - `res.sendStatus(200)` sends the status code with the corresponding status message as text, it also ends the response.
-5. Set header(s):
-	1. One header - two args. `res.set(HEADER_KEY, HEADER_VALUE)`. Example: `res.set('Content-Type', 'text/plain')`.
-	2. Multiple headers - one object as argument. `res.set({key1: value1, key2: value2})`. Example: ``
+### Status
+ - `res.status(200)`
+ - `res.sendStatus(200)` sends the status code with the corresponding status message as text, it also ends the response.
+
+### Headers
+`res.set`
+
+There are two forms:
+	1. One header - two args. `res.set(HEADER_KEY, HEADER_VALUE)`. Example: `res.set('Content-Type', 'text/plain')`
+	2. Multiple headers - one object as argument. `res.set({key1: value1, key2: value2})`. Example:
 ```js
 res.set({
   'Content-Type': 'text/plain',
@@ -31,12 +35,24 @@ res.set({
   ETag: '12345' // no hypen, so string notation not needed
 })
 ```
-6. Redirect - `res.redirect([statusCode=302], "my_absolute_or_relative_location")`
-7. Set the content-type header - `res.type("content_type_value")`. If "/" is absent in the argument, for example "html", it'll set the type correctly (i.e. "text/html").
-8. There's auto content-type inference, for variables and files both. It's binary level for files (so wrong extension is also handled properly). [Code](https://github.com/exemplar-codes/express-app-academind/commit/60e88a6d4bf1524c789749811c72076b0fae48da)
+
+### Body
+1. S*end* variables - `res.send()`. This is supposes to be the "convenient" default over `http.req.end` (which is still available if needed). It behaves in the usual way, i.e. ends the response. It accepts all *JSONable* data types `String`, `Boolean`, `Array`, `Object`. Accepts `Buffer` too.
+2. Send JSON - `res.json()`. Prefer this over `res.send` for JSON responses.
+3. S*end* a file (not download) - `sendFiles("absolute_file_path")` or alternatively `sendFiles("relative_path", {root: ""})`. Zip files will be automatically be downloaded in the browser, as they're not consumable directly. **Intended for small files only, since it doesn't use chunking**.
+4. Send a file (for download) - `res.download(...)`. Same as `res.sendFiles`, except sends proper headers and causes download on the browser.
+5. Send file efficiently - create a read stream, pipe it through to `res`, just like with vanilla `http` module.
+
+Note: 
+- There's auto content-type inference, for variables and files both. It's binary level for files (so wrong extension is also handled properly). [Code](https://github.com/exemplar-codes/express-app-academind/commit/60e88a6d4bf1524c789749811c72076b0fae48da)
+- `res.write()` is still available, for explicit multi-packet response.
+
+### Convenience functions
+1. Redirect - `res.redirect([statusCode=302], "my_absolute_or_relative_location")`
+2. Set the content-type header - `res.type("content_type_value")`. If "/" is absent in the argument, for example "html", it'll set the type correctly (i.e. "text/html").
 
 
-Notes:
+## Examples and nuances
 1. Types of responses (content types):
 	1. [Text](https://github.com/exemplar-codes/express-app-academind/commit/384f76a1ee9c2aac45cee6a35d27732f2e7ed477) - `res.send("my_string_here")`. Sent as `"Content-Type: text/plain"`.
 	2. [JSON](https://github.com/exemplar-codes/express-app-academind/commit/62d86f57f68134d39b1883bbf0e6fe7b3b9f2c26) - `res.send(myJSONObject)`. Sent as `"Content-Type: application/json"`. Object should be JSON serializable.
@@ -45,4 +61,4 @@ Notes:
 	5. [ZIP file](https://github.com/exemplar-codes/express-app-academind/commit/17cc84628b179cc68d3f40adbb85ef0d39ec0577) - `res.sendFile("./path_to_file", { root: __dirname})`
 2. Middlewares can be run (i.e. `next()` works) even after ending the response. Don't if this is a bad practice or a deliberate thing for stateful servers. FIXME.
 3. Avoid double response ends.
-4. Express only `res` functions are chainable. This chaining doesn't work with `http.res.` functions, use individual statements with them. todo
+4. Express only `res` functions are chainable. This chaining doesn't work with `http.res.` functions, use individual statements with them.
