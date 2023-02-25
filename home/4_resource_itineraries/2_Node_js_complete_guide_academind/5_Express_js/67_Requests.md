@@ -32,6 +32,7 @@ Note: supports regex and capture groups, if they're used for param definition.
 ## 3. Headers
 - `req.get(headerKey)` - returns header value.
 - `req.headers` property - object containing all headers.
+- `req.accepts(contentTypeValue)` returns bool. Example - `req.accepts("application/json")`. Accepts partial input too.
 
 Note:
 - `req.header()` is an alias of `req.get()`
@@ -61,12 +62,15 @@ app.post('/', (req, res, next) => {
 - `req.httpVersionMinor` - a number. Example - `2` for `"1.2"`
 
 
-## Convenience functions
-1. `req.xhr` property - boolean. `true` if request made using `XMLHttpRequest` or `fetch`.
-2. `req.is(contentTypeValue)`- Get `"Content-Type"` of the request.
+## Convenience properties and functions
+1. `req.is(contentTypeValue)`- Get `"Content-Type"` of the request.
 	- Argument - `String`. Accepts partial arguments too, `req.is("json")` will return `"application/json"`.
 	- Returns a `String`. Returns false if type is absent. Returns `null` if there's no body.
-3. `req.cookies` property - cookies as an object
-4. 
-5. `req.ip` - IP address of the request client. Assumes trust proxy setting is not false.
-6. `req.subdomain` - array of subdomains (in ancestor order, of course). Note - default offset is 2, i.e. ignores the last two. Example - `"tobi.ferrets.example.com"` will result in `['ferrets', 'tobi']`
+2. `req.cookies` property - cookies as an object
+3. `req.route` returns skeleton of the path as is. Useful is path params are used.
+4. `req.secure` - returns a boolean if HTTPS is being used.
+
+## Extras
+1. `req.ip` - IP address of the request client. Assumes trust proxy setting is not false.
+2. `req.subdomain` - array of subdomains (in ancestor order, of course). Note - default offset is 2, i.e. ignores the last two. Example - `"tobi.ferrets.example.com"` will result in `['ferrets', 'tobi']`
+3. `req.xhr` property - boolean. `true` if request made using `XMLHttpRequest` or `fetch`. **Not useful**, unless the `X-Requested-With` header has a value of `XMLHttpRequest`.
