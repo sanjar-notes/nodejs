@@ -45,7 +45,7 @@ res.set({
 
 Note: 
 - There's auto content-type inference, for variables and files both. It's binary level for files (so wrong extension is also handled properly). [Code](https://github.com/exemplar-codes/express-app-academind/commit/60e88a6d4bf1524c789749811c72076b0fae48da)
-- `res.write()` is still available, for explicit multi-packet response.
+- `res.write()` (inherited from `node:http`) is still available, for sending data without ending the connection. Just [remember](https://stackoverflow.com/a/34187352/11392807) the `"no-sniff"` header value.
 
 ### Convenience functions
 1. Redirect - `res.redirect([statusCode=302], "my_absolute_or_relative_location")`.
