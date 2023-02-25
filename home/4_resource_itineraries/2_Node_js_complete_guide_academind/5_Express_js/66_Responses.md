@@ -48,7 +48,7 @@ Note:
 - `res.write()` is still available, for explicit multi-packet response.
 
 ### Convenience functions
-1. Redirect - `res.redirect([statusCode=302], "my_absolute_or_relative_location")`
+1. Redirect - `res.redirect([statusCode=302], "my_absolute_or_relative_location")`.
 2. Set the content-type header - `res.type("content_type_value")`. If "/" is absent in the argument, for example "html", it'll set the type correctly (i.e. "text/html").
 
 
@@ -62,3 +62,7 @@ Note:
 2. Middlewares can be run (i.e. `next()` works) even after ending the response. Don't if this is a bad practice or a deliberate thing for stateful servers. FIXME.
 3. Avoid double response ends.
 4. Express only `res` functions are chainable. This chaining doesn't work with `http.res.` functions, use individual statements with them.
+
+
+## Doubts
+1. Sending some data with redirect - not possible/encouraged since redirect is a complete action itself, it cannot be paired with a data response. Technically, redirect does send an automatic response - the HTML of the new location. If I still want to send some data, I can add a temporary query string in the redirect location. See [StackOverflow](https://stackoverflow.com/a/62297733/11392807).
