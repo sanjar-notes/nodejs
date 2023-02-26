@@ -40,6 +40,7 @@ Note:
 }
 ```
 - Headers should be sent first, and completely, before the body is sent. This is not something Node.js or `node:http` specific. It's in the HTTP specification. This means that `res.writeHead` can only be done once, in a request-response lifecycle.
+- There's no way to explicitly send headers. They're sent automatically when `res.write()` or `res.end()` is run. Of course, they're only sent once.
 
 ## Optional - streaming stuff
 It's very easy to "stream" stuff, since the response param is a stream.
