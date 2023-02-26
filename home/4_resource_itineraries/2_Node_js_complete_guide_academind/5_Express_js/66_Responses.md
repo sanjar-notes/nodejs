@@ -50,7 +50,7 @@ Note:
 
 ### 4. Convenience functions
 1. Redirect - `res.redirect([statusCode=302], "my_absolute_or_relative_location")`.
-2. Set the content-type header - `res.type("content_type_value")`. If "/" is absent in the argument, for example "html", it'll set the type correctly (i.e. "text/html").
+2. Set the content-type header - `res.type("content_type_value")`. Partial arguments are fine - i.e. if "/" is absent in the argument, for example "html", it'll set the type correctly (i.e. "text/html"), else will set it to same as passed argument.
 
 
 ## Examples and nuances
