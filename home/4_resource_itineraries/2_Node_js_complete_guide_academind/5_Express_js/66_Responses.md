@@ -1,6 +1,8 @@
 # 62. Responses
 Created Thursday 23 February 2023 at 12:27 am
 
+[Code - demo and experiments](https://github.com/exemplar-codes/express-app-academind/blob/main/responses.js)
+
 # Situation
 obvs
 

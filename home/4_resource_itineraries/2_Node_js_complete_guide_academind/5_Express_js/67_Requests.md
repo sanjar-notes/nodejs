@@ -1,6 +1,8 @@
 # 67. Requests
 Created Wednesday 22 February 2023 at 11:01 pm
 
+[Code - demo and experiments](https://github.com/exemplar-codes/express-app-academind/commit/b28b5db7ae4e71a73524d82c1803d0d892718a96)
+
 ## Situation
 In `node:http`, the request data is available as a stream that can be piped, listened to. This is not very helpful as most app server typically deal with small and almost scalar data (i.e. objects of a fixed and low size).
 
