@@ -18,11 +18,11 @@ app.use((req, res) => {
 app.listen(3000, () => console.log("Server running on port 3000"));
 ```
 
-### Status
+### 1. Status
  - `res.status(200)`
  - `res.sendStatus(200)` sends the status code with the corresponding status message as text, it also ends the response.
 
-### Headers
+### 2. Headers
 `res.set`
 
 There are two forms:
@@ -36,7 +36,7 @@ res.set({
 })
 ```
 
-### Body
+### 3. Body
 1. S*end* variables - `res.send()`. This is supposes to be the "convenient" default over `http.req.end` (which is still available if needed). It behaves in the usual way, i.e. ends the response. It accepts all *JSONable* data types `String`, `Boolean`, `Array`, `Object`. Accepts `Buffer` too.
 2. Send JSON - `res.json()`. Prefer this over `res.send` for JSON responses.
 3. S*end* a file (not download) - `sendFiles("absolute_file_path")` or alternatively `sendFiles("relative_path", {root: ""})`. Zip files will be automatically be downloaded in the browser, as they're not consumable directly. **Intended for small files only, since it doesn't use chunking**.
@@ -47,7 +47,7 @@ Note:
 - There's auto content-type inference, for variables and files both. It's binary level for files (so wrong extension is also handled properly). [Code](https://github.com/exemplar-codes/express-app-academind/commit/60e88a6d4bf1524c789749811c72076b0fae48da)
 - `res.write()` (inherited from `node:http`) is still available, for sending data without ending the connection. Just [remember](https://stackoverflow.com/a/34187352/11392807) the `"no-sniff"` header value.
 
-### Convenience functions
+### 4. Convenience functions
 1. Redirect - `res.redirect([statusCode=302], "my_absolute_or_relative_location")`.
 2. Set the content-type header - `res.type("content_type_value")`. If "/" is absent in the argument, for example "html", it'll set the type correctly (i.e. "text/html").
 
