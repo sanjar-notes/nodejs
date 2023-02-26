@@ -2,7 +2,7 @@
 Created Tuesday 21 February 2023 at 09:48 am
 
 ## Situation
-The simplest and naive way to do routing is based on `req.url` and running `next()` conditionally to ignore the current middleware.
+The simplest and naive way to do routing is based on `req.url` and running `next()` (with `return`) conditionally to ignore the current middleware.
 
 Express.js has an easy way to get around this.
 
