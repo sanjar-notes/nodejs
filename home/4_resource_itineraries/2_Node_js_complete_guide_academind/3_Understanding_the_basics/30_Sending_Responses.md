@@ -5,7 +5,7 @@ Created Monday 13 February 2023 at 10:07 pm
 - It's actually a writable stream.
 - Some common variables and functions:
 	1. **Status**: `res.statusCode` - set this variable to specify the response code. e.g. 200, 404.
-	2. **Headers**: `res.setHeader(headerName, headerValue)`. Header names and values follow a specification, i.e. they're not arbitrary.
+	2. **Headers**: `res.setHeader(headerName, headerValue)`. Header names and values follow a specification, i.e. they're not usually\* arbitrary. \*custom ones can be created easily.
 	3. **Body**: `res.write(stringOrBuffer)` - used to send data to the client. If data is large, it'll be sent in chunks automatically. <details><summary>TCP abstraction</summary>`write`, I guess, is an abstraction for sending TCP packets. The exact number of TCP packets will depend on the agreed MSS (Maximum Segment Size) of the connection (i.e. multiple `.write` don't mean that many TCP packets - Node.js has a buffer it maintains, where all `.write()` data is kept, a TCP packet is created and sent only when this buffer fills up. However, there is a way to explicitly cause a TCP packet to be created and sent, even if the buffer hasn't filled up - `res.flush()`. Using this without a good reason is discouraged for network efficiency reasons. Since it's a abstraction over TCP, `res.write` and `res.flush` work within the existing HTTP connection without creating a new TCP packet. See [gpt3-res-flush-tcp-node](../../../../assets/gpt3-res-flush-tcp-node.pdf)</details>
 	4. **End response**:`res.end([,stringOrBuffer])` - finishes the response, optionally do a write before finishing. Use this at last, as subsequent use of `res` will now in an error.
 
@@ -39,7 +39,7 @@ Note:
 	res.end();
 }
 ```
-
+- Headers should be sent first, and completely, before the body is sent. This is not something Node.js or `node:http` specific. It's in the HTTP specification. This means that `res.writeHead` can only be done once, in a request-response lifecycle.
 
 ## Optional - streaming stuff
 It's very easy to "stream" stuff, since the response param is a stream.
