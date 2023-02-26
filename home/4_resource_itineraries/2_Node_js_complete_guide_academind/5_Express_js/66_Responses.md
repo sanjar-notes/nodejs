@@ -46,6 +46,7 @@ res.set({
 Note: 
 - There's auto content-type inference, for variables and files both. It's binary level for files (so wrong extension is also handled properly). [Code](https://github.com/exemplar-codes/express-app-academind/commit/60e88a6d4bf1524c789749811c72076b0fae48da)
 - `res.write()` (inherited from `node:http`) is still available, for sending data without ending the connection. Just [remember](https://stackoverflow.com/a/34187352/11392807) the `"no-sniff"` header value.
+- If using `res.write()`, don't use `res.send()` or `res.json()` etc. Either send body using `node:http` methods or Express methods, otherwise it leads to errors. FIXME: why does this happen?
 
 ### 4. Convenience functions
 1. Redirect - `res.redirect([statusCode=302], "my_absolute_or_relative_location")`.
