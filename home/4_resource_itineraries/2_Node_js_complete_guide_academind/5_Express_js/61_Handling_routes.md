@@ -41,4 +41,6 @@ app.use('/user', (req, res, next) => {}); // will be run if `/` has next()
 app.listen(3000, () => console.log('Server running on port 3000'));
 ```
 
-Note: Other than auto-next(), the usual rules apply.
+Note: 
+- Other than auto-next(), the usual rules apply.
+- Path (i.e. first argument for middleware register) [can](https://expressjs.com/en/api.html#path-examples) be an `Array` of `string`s too, instead of just a single `string`, match criteria remains the same. e.g `app.use(['/order', '/api/order'], () => {})` is fine.
