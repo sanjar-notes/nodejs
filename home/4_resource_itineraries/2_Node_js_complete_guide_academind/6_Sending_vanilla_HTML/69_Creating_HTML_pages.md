@@ -79,7 +79,6 @@ router.get("my-uri", (req, res, next) => {
 
 ... more code here
 ```
-
-
-
 Note: don't export root path from a server file, or any file containing app code since it can result in circular-dependency errors. This is anyway bad since a `require` will be needed, and it too takes a path - no benefit.
+
+[Code - file paths in Express app](https://github.com/exemplar-codes/traditional-web-app-express/commit/a448f3db4fe924b61ad5b4f1db03ff60442d9c90)
