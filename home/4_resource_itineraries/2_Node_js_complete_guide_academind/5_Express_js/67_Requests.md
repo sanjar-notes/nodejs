@@ -48,7 +48,7 @@ Note:
 	- `express.text()` - text
 	- `express.json()` - JSON
 	- `express.raw()` - raw binary data
-	- `express.urlencoded` - for form data. Query strings don't need this, they're `urlencoded` by default.
+	- `express.urlencoded` - for form data. Query strings don't need this, they're `urlencoded` by default. FIXME: `extended` is for query params, but `urlencoded` is not needed anymore, why is there still a a warning if this is omitted - `express.urlencoded({ extended: false })`. Should I keep it as false, since it's not needed anymore.
 - `req.body` is a readable stream and is pipable, whenever this is applicable.
 
 ```js
