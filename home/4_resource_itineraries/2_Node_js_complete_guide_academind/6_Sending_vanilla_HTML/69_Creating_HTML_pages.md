@@ -56,7 +56,6 @@ const rootPath = require("../../util/path.js");
 ```
 Note: 
 - Not very helpful since we are having to write a path to get the rootPath. But works reliably. FIXME.
-- FIXME: For serving static files directly, i.e. URL ending with raw file, use [`express.static('absolue_path_to_folder')`](https://expressjs.com/en/starter/static-files.html)
 - FIXME: add root path to the globally available `process` variable. Experiment later.
 
 
