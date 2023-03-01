@@ -34,7 +34,8 @@ Note: supports regex and capture groups, if they're used for param definition.
 ## 3. Headers
 - `req.get(headerKey)` - returns header value.
 - `req.headers` property - object containing all headers.
-- `req.accepts(contentTypeValue)` returns bool. Example - `req.accepts("application/json")`. Accepts partial input too.
+- `req.is(contentTypeValue)` returns argument (`string`) as is if match, else returns `false`. Returns `null` if there's no body. Example - `req.is("application/json")`, `req.is("urlencoded")`. Accepts partial input too.
+- `req.accepts(acceptHeaderValue)` returns bool. Example - `req.accepts("application/json")`. Accepts partial input too.
 
 Note:
 - `req.header()` is an alias of `req.get()`
