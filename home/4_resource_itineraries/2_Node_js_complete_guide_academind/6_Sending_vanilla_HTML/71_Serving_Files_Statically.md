@@ -32,6 +32,18 @@ Note:
 - This middleware only serves files inside (i.e. children and descendants) the specified folder, not outside the ones it.
 - Specify the proper URL for file embeds - use URLs that an external user would, not project file paths. Relative URLs (starting with `"/"`) are fine, of course.
 - Use `"/"` prefix in asset URLs, since it specifies actual "root" (from domain), and ignores nested paths that we are on. **This is important**.
+- Specifying file extension can be made optional, [see this](https://stackoverflow.com/questions/16534545/how-to-get-rid-of-html-extension-when-serving-webpages-with-node-js). Express will serve the first file found. Of course, specifying sub-folder (if any) is still neccessary. 
+	```js
+	// /fries will serve fries.jpg if it's there
+	app.use(
+	  express.static(path.join(rootPath, "public"), {
+	    extensions: ["html", "htm", "jpg"],
+	    index: false,
+	  })
+	);
+
+	// NOTE: USE WITH CARE, since a page/API route may be overshadowed since static middleware usually comes before METHOD middlewares
+	```
 
 [Code - serving files statically](https://github.com/exemplar-codes/traditional-web-app-express/commit/a70e538767d5a5fca63d723c305eca978725f001)
 
@@ -39,3 +51,4 @@ Note:
 ## Dumb server using Express
 To create a dumb server - that just sends files. 
 The `express.static` middleware along with a 404 handling middleware are enough.
+
