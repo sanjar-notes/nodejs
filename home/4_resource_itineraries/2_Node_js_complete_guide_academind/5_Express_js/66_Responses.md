@@ -1,6 +1,8 @@
 # 62. Responses
 Created Thursday 23 February 2023 at 12:27 am
 
+[Code - demo and experiments](https://github.com/exemplar-codes/express-app-academind/blob/main/responses.js)
+
 # Situation
 obvs
 
@@ -18,11 +20,11 @@ app.use((req, res) => {
 app.listen(3000, () => console.log("Server running on port 3000"));
 ```
 
-### Status
+### 1. Status
  - `res.status(200)`
  - `res.sendStatus(200)` sends the status code with the corresponding status message as text, it also ends the response.
 
-### Headers
+### 2. Headers
 `res.set`
 
 There are two forms:
@@ -36,7 +38,11 @@ res.set({
 })
 ```
 
-### Body
+Note:
+- The HTTP spec requires headers to be sent first, and completely, before the body can be sent. See [Headers send first - ChatGPT converastion, PDF](../../../../assets/gpt3-headers-first-even-if-chunked.pdf).
+- Just like with `node:http`, there's no way to send headers explicitly. There're sent (once, and before anything else) when a body (or portion) of it is sent.
+
+### 3. Body
 1. S*end* variables - `res.send()`. This is supposes to be the "convenient" default over `http.req.end` (which is still available if needed). It behaves in the usual way, i.e. ends the response. It accepts all *JSONable* data types `String`, `Boolean`, `Array`, `Object`. Accepts `Buffer` too.
 2. Send JSON - `res.json()`. Prefer this over `res.send` for JSON responses.
 3. S*end* a file (not download) - `sendFiles("absolute_file_path")` or alternatively `sendFiles("relative_path", {root: ""})`. Zip files will be automatically be downloaded in the browser, as they're not consumable directly. **Intended for small files only, since it doesn't use chunking**.
@@ -46,10 +52,11 @@ res.set({
 Note: 
 - There's auto content-type inference, for variables and files both. It's binary level for files (so wrong extension is also handled properly). [Code](https://github.com/exemplar-codes/express-app-academind/commit/60e88a6d4bf1524c789749811c72076b0fae48da)
 - `res.write()` (inherited from `node:http`) is still available, for sending data without ending the connection. Just [remember](https://stackoverflow.com/a/34187352/11392807) the `"no-sniff"` header value.
+- If using `res.write()`, don't use `res.send()` or `res.json()` etc. Either send body using `node:http` methods or Express methods, but not both, otherwise it leads to errors. FIXME: why does this happen?
 
-### Convenience functions
+### 4. Convenience functions
 1. Redirect - `res.redirect([statusCode=302], "my_absolute_or_relative_location")`.
-2. Set the content-type header - `res.type("content_type_value")`. If "/" is absent in the argument, for example "html", it'll set the type correctly (i.e. "text/html").
+2. Set the content-type header - `res.type("content_type_value")`. Partial arguments are fine - i.e. if "/" is absent in the argument, for example "html", it'll set the type correctly (i.e. "text/html"), else will set it to same as passed argument.
 
 
 ## Examples and nuances
@@ -60,8 +67,20 @@ Note:
 	4. Image, audio - `res.sendFile("./path_to_file", { root: __dirname})`. Will be sent as proper `"Content-Type"`. [Code example](https://github.com/exemplar-codes/express-app-academind/commit/9c2c6b1279b031b2af273491258e5532ab8c6f09)
 	5. [ZIP file](https://github.com/exemplar-codes/express-app-academind/commit/17cc84628b179cc68d3f40adbb85ef0d39ec0577) - `res.sendFile("./path_to_file", { root: __dirname})`
 2. Middlewares can be run (i.e. `next()` works) even after ending the response. Don't if this is a bad practice or a deliberate thing for stateful servers. FIXME.
-3. Avoid double response ends.
-4. Express only `res` functions are chainable. This chaining doesn't work with `http.res.` functions, use individual statements with them.
+3. Express only `res` functions are **chainable**. This chaining doesn't work with `http.res.` functions, use individual statements with them.
+```js
+(req, res, next) => {
+	res.status(200).send("All OK");
+
+	// also fine, BTW
+	res.status(200);
+	res.send("All OK");
+
+	// error - `node:http` method are not chainable
+	res.writeHead(200).end("All OK");
+}
+```
+4. Avoid double response ends, as it's an error. To check if response has been handled by some other middleware, check `res.headersSent` at the start of the current middleware. If it's `true`, don't respond (this will result in an error). If it's `false`, you're free to respond. <details><summary>How does this work</summary>HTTP spec requires headers to be sent completely before any part of the body is sent. In `express` (or even `node:http`), there's no way to explicitly send headers, i.e. headers are sent only if body is sent (partially or fully) and/or on response end. So, if headers have been sent, you can be sure a response was made, even if partial.</details>
 
 
 ## Doubts

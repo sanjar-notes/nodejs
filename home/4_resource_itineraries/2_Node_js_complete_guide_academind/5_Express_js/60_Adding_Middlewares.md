@@ -6,7 +6,7 @@ Created Tuesday 21 February 2023 at 09:15 am
 ## What is a middleware
 - The most important (and used) construct in Express.js is middleware. A middleware is just a function.
 - Almost everything is a middleware (i.e. some specific implementation of the middleware) in Express.
-- A middleware has access to request, respond params. Additionally, it has a "next" param that's used to transfer control to the next middleware.
+- A middleware has access to request, respond params. Additionally, it has a "next" param that's used to ~~transfer control~~ continue the middleware chain, i.e. the next middleware will be run.
 
 
 ## Where do middlewares fit-in in Express
@@ -16,7 +16,7 @@ Created Tuesday 21 February 2023 at 09:15 am
 - If no middleware responds, the connection will not end (most likely time-out). This practically never happens, since an "all accepting" 404 middleware is always present at the end.
 
 ## Anatomy of a middleware
-1. A middleware has access to request, respond params, in addition to a "next" param that's used to transfer control to the next middleware.
+1. A middleware has access to request, respond params, in addition to a "next" param that's used to ~~transfer control~~ continue the middleware chain.
 2. If "next" is not called in a middleware, it should either respond or else the connection will be stalled (never finish).
 3. Since middlewares are just functions, a lot of useful 3rd party middlewares are available.
 
@@ -31,14 +31,22 @@ const app = express();
 app.use((req, res, next) => {
     console.log("1 ran");
     next();
-  });
-
-app.use((req, res, next) => {
-	console.log("2 ran");
 });
 
 app.use((req, res, next) => {
-	console.log("3 did not run");
+    console.log("2 ran");
+    next();
+
+	// to explicitly end execution of the middleware, `return` is still needed. Only `next()` is not sufficient
+	console.log("Ran from 2, even though next() has run");
+});
+
+app.use((req, res, next) => {
+	console.log("3 ran");
+});
+
+app.use((req, res, next) => {
+	console.log("4 did not run");
 });
 
 app.listen(3000, () => console.log('Server running on port 3000'));

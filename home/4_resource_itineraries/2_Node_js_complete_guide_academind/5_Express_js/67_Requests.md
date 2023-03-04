@@ -1,6 +1,8 @@
 # 67. Requests
 Created Wednesday 22 February 2023 at 11:01 pm
 
+[Code - demo and experiments](https://github.com/exemplar-codes/express-app-academind/commit/b28b5db7ae4e71a73524d82c1803d0d892718a96)
+
 ## Situation
 In `node:http`, the request data is available as a stream that can be piped, listened to. This is not very helpful as most app server typically deal with small and almost scalar data (i.e. objects of a fixed and low size).
 
@@ -32,7 +34,8 @@ Note: supports regex and capture groups, if they're used for param definition.
 ## 3. Headers
 - `req.get(headerKey)` - returns header value.
 - `req.headers` property - object containing all headers.
-- `req.accepts(contentTypeValue)` returns bool. Example - `req.accepts("application/json")`. Accepts partial input too.
+- `req.is(contentTypeValue)` returns argument (`string`) as is if match, else returns `false`. Returns `null` if there's no body. Example - `req.is("application/json")`, `req.is("urlencoded")`. Accepts partial input too.
+- `req.accepts(acceptHeaderValue)` returns bool. Example - `req.accepts("application/json")`. Accepts partial input too.
 
 Note:
 - `req.header()` is an alias of `req.get()`
@@ -45,7 +48,7 @@ Note:
 	- `express.text()` - text
 	- `express.json()` - JSON
 	- `express.raw()` - raw binary data
-	- `express.urlencoded` - for form data. Query strings don't need this, they're `urlencoded` by default.
+	- `express.urlencoded` - for form data. Query strings don't need this, they're `urlencoded` by default. <details><summary>FIXME</summary>`extended` is for query params, but `urlencoded` is not needed anymore, why is there still a a warning if this is omitted - `express.urlencoded({ extended: false })`. Should I keep it as false, since it's not needed anymore.</details>
 - `req.body` is a readable stream and is pipable, whenever this is applicable.
 
 ```js
