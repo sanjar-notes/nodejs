@@ -31,3 +31,6 @@ A template engine is a tool that helps the servers generate the pages to be sent
 In this module, we'll be learning about:
 1. Managing dynamic content (without a database, for now)
 2. Using some templating engines - Pug, Handlebars and EJS
+   
+[Initial code - server app with static HTML and assets](https://github.com/exemplar-codes/templating-engines-w-express-js/commit/591b2acf09cb6d83fd434e20bc367f65136e5463)
+We'll build up and learn upon this.
