@@ -93,3 +93,4 @@ See [docs](https://pugjs.org/api/getting-started.html) for more DSL constructs
 Note:
 - to convert HTML to Pug, use https://html-to-pug.com
 - functions can be passed as props, and can be called inside the placeholder construct. Parentheses are required for function call, as is usual in JS.
+- The props passing syntax - `res.render('my-template-file', props)` is same with any template engine.
