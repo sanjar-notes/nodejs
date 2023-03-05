@@ -19,3 +19,10 @@ Engines:
 3. Handlebars - normal HTML for markup, double curly brace syntax for placeholder. Similar to EJS, but has less features and different philosophy.
 
 ![](../../../../assets/Pasted%20image%2020230305221301.png)
+
+
+## Installing and configuring a template engine
+- Template engines are simple Node.js packages available through npm.
+- Since template engines are needed at request time, they're installed as production dependencies.
+- Most template engines can hook into the server lib/frwk, with almost no code needed.
+- All the 3 mentioned here (EJS, Pug, Handlebars) are "Express.js compatible", i.e, they can be plugged in as an Express middleware using a single line.
