@@ -93,4 +93,4 @@ Note:
 
 
 ## Pug (conclusion)
-These were just the basics of Pug, there are many more patterns and features. See docs.
+These was a good overview of Pug, but there are still more patterns and features available. See docs.
