@@ -65,3 +65,31 @@ Note:
 	- Pug auto-completion works out of the box. 
 	- There's no built-in formatter, however. An [extension](https://marketplace.visualstudio.com/items?itemName=ducfilan.pug-formatter) is available though.
 
+[Code until here](https://github.com/exemplar-codes/templating-engines-w-express-js/commit/2ec3459c867b46cb703b5daf2b0d4f6c8f8013dc)
+
+## Dynamic content
+Placeholders and dynamic content is the primary goal of a template engine. Let's see how to do that with Pug (and Express).
+
+- Pass *props* - `res.render('my-template-file', { docTitle: "Sanjar's", ratings: [5, 1, 5, 4] })`
+- Consume props - props are accessible globally inside the template, no import needed.
+
+6.15 min
+
+DSL:
+1. Renderable type - `#{placeholder_name}`
+	```pug
+	title #{docTitle}
+	```
+2. Iterate, use the `each` and `in` keyword provided by Pug. No imports needed, of course.
+	```pug
+	h1 Ratings
+	div.grid
+	    each product in prods
+	        article.card.product-item
+	            header.card__header
+	                h2.product__title #{product.title}
+	```
+
+See [docs](https://pugjs.org/api/getting-started.html) for more DSL constructs
+
+Note: to convert HTML to Pug, use https://html-to-pug.com
