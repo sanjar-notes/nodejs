@@ -21,8 +21,16 @@ Engines:
 ![](../../../../assets/Pasted%20image%2020230305221301.png)
 
 
-## Installing and configuring a template engine
+## Installing a template engine
 - Template engines are simple Node.js packages available through npm.
 - Since template engines are needed at request time, they're installed as production dependencies.
 - Most template engines can hook into the server lib/frwk, with almost no code needed.
 - All the 3 mentioned here (EJS, Pug, Handlebars) are "Express.js compatible", i.e, they can be plugged in as an Express middleware using a single line.
+
+
+## Connecting a template engine to the server lib/frwk
+- `ejs`, `pug`. Has express.js support out of the box.
+- `npm install ejs`
+- For handlebars, use `express-handlebars` since it has built-in express support. FYI: the `handlebars` package is a general package for Node.js.
+
+Note: templating engine, in principle, are not tied to a server lib/frwk. Thus, they do need some code to connect with the server lib/frwk in use. Since the packages discussed above already have support for Express, that code is just one line.
