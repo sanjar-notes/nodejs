@@ -93,4 +93,6 @@ Note:
 
 
 ## Pug (conclusion)
-These was a good overview of Pug, but there are still more patterns and features available. See docs.
+These was a good overview of Pug, but there are still more patterns and features available. 
+- See [docs](https://pugjs.org/api/getting-started.html)
+- [freeCodeCamp - Pug Full tutorial for beginners](https://youtu.be/kt3cEjjkCZA) , 1 hr video - covers many things
