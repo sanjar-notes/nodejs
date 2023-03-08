@@ -62,6 +62,10 @@ We are using unescaped DSL tag (`<%- %>`) since we need to treat imported code a
 
 All pages using "nav" can do the same.
 
+Note:
+- We don't (need to) specify/set path to partials using JS code. EJS looks in folder containing the template, we can construct the path from there (as we did here).
+- Of course, passing `path` and `__dirname` as props to construct path to partial would still work, since `include()` does accept an absolute path. **Not needed generally, just mentioning that it's possible**.
+
 ## Examples
 ```ejs
 %% simple render %%
