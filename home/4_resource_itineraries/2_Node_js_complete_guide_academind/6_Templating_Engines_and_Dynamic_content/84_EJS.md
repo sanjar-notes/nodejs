@@ -40,7 +40,7 @@ A partial is simply a EJS file can be imported in another EJS file. Since this f
 Steps to use:
 1. Write part to be used elsewhere, in an EJS file.
 2. Keep this file somewhere inside `views` folder.
-3. In another EJS file (the one importing), use `include('path-to-partial-template')`. That's it. Props are passed down automatically.
+3. In another EJS file (the one importing), use `include('path-to-partial-template-inside-view-folder')`. That's it. Props are passed down automatically.
 
 Example:
 ```ejs
