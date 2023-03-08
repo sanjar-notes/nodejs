@@ -70,8 +70,8 @@ Note:
 ## Dynamic content
 Placeholders and dynamic content is the primary goal of a template engine. Let's see how to do that with Pug (and Express).
 
-- Pass *props* - `res.render('my-template-file', { docTitle: "Sanjar's", ratings: [5, 1, 5, 4] })`
-- Consume props - props are accessible globally inside the template, no import needed.
+- Pass *props* - `res.render('my-template-file', props)`. Example - `res.render('my-template-file', { docTitle: "Sanjar's", ratings: [5, 1, 5, 4] })`
+- Consume props - prop values are accessible globally inside the template using keys, no import needed.
 
 DSL:
 1. Renderable type - `#{placeholder_name}`
@@ -93,3 +93,4 @@ See [docs](https://pugjs.org/api/getting-started.html) for more DSL constructs
 Note:
 - to convert HTML to Pug, use https://html-to-pug.com
 - functions can be passed as props, and can be called inside the placeholder construct. Parentheses are required for function call, as is usual in JS.
+- The props passing syntax - `res.render('my-template-file', props)` is same with any template engine.
