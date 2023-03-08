@@ -65,6 +65,7 @@ All pages using "nav" can do the same.
 Note:
 - We don't (need to) specify/set path to partials using JS code. EJS looks in folder containing the template, we can construct the path from there (as we did here).
 - Of course, passing `path` and `__dirname` as props to construct path to partial would still work, since `include()` does accept an absolute path. **Not needed generally, just mentioning that it's possible**.
+- EJS can be used without Express too, and also in the browser. [See - experiment with SSG with EJS](https://github.com/exemplar-codes/templating-engines-w-express-js/commit/e8f6cd62e4156c0420444b33bf0771e423e17ad1).
 
 ## Examples
 ```ejs
