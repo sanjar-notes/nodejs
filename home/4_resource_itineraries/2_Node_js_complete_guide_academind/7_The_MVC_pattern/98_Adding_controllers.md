@@ -1,6 +1,8 @@
 # Adding controllers
 Created Sunday 12 March 2023 at 07:36 pm
 
+/not-exhaustive - coz wasting time on getting to a definition for controllers, right now is a waste of time
+
 ## What controllers to make
 Controllers can be grouped in many ways, choose what's easy and scalable. Example:
 1. One controller per route.

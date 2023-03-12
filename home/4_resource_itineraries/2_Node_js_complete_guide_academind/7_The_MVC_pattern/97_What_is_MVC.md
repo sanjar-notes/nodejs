@@ -1,6 +1,8 @@
 # 97. What is MVC
 Created Sunday 12 March 2023 at 05:44 pm
 
+/rough-in the sense that I don't want to spend time on exact definition of MVC
+
 - MVC (Model-View-Controller) is a way to organize (logical) server side code.
 - MVC is a way to achieve separation of concerns.
 

@@ -1,6 +1,8 @@
 # 99. Adding models
 Created Sunday 12 March 2023 at 07:37 pm
 
+/somewhat-rough
+
 The data of our app is currently stored in a controller. This is not ideal, since a model may be used by many controllers. Note - not having the DB is not the issue I'm talking about, I'm talking about coupling of unrelated parts of code, which is not desirable. **We should create a dedicated model file**.
 
 ---
