@@ -15,7 +15,7 @@ Created Wednesday 8 March 2023 at 04:48 pm
 	```
 3. Passing props remains the same:
 	```js
-	res.render('path-to-template-inside-views', { name: "Sanjar"});
+	res.render('path-to-template-inside-views', { name: "Sanjar" });
 	```
 
 ## Template usage
@@ -35,7 +35,7 @@ Note:
 ## Working with partials
 Why - code reuse among templates.
 
-A partial is simply a EJS file can be imported in another EJS file. Since this file is not a complete page - i.e. has partial code.
+A partial is simply a EJS file can be imported into another EJS file. It's called "partial" - since this file is not a complete page, i.e. has partial code.
 
 Steps to use:
 1. Write part to be used elsewhere, in an EJS file.
