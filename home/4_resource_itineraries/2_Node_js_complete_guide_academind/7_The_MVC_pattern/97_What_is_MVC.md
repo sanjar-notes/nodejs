@@ -9,3 +9,7 @@ MVC parts:
 2. Models - code representing and managing data, e.g. saving data, fetching data, querying data. Since saving data is a responsibility of Models, they also contain the business logic.
 3. Controllers - code that glues together functionality of Models and Views. In fact, it is the controller that handles (and is aware) of the HTTP request (since both Model and Views are oblivious to the request or it's params).
 Note: generally, there's something called 'Router' that runs first (in the request cycle) and triggers the relevant controller to be called (passing along request params, of course).
+
+---
+MVC in an Express app
+Since the primary (and only) construct of Express is the middleware, controllers are split across middlewares.
