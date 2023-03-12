@@ -18,7 +18,7 @@ Code (for this project):
 - The collection functions should be usable without creating a model instance - i.e. they should be static keyword. Modern JS does have the `static` keyword that can be used for this.
 - Model file and the `class` name, by convention, start with capital letters.
 
-[Code - add Product model](https://github.com/exemplar-codes/mvc-basics-exploration-expressjs/commit/d930ada68f7b481da6f41318811d6b1b4e22a16c)
+[Code - add Product model](https://github.com/exemplar-codes/mvc-basics-exploration-expressjs/commit/7a0efc72a105c981ef7668be6883530fa32b9848)
 
 Code (generally):
 - The model contains the database connection logic, and this part should be abstracted in the app code - i.e. controllers should not have to worry about DB connection, etc.
@@ -26,3 +26,13 @@ Code (generally):
 
 Note: 
 - Since we don't have a database, the collection (i.e. array of objects) is stored outside the model. Of course, the static functions do refer to this outside array, which is fine.
+
+---
+## Storing models persistently (ignorable)
+Note: this is an extra thing, that we don't have to do in real apps, since persistence is provided by a DB.
+
+Currently, we store app data (the "products") in RAM. This data gets lost when the server stops running. To avoid this, we'll add a very simple persistent storage using files - read and write using `fs`. 
+
+We'll use JSON because the serializer (`JSON.stringify()`) and de-serializer (`JSON.parse()`) are available in Node.js out of the box. Note: I'm using "serializer" in the simplest sense here.
+
+[Code - simple file persistence](https://github.com/exemplar-codes/mvc-basics-exploration-expressjs/commit/164902787266eed034a39bdcf897e6d84ca28a1a)
