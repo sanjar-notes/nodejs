@@ -15,7 +15,7 @@ Created Wednesday 8 March 2023 at 04:48 pm
 	```
 3. Passing props remains the same:
 	```js
-	res.render('path-to-template-inside-views', { name: "Sanjar"});
+	res.render('path-to-template-inside-views', { name: "Sanjar" });
 	```
 
 ## Template usage
@@ -35,12 +35,12 @@ Note:
 ## Working with partials
 Why - code reuse among templates.
 
-A partial is simply a EJS file can be imported in another EJS file. Since this file is not a complete page - i.e. has partial code.
+A partial is simply a EJS file can be imported into another EJS file. It's called "partial" - since this file is not a complete page, i.e. has partial code.
 
 Steps to use:
 1. Write part to be used elsewhere, in an EJS file.
 2. Keep this file somewhere inside `views` folder.
-3. In another EJS file (the one importing), use `include('path-to-partial-template')`. That's it. Props are passed down automatically.
+3. In another EJS file (the one importing), use `include('path-to-partial-template-inside-view-folder')`. That's it. Props are passed down automatically.
 
 Example:
 ```ejs
@@ -61,6 +61,11 @@ may be broken down (assuming "nav" code is used on other pages)
 We are using unescaped DSL tag (`<%- %>`) since we need to treat imported code as markup, not plain text.
 
 All pages using "nav" can do the same.
+
+Note:
+- We don't (need to) specify/set path to partials using JS code. EJS looks in folder containing the template, we can construct the path from there (as we did here).
+- Of course, passing `path` and `__dirname` as props to construct path to partial would still work, since `include()` does accept an absolute path. **Not needed generally, just mentioning that it's possible**.
+- EJS can be used without Express too, and also in the browser. [See - experiment with SSG with EJS](https://github.com/exemplar-codes/templating-engines-w-express-js/commit/e8f6cd62e4156c0420444b33bf0771e423e17ad1).
 
 ## Examples
 ```ejs
@@ -103,4 +108,4 @@ All pages using "nav" can do the same.
 
 ## Almost all EJS functionality
 I know the syntax already, adding this for the sake of exhaustiveness.
-![](../../../../assets/Pasted%20image%2020230308191638.png)
+![](../../../../assets/84_EJS-image-1.png)

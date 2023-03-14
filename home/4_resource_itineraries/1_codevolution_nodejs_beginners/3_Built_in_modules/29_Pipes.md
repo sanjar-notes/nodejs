@@ -9,7 +9,7 @@ Node.js has a simpler and better pattern that does the same - called piping.
 In non-technical terms, we understand what a pipe is. A pipe transports matter from one device to another, over some period of time.
 
 Similarly, in Node.js, the "pipe" method connects the readable stream to a writable stream.
-![](../../../../assets/Pasted%20image%2020230129194113.png)
+![](../../../../assets/29_Pipes-image-1.png)
 
 [Code](https://github.com/exemplar-codes/codevolution-nodejs/commit/85f89e279119f9096eddea4882f445644a58aed5)
 

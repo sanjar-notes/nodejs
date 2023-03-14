@@ -10,7 +10,7 @@ Created Tuesday 21 February 2023 at 09:15 am
 
 
 ## Where do middlewares fit-in in Express
-![](../../../../assets/Pasted%20image%2020230221091754.png)
+![](../../../../assets/60_Adding_Middlewares-image-1.png)
 - Middlewares are an array of functions that run (linearly, and in top-down file order) between the phase of request and response.
 - There's actually no "response" function in Express. Some middleware ends the request-response cycle by responding. 
 - If no middleware responds, the connection will not end (most likely time-out). This practically never happens, since an "all accepting" 404 middleware is always present at the end.
@@ -69,4 +69,4 @@ Structuring/organizing/classification of middlewares:
 3. Route based
 4. HTTP verb based
 5. Router
-![](../../../../assets/express-middlewares.drawio.svg)
+![](../../../../assets/60_Adding_Middlewares-image-2.svg)
