@@ -6,7 +6,7 @@ Created Tuesday 14 February 2023 at 03:39 pm
 1. Temporary redirects during site maintenance or downtime
 2. Permanent redirects to preserver existing links (especially bookmarks) to resources whose location has updated.
 3. Enforce HTTPS by redirecting
-4. Federated login. See [chatgpt-redirections-&-IDP-login](../../../../assets/chatgpt-redirections-&-IDP-login.pdf).
+4. Federated login. See [chatgpt-redirections-&-IDP-login](../../../../assets/chatgpt-redirections-and-IDP-login.pdf).
 
 
 ## About (history, spec)
