@@ -14,8 +14,16 @@ Note: Forked the project, for this enhancement/practice section (and showoff in 
 1. Landing page for products - show only popular products, not the whole listing (which is the case now)
 2. Product detail page - details for selected project
 3. Cart page - see added item, when the cart icon in the navbar is clicked
-4. Checkout page - opens from the card page
+4. Checkout page - opens from inside the cart page
+
+Both admin and customer admin should not be on the same navigation bar. We'll ignore this for now, work on the UI (i.e. add all links for now), and add handle this later.
+
 
 ### Admin
 1. Edit product page
 2. Product listing (for admin). Similar to the one views by shop, but only products created by the admin are listed here.
+
+---
+## Work
+
+- Add links for the pages we'll be adding. Then, handle the routes, add new controllers.
