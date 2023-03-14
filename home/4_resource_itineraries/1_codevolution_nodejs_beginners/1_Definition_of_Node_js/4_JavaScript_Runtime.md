@@ -10,7 +10,7 @@ Created Monday 23 January 2023 at 12:52 am
 - In case of both the Node.js and Chrome Browser, the *single threaded non-blocking* nature of JavaScript (as specified by ECMA-262) is implemented outside the engine, and as part of the runtime. The constructs which make this "nature" possible are:
 	1. **Task queues** - callback (aka task) queue and the micro-task queue
 	2. An **event loop** - a bridge between the engine and queues that actually runs code.
-![](../../../../assets/Pasted%20image%2020230123005934.png)
+![](../../../../assets/4_JavaScript_Runtime-image-1.png)
 Note: 
 1. Responsibilities of an engine and the runtime are not clearly defined. The only concrete thing that can be said here is that a runtime is a complete/practical thing, whereas an engine is more of a compiler.
 2. I've used runtime to mean both (engine + "components of the runtime other than engine") and to mean "components of the runtime other than engine". Both are used interchangeably.

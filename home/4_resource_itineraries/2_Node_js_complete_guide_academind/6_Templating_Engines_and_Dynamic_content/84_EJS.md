@@ -108,4 +108,4 @@ Note:
 
 ## Almost all EJS functionality
 I know the syntax already, adding this for the sake of exhaustiveness.
-![](../../../../assets/Pasted%20image%2020230308191638.png)
+![](../../../../assets/84_EJS-image-1.png)
