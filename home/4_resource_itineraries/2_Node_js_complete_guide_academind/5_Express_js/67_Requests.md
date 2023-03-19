@@ -29,7 +29,9 @@ Note: For convenience functions, use `qs`, a 3rd party module.
 
 Example: definition `user/:name` with instance `/user/23` will result in `{name: "23"}`.
 
-Note: supports regex and capture groups, if they're used for param definition.
+Note: 
+- supports regex and capture groups, if they're used for param definition.
+- Is available in routers too.
 
 ## 3. Headers
 - `req.get(headerKey)` - returns header value.
