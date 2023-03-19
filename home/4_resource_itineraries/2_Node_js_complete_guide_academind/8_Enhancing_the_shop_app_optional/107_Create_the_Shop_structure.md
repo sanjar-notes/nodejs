@@ -25,5 +25,8 @@ Both admin and customer admin should not be on the same navigation bar. We'll ig
 
 ---
 ## Work
+- Add links for the pages we'll be adding.
+- Since admin and customer are logically different, let's have one dedicated controller for each.
+- Then, handle the routes, add new controllers.
 
-- Add links for the pages we'll be adding. Then, handle the routes, add new controllers.
+OK, this work will be be done in this module, but throughout the course.
