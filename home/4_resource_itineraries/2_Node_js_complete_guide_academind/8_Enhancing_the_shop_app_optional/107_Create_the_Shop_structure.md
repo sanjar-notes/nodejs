@@ -28,5 +28,6 @@ Both admin and customer admin should not be on the same navigation bar. We'll ig
 - Add links for the pages we'll be adding.
 - Since admin and customer are logically different, let's have one dedicated controller for each.
 - Then, handle the routes, add new controllers.
-
+- We can see that "edit", "delete" routes need to be have a reference to the product. This information is generally part of the request URL - as dynamic routes, or query params.
+  
 OK, this work will be be done in this module, but throughout the course.
