@@ -25,6 +25,8 @@ Databases are good because:
 2. It uses optimal algorithms to manage/manipulate data.
 3. USP - supports a high level language to interact with the data. e.g. SQL (Structured Query Language)
 
+In short databases are a systematic and fast way to work with persistent data. They're also quite convenient - because they have much of the functionality built-in and a lot of them exist already.
+
 Note: optimality depends on the use case, amount of data, type of data and other requirements of the application.
 
 
