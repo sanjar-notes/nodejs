@@ -23,3 +23,6 @@ NoSQL may look like the clear winner here. But the choice of database depends on
 2. High throughput app?
 3. How frequently does the data change?
 4. Are there parts of the app that have different characteristics - maybe use different types of databases for different parts/services of the app?
+
+
+We'll learn to use both types of databases in this course.
