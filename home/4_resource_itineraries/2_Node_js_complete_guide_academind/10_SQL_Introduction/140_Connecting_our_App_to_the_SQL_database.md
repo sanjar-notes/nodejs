@@ -14,12 +14,29 @@ Created Wednesday 22 March 2023 at 01:37 am
 
 ## Connecting to the database
 There are two ways to do this:
-1. Create a "connection" - a single use (i.e. one query) object. This is imperative, and inefficient from both a development and performance POV.
-2. Create a so called "connection pool". An object that supports an unlimited number of queries - like a prompt. 
+1. Create a "connection" - the smallest possible *claim* of DB resources established between a user (i.e. a backend server app) and a database (technically database server).
+	- A connection is usually ended by the client after they are done with their *queries*, i.e. it's not a one query construct - just that it's meant to be limited.
+	- This has the limitation of being sequential (one query at a time - one has to wait for query response before another can be sent) queries against the DB.
+	- The request for a connection may be rejected, due to high load on the server.
+	- This is a low resource, high overhead, high risk type of DB resource claim.
+		- Low resource - small amount of DB resources allocated
+		- High overhead - establishing a connection, i.e. calculating and allocating resources on the DB has some overhead, and of course network (request/response wait) overhead, which may become significant if connections are opened and closed multiple times. This is especially relevant if there's high load on the DB.
+		- High risk - because connections requests may be rejected by the DB.
+2. Create a so called "connection pool" - a size configurable, guaranteed *claim* of DB resources established between a user (i.e. a backend server app) and a database.
+	- A pool consists of multiple guaranteed connections, all established at once. The DB is guaranteed to provide query service even under high load, since a pool marks resources for the given client/user (i.e. backend server app).
+	- Using a pool has the advantage of being able to do parallel queries with the database (assuming they're sufficiently independent). This is because each connection is Independent from others (in a pool or otherwise). 
+		- Maximum number of parallel queries is equal to the set number of connections (they are guaranteed ones of course).
+	- This is a high resource, low overhead, low risk kind of DB resource claim
+		- High resource - since a pool request usually consists of many guaranteed collections.
+		- Low overhead - since all connections in the resource are allocated at once, it doesn't have the overhead of network requests, calculation, estimation (FIXME) that is done here?) on the DB.
+		- Low risk - since connections in a pool are *guaranteed* to be respected by the DB, even under high load.
    
-Note: Of course, it's asynchronous w.r.t JavaScript, but single-threaded externally - (i.e. one query will be processed at a time) w.r.t the database.
+Note: 
+- Connections, even if from the same client, are Independent from each other (weather in a pool or now, though pool connections have guaranteed priority). And most databases (MySQL, for example) can process many connections at once.
+- Of course, a client can request multiple connections, as well as multiple pools. Assuming no hard limits are triggered.
+- FIXME maybe - the concept of pool vs connections seemed a little fishy. I consulted ChatGPT to learn the difference, i.e. **guarantee + multiplicity** in case of a pool.
    
-Code for obtaining a connection:
+Code for obtaining a pool:
 ```js
 const mysql = require("mysql2");
 const pool = mysql.createPool({
