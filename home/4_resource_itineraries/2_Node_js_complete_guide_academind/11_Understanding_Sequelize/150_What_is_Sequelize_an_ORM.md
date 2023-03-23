@@ -1,7 +1,7 @@
 # 150. What is Sequelize: an ORM
 Created Friday 24 March 2023 at 02:07 am
 
-Sequelize is an ORM (Object Relation Mapper) library for Node.js
+Sequelize is an ORM (Object Relation Mapper) library for Node.js. It supports TypeScript too.
 
 ## Motivations (to use an ORM - my guess)
 1. No need to write SQL
@@ -16,11 +16,12 @@ Sequelize is an ORM (Object Relation Mapper) library for Node.js
 	- This is the concept of "associations".
 4. Provides a way to have life-cycle functions for database entities (records, tables, databases), and runs them properly. 
 	- e.g. if all books should have an author, and an author 'A' gets deleted, so will  (automatically) all books which have 'A' as author. This is a "destroy" lifecycle function. There could similar ones for update, create or even read.
-5. Provides other commonly used functions - like DDL ops. 
+	- Another important type of lifecycle function are validations. The ORM runs these during addition of rows (or other DB entities) to see if they fit the schema and other custom validation logic.
+1. Provides other commonly used functions - like DDL ops. 
 	- Provides functions, code to connect to popular databases, or accepts drivers as plugins.
 	- e.g. automatically choosing the best MySQL type that'll be equivalent to JavaScript's `String`.
 	- e.g. create a table from a schema defined in a JS file.
-6. Is a way to do scripting on a database with a regular programming language.
+2. Is a way to do scripting on a database with a regular programming language.
 	- e.g. a Python script to do maintenance tasks as a DB admin.
 	- e.g. changing the database on schema changes. This is the concept of migrations. Due to ease of scripting (FIXME: due to this?), some frameworks even support automatic migrations (in most cases).
 
