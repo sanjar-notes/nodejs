@@ -40,4 +40,4 @@ Practically, ORMs provide a lot of other functionality too, as mentioned previou
 
 
 ## Example
-![](../../../../assets/150_What_is_Sequelize_an_ORM-image-1.png)
+![](../../../../assets/149_What_is_an_ORM-image-1.png)
