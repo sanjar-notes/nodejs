@@ -25,16 +25,16 @@ The crux is that Node.js allows us to build complex and powerful applications.
 	- libuv - provides Node.js access to OS features like filesystem, networking
 	- crypto - cryptography tool library.
 
-![](assets/5_Nodejs_overview-image-1.png)
+![](/assets/5_Nodejs_overview-image-1.png)
 - **src** (source) folder - contains the C++ code of Node.js. Since JavaScript was not designed to run outside the browser (but C++ was) the code here implements the features of Node.js like filesystem, networking.
 
-![](assets/5_Nodejs_overview-image-2.png)
+![](/assets/5_Nodejs_overview-image-2.png)
 - **lib** - contains JS code (functions, classes) that apps will use.
 	- OS level functions - `fs`, `http`
 	- utility functions
 	- This is the final component that faces the application code.
 
-![](assets/5_Nodejs_overview-image-3.png)
+![](/assets/5_Nodejs_overview-image-3.png)
 
 Note:
 - Unlike the browser runtime, the Node.js does not implement `window`, `document` or other "browser APIs", since it's does no tasks of that need these.

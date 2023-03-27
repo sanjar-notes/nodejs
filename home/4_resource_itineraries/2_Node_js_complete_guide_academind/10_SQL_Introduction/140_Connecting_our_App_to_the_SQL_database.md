@@ -67,7 +67,7 @@ For that first create a table, using MySQL Workbench.
 1. In the left sidebar, go to the database, the table, and click the rightmost icon.
 2. Add values in the first row. ID is optional (it will be assigned automatically if not specified). Click apply.
 
-![](assets/140_Connecting_our_App_to_the_SQL_database-image-1.png)
+![](/assets/140_Connecting_our_App_to_the_SQL_database-image-1.png)
 
 ### Node.js code
 ```js

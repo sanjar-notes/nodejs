@@ -26,7 +26,7 @@ This is simple.
 
 ---
 libuv's thread pool, literally, is a pool of threads that Node.js uses to offload time consuming tasks and ensure the main thread is not blocked for a long time.
-![](assets/39_Thread_pool_deferring_till_48-image-1.png)
+![](/assets/39_Thread_pool_deferring_till_48-image-1.png)
 
 ---
 Let's do an experiment. We'll run a method and measure the time it takes to execute.
@@ -40,6 +40,6 @@ Inferences:
 - Each call takes the same time, irrespective of the total number of calls made.
 
 Each method in Node.js that has the "sync" suffix always runs on the main thread and is blocking.
-![](assets/39_Thread_pool_deferring_till_48-image-2.png)
+![](/assets/39_Thread_pool_deferring_till_48-image-2.png)
 
 ### Experiment 2 - async version

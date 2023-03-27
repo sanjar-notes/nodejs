@@ -11,7 +11,7 @@ The communication model used by the Internet is a request-response model based o
 - The response is definitely not sent using a browser, since a browser cannot respond.
 - Derived: Server to server communication is also possible via this request-response model. By server to server, I mean no browsers are involved.
 
-![](assets/25_How_the_Web_works-image-1.png)
+![](/assets/25_How_the_Web_works-image-1.png)
 
 
 ## About HTTP and HTTPS

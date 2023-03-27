@@ -12,14 +12,14 @@ const superHero = "Batman"
 console.log(superHero);
 ```
 runs in a wrapper with 5 parameters, like so:
-![](assets/12_Module_wrapper-image-1.png)
+![](/assets/12_Module_wrapper-image-1.png)
 In other words, `module`, `require` are not "magical" global variables. They are injected by Node.js at runtime as parameters of the module wrapper.
 
 
 ## About the parameters
 To explore the parameters, let's use a debugger (VScode has a built-in debugger for JavaScript running in Node.js).
 
-![](assets/12_Module_wrapper-image-2.png)
+![](/assets/12_Module_wrapper-image-2.png)
 The parameters:
 - `__dirname` - path to current module's folder
 - `__filename` - path to the current module (file)

@@ -6,7 +6,7 @@ Two useful ways of approaches to scaling are:
 1. Horizontal scaling - increase the number of devices, of the same type/power. Of course, we need software and processes to keep the whole data coherent. This is difficult to manage, but can be used indefinitely.
 2. Vertical scaling - make the existing device(s) stronger, individually. This is very easy to do, but cannot be scaled indefinitely, due to fundamental physical constraints of hardware.
 
-![](assets/138_Comparison_overview-image-1.png)
+![](/assets/138_Comparison_overview-image-1.png)
 
 
 ## Comparison overview

@@ -16,8 +16,8 @@ Pug syntax is simple, concise.
 4. `div` is the default tag, if no tag is specified.
 
 Example (Pug, vs HTML):
-![](assets/81_Installing_Pug_and_using_it-image-1.png)
-![](assets/81_Installing_Pug_and_using_it-image-2.png)
+![](/assets/81_Installing_Pug_and_using_it-image-1.png)
+![](/assets/81_Installing_Pug_and_using_it-image-2.png)
 
 Code (same as above):
 ```pug
