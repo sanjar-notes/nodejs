@@ -6,7 +6,7 @@ Created Wednesday 22 March 2023 at 01:37 am
 - Yes, MySQL (or any other database software) keeps running independent of the Node.js code. It's generally never stopped.
 
 ## mysql2
-- This is the "database driver" - i.e. a package with code that helps us communicate with the database. 
+- This is the "database driver" - i.e. a package with code that helps us communicate with the database.
 - Practically, it allows us to run raw SQL queries in our Node.js code.
 - The basic idea is to obtain a "connection" object using the package. This "connection" is used for all interaction with the database, as well as closing the connection.
 - This code to connect to the database is usually kept separate from the application code, in a utility file (like the path utility we have [now](https://github.com/exemplar-codes/online-shop-express-ejs-mvc/tree/d18ab604acb9ac5509949d9e185ccaf6f3a2ba14/util)).
@@ -24,18 +24,18 @@ There are two ways to do this:
 		- High risk - because connections requests may be rejected by the DB.
 2. Create a so called "connection pool" - a size configurable, guaranteed *claim* of DB resources established between a user (i.e. a backend server app) and a database.
 	- A pool consists of multiple guaranteed connections, all established at once. The DB is guaranteed to provide query service even under high load, since a pool marks resources for the given client/user (i.e. backend server app).
-	- Using a pool has the advantage of being able to do parallel queries with the database (assuming they're sufficiently independent). This is because each connection is Independent from others (in a pool or otherwise). 
+	- Using a pool has the advantage of being able to do parallel queries with the database (assuming they're sufficiently independent). This is because each connection is Independent from others (in a pool or otherwise).
 		- Maximum number of parallel queries is equal to the set number of connections (they are guaranteed ones of course).
 	- This is a high resource, low overhead, low risk kind of DB resource claim
 		- High resource - since a pool request usually consists of many guaranteed collections.
 		- Low overhead - since all connections in the resource are allocated at once, it doesn't have the overhead of network requests, calculation, estimation (FIXME) that is done here?) on the DB.
 		- Low risk - since connections in a pool are *guaranteed* to be respected by the DB, even under high load.
-   
-Note: 
+
+Note:
 - Connections, even if from the same client, are Independent from each other (weather in a pool or now, though pool connections have guaranteed priority). And most databases (MySQL, for example) can process many connections at once.
 - Of course, a client can request multiple connections, as well as multiple pools. Assuming no hard limits are triggered.
 - FIXME maybe - the concept of pool vs connections seemed a little fishy. I consulted ChatGPT to learn the difference, i.e. **guarantee + multiplicity** in case of a pool.
-   
+
 Code for obtaining a pool:
 ```js
 const mysql = require("mysql2");
@@ -67,7 +67,7 @@ For that first create a table, using MySQL Workbench.
 1. In the left sidebar, go to the database, the table, and click the rightmost icon.
 2. Add values in the first row. ID is optional (it will be assigned automatically if not specified). Click apply.
 
-![](../../../../assets/140_Connecting_our_App_to_the_SQL_database-image-1.png)
+![](assets/140_Connecting_our_App_to_the_SQL_database-image-1.png)
 
 ### Node.js code
 ```js

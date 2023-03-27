@@ -6,7 +6,7 @@ Our goals for a database are:
 2. Performance
 
 ## Types of databases
-There are many classifications possible. A simple one is based on if a database has SQL like language and "relational nature". 
+There are many classifications possible. A simple one is based on if a database has SQL like language and "relational nature".
 
 The two types are:
 - SQL - SQL like. Relational. Examples - MySQL, PostgreSQL
@@ -26,10 +26,10 @@ Fundamental philosophies of "SQL" databases":
 
 Note: A "database" is a collection of "tables", that have relations between them.
 
-![](../../../../assets/136_Choosing_a_Database-image-1.png)
-![](../../../../assets/136_Choosing_a_Database-image-2.png)
-![](../../../../assets/136_Choosing_a_Database-image-3.png)
-![](../../../../assets/136_Choosing_a_Database-image-4.png)
+![](assets/136_Choosing_a_Database-image-1.png)
+![](assets/136_Choosing_a_Database-image-2.png)
+![](assets/136_Choosing_a_Database-image-3.png)
+![](assets/136_Choosing_a_Database-image-4.png)
 
 
 ## "NoSQL" databases
@@ -41,6 +41,6 @@ Fundamental philosophies of most "NoSQL" databases":
 3. Collections usually have **no relations** between each other. Duplication is preferred over relations (this can be a significant advantage for unstructured data, and also if *joins* are undesirable).
 4. Documents in a collection don't adhere to a schema. There's some level of similarity, but it's not strictly enforced. A document may look like a JavaScript object (FIXME? why so).
 
-![](../../../../assets/136_Choosing_a_Database-image-5.png)
-![](../../../../assets/136_Choosing_a_Database-image-6.png)
-![](../../../../assets/136_Choosing_a_Database-image-7.png)
+![](assets/136_Choosing_a_Database-image-5.png)
+![](assets/136_Choosing_a_Database-image-6.png)
+![](assets/136_Choosing_a_Database-image-7.png)

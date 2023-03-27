@@ -16,8 +16,8 @@ Pug syntax is simple, concise.
 4. `div` is the default tag, if no tag is specified.
 
 Example (Pug, vs HTML):
-![](../../../../assets/81_Installing_Pug_and_using_it-image-1.png)
-![](../../../../assets/81_Installing_Pug_and_using_it-image-2.png)
+![](assets/81_Installing_Pug_and_using_it-image-1.png)
+![](assets/81_Installing_Pug_and_using_it-image-2.png)
 
 Code (same as above):
 ```pug
@@ -60,9 +60,9 @@ html(lang="en")
 </body>
 ```
 
-Note: 
+Note:
 - In VScode:
-	- Pug auto-completion works out of the box. 
+	- Pug auto-completion works out of the box.
 	- There's no built-in formatter, however. An [extension](https://marketplace.visualstudio.com/items?itemName=ducfilan.pug-formatter) is available though.
 
 [Code until here](https://github.com/exemplar-codes/templating-engines-w-express-js/commit/2ec3459c867b46cb703b5daf2b0d4f6c8f8013dc)

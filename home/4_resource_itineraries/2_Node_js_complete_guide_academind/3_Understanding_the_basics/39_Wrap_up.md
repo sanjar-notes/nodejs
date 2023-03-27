@@ -9,7 +9,7 @@ Created Sunday 19 February 2023 at 10:41 am
 4. Request *data* (aka body) is a readable stream through events on it. Response data is a writable stream.
 5. Double responses should be avoided, since it leads to an error.
 
-![](../../../../assets/39_Wrap_up-image-1.png)
+![](assets/39_Wrap_up-image-1.png)
 
 
 ## Conclusion

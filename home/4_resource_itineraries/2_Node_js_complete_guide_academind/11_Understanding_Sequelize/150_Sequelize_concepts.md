@@ -7,4 +7,4 @@ The most important (and used) concepts in Sequelize are:
 3. Queries
 4. Associations
 
-![](../../../../assets/150_Sequelize_concepts-image-1.png)
+![](assets/150_Sequelize_concepts-image-1.png)
