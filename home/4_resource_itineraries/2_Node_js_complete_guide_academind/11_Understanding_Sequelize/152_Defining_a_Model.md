@@ -57,3 +57,34 @@ module.exports = Product; // export for use elsewhere
 ```
 
 [Code](https://github.com/exemplar-codes/online-shop-express-ejs-mvc/commit/89785f7d2302d9183f4747388badfc8cfa099e80)
+
+## Hooks (very basic)
+Suppose I have to run some code after syncing table. I do this via a "hook". Hooks can be global and model-wise.
+
+The hooks are added after the schema, i.e. 3rd argument of `mySequelize.define()`:
+```js
+const Character = sequelize.define(
+  "character",
+  {
+    id: {
+      type: Sequelize.INTEGER,
+      autoIncrement: true,
+      allowNull: false,
+      primaryKey: true,
+    },
+    name: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+  },
+  {
+    hooks: {
+      async afterSync() {
+        console.log("After sync called");
+      },
+    },
+  }
+);
+```
+
+[List of Sequelize hooks - v6](https://github.com/sequelize/sequelize/blob/v6/src/hooks.js#L7)
