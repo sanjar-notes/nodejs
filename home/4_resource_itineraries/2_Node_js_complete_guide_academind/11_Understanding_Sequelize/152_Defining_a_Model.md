@@ -8,6 +8,22 @@ We'll create tables using Sequelize.
 
 Syntax for creating a model, in detail:
 ```js
+const Sequelize = require('sequelize');
+const sequelize = require('../path-to-sequelize-instance');
+
+const MyModel = sequelize.define('modelName', {
+	columnOneName: {
+	    type: Sequelize.INTEGER,
+	    allowNull: false,
+	    autoIncrement: false,
+	}
+});
+
+module.exports = MyModel;
+```
+
+
+```js
 const Sequelize = require("sequelize");
 
 const sequelize = require(path.join(rootDir, "util", "database.js"));
