@@ -6,7 +6,12 @@ Sequelize can create tables from scratch, of course.
 await sequelize.sync(); // instance of Sequelize class
 ```
 
-This is run only once, when the server app starts. Example:
+**Important note**
+- Tables are created lazily, i.e. they are created only when the model code is run first. This usually happens when the model is imported, and the `.define()` runs. If a model is never run, directly or by means of a important, the table is not created.
+- Having `.sync` is still important. But as mentioned above, having `.sync` does not guarantee table creation.
+- There's no need to mention models in `.sync`, since all models are anyway created using the Sequelize instance.
+
+The `.sync` is run usually, when the server app starts. Example:
 ```js
 const app = Express.app();
 const sequelize = require('./util/database.js');
