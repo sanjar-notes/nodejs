@@ -39,7 +39,7 @@ const Product = sequelize.define("product", {
     primaryKey: true,
   },
 
-  title: Sequelize.STRING, // 3. shorthand for title: { type: Sequelize.STRING }.
+  title: Sequelize.STRING, // 3. shorthand for type: { type: Sequelize.STRING }.
   // We should have added allowNull: false, but this is a demo for the shorthand
 
   price: {
