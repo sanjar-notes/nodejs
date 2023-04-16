@@ -39,9 +39,11 @@ A user is related to other data in our shop - cart, products etc. Sequelize supp
 	// ommitting either side means use id for that side, i.e. id <--> someField
 	```
 
+Note: the option argument (2nd argument) here is referring to the `target`. e.g. `Product.belongsTo(User, { onDelete: 'CASCADE'} )` means talking about the deletion of target (i.e. User), and what happens to the source (Product) when this happens.
+
 ## Sequelize association (advanced)
+#todo read-from-docs
 - More granular eager loading
-- 
 
 ## Sequelize association querying
 - Sequelize adds mixins to get associated models of the model being queried. Example:
@@ -57,3 +59,6 @@ A user is related to other data in our shop - cart, products etc. Sequelize supp
 - Sequelize does not support direct manipulation of associated models, i.e. it has to be done in explicit steps. Exception - Creation of a new model (with associated models) is possible, if they too are new.
 
 /rough end
+
+We wish to have the following relations between the model, in this project.
+![](/assets/161_Creating_a_User_model-image-1.png)
