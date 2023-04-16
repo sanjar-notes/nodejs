@@ -9,7 +9,7 @@ Note: Sequelize needs a driver package to work. `mysql2` is fine.
 
 
 ## Connecting to the database
-Sequelize uses `mysql2` behind the scenes. Therefore, we don't need to write `mysql2` code (i.e. creating a pool) ourselves. Of course, we still need to give the credentials.
+Sequelize uses `mysql2` behind the scenes. Therefore, we don't need to write `mysql2` code (i.e. creating a pool) ourselves. Of course, we still need to give the credentials. [API reference](https://sequelize.org/api/v6/class/src/sequelize.js~sequelize#instance-constructor-constructor)
 ```js
 const Sequelize = require("sequelize");
 
