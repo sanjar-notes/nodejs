@@ -43,7 +43,7 @@ Note:
 - Just like with `node:http`, there's no way to send headers explicitly. There're sent (once, and before anything else) when a body (or portion) of it is sent.
 
 ### 3. Body
-1. S*end* variables - `res.send()`. This is supposes to be the "convenient" default over `http.req.end` (which is still available if needed). It behaves in the usual way, i.e. ends the response. It accepts all *JSONable* data types `String`, `Boolean`, `Array`, `Object`. Accepts `Buffer` too.
+1. S*end* variables - `res.send()`. This is supposed to be the "convenient" default over `http.req.end` (which is still available if needed). It behaves in the usual way, i.e. ends the response. It accepts all *JSONable* data types `String`, `Boolean`, `Array`, `Object`. Accepts `Buffer` too.
 2. Send JSON - `res.json()`. Prefer this over `res.send` for JSON responses.
 3. S*end* a file (not download) - `sendFiles("absolute_file_path")` or alternatively `sendFiles("relative_path", {root: ""})`. Zip files will be automatically be downloaded in the browser, as they're not consumable directly. **Intended for small files only, since it doesn't use chunking**.
 4. Send a file (for download) - `res.download(...)`. Same as `res.sendFiles`, except sends proper headers and causes download on the browser.
@@ -67,7 +67,7 @@ Note:
 	4. Image, audio - `res.sendFile("./path_to_file", { root: __dirname})`. Will be sent as proper `"Content-Type"`. [Code example](https://github.com/exemplar-codes/express-app-academind/commit/9c2c6b1279b031b2af273491258e5532ab8c6f09)
 	5. [ZIP file](https://github.com/exemplar-codes/express-app-academind/commit/17cc84628b179cc68d3f40adbb85ef0d39ec0577) - `res.sendFile("./path_to_file", { root: __dirname})`
 2. Middlewares can be run (i.e. `next()` works) even after ending the response. Don't if this is a bad practice or a deliberate thing for stateful servers. FIXME.
-3. Express only `res` functions are **chainable**. This chaining doesn't work with `http.res.` functions, use individual statements with them.
+3. In Express, only `res` functions are **chainable**. This chaining doesn't work with `http.res.` functions, use individual statements with them.
 ```js
 (req, res, next) => {
 	res.status(200).send("All OK");

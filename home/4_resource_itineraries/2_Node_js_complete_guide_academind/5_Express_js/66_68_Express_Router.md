@@ -34,7 +34,7 @@ router.use((req, res, next) => {
   console.log("Shop middleware ran");
 });
 
-// actual request URL is ""/shop", but this will match, since prefix is trimmed
+// actual request URL is "/shop", but this will match, since prefix is trimmed
 router.get("/", (req, res, next) => {
   console.log("Shop GET ran");
 });
@@ -63,6 +63,6 @@ Note:
 - The router path trimming feature assumes all paths in the router have a common prefix.
 - The router can be used without the path trimming feature also (i.e. don't specify a path while registering). This is actually the better way to do multi-file middleware/route organization (instead of using `express()` to make the child - see [code](https://github.com/exemplar-codes/express-app-academind/commit/2be76a9c2fb4c542967cd94e568f40367f17e2d8)).
 - Don't *call* the imported router when registering. A middleware is specified using a callback (since `express() or express.Router()` return a callback functions with attached attributes). 
-	- This is a common mistake since plugable middlewares *seem to be called* - `app.use(express.json())` or `app.use(express.static())`. These entities need to be called since they're not actually a middleware (callback), but a function that returns a configured middleware (callback), based if any arguments are passed.
+	- This is a common mistake since plugable middlewares *seem to be called* - `app.use(express.json())` or `app.use(express.static())`. These entities need to be called since they're not actually a middleware (callback), but a function that returns a configured middleware (callback), based on the arguments are passed.
 	- [Code](https://github.com/unclassified-repos/academind-nodejs-assignment-2/commit/b0cd454943d3681bc5a642778c6109782e6b7877)
 	- The error message from Express.js is quite useless, BTW. FIXME: discuss about better error message for this case, on the Express.js project site.

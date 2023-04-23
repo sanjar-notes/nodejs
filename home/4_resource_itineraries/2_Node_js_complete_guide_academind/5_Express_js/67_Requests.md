@@ -4,12 +4,12 @@ Created Wednesday 22 February 2023 at 11:01 pm
 [Code - demo and experiments](https://github.com/exemplar-codes/express-app-academind/commit/b28b5db7ae4e71a73524d82c1803d0d892718a96)
 
 ## Situation
-In `node:http`, the request data is available as a stream that can be piped, listened to. This is not very helpful as most app server typically deal with small and almost scalar data (i.e. objects of a fixed and low size).
+In `node:http`, the request data is available as a stream that can be piped, listened to. This is not very helpful since most app servers typically deal with small and almost scalar data (i.e. objects of a fixed and low size).
 
-Express provides some constructs to deal with these "scalar" values easily. Of course, very granular control is still possible since Express mostly uses (and exposes API of) `http` under the hood.
+Express provides some constructs to deal with these "scalar" values easily. Of course, very granular control is still possible since Express mostly uses (and exposes the API of) `http` under the hood.
 
 ## 1. Method
-`req.method`
+`req.method` - a string
 
 ## 2. Path
 - `req.originalUrl` - original request URL. Stays the same in routers too.
@@ -45,21 +45,20 @@ Note:
 - The `Referrer` and `Referer` header fields are treated as the same.
 
 ## 4. Body
-- `req.body` property - request's body. Is `undefined` by default. Some interpretation input is needed before use.
-- The interpretation input is usually done by built-in middlewares. Common ones:
+- `req.body` property - request's body. Is `undefined` by default. Some interpretation is needed before use.
+- The interpretation is usually done by built-in middlewares. Common ones:
 	- `express.text()` - text
 	- `express.json()` - JSON
 	- `express.raw()` - raw binary data
 	- `express.urlencoded` - for form data. Query strings don't need this, they're `urlencoded` by default. <details><summary>FIXME</summary>`extended` is for query params, but `urlencoded` is not needed anymore, why is there still a a warning if this is omitted - `express.urlencoded({ extended: false })`. Should I keep it as false, since it's not needed anymore.</details>
 - `req.body` is a readable stream and is pipable, whenever this is applicable.
-
-```js
-app.use(express.json());
-
-app.post('/', (req, res, next) => {
-	req.body; // is an object
-});
-```
+	```js
+	app.use(express.json());
+	
+	app.post('/', (req, res, next) => {
+		req.body; // is an object
+	});
+	```
 
 ## 5. HTTP version
 - `req.httpVersion` - a string. Example `"1.1"`. Is mostly enough.
