@@ -67,6 +67,10 @@ Note:
 
 
 ## Convenience properties and functions
+1. `req.locals` - this object is intended to **store data/code for upcoming middlewares**. To use it, just add attributes with the data/code. It's guaranteed to be safe from changes by Express, and is also available at all middlewares (top level ones as well as routers).
+	- For storing user info (token or the whole object), the `req.user` property is more popular in the Node.js community. It too, is guaranteed to remain unchanged and be available at all middlewares.
+		- In general, `req.locals` is the construct to be used for middleware communication (for a given request). `req.user` is more popular than `req.locals.user`, but any of them could be used.
+		- In general, it's best not to add custom attributes to the `req` object directly.
 1. `req.is(contentTypeValue)`- Get `"Content-Type"` of the request.
 	- Argument - `String`. Accepts partial arguments too, `req.is("json")` will return `"application/json"`.
 	- Returns a `String`. Returns false if type is absent. Returns `null` if there's no body.
