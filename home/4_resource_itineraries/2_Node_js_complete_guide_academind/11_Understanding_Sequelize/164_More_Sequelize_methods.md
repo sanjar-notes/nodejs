@@ -1,7 +1,7 @@
 ## 164. More Sequelize methods
 Created Thursday 27 April 2023 at 01:02 am
 
-## Check existence
+## Check existence/count
 ```js
 // model
 !!await Product.count(); // some products exist
@@ -22,6 +22,20 @@ await user.hasProducts([1, 2]); // check associated products exist
 !!await product.userId; // null means absent
 ```
 
+
+## Get all associated instances
+```js
+// for N-M or 'many' side of 1-N
+
+await user.getProducts(); // get all
+
+await user.getProducts({ where: {id: '2'}} ); // get one product
+
+// for 1-1 or 'one' side of 1-N
+await product.getUser(); // returns null if non-existent
+```
+
+
 ## Update an instance
 ```js
 user;
@@ -31,16 +45,6 @@ await user.save();
 
 // in one go
 await user.update({name: 'New name', ... /*other fields if needed*/});
-```
-
-
-## Get all associated instances
-```js
-await user.getProducts();
-
-// more granular
-await user.getProducts({ where: {id: '2'}} );
-
 ```
 
 
