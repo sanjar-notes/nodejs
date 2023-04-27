@@ -169,8 +169,8 @@ We wish to have the following relations between the model, in this project.
 
 
 	// dis + destr for many. Fact: There's no one liner.
-	user.removeProducts([1, 2, 3]);
-	Product.destroy({where: id: [1, 2, 3});
+	user.removeProducts([1, 2, 3]); // or .removeProduct
+	Product.destroy({where: id: [1, 2, 3}); // or single id
 
 	//  dis + destr for many. Remove all. Fact: have to fetch all products (ids)
 	const productIds = (await user.getProducts({ attributes: ["id"] })).map((item) => item.id);
