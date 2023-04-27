@@ -147,9 +147,24 @@ We wish to have the following relations between the model, in this project.
 	```
 6. Dissociating explicitly - use appropriate mixin. Examples:
 	```js
-	user.removeProduct(prodInstance.id); // applicable for 1* association, or dissociate only 1
-	
-	user.removeProducts([prodInstance1.id, prodInstance2.id]); // for dissociating multiple
-	
-	user.setProducts([]); // dissociate all
+	// dissociate for 1-1 or 'one' side of 1-N
+	const product = await user.getProduct();
+	await product.setUser(null);
+	// product.removeUser(); // doesn't work. there's no such function. Use set (above).
+
+
+	// dissociate for N-M or 'many' side of 1-N
+	await user.setProducts([]); // dissociate all
+
+
+	// dissociate + destroy dissociated, i.e. in one go
+	// for for N-M or 'many' side of 1-N
+	await user.removeProduct(prodInstance.id); // dis + destr one
+
+	await user.removeProducts([prodInstance1.id, prodInstance2.id]); // dis + destr multiple
+
+	// dis + destr, for 1-1 or 'one' part of 1-N
+	const product = await user.getProduct(); // or .getProducts({where....})
+	await product.setUser(null);
+	await product.destroy();
 	```
