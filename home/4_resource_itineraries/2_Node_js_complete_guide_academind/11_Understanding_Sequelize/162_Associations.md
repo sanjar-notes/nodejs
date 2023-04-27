@@ -17,6 +17,7 @@ A user is related to other data in our shop - cart, products etc. Sequelize supp
 	2. 1-N - `A.hasMany(B); B.belongsTo(A)`
 	3. Many-many - `A.belongsToMany(B, { through: 'ABjunction' }); B.belongsToMany(A, { through: 'ABjunction' });` <details><summary>String/object</summary>Note, through can be a string, or even a model we defined (the foreign keys for both will be added to it automatically). This is actually better since we can add extra data here (i.e. in the junction table). If a string is passed, a junction model is still created, but has to be accessed via one of the participating models (doesn't exist in our code directly).</details>
 	Why pairs - pairs make sure both model *know* about the relation, and have to have auto-generated (aka mixins) methods to get associated stuff from both sides.
+- Yes, N-M notation is **weird** here. We are using `belongsToMany` 2 times, instead of `hasMany` with `belongsToMany`. eway: use the latter, then change `hasMany` to `belongsToMany`.
 - **Default lifecycle hooks** - by default, Sequelize has 'SET NULL' for deletion and 'CASCADE' for updation operation.
 	
 ## Sequelize association (medium)
