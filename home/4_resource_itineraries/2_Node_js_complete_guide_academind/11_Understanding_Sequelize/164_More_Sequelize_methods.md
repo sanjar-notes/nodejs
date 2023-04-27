@@ -1,6 +1,27 @@
 ## 164. More Sequelize methods
 Created Thursday 27 April 2023 at 01:02 am
 
+## Check existence
+```js
+// model
+!!await Product.count(); // some products exist
+
+!!await Product.count({where: {name: 'Sanjar'}}); // given product exists
+
+
+// instance
+// N-M relation or many side of 1-N
+!!await user.countProducts(); // some associated products exist
+
+await user.hasProduct(42); // simplest, returns bool. Alternatively, use countProducts with 'where' option
+
+await user.hasProducts([1, 2]); // check associated products exist
+
+
+// for 1-1 or 'one' side of 1-N
+!!await product.userId; // null means absent
+```
+
 ## Update an instance
 ```js
 user;
@@ -19,6 +40,7 @@ await user.getProducts();
 
 // more granular
 await user.getProducts({ where: {id: '2'}} );
+
 ```
 
 
