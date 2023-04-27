@@ -62,3 +62,10 @@ user.rawAttributes; // doesn't have the values though
 user.id; // value
 ```
 FIXME: this was a huge headache, why isn't there an inbuilt way to list down all methods
+
+
+## Query success/failure status
+- For Model.someStaticQueryMethod, the response is a number (number of rows affected).
+- For other things like magic methods, and association methods (`.removeProducts()`) the response is not consistent, and therefore there's no guaranteed way to check status.
+
+Note: dissociating a non existent thing doesn't raise an error (e.g. `user.removeProducts(42)` will work fine, even if productId 42 is not associated)
