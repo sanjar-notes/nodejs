@@ -137,6 +137,7 @@ We wish to have the following relations between the model, in this project.
 		},
 		{ include: [{ model: Product }] }
 		);
+		// include is the lazy-load control construct of Sequelize, it can be used in queries too
 		```
 5. Automatic dissociation - just make the new association. Why this works: Associating an instance from one associated instance to another (of the same type) will automatically remove the old association. Examples:
 	```js
@@ -148,23 +149,31 @@ We wish to have the following relations between the model, in this project.
 6. Dissociating explicitly - use appropriate mixin. Examples:
 	```js
 	// dissociate for 1-1 or 'one' side of 1-N
-	const product = await user.getProduct();
 	await product.setUser(null);
 	// product.removeUser(); // doesn't work. there's no such function. Use set (above).
 
+	// dis + destr. Fact: There's no one liner.
+	product;
+	const userId = product.userId;
+	await product.setUser(null);
+	await User.destroy({ where: { id: userId } });
+
 
 	// dissociate for N-M or 'many' side of 1-N
+	// PKs or instances both work (can be passed)
+	await user.removeProduct(prodInstance.id); // dissociate one
+	
+	await user.removeProducts([prodInstance1.id, prodInstance2.id]); // dissociate multiple
+	
 	await user.setProducts([]); // dissociate all
 
 
-	// dissociate + destroy dissociated, i.e. in one go
-	// for for N-M or 'many' side of 1-N
-	await user.removeProduct(prodInstance.id); // dis + destr one
+	// dis + destr for many. Fact: There's no one liner.
+	user.removeProducts([1, 2, 3]);
+	Product.destroy({where: id: [1, 2, 3});
 
-	await user.removeProducts([prodInstance1.id, prodInstance2.id]); // dis + destr multiple
-
-	// dis + destr, for 1-1 or 'one' part of 1-N
-	const product = await user.getProduct(); // or .getProducts({where....})
-	await product.setUser(null);
-	await product.destroy();
+	//  dis + destr for many. Remove all. Fact: have to fetch all products (ids)
+	const productIds = (await user.getProducts({ attributes: ["id"] })).map((item) => item.id);
+	user.setProducts([]); // better than .removeProducts(productIds)
+	Product.destroy({where: { id: productIds }})
 	```
