@@ -8,3 +8,6 @@ The most important (and used) concepts in Sequelize are:
 4. Associations
 
 ![](/assets/150_Sequelize_concepts-image-1.png)
+
+---
+Helpful maybe (Sequelize overview) [2-ORMs-sequelize-chatgpt.pdf](/assets/2-ORMs-sequelize-chatgpt.pdf)

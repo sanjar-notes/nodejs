@@ -177,3 +177,7 @@ We wish to have the following relations between the model, in this project.
 	user.setProducts([]); // better than .removeProducts(productIds)
 	Product.destroy({where: { id: productIds }})
 	```
+
+---
+
+Verifying my understanding [3-SQL-and-ORM-Relations-chatgpt-7cfdfbab-d682-4aba-be6b-7a519c15abb0.pdf](/assets/3-SQL-and-ORM-Relations-chatgpt-7cfdfbab-d682-4aba-be6b-7a519c15abb0.pdf)
