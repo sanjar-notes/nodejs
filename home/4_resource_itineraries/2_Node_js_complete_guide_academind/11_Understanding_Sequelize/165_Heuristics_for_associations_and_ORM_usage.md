@@ -37,50 +37,66 @@ Words
 - Product belongs to a user
 
 Product may belong to many carts (OK)
-Cart contains many products (with associated quantity) - weird, go below the level of abstraction of ORM, need a table with (cartId, productId, quantity). Let's name this table 'cartItem'. Tables are like models, go back to ORM abstraction. Talk about cartItem now:
-- Cart has many cartItems. cartItem belongs to one cart.
-- A cartItem is associated with one product. A product may be associated with many cart items (since quantity may differ).
-All done w.r.t cart, product and cartItem (the incidental model).
-Let's revise all possible associations
-- Cart, cartItem - done
-- Cart, product - cannot be done directly, so this whole process, ignore.
-- Product, cartItem - product belongsToMany cartItem, seems weird --> go down a level of abstraction.
-    - Table wise, cartItemTable.root + add productId FK seems fine.
-    - So cartItem.belongsTo(Product) and Product.hasMany(cartItems)
-    - Doing both ways since I may wish to find all cartItems a product is present, too, for analytics/recommendations.
 
-cartItem *<--> Product
-cartItem  <--> Cart
+- Reaction 1: weird (N-M is fine, but can't store quantity!), go below the level of abstraction of ORM, need a table with (cartId, productId, quantity). Let's name this table 'cartItem'. Tables are like models, go back to ORM abstraction. Talk about cartItem now:
+    - Cart has many cartItems. A cartItem belongs to one cart.
+    - A cartItem is associated with one product. A product may be associated with many cart items (since quantity may differ).
+    All done w.r.t cart, product and cartItem (the incidental model).
+    Let's revise all possible associations with the junction
+    - Cart, cartItem - type of relation understood. Will need *items magic methods for rendering cart page.
+    - Product, cartItem - type of relation understood. But both Product hasOne cartItem and Product.belongsToMany.cartItem seem weird --> go down a level of abstraction.
+        - Table wise, cartItemTable.root + add productId FK seems fine.
+        - So cartItem.belongsTo(Product) and Product.hasMany(cartItems)
+        - Doing both ways since I may wish to find all cartItems a product is present, too, for analytics/recommendations.
 
-The code works (tables with desired FKs are generated):
-```js
-User.hasMany(Product);
-Product.belongsTo(User, { onDelete: "CASCADE" }); // ignore the onDelete, it's contextual to the project
+    The code works (tables with desired FKs are generated):
+    ```js
+    User.hasMany(Product);
+    Product.belongsTo(User, { onDelete: "CASCADE" }); // ignore the onDelete, it's contextual to the project
 
-User.hasOne(Cart);
-Cart.belongsTo(User);
+    User.hasOne(Cart);
+    Cart.belongsTo(User);
 
-Cart.hasMany(cartItem);
-cartItem.belongsTo(Cart);
+    Cart.hasMany(cartItem);
+    cartItem.belongsTo(Cart);
 
-// using both sides (as is usual) since I wish to have analytics about Product and User who may buy them
-Product.hasMany(cartItem);
-cartItem.belongsTo(Product);
-```
+    // using both sides (as is usual) since I wish to have analytics about Product and User who may buy them
+    Product.hasMany(cartItem);
+    cartItem.belongsTo(Product);
+    ```
 
-But, it may be better to avoid having associations with the incidental (junction) table, and use it via `through`. copying some stuff from above and rewriting.
+    This would work, but there's a problem here. The same cartItem interfaces Cart, Product. It's not as if a cartItem exists just in association with a Cart only, or a Product only - all 3 exist. In other words, we are not specifying the junction at all - it's just a table with all columns. The code is wrong. Fix: use the `through` construct.
 
-This:
-```js
-cartItem *<----> Product
-cartItem  <----> Cart
+    Placing FKs by the rule, we get:
+    ```js
+    Cart.belongsTo(Product, { through: cartItem });
+    Product.hasMany(Cart, { through: cartItem });
+    ```
 
-// is? equivalent to
-(cartItem/Cart) *<----> Product
+    There's still a problem. Junction model magic methods are not provided in Sequelize. To do, we'll need to write more code. This code will not change the relation, FKs or anything, since we are already correct, but, it will add magic methods.
 
-// could be rewritten to avoid direct association with the junction (cartItem) model
-Cart* <---> Product 'through' cartItem
-```
+    ```js
+    Cart.hasMany(cartItems); // for items magic methods
+    cartItem.belongsTo(Cart); // for cart magic methods
+    ```
+
+    Feels weird, yes, but it was like so on first observation too. Lesson: it's relatively easier to write ORM associations, but reading can be very hard.
+- Reaction 2, it's a many many relation, and we can store the quantity in junction table. Simple many-to-many with 'through' model.
+    - Code:
+        ```js
+        cartItem = sequelizeModel{ id, quantity: INTEGER };
+        Cart.belongsToMany(Product, through: { cartItem });
+        Product.belongsToMany(Cart, through: { cartItem });
+        ```
+    - The junction table is usually OK to be hidden, but we have useful data in it (quantity). Also, we will need the cart items individually to show items list. To access cartItem from the Cart, we'll need to get magic methods (getItems, setItems etc), we may also need magic method to get the cart of a cartItem instance, code:
+        ```js
+        Cart.hasMany(cartItems); // for items magic methods
+        cartItem.belongsTo(Cart); // for cart magic methods
+
+        // the code here does not change the relations, since it's redundant essentially. We add it just for the magic methods.
+        ```
+    - We don't add similar code with Products, since products will generally ask for cart it's present in, and not otherwise
+
 ---
 ### Heuristics for associations, and ORM usage
 The following are rules I derived from the "thinking" above.
