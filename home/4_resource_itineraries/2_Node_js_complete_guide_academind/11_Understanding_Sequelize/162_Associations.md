@@ -22,6 +22,17 @@ A user is related to other data in our shop - cart, products etc. Sequelize supp
 	
 ## Sequelize association (medium)
 - **Multiple associations between the same 2 models** are *possible*. For this, pass an `as` (alias) config (second argument of .has* or .belongs*). **This helps in establishing semantic difference at the JS/ORM level**. Example - A task is created by a user, and assigned to a user, at an office. The relations are between user and task, but there's a semantic difference.
+	```js
+	const User = sequelize.define('User', {...});
+	const Task = sequelize.define('Task', {...});
+	
+	User.hasMany(Task, { as: 'createdTasks' });
+	Task.belongsTo(User, { as: 'createdByUser' });
+	
+	User.hasMany(Task, { as: 'assignedTasks' });
+	Task.belongsTo(User, { as: 'assignedToUser' });
+	```
+	Note: even though we have "named" the associations at the ORM level, there's no difference at the SQL level, whether or not we have named associations, since the FKs, indexes are the same in both cases. **Also, the query methods will now require the alias to avoid ambiguity**.
 - **Foreign key name** - The foreign key names are automatically decided by Sequelize, but can be specified using the `foreignKey` option (second argument of .has* or .belongs*). This is very helpful to convey "tangible relation/action". Example -there are students and an equal number chairs in a classroom. It's better to use a FK named `seatedBy` than `userId`.
 - **Association based on field other than FK** - we've had associations between models that used FK. But it's possible to create associations based on a non FK field too. **However**, this requires the field to be **unique**. Why do this? - doing this makes the generated mixins more tangible (example if username was used for the association instead of userid - we'd have mixins like `.getUsername()`, which is more useful compared to `.getUserid()`). Syntax:
 	```js
