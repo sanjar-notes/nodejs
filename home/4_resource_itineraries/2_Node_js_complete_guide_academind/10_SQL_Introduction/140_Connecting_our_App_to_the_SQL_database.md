@@ -87,3 +87,13 @@ const db = require("./database");
 The first element in the output is an array of resultant rows.
 
 [Code - creating connectionPool, executing queries](https://github.com/exemplar-codes/online-shop-express-ejs-mvc/commit/65d8d045c5bacd9699215eaf7f1a7b5bba231b46)
+
+## 'Reverse engineer' feature of MySQL Workbench
+It's very simple than it sounds. The feature generates an ER*like* diagram of an existing database.
+
+How to use it
+1. Menu bar > Database > Reverse engineer. Or, press *Ctrl + R*
+2. Enter the credentials if needed
+3. Keep pressing next/ok
+4. Select the database
+5. Repeat #3 until the diagram is ready
