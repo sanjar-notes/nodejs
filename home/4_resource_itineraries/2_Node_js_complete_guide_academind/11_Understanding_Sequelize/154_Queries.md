@@ -76,7 +76,7 @@ Note:
 	await Product.findById(1);
 
 	// get product, but only chisen attributes
-	await Product.findBy(1, {
+	await Product.findById(1, {
 		attributes: ['title', 'imageUrl']
 	})
 

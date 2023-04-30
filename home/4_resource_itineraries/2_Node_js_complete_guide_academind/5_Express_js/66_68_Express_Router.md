@@ -38,6 +38,8 @@ router.use((req, res, next) => {
 router.get("/", (req, res, next) => {
   console.log("Shop GET ran");
 });
+
+module.exports = router;
 ```
 
 [Code example](https://github.com/exemplar-codes/express-app-academind/commit/0b38a374f223ef3c50e44deeee8b008639aa751a)

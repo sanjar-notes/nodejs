@@ -6,7 +6,7 @@ Created Tuesday 21 February 2023 at 09:15 am
 ## What is a middleware
 - The most important (and used) construct in Express.js is middleware. A middleware is just a function.
 - Almost everything is a middleware (i.e. some specific implementation of the middleware) in Express.
-- A middleware has access to request, respond params. Additionally, it has a "next" param that's used to ~~transfer control~~ continue the middleware chain, i.e. the next middleware will be run.
+- A middleware has access to request, response params. Additionally, it has a "next" param that's used to ~~transfer control~~ continue the middleware chain, i.e. the next middleware will be run.
 
 Note: Middlewares in Express.js can be asynchronous, this is supported by default. Simple use the "async await" syntax.
 
