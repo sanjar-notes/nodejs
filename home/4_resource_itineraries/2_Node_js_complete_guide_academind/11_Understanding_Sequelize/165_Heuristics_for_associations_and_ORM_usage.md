@@ -6,7 +6,7 @@ Moving on with the project. Adding the cart and cartItem models creates the tabl
 	- Also, the `afterBulkSync` hook, that I use for data population doesn't run either.
 	- Solution - the association was wrong, so I removed it. I'll rewrite it.
 
-## Thinking out loud (pasting from scratchpad)
+## Associations
 ```
 // table, yes
 User =  {
@@ -127,3 +127,15 @@ Note:
 > Overall, it seems like you have a good grasp of the basics of defining associations between models using Sequelize. As you gain more experience, you may find that there are additional nuances or best practices to keep in mind, but these rules should serve as a good starting point.
 > 
 > &mdash; *ChatGPT*
+
+
+## General heuristic
+1. Additive steps - "just code"
+	1. Columns - Add model only data (does not participate in associations)
+	2. Associations - Add the associations using Sequelize default.
+	3. Incidental models - Create junction models if an association itself has useful data to be stored, e.g. Cart has Products, but also a corresponding quantity for each Product.
+	4. When in doubt - Whenever the usual named relations feel weird, use the source-target-FK and multiplicity (type of relation - 1-1, 1-N or N-M) to come up with the correction relation.
+2. Subtractive steps - "cleanup, restrictions"
+	1. Named associations - Observe if associations have multiple meanings, e.g. Product is created by a User (seller) and also bought by a User (buyer). Action: Use named-associations/aliases to make the code understandable.
+	2. Add custom `foreignKey` if they would be better than default `otherModelId` name.
+	3. Model CRUD restriction - Remove magic methods if they don't make sense on an instance. e.g. Cart and Product may be related, but it makes no sense to have "creation" magic methods on a Cart to create Products. Action: `as: false` on the associations removes the creation method from the "source" model.
