@@ -172,21 +172,13 @@ We wish to have the following relations between the model, in this project.
 
 	// dissociate for N-M or 'many' side of 1-N
 	// PKs or instances both work (can be passed)
-	await user.removeProduct(prodInstance.id); // dissociate one
+	await user.removeProduct(prodInstance.id); // dissociate + destroy one
 	
-	await user.removeProducts([prodInstance1.id, prodInstance2.id]); // dissociate multiple
+	await user.removeProducts([prodInstance1.id, prodInstance2.id]); // dissociate + destroy multiple
 	
-	await user.setProducts([]); // dissociate all
+	await user.setProducts([]); // dissociates + destroys all, if they are not related to any other instances
 
-
-	// dis + destr for many. Fact: There's no one liner.
-	user.removeProducts([1, 2, 3]); // or .removeProduct
-	Product.destroy({where: id: [1, 2, 3}); // or single id
-
-	//  dis + destr for many. Remove all. Fact: have to fetch all products (ids)
-	const productIds = (await user.getProducts({ attributes: ["id"] })).map((item) => item.id);
-	user.setProducts([]); // better than .removeProducts(productIds)
-	Product.destroy({where: { id: productIds }})
+	// FIXME: setProducts(null) seem to behave the same as setProducts([]), what's the difference?
 	```
 
 ---
