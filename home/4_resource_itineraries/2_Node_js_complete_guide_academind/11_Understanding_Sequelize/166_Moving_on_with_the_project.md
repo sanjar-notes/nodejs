@@ -66,4 +66,5 @@ Tradeoffs: we get the magic methods, but have to duplication, and memory consump
 
 Next:
 - Add the Order button - [code](https://github.com/exemplar-codes/online-shop-express-ejs-mvc/commit/c0004337d7bed8a4f77a2d4542068b54515b68c3)
-- Orders page - 
+- Orders list page - [code](https://github.com/exemplar-codes/online-shop-express-ejs-mvc/commit/c82a41a99cd2077b4e593428ed7ba11b867d3bed)
+- Order detail page - 
