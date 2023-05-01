@@ -11,6 +11,7 @@ Created Monday 1 May 2023 at 03:15 am
 	User.hasOne(Cart, { as: "buyer" });
 	Cart.belongsTo(User, { as: "buyer" });
 	```
+	[Actual code](https://github.com/exemplar-codes/online-shop-express-ejs-mvc/commit/b0616fba264f0d2360f208d35254b64b37931c83)
 - Upon exploration, I can see that the Cart has a `createProduct` magic method, since it's we related the two (Cart and Product) to list down (read) products in a Cart, and also add existing Products (created by sellers). But it makes no sense to create a Product using a Cart, and we should remove magic properties of this kind from the Cart model. **This is a usual thing in Sequelize projects, since Sequelize, by default assumes that two models can do all CRUD ops once related**. This "creation" behavior can be turned off using the following syntax:
 	```js
 	User.hasOne(Cart); // no change
@@ -21,3 +22,4 @@ Created Monday 1 May 2023 at 03:15 am
 	Products.belongsToMany(Cart, { through: CartItem }); // no change
 	```
 	Note, the Cart model still has the `add*` and `set*` methods, and the `get*` methods of course.
+	FIXME: does not work, the createProduct magic method is still there.
