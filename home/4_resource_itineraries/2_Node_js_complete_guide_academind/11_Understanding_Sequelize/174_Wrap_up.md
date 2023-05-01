@@ -11,5 +11,9 @@ Created Tuesday 2 May 2023 at 03:27 am
 	- Model have methods/attributes
 		- Fixed (will always be present) - both static and instance methods/properties. Examples: `User.create()`, `User.fetchAll()`
 		- Magic ones - these are methods/properties that mostly get attached based on the model name, and associated models. They are determined by associations the model has. Example: `user.createCart()`, `user.getProducts()`
-	  
-![](../../../../assets/174_Wrap_up-image-1.png)
+
+![](/assets/174_Wrap_up-image-1.png)
+
+## Conclusion
+- I explored Sequelize significantly, but there's much to explore. Read the docs
+- Sequelize is not comfortable to work with, and error messages, API reference is bad. Will likely use some other ORM.
