@@ -1,7 +1,7 @@
 # 166. Moving on with the project
 Created Monday 1 May 2023 at 03:15 am
 
-- The cart has been added, but there's an issue still. The Product <--> User relation has two meanings - one is for product sellers, and the other for product buyer. Our current code is not wrong, since items added to Cart will be done from the main products page. **This**, however, should be indicated in the code.
+- Named associations - The cart has been added, but there's an issue still. The Product <--> User relation has two meanings - one is for product sellers, and the other for product buyer. Our current code is not wrong, since items added to Cart will be done from the main products page. **This**, however, should be indicated in the code.
 
 	Let's used named relations for indicating this. Only Product to User code will change:
 	```js
@@ -12,7 +12,7 @@ Created Monday 1 May 2023 at 03:15 am
 	Cart.belongsTo(User, { as: "buyer" });
 	```
 	[Actual code](https://github.com/exemplar-codes/online-shop-express-ejs-mvc/commit/b0616fba264f0d2360f208d35254b64b37931c83)
-- Upon exploration, I can see that the Cart has a `createProduct` magic method, since it's we related the two (Cart and Product) to list down (read) products in a Cart, and also add existing Products (created by sellers). But it makes no sense to create a Product using a Cart, and we should remove magic properties of this kind from the Cart model. **This is a usual thing in Sequelize projects, since Sequelize, by default assumes that two models can do all CRUD ops once related**. This "creation" behavior can be turned off using the following syntax:
+- Query restriction - Upon exploration, I can see that the Cart has a `createProduct` magic method, since it's we related the two (Cart and Product) to list down (read) products in a Cart, and also add existing Products (created by sellers). But it makes no sense to create a Product using a Cart, and we should remove magic properties of this kind from the Cart model. **This is a usual thing in Sequelize projects, since Sequelize, by default assumes that two models can do all CRUD ops once related**. This "creation" behavior can be turned off using the following syntax:
 	```js
 	User.hasOne(Cart); // no change
 	Cart.belongsTo(User); // no change
@@ -23,3 +23,22 @@ Created Monday 1 May 2023 at 03:15 am
 	```
 	Note, the Cart model still has the `add*` and `set*` methods, and the `get*` methods of course.
 	FIXME: does not work, the createProduct magic method is still there.
+- Update the sample populater. [Code](https://github.com/exemplar-codes/online-shop-express-ejs-mvc/commit/e2452b496f2926fa70a4a13ee580a2363363fd80)
+- Update cart get, and post endpoints. Also fix the `add=true` bug in the EJS files. [Code](https://github.com/exemplar-codes/online-shop-express-ejs-mvc/commit/34d6bf733832713de6e8e72c46d909e5ce3cc49f)
+- There is a more concise way to create associated models, if `through` was used. We don't need to work directly at the junction model level.
+	```js
+	// Context: existing associations
+	Cart.belongsToMany(Product, { through: CartItem }); 
+	
+	Cart.hasMany(CartItem); // to get magic methods for CartItem
+	CartItem.belongsTo(Cart); // to get magic methods for Cart
+
+
+	// verbose
+	const newCartItem = await cart.createCartItem({ quantity: 1 });
+	await newCartItem.setProduct(prodId);
+	await newCartItem.save();
+
+	// or, equivalently
+	await cart.addProduct(prodId, { through: { quantity: 1 } }); // concise
+	```
