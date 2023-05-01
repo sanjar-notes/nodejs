@@ -88,3 +88,30 @@ Note:
 		    ['description', 'whatIsIt']
 	})
 	```
+
+FIXME:  Sequelize does not respect the attributes array in that it forcibly returns the associated columns even if they are not in the attributes array. There's no easy way around this. e.g.
+```js
+const products = await cart.getProducts({
+  attributes: ["id", "title", "price", "imageUrl", "description"],
+  raw: true,
+});
+
+// returns the following. Problem: 'cart*' should have been excluded
+/*
+[
+  {
+    id: 1,
+    title: 'A book',
+    price: 12.99,
+    imageUrl: 'https://cdn.pixabay.com/photo/2016/03/31/20/51/book-1296045_960_720.png',
+    description: 'This is an awesome book',
+    'cartItem.id': 1,
+    'cartItem.quantity': null,
+    'cartItem.createdAt': 2023-05-01T00:51:04.000Z,
+    'cartItem.updatedAt': 2023-05-01T00:51:04.000Z,
+    'cartItem.cartId': 1,
+    'cartItem.productId': 1
+  }
+]
+*/
+```
