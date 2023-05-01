@@ -60,11 +60,12 @@ Since we're copying, we'll not get any magic methods (even read only ones, since
 **So**, I'll duplicate the code for `Order`, as in `Cart`. We'll just create copies of `CartItem`s that belong to just `Order`. 
 Maybe I'll create duplicate `CartItem` and create the `OrderItem` model, this is not required however, if we indicate that `CartItem` is used in both `Order` and `Cart`.  The `Cart` will be null for a `CartItem` belonging to an `Order`, of course.
 
-Tradeoffs: we get the magic methods, but have to duplication, and memory consumption is twice.
+*Trade-offs*: we get the magic methods, but have to duplication, and memory consumption is twice.
 
 [Code](https://github.com/exemplar-codes/online-shop-express-ejs-mvc/commit/b6d9bef7c370453f7e808ed4aec974ca4a10052d)
 
 Next:
 - Add the Order button - [code](https://github.com/exemplar-codes/online-shop-express-ejs-mvc/commit/c0004337d7bed8a4f77a2d4542068b54515b68c3)
 - Orders list page - [code](https://github.com/exemplar-codes/online-shop-express-ejs-mvc/commit/c82a41a99cd2077b4e593428ed7ba11b867d3bed)
-- Order detail page - 
+- Order detail page - [code](https://github.com/exemplar-codes/online-shop-express-ejs-mvc/commit/19b3e61959d09e8e31fb51b8d79bc131eb2f97e4)
+- Various fixes - BE and FE
