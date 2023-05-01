@@ -28,7 +28,7 @@ Created Monday 1 May 2023 at 03:15 am
 
 
 ## Concise way create associated model along with junction model data
-There is a more concise way to create associated models, if `through` was used. We don't need to work directly at the junction model level.
+There is a more concise way to create associated models, if `through` was used. We don't need to work directly at the junction model level. [Code](https://github.com/exemplar-codes/online-shop-express-ejs-mvc/commit/eca88369ea1ad5afb8c6807ac6bc9c59a4c03a0c)
 ```js
 // Context: existing associations
 Cart.belongsToMany(Product, { through: CartItem }); 
@@ -45,3 +45,25 @@ await newCartItem.save();
 // or, equivalently
 await cart.addProduct(prodId, { through: { quantity: 1 } }); // concise
 ```
+
+## Moving on - adding orders
+- An order is a "frozen" instance of a cart. 
+- A user may have multiple users at the same time. 
+- An order has CartItems.
+- An order should survive even if the Cart it was created from gets deleted.
+
+So basically, it is a cart, but with additional data like shipping address, and other things. Also, we need to do a deep copy when the user checks out, since the cart may change. For this deep copy, we should create an instance method, so as to keep the logic in the model, instead of the controller - "fat models/skinny controllers" best practice.
+
+- Let's try to think of the order association. User and Order is a simple 1-N relation. For the CartItems and Products, I think "associations" are not the way to do this, since an "Order" is a table of "frozen" records, and associated instances could change - which does not make sense. **Copying** is the main thing, instead of **association**.
+
+Since we're copying, we'll not get any magic methods (even read only ones, since an Order is a frozen Cart), which implies that we'll need to write the code our-self. We could get over this by having a 1-1 relation between Order and Cart, with a "hook" that observes any changes in `Cart` (assume we have created an associated `Order` already), and whenever there is, it copies and dissociates that part (`CartItem`) of the Cart. Now, the `CartItem` is related to `Order` instead of a `Cart`, and we never do any updation from the `Order`, this means that the `CartItem` is effectively frozen. The advantage is that we can access the `Product`, and also have magic methods. **This is impossible using hooks** in Sequelize, since hooks here are only at the model level, and cannot observe/react to changes in the associated models. 
+**So**, I'll duplicate the code for `Order`, as in `Cart`. We'll just create copies of `CartItem`s that belong to just `Order`. 
+Maybe I'll create duplicate `CartItem` and create the `OrderItem` model, this is not required however, if we indicate that `CartItem` is used in both `Order` and `Cart`.  The `Cart` will be null for a `CartItem` belonging to an `Order`, of course.
+
+Tradeoffs: we get the magic methods, but have to duplication, and memory consumption is twice.
+
+[Code](https://github.com/exemplar-codes/online-shop-express-ejs-mvc/commit/b6d9bef7c370453f7e808ed4aec974ca4a10052d)
+
+Next:
+- Add the Order button - [code](https://github.com/exemplar-codes/online-shop-express-ejs-mvc/commit/c0004337d7bed8a4f77a2d4542068b54515b68c3)
+- Orders page - 
