@@ -25,20 +25,23 @@ Created Monday 1 May 2023 at 03:15 am
 	FIXME: does not work, the createProduct magic method is still there.
 - Update the sample populater. [Code](https://github.com/exemplar-codes/online-shop-express-ejs-mvc/commit/e2452b496f2926fa70a4a13ee580a2363363fd80)
 - Update cart get, and post endpoints. Also fix the `add=true` bug in the EJS files. [Code](https://github.com/exemplar-codes/online-shop-express-ejs-mvc/commit/34d6bf733832713de6e8e72c46d909e5ce3cc49f)
-- There is a more concise way to create associated models, if `through` was used. We don't need to work directly at the junction model level.
-	```js
-	// Context: existing associations
-	Cart.belongsToMany(Product, { through: CartItem }); 
-	
-	Cart.hasMany(CartItem); // to get magic methods for CartItem
-	CartItem.belongsTo(Cart); // to get magic methods for Cart
 
 
-	// verbose
-	const newCartItem = await cart.createCartItem({ quantity: 1 });
-	await newCartItem.setProduct(prodId);
-	await newCartItem.save();
+## Concise way create associated model along with junction model data
+There is a more concise way to create associated models, if `through` was used. We don't need to work directly at the junction model level.
+```js
+// Context: existing associations
+Cart.belongsToMany(Product, { through: CartItem }); 
 
-	// or, equivalently
-	await cart.addProduct(prodId, { through: { quantity: 1 } }); // concise
-	```
+Cart.hasMany(CartItem); // to get magic methods for CartItem
+CartItem.belongsTo(Cart); // to get magic methods for Cart
+
+
+// verbose
+const newCartItem = await cart.createCartItem({ quantity: 1 });
+await newCartItem.setProduct(prodId);
+await newCartItem.save();
+
+// or, equivalently
+await cart.addProduct(prodId, { through: { quantity: 1 } }); // concise
+```
