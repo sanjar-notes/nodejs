@@ -69,3 +69,19 @@ Next:
 - Orders list page - [code](https://github.com/exemplar-codes/online-shop-express-ejs-mvc/commit/c82a41a99cd2077b4e593428ed7ba11b867d3bed)
 - Order detail page - [code](https://github.com/exemplar-codes/online-shop-express-ejs-mvc/commit/19b3e61959d09e8e31fb51b8d79bc131eb2f97e4)
 - Various fixes - BE and FE
+
+## Fetching model instances with associated models (eager load)
+Use the `includes` option, and provide the models to be fetched in an array, like so:
+```js
+Cart.belongsToMany(Product, { through: CartItem });
+Product.belongsToMany(Cart, { through: CartItem });
+
+const productsOfCart = await cart.getProducts({
+	includes: { model: [CartItem] }, // syntax
+});
+
+product[0].cartItem.xyz; // works
+```
+This is like the concise creation (including junction) data way. That one ("write") used `through`, this one ("read") uses `includes`. Note: the key is plural.
+
+I've used this for both cases in this app. Check code at this [point in time](https://github.com/exemplar-codes/online-shop-express-ejs-mvc/tree/d90536c66d48a0a31bc778bd9b778c77fe35ec96) - global search for "includes:".
