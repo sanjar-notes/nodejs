@@ -70,6 +70,9 @@ class Product {
 	}
 }
 ```
+[Code/commit](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/0adc534cb2c0e40538fdb51b5c3dd7b01fbcf605) - uses `findOne`
+
+We used `insertOne`, `findOne` here. 
 Learn more about CRUD ops - https://www.mongodb.com/docs/manual/crud/
 
 Note: We need to comment out code that won't work, of course - in controllers and routes.
