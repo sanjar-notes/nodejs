@@ -1,7 +1,6 @@
 # Setting up MongoDB
 Created Friday 19 May 2023 at 01:10 am
 
-
 ## Installing MongoDB (the database)
 - We can install MongoDB locally.
 - However, we'll use a cloud environment - from the official MongoDB website. This will be helpful if we wish to deploy our app. MongoDB has a good enough free tier, this is sufficient for the course.
@@ -15,7 +14,7 @@ Created Friday 19 May 2023 at 01:10 am
 
 ## Local (project) setup
 - Install the mongoDB driver, by running `npm install mongodb`
-- Creating a connection. Copy the SRV address, and add in the password (use an env variable)
+- Creating a connection. Copy the SRV address, and add in the password (use an [env variable](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/226967b78f8741422a48e901144ea69cc60470cf))
 	```js
 	// file /util/database.js
 	const mongodb = require('mongodb');
@@ -48,3 +47,5 @@ Created Friday 19 May 2023 at 01:10 am
 		app.listen(3000);
 	});
 	```
+
+[Code till here](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/a3b84f8383ce314699f83539f86e89dde6dfa767)
