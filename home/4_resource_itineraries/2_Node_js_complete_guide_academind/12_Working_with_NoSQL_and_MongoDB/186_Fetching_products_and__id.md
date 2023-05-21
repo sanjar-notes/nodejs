@@ -32,6 +32,8 @@ Note:
 1. `next` - `.find` in MongoDB has generator like behavior, and supports a chainable function `.next()` that returns the next "page" (as in pagination). This is relevant since databases could have millions of documents. Syntax: `.find().next()`
 2. `toArray` - `.find()` in MongoDB has a chainable function `toArray()`  that converts the response to a proper JS array. This is needed since the default `.find()` is not a proper array.
 
+[Add fetch all to Product model - Code](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/11d58dff5301c53960d70b81fb4f5fccdb056c8b)
+
 
 ## Fetching a single product
 ```js
