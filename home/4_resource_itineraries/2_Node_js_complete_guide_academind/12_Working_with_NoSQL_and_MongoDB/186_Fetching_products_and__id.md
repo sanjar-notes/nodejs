@@ -39,10 +39,9 @@ Note:
 ```js
 class Product {
 // some code here
-  static findById(prodId) {
+  static async findById(prodId) {
 	const db = getDb();
 	
-	const prodId; /*  = some code here*/;
 	const product = 
 	await db.collection('products')
 		.findOne({ _id: prodId }); // _id should be used
@@ -56,7 +55,8 @@ Syntax for find one:
 ```js
 const product = await db.collection('products').findOne({ _id: prodId });
 ```
-This doesn't work, though. Let's explore why.
+
+**This doesn't work, though. Let's explore why.**
 
 
 ### `_id` object
@@ -76,10 +76,13 @@ Why is the `_id` like this? Reasons:
 - MongoDB provides utility method to create `_id` objects.
 ```js
 ...find({ _id: prodId }) // doesn't work
+// example prodId: "646a3b5193d6e61bddc26c17"
 
 
 const mongodb = require("mongodb");
-...find({ _id: new mongodb.ObjectId(prodId)}); // works
+...find({ _id: new mongodb.ObjectId(prodId)}); // works now
 ```
 
 Read is easy, `product._id` will work fine, where `product` is the fetched Product.
+
+[Product details page](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/800c8de7b75f875d77e382d80eddf7cb4696a148)
