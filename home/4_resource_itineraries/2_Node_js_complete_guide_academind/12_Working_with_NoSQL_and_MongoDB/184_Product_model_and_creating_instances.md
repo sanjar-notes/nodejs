@@ -42,4 +42,6 @@ class Product {
 We used `insertOne`, `findOne` here. 
 Learn more about CRUD ops - https://www.mongodb.com/docs/manual/crud/
 
-Note: We need to comment out code that won't work, of course - in controllers and routes.
+Note: 
+- `insertOne` ignores `_id` if passed to it. This is a very convenient feature.
+- We need to comment out code that won't work, of course - in controllers and routes.

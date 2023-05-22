@@ -83,6 +83,7 @@ const mongodb = require("mongodb");
 ...find({ _id: new mongodb.ObjectId(prodId)}); // works now
 ```
 
-Read is easy, `product._id` will work fine, where `product` is the fetched Product.
+- Read is easy, `product._id` will work fine, where `product` is the fetched Product.
+- The ObjectId constructor is polymorphic and idempotent - it accepts both ObjectId or string equivalent.
 
 [Product details page](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/800c8de7b75f875d77e382d80eddf7cb4696a148)
