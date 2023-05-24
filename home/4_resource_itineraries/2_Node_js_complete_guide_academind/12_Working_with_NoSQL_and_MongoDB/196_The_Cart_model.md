@@ -1,9 +1,9 @@
 ## The Cart model
 Created Sunday 7 May 2023 at 10:16 am
 
-Since MongoDB allows nested docs by default, we don't need something like `CartItem` here. In other words, we can store an array (CartItems) directly.
+Since MongoDB allows nested docs by default, we don't need something like `CartItem` here. In other words, we can store an array (CartItems) in a document.
 
-Also, since User and Cart are 1-1 related, we don't even need a `Cart` model, we could just add a `cart` attribute to the User model itself.
+Also, since User and Cart are 1-1 related and never transferred to other entities, we don't need a `Cart` model, we could just add a `cart` attribute to the User model itself.
 
 Deleting Cart, CartItem, and updating User:
 ```js
@@ -84,3 +84,9 @@ class User {
 ```
 
 
+Stuff done here:
+1. Add cart model, as a nested field in User model. Reason: cart is guaranteed to be present and also be relevant only to one (something even tighter than 1-1, where swaps and null are possible) User at all times.
+2. Add cart features.
+3. Solved the cart action button bugs. This was happening because we used `productId` as the id of the cartItem. Should probably avoid this in the future - let every entity have it's own `id`. This way it's `_id` is the expected key instead of `productId` or whatever context dependent key.
+
+[Code](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/3fb41c3240039365854d4cf00b1e406ef1a3948d)

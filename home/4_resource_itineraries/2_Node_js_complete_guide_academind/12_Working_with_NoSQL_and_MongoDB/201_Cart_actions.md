@@ -25,3 +25,5 @@ class User {
   }
 }
 ```
+
+Code changes completed in a previous page - https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/3fb41c3240039365854d4cf00b1e406ef1a3948d
