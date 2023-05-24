@@ -90,3 +90,5 @@ Stuff done here:
 3. Solved the cart action button bugs. This was happening because we used `productId` as the id of the cartItem. Should probably avoid this in the future - let every entity have it's own `id`. This way it's `_id` is the expected key instead of `productId` or whatever context dependent key.
 
 [Code](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/3fb41c3240039365854d4cf00b1e406ef1a3948d)
+
+[Code - fix for a bug - price, description and other keys were missing](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/2656c19b369d9d55c4038f4601af90744e3ee484)
