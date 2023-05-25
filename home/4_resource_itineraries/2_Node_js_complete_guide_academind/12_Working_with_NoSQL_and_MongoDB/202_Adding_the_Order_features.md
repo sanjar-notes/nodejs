@@ -9,7 +9,7 @@ Orders = [{ userId, items: [{ product, quantity }] }]
 ```
 Note: we need to store the whole product, instead of just the id, since Order is a history/frozen entity, and so, it should remain safe from product updates.
 
-code:
+[Code - commit](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/b1c4b0ca1d5af634c21a7f6cf975aec6c3ee547e):
 ```js
 const { getDb, mongoConnect } = require('./util/database.js');
 const mongodb = require("mongodb");
@@ -53,4 +53,6 @@ class User {
   }
 }
 ```
-Note: since the *create* payload was `this.cart`, it included cart's `_id`. But this will not be saved in the new order, because this is a create call. In other words, we don't need to remove `_id` from the payload, since it's irrelevant in a create call.
+Note: 
+1. `_id` in create call: since the *create* payload was `this.cart`, it included cart's `_id`. But this will not be saved in the new order, because this is a create call. In other words, **we don't need to remove `_id` from the payload, since it's irrelevant in a create call in MongoDB.**
+2. Traceability - "orders" is a different collection from "users", which is fine. What is not good is that the User model has no indication of order in it's constructor. [See detail](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/a50463c4debcedc88698783e0852712469d8b7cb)
