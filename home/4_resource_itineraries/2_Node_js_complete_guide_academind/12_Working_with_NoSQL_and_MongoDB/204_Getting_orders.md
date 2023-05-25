@@ -23,6 +23,8 @@ class User {
 
 This syntax is not something new/different, as compared to using `_id` - we just changed the key to be `user._id`. The **important thing** is to know that MongoDB supports queries with nested keys.
 
+[Code - Order listing and detail page](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/a07f8f5d9c93a08b90d07c958515f074f4515f82)
+
 
 ## Cleaning up isolated products
 Situation: A user (seller) creates a product, which is then "added to cart" by multiple other users (buyers). The seller than deletes the product. Now, we have the product references in carts that doesn't actually exist, in other words, the carts are now inconsistent.
