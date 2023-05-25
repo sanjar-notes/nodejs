@@ -56,3 +56,7 @@ class User {
 Note: 
 1. `_id` in create call: since the *create* payload was `this.cart`, it included cart's `_id`. But this will not be saved in the new order, because this is a create call. In other words, **we don't need to remove `_id` from the payload, since it's irrelevant in a create call in MongoDB.**
 2. Traceability - "orders" is a different collection from "users", which is fine. What is not good is that the User model has no indication of order in it's constructor. [See detail](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/a50463c4debcedc88698783e0852712469d8b7cb)
+
+---
+
+Adding shipping address and stuff - [code - commit](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/42bbac277747938a1599f17b07b929047191d5bf)
