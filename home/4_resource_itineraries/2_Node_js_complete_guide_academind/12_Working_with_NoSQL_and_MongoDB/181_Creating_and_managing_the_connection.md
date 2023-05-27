@@ -3,7 +3,7 @@ Created Friday 19 May 2023 at 01:28 am
 
 
 ## Creating the database connection
-- Creating a connection. Copy the SRV address, and add in the password (use an [env variable](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/226967b78f8741422a48e901144ea69cc60470cf))
+- Creating a connection. Copy the SRV address (from the website) and add the password (use an [env variable](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/226967b78f8741422a48e901144ea69cc60470cf))
 	```js
 	// file /util/database.js
 	const mongodb = require('mongodb');
@@ -41,7 +41,7 @@ Created Friday 19 May 2023 at 01:28 am
 
 
 ## Better connection management
-Currently, we will need to use util/database.js for every DB operation. This is not ideal, since we'll create a new connection for each op. Also, we won't be able to close the connection.
+Currently, we need to use util/database.js for every DB operation. This is not ideal, since this means creating a new connection for each op. Also, we won't be able to close the connection.
 
 Let's change the database util to prevent this.
 ```js

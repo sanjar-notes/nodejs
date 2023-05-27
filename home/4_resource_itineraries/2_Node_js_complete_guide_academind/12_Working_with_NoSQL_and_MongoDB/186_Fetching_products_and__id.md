@@ -11,7 +11,7 @@ class Product {
     return db
       .collection('products')
       .find() // has generator behavior by default
-      .toArray() // to avoid? generator behavior of `find`
+      .toArray() // to avoid? generator behavior of `find` and get back a proper JS array
       .then(products => {
         console.log(products);
         return products;

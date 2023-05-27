@@ -2,6 +2,7 @@
 Created Friday 19 May 2023 at 01:30 am
 
 ## Using the database connection
+[Code](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/f9e55013b1b4b11597552fff9e5848b17a958702)
 ```js
 const { mongoConnect, getDb } = require("./util/database.js");
 
@@ -30,4 +31,3 @@ db.collection('trial-collection')
   .then (console.log)
   .catch(console.log);
 ```
-[Code/commit](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/f9e55013b1b4b11597552fff9e5848b17a958702)

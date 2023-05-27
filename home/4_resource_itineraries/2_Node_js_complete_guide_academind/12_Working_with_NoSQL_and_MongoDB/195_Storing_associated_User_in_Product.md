@@ -3,7 +3,7 @@ Created Sunday 7 May 2023 at 10:01 am
 
 Products are created by admin, who are a User too. Consequently, we expect to access products created by a user (given user document), and access the user with a given product document.
 
-This should be thought through clearly, since storing whole objects may result in inconsistencies. Example situation - we saved the whole user object in each product, but after some time, the user changed their username, and therefore all user data in their products are now stale. This is a con, but it also has the advantage that a single call gets the product as well as the associated user data in *one call*.
+This should be thought through clearly, since storing whole objects may result in inconsistencies. Example situation - we saved the whole user object in each product, but after some time, the user changed their username, and therefore all user data in their products are now stale. This is a con, but it also has the advantage that the product as well as the associated user data can be fetched in *one call*.
 **Alternatively**, if we just store the user's id in each product, we'd need an extra call (`User.findBy(prod.userId)`) if we wish to know user data associated with a product.
 
 *In other words*, there's a trade-off between extra calls and degree of duplication.

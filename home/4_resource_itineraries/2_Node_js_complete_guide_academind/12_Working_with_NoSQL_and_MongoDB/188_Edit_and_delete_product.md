@@ -13,9 +13,7 @@ Make sure the `_id` is null if it's absent from the constructor, since `new Obje
 
 ## Edit and deleting products
 Let's add **edit** and **delete** methods to the Product model.
-- I have changed the views to consider `_id` now, and un-commented the routes and controllers. [Code](https://github.com/sanjar-notes/nodejs-notes/commit/2739dc9428537250f43c797eff2da927ab37fce5)
-- Change the getAdminProduct action to use the new Product model. [Code](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/0e45905cb94edea184b2780f67d75d08f7f53596)
-
+Example:
 ```js
 const mongodb = require("mongodb");
 
