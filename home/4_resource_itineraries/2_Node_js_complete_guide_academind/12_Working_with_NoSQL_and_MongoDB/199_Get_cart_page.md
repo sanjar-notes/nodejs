@@ -22,11 +22,8 @@ class User {
 	// which evaluate to promises, not the resolved value
 	const cartWithProducts = await Promise.all(
 		productIds.map(async (productId) => {
-			const product = await db
-				.collection('products')
-				.findOne({ _id: new mongodb.ObjectId(productId) });
-
-			return { ...item, product };
+			const product = await Product.findById(productId);
+			return { ...item, product }; // spread item for 'quantity'
 		});
 
 	  return cartWithProducts;
