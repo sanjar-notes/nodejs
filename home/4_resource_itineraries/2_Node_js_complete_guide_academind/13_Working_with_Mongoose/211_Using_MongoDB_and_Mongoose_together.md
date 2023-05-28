@@ -1,6 +1,8 @@
 # Using MongoDB and Mongoose together
 Created Monday 29 May 2023 at 02:34 am
 
+aka "Using raw MongoDB in Mongoose"
+
 Mongoose and MongoDB can be used together. A DX disadvantage of doing this is that it makes using the database usage in the app a little confusing. 
 
 But this (mixing) may be done deliberately, in some cases - if we need to use raw MongoDB (say a feature is absent from Mongoose and we wish to write a utility for it).
