@@ -24,6 +24,7 @@ The `.save()` instance method will create a new collection (if it doesn't exist)
 
 **Returns created instance** - Mongoose's `.save()` will return the complete created object, unlike MongoDB (which only returns the `_id`). Convenient!
 
+https://github.com/exemplar-codes/online-shop-with-nosql-mongoose/commit/ddbb7ec4b7c22f77af457b38e52218174853a547
 
 ## 214. Fetching all products
 Created Sunday 7 May 2023 at 09:08 pm

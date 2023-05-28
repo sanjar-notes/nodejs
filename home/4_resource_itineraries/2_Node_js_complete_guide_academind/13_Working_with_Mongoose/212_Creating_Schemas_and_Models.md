@@ -27,4 +27,4 @@ There are two steps in model creation:
 
 Note: Mongoose adds `_id` field to every model by default. So it can be omitted from the Schema.
 
-[Product model - code](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/ddbb7ec4b7c22f77af457b38e52218174853a547)
+[Product model - code](https://github.com/exemplar-codes/online-shop-with-nosql-mongoose/commit/ddbb7ec4b7c22f77af457b38e52218174853a547)

@@ -52,4 +52,4 @@ We have effectively made it possible to write simple MongoDB without any Mongoos
 
 Funnily enough, the app will work now without changes - it has no Mongoose models, but MongoDB code is there.
 
-[Code](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/4c4dfd7938d15a3c448b8effe550c333017c3f9f)
+[Code](https://github.com/exemplar-codes/online-shop-with-nosql-mongoose/commit/4c4dfd7938d15a3c448b8effe550c333017c3f9f)
