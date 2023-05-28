@@ -15,6 +15,7 @@ Updating the code:
 ```js
 // database.js
 const mongoose = require("mongoose");
+const database_password = 'get it from env file';
 
 let _db;
 

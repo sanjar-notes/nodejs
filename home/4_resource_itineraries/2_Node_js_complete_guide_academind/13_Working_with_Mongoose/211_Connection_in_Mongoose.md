@@ -8,6 +8,7 @@ Install Mongoose by running `npm install mongoose`. It's a core dependency of co
 Mongoose manages one connection for us. Our code will change like this:
 ```js
 const mongoose = require('mongoose');
+const database_password = 'get it from env file';
 
 // express code
 
