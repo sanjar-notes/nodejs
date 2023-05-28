@@ -31,3 +31,5 @@ db.collection('trial-collection')
   .then (console.log)
   .catch(console.log);
 ```
+
+By default all collections will be added to the `test` database (as opposed to admin or local). All 3 databases are created automatically by MongoDB. Not an important thing as of now, since we'll mostly work at the collections level. FIXME: what's the use of these 3 databases.
