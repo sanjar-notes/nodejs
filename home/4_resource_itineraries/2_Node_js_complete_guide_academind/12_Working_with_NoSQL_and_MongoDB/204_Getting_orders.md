@@ -1,4 +1,6 @@
 ## Getting orders
+Created Sunday 26 May 2023 at 04:17 am
+
 This is very simple, from a *joins* perspective, since an order has a high degree of duplicates, i.e. no joins/extra calls are needed.
 
 There's a different problem here, though. We don't store anything related to order in the User model, and therefore we don't know the orderIds. Consequently, we need to query the "orders" collection with a condition of `user._id` since we every order does have the `user` object. MongoDB syntax for nested matching:
