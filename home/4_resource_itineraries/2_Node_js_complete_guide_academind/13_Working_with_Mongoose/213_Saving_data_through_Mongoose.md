@@ -1,5 +1,6 @@
 ## 213. Saving data through Mongoose
-Created Sunday 7 May 2023 at 08:47 pm
+Created Sunday 7 May 2023 at 08:47 pm (binge)
+Created Monday 29 May 2023 at 04:08 am (code)
 
 The model code in our controllers will most remain the same. There are a few changes we'll need though:
 ```js
@@ -20,6 +21,8 @@ newProduct
 The `.save()` instance method will create a new collection (if it doesn't exist) and add a product in it.
 
 **Collection name"** - The collection is named 'products', even though we never specified it. This is because Mongoose, by default, names the collection as a pluralized lowercase of the model name (which we did specify). `Product` --> `products`
+
+**Returns created instance** - Mongoose's `.save()` will return the complete created object, unlike MongoDB (which only returns the `_id`). Convenient!
 
 
 ## 214. Fetching all products
