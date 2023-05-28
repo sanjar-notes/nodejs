@@ -31,7 +31,7 @@ class User {
 }
 ```
 
-Worst case 'n' network calls are made here. this could be rewritten using `.find()`, so only one call is needed:
+'n' network calls are made here. this could be rewritten using `.find()` with `$in`, so only one call is needed:
 ```js
 let cartWithProducts2 =
 	await db.collection('products')
@@ -54,7 +54,7 @@ return cartWithProducts2;
 
 Note:
 1. Use `toString()` on the `fetchedInstance._id` because even though `._id` feels like a string, it's not strictly of type `string`.
-2. MongoDB has the `$in` query operator is quite helpful, especially in `find` (i.e. find many), syntax:
+2. MongoDB has the `$in` query operator that is quite helpful, especially in `find` (i.e. find many), syntax:
 	```js
 	const mongodb = require("mongodb");
 	const idArr = [42, 6023].map(id => new ObjectId(id));
