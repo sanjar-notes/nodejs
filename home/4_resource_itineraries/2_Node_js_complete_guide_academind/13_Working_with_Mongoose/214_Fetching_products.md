@@ -80,3 +80,4 @@ For the `.findOne` case (above), Mongoose does provide a function that allows `_
 ```js
 Product.findById("6474f8ae83090103435e19d1"); // works !
 ```
+[Code](https://github.com/exemplar-codes/online-shop-with-nosql-mongoose/commit/8791ad4e6be63cff915ed2f8e8163ad8f98c6e66)
