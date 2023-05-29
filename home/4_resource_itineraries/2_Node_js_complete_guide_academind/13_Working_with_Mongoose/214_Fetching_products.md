@@ -20,6 +20,7 @@ ShopController.getProducts = (req, res, next) => {
 };
 ```
 
+Note: Just like MongoDB - no arguments for `.find` means 'get everything'.
 
 ## 215. Fetching a single product
 Created Sunday 7 May 2023 at 09:08 pm
@@ -38,4 +39,34 @@ ShopController.getProducts = async (req, res, next) => {
 
   render('./product-detail-view', { product });
 };
+```
+
+Note: Just like MongoDB - no arguments for `.findOne` means 'get any'.
+
+## Mongoose allows for string `_id`, mostly
+MongoDB is strict about values given to it for `_id` - they should be of type ObjectId.
+
+Mongoose is more flexible with this, as it works fine even if the string equivalent is used. This behavior is consistent across all query methods.
+
+There is a caveat though - `_id` argument passed as direct string (as opposed to in an object) doesn't work. Details:
+- Passing direct `_id` works only if it's passed as an ObjectId - string won't work.
+- When `_id` is passed in an object, both string or ObjectId work.
+```js
+const mongoose = require("mongoose");
+const ObjectId = mongoose.mongo.ObjectId;
+
+
+Product.find(new ObjectId("6474f8ae83090103435e19d1"));         // ok
+Product.find({ _id: "6474f8ae83090103435e19d1"});               // ok
+Product.find({ _id: new ObjectId("6474f8ae83090103435e19d1")}); // ok
+
+Product.find("6474f8ae83090103435e19d1"); // fails - direct string
+```
+
+```js
+Product.findOne(new ObjectId("6474f8ae83090103435e19d1"));         // ok
+Product.findOne({ _id: "6474f8ae83090103435e19d1"});               // ok
+Product.findOne({ _id: new ObjectId("6474f8ae83090103435e19d1")}); // ok
+
+Product.findOne("6474f8ae83090103435e19d1"); // fails - direct string
 ```
