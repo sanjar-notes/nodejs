@@ -61,18 +61,18 @@ const mongoose = require("mongoose");
 const ObjectId = mongoose.mongo.ObjectId;
 
 
-Product.find(new ObjectId("6474f8ae83090103435e19d1"));         // ok
 Product.find({ _id: "6474f8ae83090103435e19d1"});               // ok
 Product.find({ _id: new ObjectId("6474f8ae83090103435e19d1")}); // ok
+Product.find(new ObjectId("6474f8ae83090103435e19d1"));         // ok
 
 Product.find("6474f8ae83090103435e19d1"); // fails - direct string
 ```
 
 
 ```js
-Product.findOne(new ObjectId("6474f8ae83090103435e19d1"));         // ok
 Product.findOne({ _id: "6474f8ae83090103435e19d1"});               // ok
 Product.findOne({ _id: new ObjectId("6474f8ae83090103435e19d1")}); // ok
+Product.findOne(new ObjectId("6474f8ae83090103435e19d1"));         // ok
 
 Product.findOne("6474f8ae83090103435e19d1"); // fails - direct string
 ```
