@@ -71,6 +71,7 @@ FIXME: it seems there's no instance method for deletion, in Mongoose. Not a prob
 Note:
 - `findOneAndDelete` is also available, but has the same `*ById` direct string caveat.
 - There are very similar deletion methods, but they end in `Remove` - `findByIdAndRemove`, `findOneAndRemove`. The difference is superficial, so stick with `*Delete` ones.
+- There is yet another method called `.deleteOne()` that takes in a condition object, like `findAndDeleteOne`, but it *does not* return the deleted object. Avoid this generally.
 
 ## Delete all instances of the model
 `Product.deleteMany()` when called without an argument deletes all instances of the model.

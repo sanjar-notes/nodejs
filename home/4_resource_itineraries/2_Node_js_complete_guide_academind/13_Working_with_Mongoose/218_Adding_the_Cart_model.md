@@ -1,7 +1,7 @@
-# Adding and Using a User model
+# Adding the Cart model
 Created Thursday 11 May 2023 at 06:45 am
 
-Simple columns are fine, but we'll add the cart here itself, as we did earlier with [vanilla](obsidian://open?vault=nodejs-notes&file=home%2F4_resource_itineraries%2F2_Node_js_complete_guide_academind%2F12_Working_with_NoSQL_and_MongoDB%2F196) MongoDB.
+We'll can the cart here itself, as we did earlier with [vanilla](obsidian://open?vault=nodejs-notes&file=home%2F4_resource_itineraries%2F2_Node_js_complete_guide_academind%2F12_Working_with_NoSQL_and_MongoDB%2F196) MongoDB.
 
 ```js
 const mongoose = require('mongoose');
@@ -12,13 +12,20 @@ const userSchema = new Schema({
   email: { type: String, required: true },
 
   cart: {
-    // items: [String] // syntax example
-    // items: [{ type: String, required: false }] // syntax example
+    // doesn't need a `type` since it's an object we are going to define
+    
+    // `required` can be specified since it's about the existence of the key `cart` itself. BUT THIS GIVES AN ERROR, FIXME: why?
+
     items: [
-      { 
-        productId: { type: Schema.Types.ObjectId, required: true }, 
-        quantity: { type: Number, required: true } 
-      }
+		    // array is also self-descriptive, no `type` needed
+	  {
+        productId: {
+          // types needed here because we are at the last level
+          type: Schema.Types.ObjectId,
+          required: true,
+        },
+        quantity: { type: Number, required: true },
+      },
     ]
   }
 });
@@ -29,7 +36,7 @@ Basically, we learnt about model syntax for nested fields, in Mongoose.
 
 
 ## Reusing existing Schemas
-Just showing that this is possible.
+Just showing that this is possible. The existing userSchema:
 ```js
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
