@@ -45,7 +45,9 @@ class Product {
 	
 	const product = 
 	await db.collection('products')
-		.findOne({ _id: prodId }); // _id should be used
+		.findOne({ _id: prodId }); // _id is inside an Object
+
+	// .findOne(prodId); // also works, matched against `_id`
 	
 	return product;
   }
@@ -88,3 +90,33 @@ const mongodb = require("mongodb");
 - The ObjectId constructor is polymorphic and idempotent - it accepts both ObjectId or string equivalent.
 
 [Product details page](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/800c8de7b75f875d77e382d80eddf7cb4696a148)
+
+
+### Passing `_id` directly if it's the only criteria
+If the criteria is only `_id` passing it directly (instead of in an object) is also OK. `find` and `findOne` both support this.
+
+Example:
+```js
+// .find
+const allProducts = await db
+        .collection("products")
+        .find({_id: new mongodb.ObjectId("6474f8ae83090103435e19d2") }) // as object
+        .toArray();
+
+// is the same as
+const allProducts = await db
+        .collection("products")
+        .find(new mongodb.ObjectId("6474f8ae83090103435e19d2")) // direct
+        .toArray();
+
+
+// .findOne
+const product = await db
+      .collection("products")
+      .findOne({ _id: new mongodb.ObjectId(prodId) }); // object
+
+// is the same as
+ const product = await db
+      .collection("products")
+      .findOne(new mongodb.ObjectId(prodId)); // direct
+```
