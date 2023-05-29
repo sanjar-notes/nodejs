@@ -79,5 +79,11 @@ Product.findOne("6474f8ae83090103435e19d1"); // fails - direct string
 For the `.findOne` case (above), Mongoose does provide a function that allows `_id` as direct string argument. It's called `.findById`. Example:
 ```js
 Product.findById("6474f8ae83090103435e19d1"); // works !
+
+// findById accepts ObjectId too
+Product.findById(new ObjectId("6474f8ae83090103435e19d1")); // works
 ```
+
 [Code](https://github.com/exemplar-codes/online-shop-with-nosql-mongoose/commit/8791ad4e6be63cff915ed2f8e8163ad8f98c6e66)
+
+Note: this behavior of `*ById` accepting both (string or ObjectId) directly and other ones needing it in an object (string and ObjectId both accepted), is consistent for all query methods.
