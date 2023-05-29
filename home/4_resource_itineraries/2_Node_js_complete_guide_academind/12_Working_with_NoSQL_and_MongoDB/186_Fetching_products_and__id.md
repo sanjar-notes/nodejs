@@ -95,6 +95,8 @@ const mongodb = require("mongodb");
 ### Passing `_id` directly if it's the only criteria
 If the criteria is only `_id` passing it directly (instead of in an object) is also OK. `find` and `findOne` both support this.
 
+Avoid this if possible, since explicit is better. Otherwise the code will be too hard to work with for new comers like my experience with Rails.
+
 Example:
 ```js
 // .find
