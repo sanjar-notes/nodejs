@@ -1,6 +1,8 @@
 # 214. Fetching products
 Created Monday 29 May 2023 at 04:32 am
 
+[Code](https://github.com/exemplar-codes/online-shop-with-nosql-mongoose/commit/8be419a93fb9639e5999dc9b5573253092930e64)
+
 ## Fetching all products (i.e. fetch multiple)
 Created Sunday 7 May 2023 at 09:08 pm (binge)
 
@@ -22,6 +24,7 @@ ShopController.getProducts = (req, res, next) => {
 
 Note: Just like MongoDB - no arguments for `.find` means 'get everything'.
 
+
 ## 215. Fetching a single product
 Created Sunday 7 May 2023 at 09:08 pm
 Use the Mongoose provided `findById` method. Syntax:
@@ -42,6 +45,7 @@ ShopController.getProducts = async (req, res, next) => {
 ```
 
 Note: Just like MongoDB - no arguments for `.findOne` means 'get any'.
+
 
 ## Mongoose allows for string `_id`, mostly
 MongoDB is strict about values given to it for `_id` - they should be of type ObjectId.
