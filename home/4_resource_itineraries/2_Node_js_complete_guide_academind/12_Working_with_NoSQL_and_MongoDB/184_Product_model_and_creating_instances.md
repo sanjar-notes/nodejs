@@ -1,4 +1,4 @@
-# Creating the models
+# 184. Creating the models
 Created Tuesday 23 May 2023 at 12:59 am
 
 Since we don't have a SQL database now, the Sequelize models will not work. Let's create the Product model again (we'll use a class again, just like we did earlier when using files for storage):

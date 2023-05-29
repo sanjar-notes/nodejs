@@ -1,4 +1,7 @@
-# Need to store associated models
+# 195. Storing associated User in Product
+Created Sunday 7 May 2023 at 10:01 am
+
+## Need to store associated models
 Created Sunday 7 May 2023 at 10:01 am
 
 Products are created by admin, who are a User too. Consequently, we expect to access products created by a user (given user document), and access the user with a given product document.

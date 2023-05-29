@@ -1,4 +1,4 @@
-## Getting orders
+# 204. Getting orders
 Created Sunday 26 May 2023 at 04:17 am
 
 This is very simple, from a *joins* perspective, since an order has a high degree of duplicates, i.e. no joins/extra calls are needed.

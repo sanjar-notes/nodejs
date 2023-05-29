@@ -1,4 +1,4 @@
-# Edit and delete product
+# 188. Edit and delete product
 Created Sunday 7 May 2023 at 10:01 am
 
 ## Adding `_id` to the model

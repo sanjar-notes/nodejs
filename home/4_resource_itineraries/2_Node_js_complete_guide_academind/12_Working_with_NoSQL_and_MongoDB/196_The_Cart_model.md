@@ -1,4 +1,4 @@
-## The Cart model
+# 196. The Cart model
 Created Sunday 7 May 2023 at 10:16 am
 
 Since MongoDB allows nested docs by default, we don't need something like `CartItem` here - we can store an array (CartItems) in the same (User) document.

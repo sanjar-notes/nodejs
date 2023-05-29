@@ -1,4 +1,4 @@
-# Creating the user model
+# 194. Creating the user model
 Created Sunday 7 May 2023 at 10:01 am
 
 We need to rewrite the User model, since we're not using Sequelize anymore.

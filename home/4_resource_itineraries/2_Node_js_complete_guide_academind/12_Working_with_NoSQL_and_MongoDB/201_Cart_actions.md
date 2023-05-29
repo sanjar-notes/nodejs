@@ -1,4 +1,4 @@
-## Deleting Cart items (201)
+# 201. Deleting Cart items
 Created Sunday 7 May 2023 at 12:26 pm
 
 Basically, just update the cart. Updating the code (User model, since cart is a part of it):

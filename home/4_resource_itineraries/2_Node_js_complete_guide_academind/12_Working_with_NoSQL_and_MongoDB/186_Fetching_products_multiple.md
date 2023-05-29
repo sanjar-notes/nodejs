@@ -1,4 +1,4 @@
-# Fetching products (multiple)
+# 186. Fetching products (multiple)
 Created Friday 19 May 2023 at 02:08 am
 
 ## Fetching all products (for index page)

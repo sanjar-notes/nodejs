@@ -1,4 +1,4 @@
-## Adding User.getCart method (199)
+# 199. Adding User.getCart method
 Created Sunday 7 May 2023 at 12:08 pm
 
 Let's add a new method, that will be used by the cart page controller action. [Code - commit](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/2656c19b369d9d55c4038f4601af90744e3ee484)
