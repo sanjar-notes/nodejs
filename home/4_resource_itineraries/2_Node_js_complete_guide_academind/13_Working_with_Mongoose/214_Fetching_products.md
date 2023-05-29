@@ -56,6 +56,7 @@ There is a caveat though - `_id` argument passed as direct string (as opposed to
 - Passing direct `_id` works only if it's passed as an ObjectId - string won't work.
 - When `_id` is passed in an object, both string or ObjectId work.
 ```js
+const Product = require('./path-to-models/Product');
 const mongoose = require("mongoose");
 const ObjectId = mongoose.mongo.ObjectId;
 
@@ -67,10 +68,15 @@ Product.find({ _id: new ObjectId("6474f8ae83090103435e19d1")}); // ok
 Product.find("6474f8ae83090103435e19d1"); // fails - direct string
 ```
 
+
 ```js
 Product.findOne(new ObjectId("6474f8ae83090103435e19d1"));         // ok
 Product.findOne({ _id: "6474f8ae83090103435e19d1"});               // ok
 Product.findOne({ _id: new ObjectId("6474f8ae83090103435e19d1")}); // ok
 
 Product.findOne("6474f8ae83090103435e19d1"); // fails - direct string
+```
+For the `.findOne` case (above), Mongoose does provide a function that allows `_id` as direct string argument. It's called `.findById`. Example:
+```js
+Product.findById("6474f8ae83090103435e19d1"); // works !
 ```
