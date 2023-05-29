@@ -24,43 +24,4 @@ The `.save()` instance method will create a new collection (if it doesn't exist)
 
 **Returns created instance** - Mongoose's `.save()` will return the complete created object, unlike MongoDB (which only returns the `_id`). Convenient!
 
-https://github.com/exemplar-codes/online-shop-with-nosql-mongoose/commit/ddbb7ec4b7c22f77af457b38e52218174853a547
-
-## 214. Fetching all products
-Created Sunday 7 May 2023 at 09:08 pm
-
-Use the Mongoose provided `find` method. Syntax:
-```js
-Product.find() // has array behavior by default, unlike pure MongoDB
-
-Product.find().cursor().then(); // alternate: to have generator behavior
-```
-
-Let's update the controller:
-```js
-ShopController.getProducts = (req, res, next) => {
-  const allProducts = await Product.find();
-
-  render('./products-list-view', { products: allProducts });
-};
-```
-
-
-## 215. Fetching a single product
-Created Sunday 7 May 2023 at 09:08 pm
-Use the Mongoose provided `findById` method. Syntax:
-```js
-const product = await Product.findById(prodId);
-
-// a major advantage here is that prodId can be a string, so we don't need to send a mongodb.ObjectId instance
-```
-
-Updating the controller:
-```js
-ShopController.getProducts = async (req, res, next) => {
-  const prodId = req.params.productId;
-  const product = await Product.findById(prodId);
-
-  render('./product-detail-view', { product });
-};
-```
+https://github.com/exemplar-codes/online-shop-with-nosql-mongoose/commit/ddbb7ec4b7c22f77af457b38e52218174853a547 - ignore the `userId` attribute for now, assume it's absent. We'll look at associations later.
