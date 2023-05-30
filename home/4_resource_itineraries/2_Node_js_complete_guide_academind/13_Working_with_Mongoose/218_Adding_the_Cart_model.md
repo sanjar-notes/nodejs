@@ -1,4 +1,4 @@
-# Adding the Cart model
+# 218. Adding the Cart model
 Created Thursday 11 May 2023 at 06:45 am
 
 We'll can the cart here itself, as we did earlier with [vanilla](obsidian://open?vault=nodejs-notes&file=home%2F4_resource_itineraries%2F2_Node_js_complete_guide_academind%2F12_Working_with_NoSQL_and_MongoDB%2F196) MongoDB.
@@ -73,6 +73,9 @@ const userSchema = new Schema({
 
   cart: {
     items: [CartItem] // this is fine
+    
+    // or equivalently (FIXME: got no errors, but check again)
+    items: [{ type: CartItem }]
   }
 });
 ```

@@ -15,7 +15,7 @@ There are two steps in model creation:
 	  title: { type: String, required: true },
 	  price: { type: Number, required: true },
 	  description: String, // 2. shorthand, required is false by default
-	  imageUrl: String,
+	  imageUrl: String, // `required` is false by default
 	});
 	```
 2. Model - Schema + methods. Adding in the same file.
