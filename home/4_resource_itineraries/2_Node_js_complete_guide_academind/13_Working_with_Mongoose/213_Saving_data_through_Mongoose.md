@@ -25,3 +25,14 @@ The `.save()` instance method will create a new collection (if it doesn't exist)
 **Returns created instance** - Mongoose's `.save()` will return the complete created object, unlike MongoDB (which only returns the `_id`). Convenient!
 
 https://github.com/exemplar-codes/online-shop-with-nosql-mongoose/commit/ddbb7ec4b7c22f77af457b38e52218174853a547 - ignore the `userId` attribute for now, assume it's absent. We'll look at associations later.
+
+## Shorthand - `.create`
+```js
+// construct + .save()
+const newProduct = new Product({/* stuff */});
+const newSavedProduct = await newProduct.save();
+
+
+// can be shortened to .create
+const newSavedProduct = Product.create({/* stuff */});
+```
