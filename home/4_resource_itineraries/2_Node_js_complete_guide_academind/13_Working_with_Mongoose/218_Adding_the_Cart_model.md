@@ -80,3 +80,7 @@ const userSchema = new Schema({
 });
 ```
 No types needed, just use the Schema directly.
+
+
+- [Model code](https://github.com/exemplar-codes/online-shop-with-nosql-mongoose/commit/3e58f32012c98a14a4bb2a542b32245108cc7674)
+- [Cart features code](https://github.com/exemplar-codes/online-shop-with-nosql-mongoose/commit/5094391a7e41ec0dcb5b6c30736f1da8ee59829b)
