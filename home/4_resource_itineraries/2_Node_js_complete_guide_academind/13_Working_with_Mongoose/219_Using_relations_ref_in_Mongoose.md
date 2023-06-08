@@ -81,3 +81,5 @@ const productSchema = new Schema({
   userId: { ref: 'User', type: Schema.Types.ObjectId, required: true };
 });
 ```
+
+[Code](https://github.com/exemplar-codes/online-shop-with-nosql-mongoose/commit/aa7c2d8181660e25762c651832023511b4bac245)
