@@ -65,6 +65,7 @@ Possibilities:
 
 Conclusion - Prefer ref type as ObjectId. The simplest, intuitive and has good performance.
 
+Note: I added a simple way to reset database without having to use Compass - [code](https://github.com/exemplar-codes/online-shop-with-nosql-mongoose/commit/4a1edcd3992cea1fef12cd4f00990940a41a2e06). Toggle this line to reset. It's OFF by default.
 
 ## Continuing with the Product model
 Let's update the Product model:
