@@ -5,6 +5,7 @@ This is almost the same as with MongoDB (vanilla).
 
 Of course, one can use the `findByIdAnd*` to avoid creating ObjectId, but the second argument remains the same.
 
+Note: Avoid using `MyModel.update()` since it skips schema validations. MongoDB
 
 ## 1. Update some (or just one) attribute
 We've already seen this, using instance with `.save`.
@@ -92,10 +93,8 @@ await Product.updateOne(
 );
 ```
 
-FIXME, is there an instance method for updation?
 
-
-## 4. Array ops
+## 4. Array ops (should be on a different page, FIXME)
 MongoDB operators (`$push`, `$pull`, `$addToSet`) work fine.
 
 Mongoose does provide methods, provided you have the array instance (fetched, that is). See https://mongoosejs.com/docs/api/array.html
