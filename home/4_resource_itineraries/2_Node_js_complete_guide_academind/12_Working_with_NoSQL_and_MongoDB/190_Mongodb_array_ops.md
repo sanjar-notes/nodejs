@@ -118,6 +118,7 @@ await
 ```
 Note:
 - Just like with `$push`, deletions can be carried out in independent arrays with a single `$pull` in the same query.
-
+Warning:
+ - `$pull` will remove *all* elements that match the criteria. Possible pitfall - the `updateOne` (keyword 'one') used here is for finding the document, it has nothing to do with the array operation.
 
 For more ops, checkout https://www.mongodb.com/docs/manual/reference/operator/update-array/
