@@ -32,7 +32,11 @@ const userSchema = new Schema({
 
 module.export = mongoose.model('User', userSchema);
 ```
-Basically, we learnt about model syntax for nested fields, in Mongoose.
+Basically, we learnt about model syntax for nested fields any arrays, in Mongoose.
+
+Note:
+- Arrays are a first class construct in MongoDB, and they don't have a id, therefore, they don't need a type schema etc. Also, empty arrays will be initialized automatically if a schema has an array. Nice.
+
 
 
 ## Reusing existing Schemas
