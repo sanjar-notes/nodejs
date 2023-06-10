@@ -20,7 +20,7 @@ const productId = ...// given
 // goal: update the title field
 ```
 
-### 1.1 Update element in array - If element position is known
+### 1.1 Update element in array - position is known
 ```js
 // change the 2nd version, i.e. arr[1]
 
