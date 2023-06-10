@@ -35,9 +35,38 @@ module.export = mongoose.model('User', userSchema);
 Basically, we learnt about model syntax for nested fields any arrays, in Mongoose.
 
 Note:
-- Arrays are a first class construct in MongoDB, and they don't have a id, therefore, they don't need a type schema etc. Also, empty arrays will be initialized automatically if a schema has an array. Nice.
-
-
+- **Arrays are a first class construct** in MongoDB, and they don't have a id, therefore, they don't need a type schema etc. Also, empty arrays will be initialized automatically if a schema has an array. Nice. *In other words, from a Schema POV, arrays are treated as simple containers.*
+	- Array elements will be assigned an `_id`, even if they are not a Schema/model/ref.
+	```js
+	const productSchema = new mongoose.Schema({
+	  price: { type: Number, required: true },
+	  title: { type: String, required: true },
+	
+	  versionArray: [{
+	    // each element, like this, will be given an _id
+	    
+	    name: { type: String, default: "def version" },
+	    description: { type: String, default: "def desc" },
+	  }],
+	});
+	```
+- **Plain objects are also a first class construct** in MongoDB, so there's no need for a type. *In other words, from a Schema POV, plain objects are treated as simple containers.*  Consequently, they won't get an `_id`. This holds recursively too. Example:
+	```js
+	const productSchema = new mongoose.Schema({
+	  price: { type: Number, required: true },
+	  title: { type: String, required: true },
+	
+	  version: {
+	    // the db instance of this won't have an `_id`, it will just have name and description fields
+	    
+	    name: { type: String, default: "def version" },
+	    description: { type: String, default: "def desc" },
+	  },
+	});
+	```
+- By default, `_id` is assigned automatically to
+	1. Model instances. Expected behavior.
+	2. Elements of an array, unless they are scalar values. Not expected but a good default. <details><summary>See thought</summary>This is interesting - plain elements are not part of any model, and don't reside in their dedicated collection, just saying. This is very helpful anyway, since using index as primary key is bad, and an extra argument just for doing it would have been extra work.</details>
 
 ## Reusing existing Schemas
 Just showing that this is possible. The existing userSchema:
@@ -83,7 +112,7 @@ const userSchema = new Schema({
   }
 });
 ```
-No types needed, just use the Schema directly.
+No explicit types needed, just reuse the Schema directly.
 
 
 - [Model code](https://github.com/exemplar-codes/online-shop-with-nosql-mongoose/commit/3e58f32012c98a14a4bb2a542b32245108cc7674)
