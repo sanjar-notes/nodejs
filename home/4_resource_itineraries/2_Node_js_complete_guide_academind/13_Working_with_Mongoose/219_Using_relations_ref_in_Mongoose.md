@@ -24,7 +24,7 @@ cloth: { ref: 'Cloth', type: ObjectId } // myWearer.cloth's type is ObjectId
 - The `ref` specified is a string, which may feel naive, but it has a very important reason - it helps avoid cyclic dependencies.
 
 
-## Experiments with `type` with `ref`.
+## Experiments - `type` with `ref`.
 FIXME_done: check these 3 (no type, type String and type ObjectId) - which is which. The docs are outrageously useless
 ```js
 const anyProductSimple = await Product.findOne();
@@ -63,7 +63,7 @@ Possibilities:
 	4. LeanAndPopulate - direct key present, value is whole object
 4. With type as a schema (i.e. importing userSchema and using here) - doesn't differ much from ObjectId, except stuff is all there.
 
-Conclusion - Prefer ref type as ObjectId. The simplest, intuitive and has good performance.
+**Conclusion** - Prefer ref type as ObjectId. The simplest, intuitive and has good performance.
 
 Note: I added a simple way to reset database without having to use Compass - [code](https://github.com/exemplar-codes/online-shop-with-nosql-mongoose/commit/4a1edcd3992cea1fef12cd4f00990940a41a2e06). Toggle this line to reset. It's OFF by default.
 
