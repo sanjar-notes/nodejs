@@ -46,6 +46,7 @@ await db.collection("products")
 		);
 ```
 
+
 ## 2. Append to array -`$push`
 This can be done by fetching the document, mutating the array and then `.save()` ing it. But this is expensive and sometimes not practical (if the array is very large).
 
