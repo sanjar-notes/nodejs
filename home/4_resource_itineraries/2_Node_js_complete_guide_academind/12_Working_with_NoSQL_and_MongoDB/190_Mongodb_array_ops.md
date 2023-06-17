@@ -50,7 +50,7 @@ await db.collection("products")
 ## 2. Append to array -`$push`
 This can be done by fetching the document, mutating the array and then `.save()` ing it. But this is expensive and sometimes not practical (if the array is very large).
 
-`$set` won't help here. We need to the `$push` operator for this.
+`$set` won't help here. We need to use the `$push` operator for this.
 ```js
 // situation
 const myDocument = await db.collection('myCollection').findOne('...');
@@ -87,7 +87,7 @@ Note:
 ## 3. Delete from array - `$pull`
 Fetching, mutating and `.save` is a way to do this, but it may be expensive or impractical to do.
 
-`$set` won't help here. We need to the `$pull` operator for this.
+`$set` won't help here. We need to use the `$pull` operator for this.
 ```js
 // situation
 const myDocument = await db.collection('myCollection').findOne('...');
@@ -103,8 +103,8 @@ await
 	  .updateOne({ _id: myDocument._id }, { $pull: { scores: 43 } });
 
 
-// goal: remove `fouls` element with `byUser` thanos'
-// again, it's simple
+// goal: remove `fouls` element(s) with `byUser` thanos'
+// again, it's simple - here's it's just one user
 await 
 	db.collection('myCollection')
 	  .updateOne({ _id: myDocument._id }, 
@@ -117,7 +117,8 @@ await
 .updateOne({...}, { $pull: { 'path_to_array': eqValueOrComplexCriteria } })
 ```
 Note:
-- Just like with `$push`, deletions can be carried out in independent arrays with a single `$pull` in the same query.
+- Single query - Just like with `$push`, deletions can be carried out in independent arrays with a single `$pull` in the same query.
+- Piece-wise query - The `path_to_array` has to be a path till array only, doing something like `{ fouls.byUser: 'thanos' }` is an invalid criteria.
 Warning:
  - `$pull` will remove *all* elements that match the criteria. Possible pitfall - the `updateOne` (keyword 'one') used here is for finding the document, it has nothing to do with the array operation.
 
