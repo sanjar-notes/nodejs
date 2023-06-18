@@ -1,6 +1,10 @@
 ## `exec` function in Mongoose (222)
 Created Friday 19 May 2023 at 11:50 pm
 
+Note - `exec` is not needed generally. It's used only when query building is complex or calls have to be optimized (number of calls, or amount of data wise). Using `exec` from the get-go may be a sign of bad code.
+
+
+### What is `exec`
 By default, the query methods (`find*`), or query helper methods (`.populate`, `.select`) all return a "Mongoose query object" - which is just the query built to be executed, i.e. the DB trip is still not made. Example:
 ```js
 Book.findById(23); // no trip made
@@ -24,19 +28,18 @@ const book = await Book.findById(23); // #3 implicit, using await
 This is the main use of `exec` - marking end of query being built and triggering the DB call.
 
 
-## More about `exec` (help from the Web)
-Created Friday 19 May 2023 at 12:10 am
-
-
+### More about `exec` (help from the Web)
 FIXME - need to recheck this (when I code it), especially the breaking down chained query part
 
 1. Main use - end queries being build and trigger DB call. Already seen.
 2. Usage - Breaking down query chain into multiple statements.
 	```js
+	// case 1 - single statement
 	const bookDetail = await Book.findById(23).populate('author');
 	// await is enough, exec not needed
 
-	
+
+	// case 2 - break down query into multiple statements
 	const bookMiniQuery = Book.findById(23); // a query object
 	const bookDetail = await bookMini.populate('author').exec();
 	// continuing the query
