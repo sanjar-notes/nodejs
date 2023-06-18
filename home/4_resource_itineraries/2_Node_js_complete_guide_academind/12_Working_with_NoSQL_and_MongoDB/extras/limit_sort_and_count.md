@@ -1,5 +1,7 @@
 # limit, sort and count
 
+Note - these function can be changed to `.find` or any other query method after it.
+
 ## 1. limit
 Created Monday 19 June 2023 at 12:50 am
 

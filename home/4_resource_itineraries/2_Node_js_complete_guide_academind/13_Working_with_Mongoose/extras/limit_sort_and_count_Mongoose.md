@@ -1,6 +1,8 @@
 # limit, sort and count
 Created Monday 19 June 2023 at 01:14 am
 
+Note - these function can be changed to `.find` or any other query method after it.
+
 ## 1. limit
 Number of items returned can be limited by chaining the `.limit` method to `.find`.
 ```js
