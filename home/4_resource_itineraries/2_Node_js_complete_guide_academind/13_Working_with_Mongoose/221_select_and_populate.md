@@ -10,11 +10,13 @@ Syntax
 
 Example:
 ```js
-Product.find()
+await Product.find()
 	.select('name price -_id')
 ```
 
-The `_id` is always fetched, except if excluded explicitly.
+Note:
+- Just like with MongoDB projections - the `_id` is always fetched, except if excluded explicitly.
+- Just like with MongoDB projections - only inclusions or exclusions (but not both) can be present as argument. `-_id` is an exception to this rule (i.e. both `"title price -_id"` works fine).
 
 
 ## Eager loading aka `.populate()` (220)
