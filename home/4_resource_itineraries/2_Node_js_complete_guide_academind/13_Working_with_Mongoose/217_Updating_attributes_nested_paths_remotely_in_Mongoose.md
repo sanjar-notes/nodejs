@@ -95,6 +95,6 @@ await Product.updateOne(
 
 
 ## 4. Array ops (should be on a different page, FIXME)
-MongoDB operators (`$push`, `$pull`, `$addToSet`) work fine.
+MongoDB operators (`$push`, `$pull`, `$addToSet`) work fine. Already noted [in the MongoDB section](obsidian://open?vault=nodejs-notes&file=home%2F4_resource_itineraries%2F2_Node_js_complete_guide_academind%2F12_Working_with_NoSQL_and_MongoDB%2F190_Mongodb_array_ops).
 
 Mongoose does provide methods, provided you have the array instance (fetched, that is). See https://mongoosejs.com/docs/api/array.html

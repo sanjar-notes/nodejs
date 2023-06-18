@@ -121,5 +121,6 @@ Note:
 - Piece-wise query - The `path_to_array` has to be a path till array only, doing something like `{ fouls.byUser: 'thanos' }` is an invalid criteria.
 Warning:
  - `$pull` will remove *all* elements that match the criteria. Possible pitfall - the `updateOne` (keyword 'one') used here is for finding the document, it has nothing to do with the array operation.
+ - To delete all elements, the criteria is `{}`. Or just use `$set` with `[]` payload.
 
 For more ops, checkout https://www.mongodb.com/docs/manual/reference/operator/update-array/
