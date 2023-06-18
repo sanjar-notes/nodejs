@@ -50,17 +50,23 @@ Syntax:
 
 <br />
 
-`.populate()` supports attribute selection within it
+`.populate()` supports attribute selection within it ('select' as second argument)
 ```js
 Product.find()
 	.populate('userId', 'name'); 
-// eager load the userId object, but exclude it's 'name' attribute
+// eager load the userId object, but exclude its 'name' attribute
 
 
-// same as (FIXME, check once)
+// A potential equivalent - DOES NOT WORK
+// not an error, this is valid
+// but populated fields cannot be 'select'ed using .select, they are immune
 Product.find(/* ... */)
 	.populate('userId')
 	.select('-userId.name')
 ```
 
-Of course, this works with any `find*` function.
+Of course, `.populate` works with any `find*` function.
+
+Note:
+- Chaining `.select` and `.populate` is valid, but populated fields won't be affected by the `.select`. Code already shown above.
+- Populating an attribute after `.select` will still cause the population to be performed. `.populate` works even if `.select` has excluded the attribute being populated.
