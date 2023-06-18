@@ -6,6 +6,10 @@ Syntax
 
 .find(/* someId */)
 .select('key1 key2 ke3.nestedKey3 -key3')
+
+// can be used with .findOne or .findById too
+.findOne(/* some criteria */)
+.select('key1 key2 ke3.nestedKey3 -key3')
 ```
 
 Example:
@@ -15,6 +19,7 @@ await Product.find()
 ```
 
 Note:
+- Excluded attributes (keys) don't appear, even if `.lean` is used.
 - Just like with MongoDB projections - the `_id` is always fetched, except if excluded explicitly.
 - Just like with MongoDB projections - only inclusions or exclusions (but not both) can be present as argument. `-_id` is an exception to this rule (i.e. both `"title price -_id"` works fine).
 
