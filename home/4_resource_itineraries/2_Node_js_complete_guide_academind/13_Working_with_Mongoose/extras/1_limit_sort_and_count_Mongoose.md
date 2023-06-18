@@ -1,4 +1,4 @@
-# limit, sort and count
+# limit, sort and count in Mongoose
 Created Monday 19 June 2023 at 01:14 am
 
 Note - these function can be changed to `.find` or any other query method after it.

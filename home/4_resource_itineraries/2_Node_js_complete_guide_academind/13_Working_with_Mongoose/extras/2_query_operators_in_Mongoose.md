@@ -1,4 +1,4 @@
-# query operators
+# query operators in Mongoose
 Created Monday 19 June 2023 at 02:17 am
 
 - The MongoDB query operators work just fine. Already noted [here](obsidian://open?vault=nodejs-notes&file=home%2F4_resource_itineraries%2F2_Node_js_complete_guide_academind%2F12_Working_with_NoSQL_and_MongoDB%2Fextras%2Fquery_operators)
