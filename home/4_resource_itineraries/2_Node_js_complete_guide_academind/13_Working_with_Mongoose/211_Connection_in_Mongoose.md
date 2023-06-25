@@ -20,7 +20,7 @@ mongoose
 At all places of use, we can use `mongoose` directly (by importing the package), there's no need for a util/database.js file. We can delete that file.
 
 
-## We can still have a database.js util
+## We *may* still want a database.js util
 Created Monday 29 May 2023 at 01:50 am
 
 Mongoose has very little connection code, but we can still have a util for database connection. The goal here is to keep the structure same for mongoose and mongodb, and not clutter the main app file.

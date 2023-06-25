@@ -2,7 +2,7 @@
 Created Sunday 7 May 2023 at 09:09 pm (binge)
 Created Tuesday 30 May 2023 at 02:47 am (code)
 
-Note: Since Product and associated user (seller) is being ignored by us, assume every user can change add/products. Change to be made: update product actions in Admin controller to work on all products, instead of associated with user. [Code]()
+Note: Since Product and associated user (seller) is being ignored by us, for now, assume every user can change add/products. Change to be made: update product actions in Admin controller to work on all products, instead of associated with user. [Code]()
 
 Fetch a product, change the attributes, and save.
 ```js

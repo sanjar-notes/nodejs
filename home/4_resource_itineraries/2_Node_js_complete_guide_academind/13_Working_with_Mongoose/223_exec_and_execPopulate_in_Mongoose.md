@@ -1,4 +1,4 @@
-## `exec` function in Mongoose (222)
+# 223. `exec` and `execPopulate` in Mongoose
 Created Friday 19 May 2023 at 11:50 pm
 
 Note - `exec` is not needed generally. It's used only when query building is complex or calls have to be optimized (number of calls, or amount of data wise). Using `exec` from the get-go may be a sign of bad code.
@@ -13,7 +13,7 @@ Book.findById(23).populate('author'); // no trip made
 
 **This is helpful since it allows creation of chains and makes sure only 1 final DB call is made**
 
-To actually end the query and trigger the DB call, a function called `exec` needs to be present. There are 3 ways to use it
+To actually end the query and trigger the DB call, a function called `exec` needs to be called. There are 3 ways to use it
 ```js
 Book.findById(23).exec().then(book => {}); // #1 explicit
 
@@ -41,14 +41,15 @@ FIXME - need to recheck this (when I code it), especially the breaking down chai
 
 	// case 2 - break down query into multiple statements
 	const bookMiniQuery = Book.findById(23); // a query object
-	const bookDetail = await bookMini.populate('author').exec();
+	const bookDetail = await bookMiniQuery.populate('author').exec();
 	// continuing the query
 
+
 	// equivalents
-	const bookDetail = await bookMini.populate('author'); // implicit exec
+	const bookDetail = await bookMiniQuery.populate('author'); // implicit exec
 	bookMini.populate('author').then(bookDetail => {});
 	```
-3. Usage - Building queries on top of already fetched documents, as opposed to the usual "query object".
+3. Usage - Building queries on top of already fetched documents, as opposed to the usual "query object". This works only if `.lean` is not used.
 	```js
 	const bookDetail = await Book.findById(23).populate('author');
 	// await is enough, exec not needed

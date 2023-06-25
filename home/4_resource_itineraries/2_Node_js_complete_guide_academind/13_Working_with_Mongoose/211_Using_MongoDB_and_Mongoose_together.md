@@ -11,7 +11,7 @@ This is easily possible since, Mongoose is an abstraction over MongoDB.
 
 To do this, simply connect using Mongoose, and store the corresponding "MongoDB" connection and database in a variable we can export anywhere in the app (the `_db` and `getDb` we have now). Under the hood, Mongoose does create a MongoDB connection. 
 
-Also, there's no need to import the 'mongodb' package.
+**Also, there's no need to install or import the 'mongodb' package.**
 
 Updating the code:
 ```js
@@ -28,6 +28,8 @@ const mongooseConnect = async (cb) =>
     )
     .then(mongooseObject => {
       const mongoDbClient = mongooseObject.connection.getClient();
+
+	// get underlying MongoDB connection
       _db = mongoDbClient.db();
     })
     .then(cb)

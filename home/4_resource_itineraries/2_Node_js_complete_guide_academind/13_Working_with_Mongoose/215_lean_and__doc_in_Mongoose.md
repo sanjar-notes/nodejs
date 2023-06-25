@@ -4,7 +4,9 @@ Created Thursday 8 June 2023 at 09:20 am
 ## An annoying default
 Mongoose has an annoying default - each documents returned in a query response don't have their attributes attached as keys. See this for clarity:
 ```js
-// printing the response (looks fine)
+const product = await Product.findById("64814fc6b09a7e369573ad6d");
+
+// printing the response ("looks" fine)
 product = {
   _id: new ObjectId("64814fc6b09a7e369573ad6d"),
   price: 1000,
@@ -24,7 +26,7 @@ product.title
 
 Title is simple and direct attribute of Product, still it's absent in keys array. Weird.
 
-The reason behind this is that a Mongoose document object is more complex than a plain object, and the people behind Mongoose were OK with keys not being directly available - for efficiency's sake.
+The reason for this is that a Mongoose document object is more complex than a plain JavaScript object (aka POJO), and the people behind Mongoose were OK with keys not being directly available - for efficiency's sake.
 
 
 ## Accessing POJO equivalent (`.doc` property)
@@ -48,9 +50,9 @@ Object.keys(product._doc) ==
 
 ## Keeping it simple (the `.lean()` escape hatch)
 Doing `._doc` in business logic feels like a bad idea.
-Mongoose provides a way to directly get documents with all properties. The entities returned in this case are POJOs.
+Mongoose provides a way to directly get documents as POJOs.
 
-To do so, just do a `.lean()` at the end of a query. Of course, this applies only to READ queries.
+To do this, just do a `.lean()` at the end of a query.
 
 ```js
 const myProduct = await Product.findOne(); // weird, have to use .doc
@@ -66,4 +68,4 @@ Object.keys(myProduct[0]); // contains attributes as expected
 
 Note: 
 - `.lean()` is very useful, especially when for client side APIs and serializers.
-- Using `.lean()` does have a disadvantage - the returned entities are POJOs, and therefore lack the methods and properties a Mongoose object would have.
+- Using `.lean()` does have a **disadvantage** - the returned entities are POJOs, and therefore lack the methods and properties a Mongoose object would have had.

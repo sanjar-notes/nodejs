@@ -1,7 +1,7 @@
 # 218. Adding the Cart model
 Created Thursday 11 May 2023 at 06:45 am
 
-We'll can the cart here itself, as we did earlier with [vanilla](obsidian://open?vault=nodejs-notes&file=home%2F4_resource_itineraries%2F2_Node_js_complete_guide_academind%2F12_Working_with_NoSQL_and_MongoDB%2F196) MongoDB.
+We'll the cart here itself, as we did earlier with [vanilla](obsidian://open?vault=nodejs-notes&file=home%2F4_resource_itineraries%2F2_Node_js_complete_guide_academind%2F12_Working_with_NoSQL_and_MongoDB%2F196) MongoDB.
 
 ```js
 const mongoose = require('mongoose');
@@ -32,11 +32,11 @@ const userSchema = new Schema({
 
 module.export = mongoose.model('User', userSchema);
 ```
-Basically, we learnt about model syntax for nested fields any arrays, in Mongoose.
+Basically, we learnt about model syntax for nested fields and arrays, in Mongoose.
 
 Note:
 - **Arrays are a first class construct** in MongoDB, and they don't have a id, therefore, they don't need a type schema etc. Also, empty arrays will be initialized automatically if a schema has an array. Nice. *In other words, from a Schema POV, arrays are treated as simple containers.*
-	- Array elements will be assigned an `_id`, even if they are not a Schema/model/ref.
+	- Array _elements_ will be assigned an `_id`, even if they are not a Schema/model/ref.
 	```js
 	const productSchema = new mongoose.Schema({
 	  price: { type: Number, required: true },
@@ -67,6 +67,7 @@ Note:
 - By default, `_id` is assigned automatically to
 	1. Model instances. Expected behavior.
 	2. Elements of an array, unless they are scalar values. Not expected but a good default. <details><summary>See thought</summary>This is interesting - plain elements are not part of any model, and don't reside in their dedicated collection, just saying. This is very helpful anyway, since using index as primary key is bad, and an extra argument just for doing it would have been extra work.</details>
+
 
 ## Reusing existing Schemas
 Just showing that this is possible. The existing userSchema:
@@ -114,6 +115,7 @@ const userSchema = new Schema({
 ```
 No explicit types needed, just reuse the Schema directly.
 
+Note: `CartItem` is a Schema, but has no 'model' (i.e. no dedicated collection). This is fine, and is the reason why `Schema` and `Model` exist as two different concepts in Mongoose. We could attach utility methods on such interstitial `Schema`s, making out business logic code leaner.
 
 - [Model code](https://github.com/exemplar-codes/online-shop-with-nosql-mongoose/commit/3e58f32012c98a14a4bb2a542b32245108cc7674)
 - [Cart features code](https://github.com/exemplar-codes/online-shop-with-nosql-mongoose/commit/5094391a7e41ec0dcb5b6c30736f1da8ee59829b)

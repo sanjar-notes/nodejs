@@ -52,7 +52,9 @@ MongoDB is strict about values given to it for `_id` - they should be of type Ob
 
 Mongoose is more flexible with this, as it works fine even if the string equivalent is used. This behavior is consistent across all query methods.
 
-There is a caveat though - `_id` argument passed as direct string (as opposed to in an object) doesn't work. Details:
+There is a caveat though - in query methods inherited from 'mongodb', like `.find`, the `_id` as direct string argument doesn't work. mAid - `mongodb` shorthand is left as is.
+
+Details:
 - Passing direct `_id` works only if it's passed as an ObjectId - string won't work.
 - When `_id` is passed in an object, both string or ObjectId work.
 ```js
@@ -76,7 +78,12 @@ Product.findOne(new ObjectId("6474f8ae83090103435e19d1"));         // ok
 
 Product.findOne("6474f8ae83090103435e19d1"); // fails - direct string
 ```
-For the `.findOne` case (above), Mongoose does provide a function that allows `_id` as direct string argument. It's called `.findById`. Example:
+
+
+## __findByIdAnd*()__ methods
+Due to the "direct \_id string argument" not allowed caveat, Mongoose provides it's own convenience functions.
+
+Example - for the `.findOne` case (above), Mongoose provides a function that allows `_id` as direct string argument. It's called `.findById`. Example:
 ```js
 Product.findById("6474f8ae83090103435e19d1"); // works !
 
@@ -86,4 +93,4 @@ Product.findById(new ObjectId("6474f8ae83090103435e19d1")); // works
 
 [Code](https://github.com/exemplar-codes/online-shop-with-nosql-mongoose/commit/8791ad4e6be63cff915ed2f8e8163ad8f98c6e66)
 
-Note: this behavior of `*ById` accepting both (string or ObjectId) directly and other ones needing it in an object (string and ObjectId both accepted), is consistent for all query methods.
+Note: this behavior of `*ById` accepting both (string or ObjectId) directly and other ones needing it in an object (string and ObjectId both accepted), is consistent for all such query methods - `.findByIdAndRemove`, `.findByIdAndUpdate`

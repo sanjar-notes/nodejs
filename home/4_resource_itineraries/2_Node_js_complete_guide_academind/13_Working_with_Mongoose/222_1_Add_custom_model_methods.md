@@ -1,14 +1,19 @@
-## Adding custom model methods (222)
+# 222.1 Adding custom model methods
 Created Sunday 14 May 2023 at 06:34 pm
 
-### Adding custom model methods
-To add custom model methods, use the options (second argument) of the `Schema` constructor.
+### Adding custom methods to a model
+To add custom methods to a model, use the options (second argument) of the `Schema` constructor.
+
+<details>
+<summary>Why add methods to the `Schema` and not the `Model`</summary>Since we already saw that a `Schema` may exist without a model (i.e. interstitial Schemas) - it only makes sense to attach models at the Schema level. Of course, they are available and will be used at the model level (since even a interstitial Schema will be accessed only as part of an actual model).
+</details>
 
 Static methods (and attributes) can also be added.
 
 Syntax:
 ```js
-const mongoose = require('mongoose'); const Schema = mongoose.Schema;
+const mongoose = require('mongoose'); 
+const Schema = mongoose.Schema;
 
 const userSchema = new Schema({/* */},
   {
@@ -36,7 +41,7 @@ module.export = mongoose.model('User', userSchema);
 Notes:
 - Remember to use normal functions instead of arrow in case of instance methods, to ensure `this` is available.
 - We are adding these functions to the `Schema`, not the model. They will be used through the model, though, obviously.
-- Static attributes can be added under `statics`, in addition to functions. This is not possible with `methods`, since instance data is meant to be part of the schema.
+- Static attributes can be added under `statics`, in addition to functions. This is not possible with `methods`, since instance data is meant to be part of the schema's first argument (data).
 
 
 ### Alternate way to add methods - just add keys

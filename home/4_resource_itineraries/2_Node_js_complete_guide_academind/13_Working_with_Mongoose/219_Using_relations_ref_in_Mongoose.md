@@ -5,7 +5,8 @@ We added the Product model, but one thing is missing from it. Every product is c
 
 
 ## `ref` in Mongoose
-1-N relations are modeled in Mongoose using the `ref` attribute. 
+Mongoose has a concept of 'references', which are implemented using the `ref` attribute. `ref` is the "lazy loading" construct of Mongoose.
+
 Code:
 ```js
 const ObjectId = Schema.Types.ObjectId;
@@ -19,9 +20,9 @@ cloth: { ref: 'Cloth', type: ObjectId } // myWearer.cloth's type is ObjectId
 // Note: prefer type as ObjectId, it has the most intuitive behavior and is good performance wise too.
 ```
 - The syntax is simple, add the attribute and use the keyword with the name of the model (to be associated).
-- By default, a `ref` attribute will *not* be eager loaded, i.e. accessing the attribute will simply return the `_id` of the associated model. 
+- By default, a `ref` attribute is "lazy loaded", i.e. accessing the attribute will simply return the `_id` of the associated model, and not the whole document.
 - By default, `_id` will be of type `ObjectId`.  This can be changed by specifying the `type:String` along with the ref. Now the `_id` will be a string when accessed.
-- The `ref` specified is a string, which may feel naive, but it has a very important reason - it helps avoid cyclic dependencies.
+- The value for the `ref` attribute is a string (the model's name), which may feel naive, but it has a very important reason - it helps avoid cyclic dependencies.
 
 
 ## Experiments - `type` with `ref`.

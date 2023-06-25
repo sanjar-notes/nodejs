@@ -16,11 +16,15 @@ const newProduct = new Product({ title, price, description, imageUrl});
 newProduct
 	.save()
 	.then()
-	.catch(); 
+	.catch();
+
+// OR, if you prefer async-await
+try { await newProduct.save(); }
+catch(e) { }
 ```
 The `.save()` instance method will create a new collection (if it doesn't exist) and add a product in it.
 
-**Collection name"** - The collection is named 'products', even though we never specified it. This is because Mongoose, by default, names the collection as a pluralized lowercase of the model name (which we did specify). `Product` --> `products`
+**Collection name** - The collection is named 'products', even though we never specified it. This is because Mongoose, by default, names the collection as a pluralized lowercase of the model name (which we did specify). `Product` --> `products`
 
 **Returns created instance** - Mongoose's `.save()` will return the complete created object, unlike MongoDB (which only returns the `_id`). Convenient!
 
@@ -36,3 +40,4 @@ const newSavedProduct = await newProduct.save();
 // can be shortened to .create
 const newSavedProduct = Product.create({/* stuff */});
 ```
+Returns created document. The return value is the same as `new MyModel()` with `.save`

@@ -4,7 +4,7 @@ We'll be focusing on MongoDB with Mongoose here.
 The 3 relations:
 1. One-one: directly embed the whole document.
 	- Syntax: `User: { Cart: {...} }`
-	- Another way keep the related docs in different collections. 
+	- Another way: keep the related doc in a different collection, with `ref` 
 	- <details><summary>Why this works</summary>Embedding is the simplest way to ensure isolation to a given entity. *Ignorable*: Another way, perhaps more memory efficient, is to store the id, but have the instance be stored in a different collection altogether</details>
 1. One-many: use a `ref` inside the many side model. 
 	- Syntax: `Proudct: { seller: { ref: 'User' }` 
@@ -45,12 +45,11 @@ Problems:
 2. `ref` parts have to be updated specifically - Updating part of a `ref` and saving the parent instance doesn't actually update the ref.
 	```js
 	const user = ...populate("cart");
-	const cart = user.cart;
 
-	const matchingItem = cart.items.find(...);
+	const matchingItem = user.cart.items.find(...);
 	matchingItem.quatity +=1; // won't happen
 
 	await user.save();
 
-	await cart.save(); // have to save the ref individually
+	await user.cart.save(); // have to save the ref individually
 	```

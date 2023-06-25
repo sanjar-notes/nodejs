@@ -4,7 +4,7 @@ Created Monday 29 May 2023 at 03:51 am (code)
 
 In the product model file, comment out all the code, and rewrite.
 There are two steps in model creation:
-1. Schema - talks only about attributes (data) of the model, does not have any methods
+1. Schema - this is a abstract blueprint of a "model", it may or may not have a corresponding collection.
 	```js
 	const mongoose = require('mongoose');
 	const Schema = mongoose.Schema;
@@ -18,7 +18,7 @@ There are two steps in model creation:
 	  imageUrl: String, // `required` is false by default
 	});
 	```
-2. Model - Schema + methods. Adding in the same file.
+2. Model - created from Schemas, represents a collection. Adding in the same file.
 	```js
 	const Product = mongoose.model('Product', productSchema);
 
