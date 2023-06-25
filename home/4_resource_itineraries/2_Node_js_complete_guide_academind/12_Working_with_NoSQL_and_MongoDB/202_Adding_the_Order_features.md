@@ -59,4 +59,4 @@ Note:
 
 ---
 
-Adding shipping address and stuff - [code - commit](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/42bbac277747938a1599f17b07b929047191d5bf)
+Adding shipping address and other stuff - [code - commit](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/42bbac277747938a1599f17b07b929047191d5bf)

@@ -40,14 +40,13 @@ class User {
 }
 ```
 
-New thing learnt - arrays can be stored in a document, in MongoDB.
 
 ## Duplication in User.cart (197)
 Right now, we actually save whole `Product`s in `User.cart`. This is not very good, since Product details may change frequently (e.g. the price), and our cart will then have stale product objects.
 
-To fix this, let's just store the `productId` instead of the whole object. We will need an extra call for each item in the cart, of course, but it's fine.
+To fix this, let's just store the `productId` instead of the whole object. We will need an extra call for each item in the cart page to get product details, of course, but it's fine.
 
-Update User (since cart is just a part of this now)
+Update User (since cart is just a part of User now)
 ```js
 const { getDb, mongoConnect } = require('./util/database.js');
 const mongodb = require("mongodb");

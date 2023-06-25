@@ -43,14 +43,14 @@ Consider the following document.
 
 There are 3 simple variations:
 1. Default - `{}`. Return all. This is the same as if projection wasn't used.
-2. Return only - all ones
+2. Return only - all `1`
 	```js
 	{ price: 1, title: 1 }
 
 	// return object will be
 	// { _id: ..., price: ..., title: ...}
 	```
-3. Skip - all zeros
+3. Skip - all `0`
 	```js
 	{ price: 0, title: 0 }
 	// return object will be
@@ -59,3 +59,5 @@ There are 3 simple variations:
 
 Note:
 - `_id` will be present always, except if it's suppressed explicitly in the projection. `{ _id: 0 }`
+- Passing `_id` as `0` or `1` is allowed in both return (all `1`) and skip (all `0`) documents.
+- A document should be all `1` or all `0` not both. `_id` is an exception, as discussed.

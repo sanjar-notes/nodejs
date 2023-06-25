@@ -3,7 +3,7 @@ Created Friday 19 May 2023 at 01:10 am
 
 ## Installing MongoDB (the database)
 - We can install MongoDB locally.
-- However, we'll use a cloud environment - from the official MongoDB website. This will be helpful if we wish to deploy our app. MongoDB has a good enough free tier, this is sufficient for the course.
+- However, we'll use a cloud environment - from the official MongoDB website. This will be helpful if we wish to deploy our app. MongoDB has a good enough free tier, which is sufficient for this course.
 
 
 ## Cloud setup

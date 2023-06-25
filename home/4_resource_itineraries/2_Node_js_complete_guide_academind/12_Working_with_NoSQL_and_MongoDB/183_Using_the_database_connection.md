@@ -12,7 +12,7 @@ mongoConnect((client) => {
   // database setup code, if needed
   await db
 	  .collection('trial-collection')
-	  .insertOne({name: 'Woods', friendName: 'Mason'});
+	  .insertOne({ name: 'Woods', friendName: 'Mason' });
 	  
   app.listen(3000);
 });
@@ -31,5 +31,6 @@ db.collection('trial-collection')
   .then (console.log)
   .catch(console.log);
 ```
+We used `insertOne` here to create a record.
 
 By default all collections will be added to the `test` database (as opposed to admin or local). All 3 databases are created automatically by MongoDB. Not an important thing as of now, since we'll mostly work at the collections level. FIXME: what's the use of these 3 databases.

@@ -18,7 +18,7 @@ class User {
 	  const productIds = cart.items.map(item => item.productId);
 
 	// have to use Promise.all, 
-	// since map doesn't work with async functions
+	// since using map directly doesn't work with async functions
 	// which evaluate to promises, not the resolved value
 	const cartWithProducts = await Promise.all(
 		productIds.map(async (productId) => {
@@ -26,15 +26,16 @@ class User {
 			return { ...item, product }; // spread item for 'quantity'
 		});
 
-	  return cartWithProducts;
+	return cartWithProducts;
 	}
 }
 ```
 
-'n' network calls are made here. this could be rewritten using `.find()` with `$in`, so only one call is needed:
+'n' network calls are made here. this could be rewritten using `.find()` with `$in`, so that only one call is needed, like so:
 ```js
 let cartWithProducts2 =
 	await db.collection('products')
+			// get all products whose `_id` is "oneOf" (in) the given array
 			.find({ _id: { $in: productIds }})
 			.toArray();
 
@@ -53,7 +54,7 @@ return cartWithProducts2;
 [Code - $in operator instead of n calls](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/e8f4f4a26633a2671f2ffb0843c04e812a6a0318)
 
 Note:
-1. Use `toString()` on the `fetchedInstance._id` because even though `._id` feels like a string, it's not strictly of type `string`.
+1. Use `toString()` on the `fetchedInstance._id` because even though `._id` feels like a string, it's not strictly of type `string`. This will cause `Array.find` to fail, here.
 2. MongoDB has the `$in` query operator that is quite helpful, especially in `find` (i.e. find many), syntax:
 	```js
 	const mongodb = require("mongodb");

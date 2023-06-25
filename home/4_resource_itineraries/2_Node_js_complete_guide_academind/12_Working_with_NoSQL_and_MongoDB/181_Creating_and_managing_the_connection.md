@@ -75,10 +75,10 @@ const getDb = () => {
 exports.mongoConnect = mongoConnect;
 exports.getDb = getDb;
 ```
-This way we'll first try to use use the connection (`getDb`). If this throws an error, we'll create a connection (`mongoConnect`) and then use `getDb`.
+This way we'll import and try to use the connection (`getDb`). If this throws an error, we'll create a connection (`mongoConnect`) and then use `getDb`.
 
 This is a good pattern. [Code/Commit](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/a0e061c4294ee11922e7d8336372214e16c42c65)
 
 
 ## Create on first interaction - philosophy of MongoDB
-Sequelize, or SQL requires the database or table to be present before a CRUD op can be done. This is not the case with MongoDB. A create call in MongoDB will create all preceding layers automatically, if they don't exist.
+Sequelize, or SQL requires the database or table to be present before a create op can be done. This is not the case with MongoDB. A create call in MongoDB will create all preceding layers automatically, if they don't exist.

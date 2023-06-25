@@ -1,8 +1,12 @@
 ## 190. MongoDB array ops
 Created Saturday 10 June 2023 at 05:49 pm
 
-## 1. Update element in array
+## Arrays in MongoDB
+Arrays are first class structure in MongoDB unlike SQL databases. This means that values in documents can be arrays. This provides a lot of flexibility.
 
+However, the array should be bounded, otherwise it will hurt performance. If an array is too large, it may be better to create a new collection altogether with each array element storing a reference (via an attribute) to the original document.
+
+## 1. Update element in array
 Suppose we have the following situation
 ```js
 const sampleProduct = {
@@ -20,13 +24,13 @@ const productId = ...// given
 // goal: update the title field
 ```
 
-### 1.1 Update element in array - position is known
+### 1.1 Update element in array - if position is known
 ```js
 // change the 2nd version, i.e. arr[1]
 
 await db.collection("products")
 		.updateOne(
-			{ _id: new ObjectId(productId) }, 
+			{ _id: new ObjectId(productId) },
 			{ $set: { "versions.1.title": 'new title' } }
 		);
 ```
@@ -34,14 +38,14 @@ await db.collection("products")
 ### 1.2 Update element in array - by criteria
 There are two steps here:
 1. Locate the parent document - same as before, using `_id`
-.2. Locate element of nested array by criteria. This has a special notation: `path_to_array.elementProperty: eqValueOrComplexCriteria`. This is added to the locator option (i.e. first argument of `update*`) itself. Memory aid - skip the index in the dot notation.
-3. Update the element by using `$` in it's path. `$` refers to the index of the found array, which we don't know of course (since we never fetch the array or the element). The setting is done usually, using `$set`. Of course, we can still update other parts of the document in the same query.
+2. Locate element of nested array by criteria. This has a special notation: `path_to_array.elementProperty: eqValueOrComplexCriteria`. This is added to the filter (i.e. first argument of `update*`) itself. Memory aid - skip the index in the dot notation.
+3. Update the element by using `$` as the index (which we don't know of course, since we never fetch the array or any element). The setting is done usually, using `$set`. Of course, we can still update other parts of the document in the same query.
 ```js
 // change the `title` of version whose 'name' is 'name1'
 
 await db.collection("products")
 		.updateOne(
-			{ _id: new ObjectId(productId), "versions.name": "name1" }, 
+			{ _id: new ObjectId(productId), "versions.name": "name1" },
 			{ $set: { "versions.$.title": 'new title' } }
 		);
 ```
@@ -60,7 +64,7 @@ const myDocument = await db.collection('myCollection').findOne('...');
 // goal: to add '5' to this array, without fetching the whole array
 
 // code
-await 
+await
 	db.collection('myCollection')
 	  .updateOne({ _id: myDocument._id }, { $push: { scores: 5 } });
 ```
@@ -69,15 +73,15 @@ await
 // syntax
 .updateOne({...}, { $push: { 'path_to_array': value_to_append } })
 ```
-Note: 
+Note:
 - A new array will be created if it doesn't exist. Nice!
 - Replace `$push` by `$addToSet` to add element only if doesn't exist.
 - Of course, we can push into independent arrays with a single `$push` in the same query. Example:
 	```js
-	await 
+	await
 	db.collection('myCollection')
 	  .updateOne(
-		  { _id: myDocument._id }, 
+		  { _id: myDocument._id },
 		  { $push: { scores: 5, fouls: 1 } }
 	  );
 	// adds `5`, to the scores array, and `1` to the fouls array
@@ -91,30 +95,39 @@ Fetching, mutating and `.save` is a way to do this, but it may be expensive or i
 ```js
 // situation
 const myDocument = await db.collection('myCollection').findOne('...');
-// myDocumet looks like this
-// { _id: ..., scores: [31, 12, 43, 17], 
-//	fouls: [ { byUser: 'vader', star: 2 }, { byUser: 'thanos', star: 5 }] }
+/* myDocument looks like this
+{
+  _id: ...,
+  scores: [31, 12, 43, 17],
+  fouls: [
+    { byUser: 'vader' , star: 2 },
+    { byUser: 'thanos', star: 5 }
+  ]
+}
+*/
 
 
-// goal: remove `43` from this array, without fetching the whole array
+// goal: remove `43` from 'scores', without fetching the whole array
 // code
-await 
+await
 	db.collection('myCollection')
 	  .updateOne({ _id: myDocument._id }, { $pull: { scores: 43 } });
 
 
-// goal: remove `fouls` element(s) with `byUser` thanos'
+// goal: remove `fouls` element(s) with `byUser` 'thanos'
 // again, it's simple - here's it's just one user
-await 
+await
 	db.collection('myCollection')
-	  .updateOne({ _id: myDocument._id }, 
+	  .updateOne({ _id: myDocument._id },
 		  { $pull: { fouls: { byUser: 'thanos'} } }
 	  );
 ```
 
 ```js
 // syntax
-.updateOne({...}, { $pull: { 'path_to_array': eqValueOrComplexCriteria } })
+.updateOne({...}, 
+    { $pull: { 'path_to_array': eqValueOrComplexCriteria } }
+)
 ```
 Note:
 - Single query - Just like with `$push`, deletions can be carried out in independent arrays with a single `$pull` in the same query.

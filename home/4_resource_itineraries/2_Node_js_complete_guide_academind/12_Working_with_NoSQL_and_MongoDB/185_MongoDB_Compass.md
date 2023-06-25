@@ -8,7 +8,7 @@ MongoDB Compass is desktop GUI app that helps in exploring MongoDB databases. It
 
 
 ## Setup
-Install it, and connect to cluster we created on the cloud. Do more config if needed.
+Install it, and connect to the cluster we created on the cloud. Do more config if needed.
 
 
 ## Going forward
