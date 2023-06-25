@@ -13,7 +13,7 @@ Created Wednesday 8 March 2023 at 04:48 pm
 	app.set('view engine', 'ejs');
 	app.set('views', 'views'); // since our templates are at my-proj/views
 	```
-3. Passing props remains the same:
+3. Passing props remains the same - add object as second argument:
 	```js
 	res.render('path-to-template-inside-views', { name: "Sanjar" });
 	```
@@ -109,3 +109,16 @@ Note:
 ## Almost all EJS functionality
 I know the syntax already, adding this for the sake of exhaustiveness.
 ![](/assets/84_EJS-image-1.png)
+
+
+## Global props - `locals` (Express.js)
+The `res.locals` object is available inside EJS, by default. The prop name is `locals`.
+
+This solves: 
+- The problem of "conditionally existent" props in EJS, atleast if Express is being used.
+- The problem of "globally" accessible props, without adding them to each `res.render()` of the app
+
+Example:
+```js
+<%= locals.isAuthenticated ? "Logout" : "Login" %>
+```
