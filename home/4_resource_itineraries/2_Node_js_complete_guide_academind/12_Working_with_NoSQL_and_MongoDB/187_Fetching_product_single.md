@@ -34,7 +34,7 @@ const product = await db.collection('products').findOne({ _id: prodId });
 This code doesn't work because `_id` stored inside a MongoDB document is not of type string, and therefore comparison (equal) won't work. 
 
 `_id` is actually a special object called `ObjectId`, specified by MongoDB. It's not a native JS feature. 
-![](../../../../assets/187_Fetching_product_single-image-1.png)
+![](/assets/187_Fetching_product_single-image-1.png)
 
 Why is the `_id` like this? Reasons:
 1. It is easy to work with in BSON

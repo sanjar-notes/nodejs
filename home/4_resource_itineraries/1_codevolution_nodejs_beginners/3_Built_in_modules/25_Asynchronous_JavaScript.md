@@ -31,4 +31,4 @@ I already know these.
 
 Note: all these "improvements" constructs - event-loop, task-queues, "single-threaded" wrappers are parts of the runtime, not the JS engine.
 
-[Polling vs Interrupts - document](../../../../assets/ChatGPT-interrupts-vs-polling.pdf)
+[Polling vs Interrupts - document](/assets/ChatGPT-interrupts-vs-polling.pdf)
