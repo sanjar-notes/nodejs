@@ -9,3 +9,9 @@ We'll look at 3 things in this section:
 1. What are Cookies?
 2. What are Sessions?
 3. Using Session and Cookies
+
+## Cookies (fundam)
+![](/assets/230_Module_intro-image-1.svg)
+
+## Sessions (fundam)
+![](/assets/230_Module_intro-image-2.svg)
