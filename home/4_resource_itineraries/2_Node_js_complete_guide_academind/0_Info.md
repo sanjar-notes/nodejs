@@ -8,3 +8,5 @@ Created Monday 13 February 2023 at 05:40 am
 
 ## Link
 with branch: https://github.com/sanjar-notes/nodejs-notes/tree/r/academind-nodejs-complete-guide
+
+Course info (JSON) - ![](/assets/nodejs-complete-guide-all.json)
