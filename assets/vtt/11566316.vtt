@@ -1,0 +1,565 @@
+WEBVTT
+
+00:02.240 --> 00:07.330
+Our html pages look pretty boring and obviously this is no css course,
+
+00:07.350 --> 00:12.330
+I got one if you want to learn more about css though but that's just a little side note
+
+00:12.540 --> 00:18.450
+but this is no css course but still, it's important to understand how you can serve css in your
+
+00:18.450 --> 00:19.500
+node apps too
+
+00:19.530 --> 00:24.510
+because typically, you have css and also javascript code in your apps.
+
+00:24.570 --> 00:26.580
+Now let's start simple,
+
+00:26.610 --> 00:34.080
+I'm on the slash page here, so on shop.html and let's add some styling here with good old style tags
+
+00:34.230 --> 00:37.740
+in the head section and this is not the way we'll keep it,
+
+00:37.740 --> 00:43.290
+this is just so that we can work on it and auto-update this because importing an external style file
+
+00:43.380 --> 00:46.390
+wouldn't work at the moment to spoil the fun already.
+
+00:46.440 --> 00:49.320
+Now as before, you can skip this lecture
+
+00:49.380 --> 00:54.070
+if you don't want to write the style together with me and you'll find it attached to the next lecture,
+
+00:54.270 --> 00:56.620
+otherwise let's do this together.
+
+00:56.760 --> 01:00.230
+So let's start styling this and let's start with the header.
+
+01:01.580 --> 01:04.070
+Now I won't target the element directly instead
+
+01:04.070 --> 01:08.010
+this will be my main navigation or my main header,
+
+01:08.020 --> 01:09.260
+let's give it a class, main header
+
+01:09.260 --> 01:10.010
+header,
+
+01:10.260 --> 01:17.180
+this will be the main header nav and if you're wondering about the strange css class name, I'm using
+
+01:17.180 --> 01:19.450
+a styling system named bem,
+
+01:19.460 --> 01:24.760
+more on that can be learned in that css course I mentioned or of course you can google css bem,
+
+01:24.950 --> 01:28.520
+it's a certain way of naming your classes to avoid double class names
+
+01:28.520 --> 01:42.100
+basically, here I'll have my main header, whoops, header item list and here I'll have my main header
+
+01:42.610 --> 01:46.620
+items like this and you can of course name this however you want.
+
+01:46.630 --> 01:50.110
+So these are a bunch of css classes that should help us with styling,
+
+01:50.150 --> 01:52.030
+now let's start with the header.
+
+01:52.030 --> 01:57.880
+The header should have a width of 100% to take the full width of the page and let's say it should
+
+01:57.880 --> 02:01.680
+have a height of 56 pixels
+
+02:01.840 --> 02:10.310
+or if you want to work in rem which has certain advantages, we could also go with 3.5rem.
+
+02:10.330 --> 02:17.200
+Now let's also give it a nice background color and here you're really free, I'll not stick to red but now
+
+02:17.200 --> 02:21.980
+I can hover over this and use this nice color picker and pick any color you want,
+
+02:21.980 --> 02:29.530
+now I'll try to pick a nice yellow golden-ish orange color, something like this
+
+02:29.530 --> 02:33.210
+maybe, if you click on rgb it will also convert this to a hex code
+
+02:33.220 --> 02:39.880
+so let's use that and of course the class is not header but main header. And now if I save this and go
+
+02:39.880 --> 02:41.500
+back and reload,
+
+02:41.530 --> 02:43.800
+we got that, looks better. Now
+
+02:43.810 --> 02:46.980
+there is some padding in the body so
+
+02:46.990 --> 02:52.210
+let's actually define that we want to have no padding and no margin,
+
+02:52.240 --> 02:59.230
+I think it's a margin, that we don't want to have that, let's add this, looks almost better.
+
+02:59.230 --> 03:01.180
+We still got some margin here at the top,
+
+03:01.180 --> 03:07.220
+this is coming from our list in here though, that some margin call isn't doing its job here,
+
+03:07.360 --> 03:11.870
+now let's also get rid of that. By now
+
+03:11.870 --> 03:14.590
+also styling our main header
+
+03:14.640 --> 03:15.320
+item list.
+
+03:15.360 --> 03:16.770
+So let's copy that,
+
+03:16.770 --> 03:18.230
+add a class here,
+
+03:18.450 --> 03:24.690
+set the list style to none and remove any margin and padding
+
+03:24.690 --> 03:27.990
+we might have here, that looks better. Now
+
+03:28.050 --> 03:32.000
+obviously the items are not looking nice,
+
+03:32.340 --> 03:39.150
+for this I will actually change the display here to flex to use flexbox for the list and then style
+
+03:39.180 --> 03:43.580
+our items here a bit, on these items
+
+03:43.620 --> 03:48.780
+for now I'll remove all margin and padding they might have, reload.
+
+03:48.780 --> 03:51.960
+Now thanks to flexbox they're sitting next to each other,
+
+03:51.960 --> 03:54.640
+now let's also style our links in there.
+
+03:54.840 --> 03:56.420
+So main header item,
+
+03:56.460 --> 04:06.190
+any nested anchor tag should have no text decoration and a color of white maybe, looks a bit better.
+
+04:06.250 --> 04:06.700
+Now 
+
+04:06.790 --> 04:09.020
+vertical centering would also be nice
+
+04:09.160 --> 04:16.600
+and for that I'll go back to the main header, excuse me, back to the main header nav here, let's add a class
+
+04:16.600 --> 04:17.720
+for that too.
+
+04:17.950 --> 04:23.290
+And here I'll first of all use a height of 100% because this is a child element of the main
+
+04:23.290 --> 04:28.840
+header and therefore it should take all its height and this will also be display
+
+04:29.010 --> 04:35.020
+flex now and we can center items vertically with align items centered now.
+
+04:36.170 --> 04:39.950
+With this if I save that and reload this page,
+
+04:39.950 --> 04:41.250
+now this is centered,
+
+04:41.300 --> 04:45.180
+now let's add some padding to our main header.
+
+04:45.400 --> 04:48.560
+For this let's go here, add a padding, top and bottom
+
+04:48.560 --> 04:54.910
+I don't need padding but left and right maybe 1.5rem, something like this,
+
+04:55.130 --> 04:58.440
+on mobile phone also still ok I'd say.
+
+04:58.670 --> 05:01.110
+Let's also change the global font by the way
+
+05:01.160 --> 05:02.100
+so in the body
+
+05:02.120 --> 05:03.200
+I'll set the
+
+05:03.440 --> 05:06.430
+font family to sans-serif for now,
+
+05:06.740 --> 05:09.560
+looks a bit nicer than the serif font I think
+
+05:09.830 --> 05:15.050
+and now I want to have some space in-between my navigation items there so
+
+05:15.140 --> 05:24.790
+let's actually go to the main header item and let's add a margin to the left and right of 1rem, like
+
+05:24.790 --> 05:25.400
+that
+
+05:25.750 --> 05:27.430
+and for now, this will do.
+
+05:27.430 --> 05:29.560
+Now little hovering effect for the links maybe,
+
+05:29.590 --> 05:39.870
+so let's also go here, main header item hover and main header item active and let's also define a
+
+05:39.870 --> 05:45.610
+rule which would apply if the anchor has an active class attached to it
+
+05:46.080 --> 05:48.890
+and there I want to set the color
+
+05:48.920 --> 05:59.070
+to well we have this nice little yellow touch here, so we could go into the blue-ish direction here,
+
+05:59.330 --> 06:01.700
+maybe like this purple-ish color,
+
+06:01.810 --> 06:05.110
+let's let's see how that looks like.
+
+06:05.250 --> 06:06.100
+Not too shabby,
+
+06:06.150 --> 06:07.430
+so let's go with that
+
+06:07.560 --> 06:14.580
+and now since we have that active class rule here on shop.html where this link is active, we can actually
+
+06:14.580 --> 06:19.650
+add the active class here and you will learn how to set that dynamically later in the course too of
+
+06:19.650 --> 06:20.580
+course.
+
+06:20.580 --> 06:23.490
+So now this is active, now for the main section
+
+06:23.490 --> 06:25.410
+let's also style this.
+
+06:25.600 --> 06:34.620
+Here I will define a general rule for main that I want to have a padding of let's say 1rem in all directions
+
+06:36.030 --> 06:38.180
+and now this is the style I want to go with.
+
+06:38.190 --> 06:47.820
+Now let's also of course work on the admin add product styling here and we can simply copy the entire
+
+06:47.820 --> 06:49.670
+style object from the shop.html
+
+06:49.670 --> 06:55.790
+file in the add-product.html file and this will already get us pretty far.
+
+06:56.160 --> 07:03.030
+Now one thing we should change in add product, we should of course add all these classes, so we can basically
+
+07:03.030 --> 07:04.430
+copy that header
+
+07:04.770 --> 07:07.650
+and later we will also learn how to reuse it across files
+
+07:07.650 --> 07:10.370
+by the way. So let's copy that header,
+
+07:11.150 --> 07:16.280
+by the way that auto-formatting I'm doing occasionally can be set up in the preferences by going to
+
+07:16.280 --> 07:22.280
+the keyboard shortcuts and searching for format document, this is the shortcut I am using here but that's
+
+07:22.280 --> 07:23.750
+just a side note.
+
+07:23.840 --> 07:28.780
+So here we now also have to change the active class,
+
+07:28.780 --> 07:35.020
+it's not on the shop link here but of course it should go onto the add product link and with that if
+
+07:35.020 --> 07:37.840
+I now reload this page, looks way better.
+
+07:37.870 --> 07:39.820
+Now let's work on the form here too
+
+07:41.280 --> 07:50.500
+and for this, I want to go to my form, give it a class of product form maybe, the name is up to you,
+
+07:51.450 --> 07:57.500
+add a little div with which I give a class of form control and in that div,
+
+07:57.540 --> 08:07.270
+I'll insert this input here and I'll also add a label for the title, put title as a label on it, give that
+
+08:07.300 --> 08:14.950
+input the ID title so that it matches the label for accessibility reasons simply
+
+08:15.000 --> 08:18.130
+and now let's style this too. For this
+
+08:18.160 --> 08:21.120
+I'll use my form control,
+
+08:21.170 --> 08:31.820
+so this class I added to this rounding div and here, I want to make sure that a label as well as an input
+
+08:31.850 --> 08:38.270
+which is nested in a form control uses a display of type block so that it takes the full available
+
+08:38.270 --> 08:39.350
+width
+
+08:39.490 --> 08:41.720
+and I also want to style the input then,
+
+08:42.130 --> 08:47.510
+so the input here should have a border of one pixel solid
+
+08:47.510 --> 08:54.720
+and then I will reuse that yellow color we used for the header. The font should be inherited so that
+
+08:54.720 --> 08:57.350
+it uses the default font family and so on
+
+08:57.920 --> 09:03.920
+and I'll give it a little border radius of like two pixels maybe, let's see how that looks like or the
+
+09:03.920 --> 09:10.570
+radius. If I now reload this, doesn't look too bad,
+
+09:11.980 --> 09:14.350
+let's now also work on the button. For this
+
+09:14.350 --> 09:19.140
+I will set up a generic button style here for now, 
+
+09:19.330 --> 09:21.970
+inherit the default font,
+
+09:22.180 --> 09:26.600
+give it a border of one pixel solid and this light gray
+
+09:28.030 --> 09:32.710
+a background of white maybe,
+
+09:32.900 --> 09:41.390
+let's maybe give it a black border here simply and a border radius of three pixels.
+
+09:41.390 --> 09:43.120
+Now let's see how that looks like,
+
+09:45.010 --> 09:48.600
+it's ok but let's reuse the yellow color here actually
+
+09:48.600 --> 09:53.090
+and let's also give the text that yellow color.
+
+09:53.150 --> 09:59.120
+Additionally I want to make sure that we assign the pointer cursor to get this hand cursor when hovering
+
+09:59.180 --> 09:59.890
+over it
+
+10:01.990 --> 10:08.040
+and last but not least, I want to have some spacing but with my form control div and the button.
+
+10:08.170 --> 10:15.970
+So on the form control itself, I'll add some margin to top and bottom of
+
+10:15.980 --> 10:18.650
+let's say 1rem and 0 left and right
+
+10:20.510 --> 10:22.810
+so that this looks like that
+
+10:22.960 --> 10:27.370
+and I think for the button, maybe you want to go with the purple color since that
+
+10:27.370 --> 10:28.690
+should be easier to read
+
+10:29.810 --> 10:34.810
+and let's also assign a hover and an active state for that button
+
+10:35.990 --> 10:43.240
+and when it is active, I just want to set the background color to purple and the text color to white
+
+10:43.270 --> 10:43.620
+then.
+
+10:47.060 --> 10:48.300
+So now it looks like this
+
+10:48.490 --> 10:49.810
+and this doesn't look too shabby,
+
+10:49.810 --> 10:54.160
+we can go with that I guess, we can always work on this and we will continue to work on this throughout the
+
+10:54.160 --> 10:55.000
+course
+
+10:55.000 --> 10:56.530
+but for now this is good.
+
+10:56.890 --> 10:59.010
+Let's now center the entire form
+
+10:59.170 --> 11:04.190
+and for that I assigned the product form class to the form.
+
+11:04.330 --> 11:15.400
+So here I want to give this a width of let's say 30rem, a max width of 100% or of 90%
+
+11:15.410 --> 11:16.630
+in case we're on a mobile
+
+11:16.690 --> 11:21.510
+view, give it a margin of auto, this will automatically center it horizontally
+
+11:21.980 --> 11:25.470
+and now just make sure that the input and so on take the available space so
+
+11:25.490 --> 11:29.520
+let's reduce this 20 actually, I think 30 is a bit too much
+
+11:29.630 --> 11:32.700
+and on the form control for laying an input
+
+11:32.720 --> 11:34.950
+I'll give it a width of 100%.
+
+11:36.560 --> 11:39.690
+and now this looks much better.
+
+11:39.870 --> 11:42.970
+Now I'm not happy with the white text here now that I think about it
+
+11:42.970 --> 11:50.580
+so let's actually go to the header and change the white link text to black, let's see how that looks like,
+
+11:52.350 --> 11:54.050
+yeah I think I prefer that
+
+11:54.050 --> 12:02.520
+so let's actually take that and also add it to shop.html so that we have the black color there too
+
+12:04.090 --> 12:06.960
+and I think the purple could be a little bit darker.
+
+12:07.090 --> 12:11.440
+So let's now also go to the hovering and active style here
+
+12:13.660 --> 12:20.530
+and make this a darker purple and replace the purple in all occurrences with that color style.
+
+12:20.530 --> 12:22.090
+I'm using a multi-select feature of
+
+12:22.090 --> 12:24.010
+the IDE here to do that quickly,
+
+12:24.110 --> 12:28.990
+I can of course also search and replace to do that, reload,
+
+12:29.260 --> 12:31.960
+yeah I think that is a bit better.
+
+12:32.020 --> 12:33.490
+Now you can always tweak this to your needs,
+
+12:33.490 --> 12:35.070
+it's not a css course here.
+
+12:35.170 --> 12:38.870
+I just want to have some basic styling that we can use.
+
+12:39.070 --> 12:44.280
+So this is the style with which we'll go from now on and which we'll of course continue to tweak.
+
+12:44.290 --> 12:51.790
+Now one thing we should also do now, let's copy that style from the shop.html file and put it into
+
+12:51.790 --> 12:54.120
+the 404.html file here
+
+12:55.550 --> 13:01.580
+because there, I also want to take the header and copy that into there because I don't just want to have
+
+13:01.580 --> 13:02.800
+the page not found thing,
+
+13:02.840 --> 13:11.210
+I also want to show the header. So that now if I do enter some route which does not exist, like this, we
+
+13:11.210 --> 13:12.340
+also got the header there
+
+13:12.380 --> 13:17.230
+and we can at least leave that route, though we can't because I obviously got an error
+
+13:17.250 --> 13:17.910
+in the url,
+
+13:17.930 --> 13:23.320
+that should be admin flash add product.
+
+13:23.490 --> 13:28.030
+Now let's fix that everywhere here including our form of course,
+
+13:30.550 --> 13:33.580
+like that
+
+13:33.690 --> 13:43.900
+and now if I reload, we can navigate around just fine here and try adding a book, that seems to work.
+
+13:44.000 --> 13:48.110
+And with that, we get the styling in there, we get the basic html markup
+
+13:48.230 --> 13:53.750
+but of course regarding the styling, the issue is that it's all in our html files. It would be nice to have
+
+13:53.750 --> 13:55.820
+some external files for that, wouldn't it?

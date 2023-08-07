@@ -1,0 +1,94 @@
+WEBVTT
+
+00:02.460 --> 00:09.140
+We have our code for downloading a file and this file is now only available if we are logged in.
+
+00:09.190 --> 00:15.400
+Now we can improve the way we return this however, we can pass some extra information to the browser
+
+00:15.610 --> 00:22.150
+so that it uses a different file name and also with the right extension. For this we'll set some headers,
+
+00:23.610 --> 00:25.460
+so we can use set header for that
+
+00:25.560 --> 00:31.500
+and first of all we can set the content type to application/pdf because that is what it is here, whoops,
+
+00:31.840 --> 00:33.660
+like this.
+
+00:33.660 --> 00:34.910
+Let's see what this does,
+
+00:35.010 --> 00:40.480
+if I save it like that and I now click this button, now I open it in the browser.
+
+00:40.500 --> 00:42.450
+So this already changes the behavior,
+
+00:42.450 --> 00:47.450
+it already gives the browser some information which allows the browser to handle this in a better way
+
+00:47.510 --> 00:51.110
+and for pdfs, most browsers simply open them inline,
+
+00:51.120 --> 00:56.620
+so in the browser. So that's great but we can pass more information.
+
+00:56.640 --> 01:05.080
+We can also set another header and that is the contents-thisposition,
+
+01:05.120 --> 01:11.800
+this allows us to define how this content should be served to the client.
+
+01:11.910 --> 01:18.620
+We can set this to inline to still tell the browser to open it inline for example, so if I change it
+
+01:18.620 --> 01:28.220
+like this, nothing changes but we can also for example add a file name here. So we can add semi-colon
+
+01:28.340 --> 01:36.020
+and then file name and set this equal to in double quotation marks the file name you want to serve,
+
+01:36.020 --> 01:38.930
+so in my case it would be the invoice name right.
+
+01:38.930 --> 01:47.470
+So we can also set file name equal to double quotation marks plus invoice name plus closing double
+
+01:47.590 --> 01:56.580
+quotation mark contained between single quotation marks. If I now save this and I click this button,
+
+01:56.670 --> 02:02.130
+now we don't see a difference with the file name when opening it inline because it's open in the browser
+
+02:02.140 --> 02:02.730
+anyways
+
+02:02.940 --> 02:06.720
+but we can change inline to attachment for example.
+
+02:06.900 --> 02:11.720
+Now with that adjusted, if we click on invoice, the download menu opens again
+
+02:11.760 --> 02:15.510
+and now here we have the proper file name with the proper extension
+
+02:15.720 --> 02:19.790
+and this is how you can control how the browser should handle the incoming data.
+
+02:19.920 --> 02:23.950
+Should it automatically open it, should it instead let you download it?
+
+02:23.950 --> 02:25.220
+So I'll switch this back to inline
+
+02:25.230 --> 02:26.620
+but keep this file name here
+
+02:26.820 --> 02:32.580
+and now I have a set up where only authenticated users can request this invoice. We can still improve
+
+02:32.600 --> 02:32.850
+that.

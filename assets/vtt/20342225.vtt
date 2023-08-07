@@ -1,0 +1,250 @@
+WEBVTT
+
+1
+00:00:02.090 --> 00:00:05.140
+<v Narrator>As mentioned, when you're working with Node,</v>
+
+2
+00:00:05.140 --> 00:00:08.210
+you have these core Node modules here.
+
+3
+00:00:08.210 --> 00:00:12.020
+for example, a module for working with the file system.
+
+4
+00:00:12.020 --> 00:00:15.340
+and with Node, you simply import such a module,
+
+5
+00:00:15.340 --> 00:00:20.200
+and then you can start reading or writing files for example.
+
+6
+00:00:20.200 --> 00:00:24.100
+As you learned in the modern Java script with Node module,
+
+7
+00:00:24.100 --> 00:00:27.780
+you also have a promise based API version available
+
+8
+00:00:27.780 --> 00:00:30.560
+for some of these core modules.
+
+9
+00:00:30.560 --> 00:00:33.880
+Now for Deno, we have a similar concept.
+
+10
+00:00:33.880 --> 00:00:37.963
+There we have this so-called runtime API here,
+
+11
+00:00:38.830 --> 00:00:42.590
+also sometimes called the namespace APIs.
+
+12
+00:00:42.590 --> 00:00:46.570
+These are core APIs, core features,
+
+13
+00:00:46.570 --> 00:00:48.800
+which are built into Deno,
+
+14
+00:00:48.800 --> 00:00:52.760
+and which are available on a Deno object,
+
+15
+00:00:52.760 --> 00:00:55.750
+which in turn is globally available
+
+16
+00:00:55.750 --> 00:00:58.970
+in any Deno code you're executing.
+
+17
+00:00:58.970 --> 00:01:02.810
+And here you got core modules for working with files,
+
+18
+00:01:02.810 --> 00:01:05.170
+for working with requests.
+
+19
+00:01:05.170 --> 00:01:09.270
+You also got core features like set timeouts,
+
+20
+00:01:09.270 --> 00:01:11.920
+set interval, clear timeout.
+
+21
+00:01:11.920 --> 00:01:14.060
+You have to fetch API available
+
+22
+00:01:14.060 --> 00:01:15.970
+for sending network requests.
+
+23
+00:01:15.970 --> 00:01:17.650
+And that actually by the way,
+
+24
+00:01:17.650 --> 00:01:20.830
+is a difference compared to Node already.
+
+25
+00:01:20.830 --> 00:01:21.690
+In Node,
+
+26
+00:01:21.690 --> 00:01:25.610
+You also have some core APIs available,
+
+27
+00:01:25.610 --> 00:01:27.760
+some core features available,
+
+28
+00:01:27.760 --> 00:01:32.510
+either after importing them from the respective core module,
+
+29
+00:01:32.510 --> 00:01:34.750
+or things like set timeout
+
+30
+00:01:34.750 --> 00:01:38.070
+also are globally available in Node scripts,
+
+31
+00:01:38.070 --> 00:01:42.700
+but things like the fetch API are not available in Node
+
+32
+00:01:42.700 --> 00:01:45.400
+because Deno has the core philosophy
+
+33
+00:01:45.400 --> 00:01:49.120
+of being as browser compatible as possible.
+
+34
+00:01:49.120 --> 00:01:53.150
+That means that any code that could run outside of a browser
+
+35
+00:01:53.150 --> 00:01:55.230
+is also supported in Deno.
+
+36
+00:01:55.230 --> 00:01:59.570
+Something like the fetch API for sending HTTP requests.
+
+37
+00:01:59.570 --> 00:02:01.530
+This is a available in Deno
+
+38
+00:02:01.530 --> 00:02:04.780
+because this is not strictly tied to a browser.
+
+39
+00:02:04.780 --> 00:02:08.190
+Of course we can send a fetch request at HTTP requests
+
+40
+00:02:08.190 --> 00:02:10.590
+from any Java script.
+
+41
+00:02:10.590 --> 00:02:12.890
+Now, of course, there also are other features,
+
+42
+00:02:12.890 --> 00:02:15.500
+for example, related to writing files,
+
+43
+00:02:15.500 --> 00:02:17.010
+which exist in Deno
+
+44
+00:02:17.010 --> 00:02:19.560
+because Deno runs out sort of a browser,
+
+45
+00:02:19.560 --> 00:02:22.860
+but which wouldn't exist inside of a browser.
+
+46
+00:02:22.860 --> 00:02:25.870
+And there are features which we can use in a browser,
+
+47
+00:02:25.870 --> 00:02:29.800
+for example, features to interact with the browser Dom,
+
+48
+00:02:29.800 --> 00:02:32.480
+which are not supported in Deno.
+
+49
+00:02:32.480 --> 00:02:34.980
+Also not supported in Node of course,
+
+50
+00:02:34.980 --> 00:02:37.180
+because there we have no Dom
+
+51
+00:02:37.180 --> 00:02:39.880
+there we are not running inside of a browser.
+
+52
+00:02:39.880 --> 00:02:42.660
+So that's how you can think about these core APIs.
+
+53
+00:02:42.660 --> 00:02:46.520
+It's basically what you can do in the browser minus
+
+54
+00:02:46.520 --> 00:02:49.330
+features that only makes sense in the browser
+
+55
+00:02:49.330 --> 00:02:53.160
+plus features that can't be used inside of the browser
+
+56
+00:02:53.160 --> 00:02:55.340
+that can be used outside of it though.
+
+57
+00:02:55.340 --> 00:02:57.890
+Something like writing files.
+
+58
+00:02:57.890 --> 00:03:01.310
+And with that, I say, we talked about this enough,
+
+59
+00:03:01.310 --> 00:03:03.600
+let's now write some Deno code,
+
+60
+00:03:03.600 --> 00:03:05.500
+and let's see how we can utilize
+
+61
+00:03:05.500 --> 00:03:08.040
+these built-in core features.
+
+62
+00:03:08.040 --> 00:03:10.983
+These namespace API features.
+

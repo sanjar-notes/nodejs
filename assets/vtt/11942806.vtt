@@ -1,0 +1,52 @@
+WEBVTT
+
+00:02.690 --> 00:11.100
+Deleting works but when I try to add product and I'll just enter some dummy data here, that fails and
+
+00:11.130 --> 00:20.000
+it seems to fail because I would imagine that in save here, we somehow make it into this if block. So
+
+00:20.000 --> 00:25.430
+that _id is the problem and that makes sense because I actually do initialize
+
+00:25.430 --> 00:29.510
+_id here at the beginning by creating a new mongodb object id.
+
+00:29.630 --> 00:35.480
+So even if we pass no ID and this therefore is undefined, this will create an object and store it in
+
+00:35.480 --> 00:36.460
+_id,
+
+00:36.590 --> 00:39.870
+so _id down there will always be defined
+
+00:39.920 --> 00:46.990
+and if it's just such an empty or automatically generated object id object, this should be the issue here.
+
+00:47.030 --> 00:49.710
+So how can I overcome this?
+
+00:49.720 --> 00:56.660
+Well for example with a ternary expression, we can check if ID exists basically,
+
+00:56.660 --> 01:03.110
+so if this returns true in an if statement and if it's the case, then I want to create my object id object
+
+01:03.230 --> 01:08.060
+otherwise I'll store null and null will be treated as false down there.
+
+01:08.060 --> 01:13.520
+So with this tiny change in place, with this ternary expression added in the product model, we should be
+
+01:13.520 --> 01:17.660
+able to add a product real quick with some dummy values
+
+01:18.260 --> 01:19.560
+and now it's created.
+
+01:19.580 --> 01:20.820
+So now this is working
+
+01:20.870 --> 01:26.310
+and it was just the fact that we were always creating such an objectid object which we shouldn't.

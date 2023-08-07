@@ -1,0 +1,409 @@
+WEBVTT
+
+00:02.250 --> 00:07.480
+Now after that theory, let's go back to our project and this is our shop,
+
+00:07.500 --> 00:11.180
+so this is not the rest API, this is not the graphql API,
+
+00:11.300 --> 00:13.670
+this is the shop as we built it
+
+00:13.890 --> 00:19.780
+and you can find this snapshot of it attached to this lecture. Now in there,
+
+00:19.830 --> 00:25.440
+let's first of all explore that environment variables thing I was talking about and we can start in the
+
+00:25.520 --> 00:30.030
+app.js file, what would we control in an environment variable
+
+00:30.090 --> 00:36.870
+and what is an environment variable? Now environment variables are a concept supported by nodejs where
+
+00:36.870 --> 00:44.780
+we can pass certain configurations, certain values into our node application from outside,
+
+00:44.880 --> 00:48.430
+so we don't hardcode certain values into our node code,
+
+00:48.480 --> 00:54.390
+instead the values will be injected when our node server starts and that allows us to use different
+
+00:54.390 --> 01:01.050
+values in development and production and also to conveniently change the values in production without
+
+01:01.050 --> 01:03.580
+having to redeploy our entire code.
+
+01:03.960 --> 01:10.470
+And a great example can already be seen here, that connection string here. This connection string allows
+
+01:10.470 --> 01:13.710
+us to connect to our mongoose cluster
+
+01:13.920 --> 01:16.460
+and obviously we have some hardcoded values here,
+
+01:16.620 --> 01:19.300
+the username and the password for this user
+
+01:19.470 --> 01:23.870
+and then also the default database. If we want to change anything there,
+
+01:23.970 --> 01:27.540
+well then we have to change it in the code and redeploy it.
+
+01:27.540 --> 01:34.720
+Additionally if we ever share this code with someone, like I do with you, you know these credentials. Now
+
+01:34.740 --> 01:39.990
+they won't matter much to you because I change my password after I quit recording this course but of
+
+01:39.990 --> 01:45.990
+course in a real application, you can't change your passwords every time you share the code with some
+
+01:45.990 --> 01:53.170
+coworker or anything like that and therefore you want to use node environment variables here.
+
+01:53.220 --> 01:59.250
+Another place where we would want to use one is at the bottom of this file, here where we set the port
+
+01:59.400 --> 02:04.280
+where this should start. In development, we use 3000
+
+02:04.500 --> 02:12.210
+and we can basically use any number that is above the thousand range but in production, we want
+
+02:12.210 --> 02:20.960
+to let our server or our hosting provider set this port because that is in the end the thing,
+
+02:21.170 --> 02:29.640
+the service that does open our app to the web and that does configure all the network settings,
+
+02:29.640 --> 02:34.320
+so there we don't control the port number but the hosting provider does.
+
+02:34.350 --> 02:40.140
+Another example for something we want to control in an environment variable can be found in the shop
+
+02:40.140 --> 02:42.390
+controller. There at the top,
+
+02:42.390 --> 02:44.100
+I have this stripe key,
+
+02:44.250 --> 02:50.520
+not only is this the development key which we have to exchange for the production key but it's also
+
+02:50.520 --> 02:57.590
+not a good idea to hardcode it in here for the same reasons as it was with our mongoose data.
+
+02:57.630 --> 03:02.170
+So let's use some environment variables and using them is straightforward.
+
+03:02.170 --> 03:09.330
+Now first of all, I'll turn this connection url into a template literal by replacing the single
+
+03:09.330 --> 03:11.570
+quotation marks with back ticks.
+
+03:11.580 --> 03:18.810
+Now it's still a normal string but now we can inject values by using dollar sign curly braces
+
+03:18.900 --> 03:26.220
+and now here, we can access environments variables on the process object, this is an object not defined by us
+
+03:26.400 --> 03:29.290
+but this is globally available in the node app,
+
+03:29.340 --> 03:32.970
+it's part of the node core runtime.
+
+03:32.990 --> 03:40.550
+Now on this process object, we have the very helpful env property and that is now an object with all the
+
+03:40.550 --> 03:41.830
+environment variables
+
+03:41.840 --> 03:47.870
+this node process knows. There are a bunch of default environment variables but we can also set our own
+
+03:47.870 --> 03:48.460
+ones
+
+03:48.540 --> 03:56.950
+and here let's say I want to use the mongo user environment variable and I'll replace this text with
+
+03:56.950 --> 03:57.980
+it.
+
+03:58.000 --> 04:00.660
+Now I also want to replace the password,
+
+04:00.790 --> 04:04.000
+so here I'll use mongo password
+
+04:06.910 --> 04:11.680
+and I'll remove the password here and I will show you how to set these environment variables in a second
+
+04:11.680 --> 04:19.210
+of course. The database here, we can also replace that with mongo default database,
+
+04:19.270 --> 04:24.400
+alternatively you could of course make that whole connection string an environment variable depending
+
+04:24.400 --> 04:29.260
+on whether that string changes regularly or just the values inside of it.
+
+04:29.440 --> 04:40.010
+Regarding the port, I'll also go down and here instead of setting 3000, I'll set process env port or if that
+
+04:40.010 --> 04:42.330
+should be undefined, 3000.
+
+04:42.410 --> 04:48.990
+Now most hosting providers or all hosting providers that manage that for us will automatically inject the
+
+04:48.980 --> 04:50.380
+port environment variable,
+
+04:50.480 --> 04:56.020
+so most of the time we can rely on that being set and for local development, we'll still fallback to
+
+04:56.020 --> 05:01.140
+3000 because there, it will not be set. Now for stripe,
+
+05:01.230 --> 05:05.630
+if I move to the shop controller, I also want to use an environment variable here
+
+05:06.590 --> 05:13.740
+and I will use process env stripe key here.
+
+05:16.690 --> 05:21.940
+With that I replaced a couple of things with environment variables where it makes sense.
+
+05:21.970 --> 05:27.790
+Now if you scroll through all the code, you might find other occasions where you would say ok I want to set
+
+05:27.790 --> 05:28.890
+that from outside,
+
+05:28.900 --> 05:34.640
+I don't want to hardcode that but these things which I now exchanged are definitely important ones.
+
+05:34.960 --> 05:40.270
+Now we do try to read these environment variables in our node code,
+
+05:40.270 --> 05:51.740
+how can we now pass them into node? Well we do that when we run our node application, with nodemon, we
+
+05:51.750 --> 05:54.250
+can provide a configuration file.
+
+05:54.660 --> 06:02.500
+You can simply add a nodemon.json file in your project root folder and there, provide a json document,
+
+06:02.910 --> 06:06.970
+opening and closing curly braces. In there, add an env
+
+06:08.500 --> 06:09.400
+object
+
+06:09.820 --> 06:16.950
+and there you can now set your environment variables like mongo user, there the value should be Maximillian
+
+06:19.190 --> 06:21.840
+mongo password,
+
+06:21.890 --> 06:26.780
+so all these variables I tried to read in my code and that should be the password
+
+06:26.780 --> 06:30.450
+you just well removed from your app.js
+
+06:30.550 --> 06:31.190
+file
+
+06:34.730 --> 06:39.210
+and also mongo database and there
+
+06:39.220 --> 06:43.050
+I will now use shop like this.
+
+06:43.130 --> 06:48.380
+So now I added the environment variables for my mongodb connection string here and that should be named
+
+06:48.440 --> 06:53.480
+mongo default database I see so let's rename it here too
+
+06:53.620 --> 06:57.260
+and besides these mongo things here, we could set the port
+
+06:57.280 --> 07:02.130
+but there we have a default value, after the two pipe symbols
+
+07:02.140 --> 07:04.690
+we always fallback to 3000.
+
+07:04.960 --> 07:12.310
+Now for stripe, we also want to inject something and there we should sign into our dashboard and in that
+
+07:12.370 --> 07:15.590
+dashboard, go to developers API keys.
+
+07:15.820 --> 07:26.200
+Now here for the server, you will need that secret key and you want to move that into your nodemon package,
+
+07:26.310 --> 07:34.410
+so there I named the environment variable stripe key and that is how I should name it here too, so that
+
+07:34.410 --> 07:35.660
+would be the value.
+
+07:36.180 --> 07:42.340
+And now that if you run npm start, it should still start and it should still connect,
+
+07:42.340 --> 07:47.010
+I get an error that mongo default database is not defined because of course here in the connection string,
+
+07:47.370 --> 07:53.260
+it should should be process env mongo default database just as it is in all the other places.
+
+07:53.250 --> 07:55.570
+Thereafter everything starts just fine
+
+07:55.740 --> 07:58.940
+and now we have a running application using these environment variables.
+
+07:58.950 --> 08:04.990
+Now these are still the development values but nonetheless we have that set up.
+
+08:05.020 --> 08:10.300
+Now of course we're not always using nodemon and especially when deploying this app, we'll not be using it
+
+08:10.450 --> 08:11.830
+because there we don't
+
+08:11.830 --> 08:17.920
+want to restart the server on every change because we will not change the code anyways. So what I'll do
+
+08:17.920 --> 08:21.780
+is I'll add a new start script to my package.json file,
+
+08:21.850 --> 08:23.040
+I'll name it
+
+08:23.290 --> 08:24.780
+start:dev,
+
+08:24.790 --> 08:26.200
+you can name it however you want,
+
+08:26.200 --> 08:29.080
+you could just name it dev, whatever you want
+
+08:29.290 --> 08:33.530
+and there I will use nodemon and in my main start strip,
+
+08:33.610 --> 08:35.250
+I just want to use node.
+
+08:35.410 --> 08:38.780
+This however will now not use the nodemon.json file.
+
+08:39.010 --> 08:43.210
+So if you want to pass an environment variables here, you also got different solutions
+
+08:43.400 --> 08:48.370
+and typically when using a hosting provider, you can set up the environment variables in the dashboard
+
+08:48.430 --> 08:49.780
+of your hosting provider,
+
+08:49.780 --> 08:51.410
+that is something we'll see later
+
+08:51.760 --> 08:54.420
+but if you're not using that, well then you can
+
+08:54.580 --> 09:02.900
+as a simple solution simply take the key value pairs you want to set up and add them in your package.json
+
+09:02.950 --> 09:05.720
+file in front of the start script.
+
+09:05.920 --> 09:11.450
+So there you would use mongo user equals Maximillian, like this
+
+09:13.300 --> 09:16.100
+and you would do that for all the values you want to pass in.
+
+09:16.300 --> 09:23.690
+So now we can do the same for the password, mongo password, you simply separate it with a whitespace, mongo
+
+09:24.190 --> 09:24.780
+password
+
+09:24.870 --> 09:33.720
+equals this mongo default database equals shop and the stripe
+
+09:34.170 --> 09:35.580
+key equals
+
+09:35.580 --> 09:38.460
+and now I need to get that stripe key here,
+
+09:38.460 --> 09:43.650
+copy that, move it here and now we are obviously a very long startup string.
+
+09:43.710 --> 09:50.430
+Again typically we'll not pass it like this but now if I would run npm start it should still start and
+
+09:50.430 --> 09:53.310
+connect without issues to the mongodb database
+
+09:53.310 --> 09:59.160
+because now we are running this with our environment variables here.
+
+09:59.170 --> 10:06.010
+I also want to highlight one special environment variable which you can set manually and that is a
+
+10:06.010 --> 10:12.450
+special one which I just want to log here, on process env there is the node env variable
+
+10:12.640 --> 10:18.760
+and now if I quit my server and restart it, you see undefined here.
+
+10:18.910 --> 10:22.190
+Now again this will be set automatically by hosting providers,
+
+10:22.270 --> 10:28.270
+you can of course also set it on your own and hosting providers will set this to production.
+
+10:28.340 --> 10:36.840
+Now if I restart, we see production being logged here and this is a special environment variable even
+
+10:36.840 --> 10:43.290
+though it's not set by default because expressjs will actually use that by default to determine
+
+10:43.420 --> 10:49.770
+the environment mode and if you set that to production, expressjs will change certain things
+
+10:49.770 --> 10:53.360
+and for example, it will reduce the details for errors
+
+10:53.370 --> 10:57.930
+it throws and in general, optimize some things for deployment.
+
+10:57.930 --> 11:01.080
+So you want to set those when running your app in production
+
+11:01.080 --> 11:04.530
+and again hosting providers typically do that for you.
+
+11:04.530 --> 11:09.420
+You can always check out the official docs of your favorite hosting provider to find out if that is the
+
+11:09.420 --> 11:09.970
+case.

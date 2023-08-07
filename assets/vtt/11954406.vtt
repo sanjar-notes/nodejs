@@ -1,0 +1,193 @@
+WEBVTT
+
+00:02.110 --> 00:10.580
+I added nodemailer and now I want to use nodemailer to send an email. For that in my auth.js file
+
+00:10.610 --> 00:13.080
+which is the only file where I will interact with it,
+
+00:13.520 --> 00:18.330
+I will import nodemailer and store it in a constant at the top,
+
+00:18.380 --> 00:25.000
+so require nodemailer like this and I will also import sendgridTransport,
+
+00:25.010 --> 00:31.550
+you can name these constants the way you want as always and this will inport nodemailer sendgridTransport.
+
+00:32.690 --> 00:33.770
+With that imported,
+
+00:33.860 --> 00:39.680
+I can initialise a couple of things here. For nodemailer, we need to initialize a so-called transporter,
+
+00:40.130 --> 00:44.590
+so that is essentially some setup telling nodemailer how your e-mails will be delivered
+
+00:44.630 --> 00:48.350
+because as I mentioned, nodejs won't do this on its own,
+
+00:48.380 --> 00:50.730
+you need some third party service for that.
+
+00:50.900 --> 00:58.870
+So here I will use nodemailer and then call the create transport method. In create transport,
+
+00:58.910 --> 01:05.210
+we can now pass sendgridTransport and execute this as a function because this function will then
+
+01:05.210 --> 01:10.170
+return a configuration that nodemailer can use to use sendgrid.
+
+01:10.280 --> 01:17.990
+Now to that sendgridTransport function, we pass an object where we pass an auth object and this in turn
+
+01:17.990 --> 01:25.310
+holds an object where we have to pass in an API user and an API key field.
+
+01:25.310 --> 01:29.480
+Now both are values you get from inside your sendgrid account,
+
+01:29.480 --> 01:39.110
+so if you head back to your sendgrid account, you can click on settings here and then API keys and
+
+01:39.110 --> 01:41.250
+there, create a new API key.
+
+01:41.810 --> 01:47.830
+You want to give that a name and I'll name it node shop, the name is totally up to you
+
+01:48.170 --> 01:52.510
+and I'll take full access and create this.
+
+01:52.580 --> 01:55.910
+Now take that key and you actually only need that key,
+
+01:55.910 --> 02:01.010
+tou could have used your username and password but I'll just use the API key.
+
+02:01.250 --> 02:06.020
+So just that key which you copied here, of course use your own key not mine
+
+02:06.020 --> 02:08.810
+and with that, you configured the transporter.
+
+02:11.450 --> 02:17.650
+Now with the transporter configured, you can now use it to send an e-mail and I want to send an e-mail
+
+02:17.720 --> 02:22.190
+after signing up let's say, so in post sign up once I'm done,
+
+02:22.210 --> 02:28.660
+so here when I also redirect back to the login page, here I want to send my message
+
+02:28.660 --> 02:30.510
+and I use the transporter for that
+
+02:30.550 --> 02:34.860
+and then there is a send mail method we can execute. To that method,
+
+02:34.900 --> 02:39.800
+you pass a javascript object where you configure the email you want to send,
+
+02:40.000 --> 02:44.740
+for example the two fields, so to whom this should go,
+
+02:44.820 --> 02:51.000
+well this should go to our e-mail address of course from, so which e-mail address will be displayed
+
+02:51.170 --> 02:56.570
+and here I will have shop@nodecomplete.com
+
+02:56.580 --> 03:08.130
+let's say, then a subject, sign up succeeded and then html content, so the content of your message.
+
+03:08.160 --> 03:10.500
+Now you could have a complex html message,
+
+03:10.510 --> 03:13.110
+I'll just add a h1 tag here,
+
+03:13.270 --> 03:18.060
+you successfully signed up, like that.
+
+03:18.250 --> 03:25.040
+So this is the message I want to send, now send mail then gives me a promise so I can use then and
+
+03:25.040 --> 03:31.580
+catch or of course I simply return that and then I redirect in the next then block, so once the email
+
+03:31.580 --> 03:37.040
+has been sent. However that is up to you, you could also redirect immediately and not wait for this to
+
+03:37.040 --> 03:40.360
+be sent because you're not really relying on that being sent
+
+03:40.460 --> 03:41.660
+and so this will send
+
+03:41.690 --> 03:43.640
+and at the same time you redirect,
+
+03:43.640 --> 03:51.530
+so whatever you want. What you should do though is if that is your plan, you might want to switch positions
+
+03:51.530 --> 03:59.110
+here and still return that so that you can still catch any errors that are stemming from this
+
+03:59.120 --> 04:06.290
+so that here we could still log any errors we might be getting or do something else with these errors
+
+04:06.290 --> 04:09.800
+of course. With this set up added,
+
+04:09.920 --> 04:10.990
+let's give it a try.
+
+04:12.260 --> 04:13.780
+Let's head over and sign up
+
+04:13.770 --> 04:16.460
+and now you should use a real e-mail address of course
+
+04:16.460 --> 04:18.880
+otherwise it can't arrive,
+
+04:18.980 --> 04:20.570
+click sign up here,
+
+04:20.630 --> 04:22.210
+I am redirected
+
+04:22.210 --> 04:25.800
+and now check your e-mail account
+
+04:25.990 --> 04:31.460
+and in that e-mail account, you should have an e-mail from shop@nodecomplete.com with that message.
+
+04:31.510 --> 04:37.810
+If you don't get it, verify you entered a correct e-mail and also feel free to verify your sendgrid
+
+04:37.870 --> 04:38.380
+e-mail,
+
+04:38.410 --> 04:43.480
+you should have gotten an e-mail from sendgrid when signing up verifying your e-mail address there.
+
+04:43.780 --> 04:49.780
+But with that, this should work and you should be able to send e-mails like this.
+
+04:49.780 --> 04:55.780
+Now dive into the official sendgrid docs and also in the nodemailer docs if you want to learn way more
+
+04:55.780 --> 04:57.670
+about what you can do there,
+
+04:57.670 --> 05:03.250
+also as I mentioned, google for nodemailer and your favorite e-mailing service if you want to use a
+
+05:03.250 --> 05:04.140
+different one
+
+05:04.330 --> 05:07.510
+but this is the general theme of how this works.

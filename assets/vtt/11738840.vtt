@@ -1,0 +1,40 @@
+WEBVTT
+
+00:02.350 --> 00:06.610
+In the last module, we continued working on our application
+
+00:06.770 --> 00:11.960
+but now we need the ability to pass some dynamic data through our routes.
+
+00:11.990 --> 00:17.870
+We want to be able to encode some information in our url so that we can for example pass a product
+
+00:17.870 --> 00:25.980
+ID as part of the url. In this module, you will learn how you can do that, how you can actually submit
+
+00:26.010 --> 00:27.110
+or send data
+
+00:27.130 --> 00:33.980
+through the url and when you would not do that and put it into the request body instead and we'll also
+
+00:33.980 --> 00:40.670
+continue working on our models, to be precise you will learn about how to pass route params, route parameters
+
+00:41.210 --> 00:43.050
+and how to use query parameters,
+
+00:43.130 --> 00:46.380
+both important things that the express router supports.
+
+00:46.610 --> 00:53.060
+But besides that we'll not just pass that information, in this module we'll also use it to enhance our
+
+00:53.060 --> 00:53.760
+models
+
+00:53.780 --> 00:59.030
+and with that I mean will add more functionalities, we'll even add a new model.
+
+00:59.030 --> 01:04.670
+So with that, let's start and let's learn how we can pass data and how we can use that data then.

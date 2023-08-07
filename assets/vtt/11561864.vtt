@@ -1,0 +1,208 @@
+WEBVTT
+
+00:02.050 --> 00:07.240
+Let Them concert are two relatively new features in JavaScript and now we're cool.
+
+00:07.240 --> 00:09.880
+New feature are arrow functions.
+
+00:09.970 --> 00:17.230
+We can rewrite this function as an arrow function by first of all, creating a new variable or constant.
+
+00:17.230 --> 00:22.930
+Since I'll never set a new value, I'll use a constant and I'll give that the name of my function.
+
+00:22.930 --> 00:24.460
+So summarize user.
+
+00:26.580 --> 00:30.220
+The value which I then assign after the equal sign is a function.
+
+00:30.240 --> 00:33.790
+Now, we could already have done it in the past with this syntax.
+
+00:33.810 --> 00:36.140
+This is another way of defining a function.
+
+00:36.150 --> 00:42.180
+The part on the right side is the so called anonymous function because we don't set up a name after
+
+00:42.180 --> 00:49.680
+function, but we make it a named function implicitly by storing the anonymous function in that named
+
+00:49.680 --> 00:50.640
+constant.
+
+00:50.640 --> 00:55.950
+So we can always call that constant, which holds a function as a value, and we call the value with
+
+00:55.950 --> 00:56.820
+the syntax.
+
+00:56.820 --> 00:59.220
+And therefore this is like a named function here.
+
+00:59.370 --> 01:01.830
+So this would have worked in the past too.
+
+01:01.860 --> 01:08.940
+It is a way or a different way of defining a function, but we can now also use a new syntax where we
+
+01:08.940 --> 01:17.220
+remove the function keyword and instead we add an arrow between the argument list and the curly braces.
+
+01:17.550 --> 01:21.300
+And this arrow is simply a equals sign and a greater than sign.
+
+01:21.600 --> 01:23.460
+This also creates a function.
+
+01:23.460 --> 01:30.180
+It's a bit shorter since we save the function keyword and it runs in the same way as this function ran
+
+01:30.180 --> 01:30.840
+before.
+
+01:31.170 --> 01:33.150
+Now why would we use this syntax?
+
+01:33.150 --> 01:36.020
+Except for the reason that it's a bit shorter?
+
+01:36.030 --> 01:38.040
+Well, that is already a nice reason.
+
+01:38.040 --> 01:45.210
+But also there's one key difference regarding the this keyword which JavaScript knows and attached,
+
+01:45.210 --> 01:51.960
+you find a link to another video, an article I created where I dive into the this keyword and how arrow
+
+01:51.960 --> 01:53.460
+functions help us with it.
+
+01:53.940 --> 02:01.080
+The attached article and video actually uses the browser, but it's the same for Node.js, so this will
+
+02:01.080 --> 02:04.740
+be helpful to you have to know what JavaScript objects are for that.
+
+02:04.740 --> 02:09.810
+But again, that is some core knowledge I require you to have for this course.
+
+02:10.350 --> 02:14.430
+In this course I will pretty much only use arrow functions.
+
+02:14.430 --> 02:20.400
+So this syntax for defining a function should be something you understand for this course that this
+
+02:20.400 --> 02:21.870
+is the name of the function.
+
+02:21.870 --> 02:25.950
+And then here we have the arguments and then we have the function body.
+
+02:26.460 --> 02:33.260
+Now a little side note, there is also a shorter syntax of writing this or a couple of shorter syntax.
+
+02:35.190 --> 02:41.520
+Let's say I have a number of function which I'll name add and there I get two arguments A and B and
+
+02:41.520 --> 02:43.170
+I just return to some of them.
+
+02:43.170 --> 02:48.870
+So the addition then you could right return A plus B of course.
+
+02:49.110 --> 02:54.000
+And that allows us to run console log add with one plus two.
+
+02:54.630 --> 03:03.810
+And if I now run node play JZ, we see three here as a result, if you only have an error function with
+
+03:03.810 --> 03:10.350
+one statement, which happens to be the return statement or which you are fine returning, well then
+
+03:10.350 --> 03:17.580
+you can omit the curly braces, you can omit the return statement and you have to admit it and you just
+
+03:17.580 --> 03:18.990
+use the function like that.
+
+03:19.470 --> 03:24.930
+This simply is the same syntax as before with the curly braces and with return, and this function will
+
+03:24.930 --> 03:29.070
+now always return the result of this statement here.
+
+03:29.370 --> 03:32.580
+So now if I execute this again, we still see free.
+
+03:35.970 --> 03:40.620
+Now, if I would adjust this function to, let's say, always add one.
+
+03:41.760 --> 03:46.020
+Then I have just a as an argument, let's say, and I return a plus one.
+
+03:47.170 --> 03:53.580
+Now I could call this but console logging at one to, let's say one year.
+
+03:53.590 --> 03:55.390
+So the result should be two.
+
+03:56.120 --> 03:57.860
+And I can, of course, execute this.
+
+03:57.860 --> 03:59.390
+And indeed I see to hear.
+
+04:00.470 --> 04:02.510
+Now in such a case.
+
+04:02.510 --> 04:08.750
+You already saw my audio formatting removed the parentheses I had there previously, because if you
+
+04:08.750 --> 04:14.330
+only have one argument and that's the case really for that case, only if you have one argument only
+
+04:14.330 --> 04:20.240
+then you can just have the argument name here without parentheses and it will work just as it will work
+
+04:20.240 --> 04:21.290
+with parentheses.
+
+04:21.290 --> 04:26.240
+So both works here, but you typically use the syntax without the parentheses.
+
+04:26.240 --> 04:30.890
+And again my ID or the formatting remove them for me.
+
+04:33.610 --> 04:43.540
+If you have an arrow function with no arguments at random, then you have to specify an empty pair of
+
+04:43.930 --> 04:44.640
+parentheses.
+
+04:44.650 --> 04:51.460
+Though you can't have just a white space, you have to have that empty pair and then you can have your
+
+04:51.460 --> 04:56.050
+code there, which obviously uses no arguments because that's exactly what I want to show here.
+
+04:56.050 --> 04:57.850
+So here I could have.
+
+04:58.680 --> 05:02.660
+At random called Like This without any data passed in.
+
+05:02.670 --> 05:05.850
+And now we see three here from that result.
+
+05:06.240 --> 05:11.310
+So these are arrow functions and they're different syntax and you will see them throughout the course
+
+05:11.310 --> 05:16.910
+and you should recognize that syntax and understand how they work again for a reason why to use them,
+
+05:16.920 --> 05:19.560
+check out the attached article plus video.

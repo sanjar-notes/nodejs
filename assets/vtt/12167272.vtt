@@ -1,0 +1,169 @@
+WEBVTT
+
+00:02.340 --> 00:08.480
+So now that we had a brief look at how asynchronous code can be identified and what is important about asynchronous
+
+00:08.480 --> 00:14.180
+code and that you can use callbacks and promises to handle asynchronous code, now that we learned all
+
+00:14.180 --> 00:15.070
+that,
+
+00:15.080 --> 00:22.820
+let me introduce you to async await. To use that, you first of all have to prepend the async keyword
+
+00:23.060 --> 00:26.870
+in front of a function, like this arrow function here,
+
+00:26.900 --> 00:31.970
+so this function where you plan to use the await keyword,
+
+00:31.970 --> 00:37.920
+so where you want to use these two keywords, they always are used together, async in front of the function
+
+00:38.330 --> 00:41.490
+and then you can tweak this syntax,
+
+00:41.600 --> 00:46.250
+you can write this syntax almost as if it would run synchronously.
+
+00:46.250 --> 00:53.650
+You can get your count, a new constant or variable you create by awaiting post
+
+00:53.660 --> 00:59.790
+find count documents and then you would get rid of this then block here,
+
+01:00.080 --> 01:06.340
+you would instead continue here or you directly store your total items here to be precise,
+
+01:06.380 --> 01:10.410
+you can get rid of this line now and you get rid of this return statement and
+
+01:10.590 --> 01:13.030
+instead you continue with the next line,
+
+01:13.060 --> 01:14.380
+post find limit,
+
+01:14.450 --> 01:17.050
+this gives you back a list of posts,
+
+01:17.060 --> 01:21.750
+so what you currently have in that then block and you again write it like this,
+
+01:21.840 --> 01:30.570
+post await, post find and then this whole statement that in the end would be followed by a then block.
+
+01:30.580 --> 01:33.420
+If you now get rid of the then block like this,
+
+01:33.460 --> 01:34.360
+let's comment out
+
+01:34.370 --> 01:38.500
+catch because that is something we'll care about in a second
+
+01:38.560 --> 01:43.100
+and now if I reformat this, this is our adjusted code, this is using async await and
+
+01:43.170 --> 01:50.650
+this now looks like the normal javascript code we write but behind the scenes, async await takes
+
+01:50.650 --> 01:55.530
+your code and transforms it into the old then-like structure we used.
+
+01:55.540 --> 01:59.290
+So it uses then behind the scenes, we just can't see it
+
+01:59.380 --> 02:03.820
+and we have this more convenient way of writing our asynchronous code.
+
+02:03.940 --> 02:10.120
+Now I haven't used this in this course thus far because I think that if you're relatively new to javascript
+
+02:10.150 --> 02:17.290
+or node, this can quickly lead you to think that this works just like the other code langs and indeed it doesn't.
+
+02:17.830 --> 02:23.860
+Always keep in mind, await just does some behind the scenes transformation of your code,
+
+02:23.920 --> 02:31.300
+it takes your code and adds then after it gets the result of that operation and then stores it in total
+
+02:31.300 --> 02:38.680
+items and then moves onto the next line, executes that inside of that then block it creates here implicitly,
+
+02:38.680 --> 02:44.590
+so basically the exact same code we had before, this is done by async await behind the scenes.
+
+02:44.680 --> 02:50.580
+But if you know, if you understand this, then this can be a syntax you might prefer,
+
+02:50.590 --> 02:51.620
+you don't have to,
+
+02:51.640 --> 02:57.000
+you can absolutely use the other one with then and catch but you might prefer this one.
+
+02:57.010 --> 02:58.700
+Now back to catching,
+
+02:58.810 --> 03:01.090
+how do we handle errors now?
+
+03:01.360 --> 03:07.580
+Well since this now runs almost like asynchronous code, we use try and catch.
+
+03:07.600 --> 03:19.690
+So we try something, we try some code, this code here to be precise and we then catch an error,
+
+03:23.230 --> 03:30.460
+like this which we then handle in there with the code we previously had inside of catch, like this and
+
+03:32.770 --> 03:33.820
+therefore you still have to
+
+03:33.820 --> 03:39.250
+next an error here because keep in mind, behind the scenes this gets converted to then and catch
+
+03:39.250 --> 03:39.490
+as
+
+03:39.490 --> 03:48.480
+we used it before. But now with that, we have transformed this first snippet where we used promises to
+
+03:48.610 --> 03:55.960
+async await and we can see that. If I now save that and I go back to my running application, let me quickly
+
+03:55.960 --> 04:01.030
+log in and open the developer tools to see if we get any errors
+
+04:01.030 --> 04:06.490
+and I currently got no posts so I'll quickly create one, a test post.
+
+04:06.620 --> 04:08.630
+We'll take that duck again,
+
+04:08.880 --> 04:10.770
+this is just a test,
+
+04:10.800 --> 04:13.860
+let me hit accept here and this looks good.
+
+04:13.860 --> 04:14.950
+Now if I refresh,
+
+04:14.970 --> 04:16.450
+we definitely fetched a post
+
+04:16.500 --> 04:17.670
+and this still works.
+
+04:17.670 --> 04:19.350
+So all that code still works,
+
+04:19.350 --> 04:21.940
+we also get no error here on the backend
+
+04:21.990 --> 04:24.150
+and now we transform this to async await.

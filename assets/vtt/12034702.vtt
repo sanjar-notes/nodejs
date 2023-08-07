@@ -1,0 +1,85 @@
+WEBVTT
+
+00:02.270 --> 00:05.330
+So what are asynchronous requests?
+
+00:05.660 --> 00:10.870
+Well we have our client and our server, so the browser and our node application and that's the setup
+
+00:10.910 --> 00:12.650
+we had for this entire course,
+
+00:12.650 --> 00:18.200
+this is the set up you have with any web or even mobile project that you build these days.
+
+00:18.200 --> 00:20.560
+You have your backend, you have your frontend.
+
+00:20.630 --> 00:25.570
+Now typically, you send a request from your client to the server and you get back a response
+
+00:25.580 --> 00:32.210
+and as I mentioned, thus far in this course, the response always was a html page or a redirect to another
+
+00:32.370 --> 00:35.280
+route that then returned a html page.
+
+00:35.620 --> 00:41.990
+Now there is nothing wrong with that but there are tasks where you don't want to reload the page just
+
+00:41.990 --> 00:48.560
+to for example delete an item and actually in modern web applications, the portion that happens behind the
+
+00:48.560 --> 00:49.920
+scenes grows
+
+00:49.940 --> 00:56.090
+since we can do a lot with javascript in the browser where we never need to fetch a new html page
+
+00:56.230 --> 01:01.420
+but where we constantly change the existing page as this is faster than loading a new one
+
+01:01.550 --> 01:06.020
+but that's something I'll cover in the restful API modules.
+
+01:06.140 --> 01:11.960
+Now the idea behind asynchronous requests is that you do send the request but that request typically
+
+01:11.960 --> 01:19.640
+contains just some data in a special format named json and that data is sent to the server, to a certain
+
+01:19.790 --> 01:21.380
+url or a route
+
+01:21.410 --> 01:22.660
+accepted by that server,
+
+01:22.700 --> 01:27.900
+so that logic doesn't change. The server can do whatever it wants to do with that
+
+01:27.950 --> 01:31.700
+and then we return a response and that response is also returned
+
+01:31.730 --> 01:32.840
+behind the scenes,
+
+01:32.840 --> 01:35.830
+so it's not a new html page that needs to be rendered,
+
+01:35.970 --> 01:40.340
+it's instead again just some data in that json format typically.
+
+01:40.570 --> 01:44.360
+And that is how client server can communicate through javascript,
+
+01:44.360 --> 01:51.020
+so through client side javascript and the server side logic without reloading or rebuilding the page,
+
+01:51.200 --> 01:58.130
+without exchanging a new html page. And that allows you to do some work behind the scenes without interrupting
+
+01:58.190 --> 02:01.610
+the user flow, without reloading the page.
+
+02:01.610 --> 02:04.730
+Now let's have a look at how that would work in this module.

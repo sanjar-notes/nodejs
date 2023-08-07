@@ -1,0 +1,190 @@
+WEBVTT
+
+00:02.610 --> 00:09.180
+So let's use multer now on our backend. We can restart the server already because we installed that
+
+00:09.180 --> 00:10.290
+package
+
+00:10.290 --> 00:15.100
+and now let's go to our admin controller and let's work on post add product here,
+
+00:15.150 --> 00:21.720
+we want to use multer to extract incoming files. Now multer is actually not a package which we will
+
+00:21.720 --> 00:27.410
+use in here, instead just like the body parser we use here,
+
+00:27.420 --> 00:33.600
+multer is some middleware which we execute on every incoming request and it then simply has a look at that
+
+00:33.600 --> 00:34.500
+request,
+
+00:34.490 --> 00:40.210
+sees if it's multipart form data and tries to extract files if that is the case.
+
+00:40.350 --> 00:42.970
+So it is some extra middleware we add
+
+00:43.290 --> 00:47.230
+and therefore we can import it here in our app.js file.
+
+00:48.150 --> 00:53.620
+We can import multer by requiring it from the package like this,
+
+00:53.750 --> 01:00.530
+multer and thereafter we can use it,
+
+01:00.570 --> 01:05.650
+so maybe after the body parser, we can use multer.
+
+01:05.940 --> 01:11.260
+Multer has to be executed as a function and then we have to call another method on that
+
+01:11.340 --> 01:16.980
+and that simply defines if you expect to get multiple files or only one file and we will only expect
+
+01:16.980 --> 01:17.880
+one file,
+
+01:17.910 --> 01:19.460
+so we use the single method
+
+01:19.650 --> 01:24.990
+and then we define the input name which will hold the file and in our case, that is image
+
+01:25.050 --> 01:26.770
+and this is not a random value,
+
+01:26.830 --> 01:32.940
+I'm using image here because in my view, this input which holds the file, so this file picker here is
+
+01:32.940 --> 01:35.310
+named image as well.
+
+01:35.310 --> 01:39.460
+So with that, we initialize multer
+
+01:39.750 --> 01:42.490
+and let's now see if that works.
+
+01:42.510 --> 01:49.830
+Now to see that, we need to know how multer will actually store the incoming file and for that, let me go
+
+01:49.830 --> 01:59.120
+back to post add product and instead of extracting request body image, let me access request file here and
+
+01:59.180 --> 02:01.220
+let's see what this gives us,
+
+02:01.260 --> 02:08.590
+I will also console log image url now.
+
+02:08.610 --> 02:11.420
+Now let's save all that and see what that gives us.
+
+02:11.680 --> 02:19.620
+If I now try to add a product again, I'll choose that same file from before, enter any values up here,
+
+02:19.700 --> 02:21.220
+click add product
+
+02:21.220 --> 02:22.440
+and I still get an error.
+
+02:22.540 --> 02:27.130
+Now if we go back, we see something interesting though, indeed here
+
+02:27.280 --> 02:30.800
+this part is what I log here.
+
+02:30.910 --> 02:34.750
+So here what we see is that multer seems to have done something,
+
+02:34.810 --> 02:39.670
+it seems to have stored something in that file property on our request object
+
+02:39.820 --> 02:45.370
+and that is what we print here essentially and it stored the name of the field where it extracted
+
+02:45.370 --> 02:49.360
+that, it detected the file name, it detected the mime type
+
+02:49.360 --> 02:50.890
+so which type of file that is
+
+02:50.890 --> 02:55.310
+and that buffer here is essentially how node handles the binary data.
+
+02:55.540 --> 02:58.310
+You'll learn about streams and buffers earlier, in the end
+
+02:58.330 --> 03:05.290
+this is the result of the streamed data, the file basically was sent to our server as a stream or was
+
+03:05.290 --> 03:11.560
+handled as a stream to handle it efficiently if it was bigger and then this is the collected data in a
+
+03:11.560 --> 03:14.330
+buffer which as we learned is like a bus stop,
+
+03:14.380 --> 03:20.200
+it gives you a way of working with the stream data, here in this case it's the combined stream and data
+
+03:20.520 --> 03:25.770
+and we could indeed work with that buffer to turn it into a file.
+
+03:25.780 --> 03:29.100
+Now you can actually configure multer a bit differently if
+
+03:29.140 --> 03:35.880
+we go back to app.js, when we set up multer, we can pass an object to the multer function and there
+
+03:35.900 --> 03:37.420
+we can set some options
+
+03:37.540 --> 03:40.130
+and one option is the dest option.
+
+03:40.150 --> 03:47.100
+Now here we could specify /images or just images, like this.
+
+03:47.150 --> 03:54.290
+What this will do is that when I again add a product here and don't worry that it still fails because
+
+03:54.470 --> 03:59.180
+we're trying to store the file in the database right now and we'll do all kinds of stuff with it for which
+
+03:59.180 --> 04:02.050
+our code is not prepared but the upload works
+
+04:02.100 --> 04:06.800
+but with this option set, you also see that the output down there changed a little bit.
+
+04:06.800 --> 04:11.900
+We don't have the buffer because now multer is able to do something with the buffer, instead of just
+
+04:11.900 --> 04:13.620
+buffering it all in memory,
+
+04:13.670 --> 04:20.710
+it can then turn that buffer back into binary data you could say and it stores it in this path here.
+
+04:20.780 --> 04:27.140
+So indeed if you have a look at your folder, you should not have an images folder with some file in there.
+
+04:27.530 --> 04:34.000
+Now that file has some random hash name, does not have a file extension and is not recognized as an image
+
+04:34.040 --> 04:40.580
+but indeed if I change that and I add .png at the end, this is the image I uploaded.
+
+04:40.580 --> 04:42.560
+So this does work.
+
+04:42.590 --> 04:48.200
+All we now need to do is we need to tweak the way this file is named and that is something we'll do
+
+04:48.260 --> 04:49.320
+in the next lecture.

@@ -1,0 +1,292 @@
+WEBVTT
+
+00:02.560 --> 00:09.820
+In modern JavaScript, there are two important operators you also should be aware of, since I'll be
+
+00:09.820 --> 00:15.160
+using them throughout the course as well, and that are the rest and spread operators.
+
+00:15.190 --> 00:19.180
+Now specifically, the spread operator is one we'll use quite a bit.
+
+00:19.420 --> 00:26.380
+Let's say we want to implement the pattern where when we add a new hobby, we don't edit the original
+
+00:26.380 --> 00:32.710
+array, but we create a new array with all the old values and the new value.
+
+00:32.740 --> 00:38.860
+This is actually a pretty common pattern called immutability, where we never added existing values,
+
+00:38.860 --> 00:43.090
+but where we always replace them with copies plus the changes.
+
+00:43.090 --> 00:45.970
+And that is all the pattern I'll use quite a lot in the course.
+
+00:46.240 --> 00:53.170
+The idea behind that is that we avoid errors because we always have this clear approach of copy, then
+
+00:53.170 --> 00:58.450
+add it and don't edit existing objects which might lead to more unreadable code.
+
+00:58.720 --> 01:03.880
+Now to copy an array, let's say here I create a copied array.
+
+01:03.880 --> 01:06.460
+We got a couple of possible techniques.
+
+01:06.460 --> 01:08.950
+One of them is to use the slice operator.
+
+01:08.980 --> 01:15.280
+Now if I output copy the arrays down there and I run node pages, I see sports and cooking.
+
+01:15.280 --> 01:16.750
+So I did indeed copy it.
+
+01:16.780 --> 01:19.590
+Slice simply copies an array.
+
+01:19.600 --> 01:23.560
+We can pass arguments to narrow down the range of elements we want to copy.
+
+01:23.560 --> 01:24.820
+With no arguments.
+
+01:24.820 --> 01:26.440
+We copy the entire array.
+
+01:28.300 --> 01:31.900
+Now instead of slides, there is also a different technique.
+
+01:32.020 --> 01:36.740
+We can create a new array with square brackets and we could add hobby stair.
+
+01:36.760 --> 01:37.360
+Right.
+
+01:37.390 --> 01:39.880
+Now what happens if we execute this?
+
+01:39.880 --> 01:41.920
+What will we see in the console?
+
+01:42.600 --> 01:45.190
+Well, if I hit enter, we see.
+
+01:45.210 --> 01:51.470
+Well, it looks like a copy on first sight, but actually it's an array with a number array in it.
+
+01:51.480 --> 01:56.090
+So the outer array has only one element and that's the inner array.
+
+01:56.100 --> 02:01.440
+So it's not a copy, it's just a new array where the first element is the old array.
+
+02:01.440 --> 02:05.250
+And with that I mean the exact same object, not a copy of that.
+
+02:05.790 --> 02:07.740
+So we just created a.
+
+02:08.820 --> 02:10.140
+Nested array here.
+
+02:10.170 --> 02:13.800
+That, of course, was not what we did want to do here and here.
+
+02:13.800 --> 02:16.110
+We can use the spread operator.
+
+02:16.110 --> 02:18.600
+The spread operator are three dots.
+
+02:18.600 --> 02:22.080
+We can add in front of an array or of an object.
+
+02:22.440 --> 02:27.240
+And these three dots are an operator, just as the plus or minus are.
+
+02:27.870 --> 02:29.460
+And they do one thing.
+
+02:29.970 --> 02:39.750
+They take the array or object after the operator and pull out all the elements or properties.
+
+02:39.750 --> 02:48.900
+So all the elements of an array are all the properties of an object and put it to whatever is around
+
+02:48.900 --> 02:49.620
+that spread.
+
+02:49.620 --> 02:50.310
+Operator.
+
+02:52.040 --> 02:57.980
+In this case, we got square brackets around the spread operator and therefore all the elements which
+
+02:57.980 --> 03:03.020
+are pulled out of the existing array are added to the new array.
+
+03:03.320 --> 03:09.500
+And therefore, if I now run this file again, whoops, and I save it before running it again, now
+
+03:09.500 --> 03:12.920
+we see this was the output of the old approach, the nested array.
+
+03:12.950 --> 03:15.320
+Now we got no nested array anymore.
+
+03:15.320 --> 03:23.030
+We got one array and this is now a copy of the old one because we take the spread operator to pull out
+
+03:23.030 --> 03:27.860
+these elements and add them one by one to the new array.
+
+03:28.310 --> 03:33.800
+So this is something you'll see we do a lot to copy existing arrays or objects there.
+
+03:33.800 --> 03:41.750
+It would work in the same way we could have our copied person by using curly braces, then the spread
+
+03:41.750 --> 03:45.230
+operator, the three dots, and then the old person.
+
+03:45.530 --> 03:48.560
+And now if I console.log, the copied person here.
+
+03:50.520 --> 03:52.840
+And I execute this file again.
+
+03:52.860 --> 03:59.640
+This is our copied person here because I'm pulling out all these elements from that object and I add
+
+03:59.640 --> 04:00.780
+it to a new object.
+
+04:00.780 --> 04:07.500
+So this works for both objects and arrays, and it is a syntax I'll use quite a bit in this course.
+
+04:07.740 --> 04:09.870
+Now this is the spread operator.
+
+04:11.560 --> 04:18.220
+I also mentioned the rest operator, and the rest operator is essentially the opposite.
+
+04:18.990 --> 04:22.680
+Let's say I have a function which I'll name to array.
+
+04:23.160 --> 04:24.420
+It's an arrow function.
+
+04:24.780 --> 04:30.240
+And there I expect argument's arc one arc to arc three.
+
+04:31.030 --> 04:34.150
+I want to return an array that contains these arguments.
+
+04:34.180 --> 04:34.590
+Whoops.
+
+04:34.600 --> 04:36.610
+And I should add a equals sign here.
+
+04:36.610 --> 04:39.970
+So I want to return an array that contains these arguments.
+
+04:40.300 --> 04:42.910
+I can return square brackets here, of course.
+
+04:42.910 --> 04:45.280
+And then the first element will be ARG one.
+
+04:45.700 --> 04:49.780
+Then I have ARG two as the second element and arg three as the first element.
+
+04:50.830 --> 05:01.420
+Now I can console lock to array and I pass one, two and three as the free arguments to that function.
+
+05:02.170 --> 05:06.970
+If I now execute pledges, we see an array with one, two and three, these three elements.
+
+05:06.970 --> 05:10.580
+So this is working, but this is totally not flexible.
+
+05:10.600 --> 05:12.910
+What if we want to pass four arguments?
+
+05:12.940 --> 05:14.690
+Well, we could call it like that.
+
+05:14.710 --> 05:19.960
+JavaScript actually allows that, but of course it doesn't get added because we only work with three
+
+05:19.960 --> 05:20.890
+arguments here.
+
+05:21.160 --> 05:24.820
+What we could do is we could use the so called rest operator there.
+
+05:27.820 --> 05:30.460
+Dot, dot, dot and then just arcs.
+
+05:30.580 --> 05:33.370
+And this will actually take all the arguments.
+
+05:33.370 --> 05:35.130
+How many we might specify.
+
+05:35.140 --> 05:39.490
+That doesn't matter and it will bundle them up in an array for us.
+
+05:39.490 --> 05:43.390
+So here args will be an array and I can just return that actually.
+
+05:43.840 --> 05:52.390
+And now if I re execute this with two array getting four arguments, you see now I have my array with
+
+05:52.390 --> 05:53.530
+four arguments here.
+
+05:53.620 --> 05:55.870
+So the rest operator looks just like this.
+
+05:55.870 --> 05:57.760
+Bread operator three dots.
+
+05:57.760 --> 06:01.540
+And it's the place where you use it that defines how you call it.
+
+06:01.810 --> 06:08.500
+Are you using it to pull elements or properties out of arrays or objects?
+
+06:08.500 --> 06:11.020
+Then it would be the spread operator.
+
+06:11.530 --> 06:20.410
+Are you using it to merge multiple arguments into an array and you use it in the argument list of a
+
+06:20.410 --> 06:21.250
+function.
+
+06:21.250 --> 06:23.830
+Then it's the rest operator.
+
+06:23.830 --> 06:29.950
+It's the same operator by the syntax or from a syntax perspective, the name differs depending on the
+
+06:29.950 --> 06:31.480
+place where you use it.
+
+06:31.750 --> 06:35.530
+I'll not use that syntax a lot in this course, but it's still nice to know.
+
+06:35.530 --> 06:41.020
+But being able to pull out elements or properties, that is something you should understand because
+
+06:41.020 --> 06:42.010
+that is a syntax.
+
+06:42.010 --> 06:44.380
+You'll see me use quite a bit throughout the course.

@@ -1,0 +1,175 @@
+WEBVTT
+
+00:02.190 --> 00:10.410
+Besides objects, another crucial data structure in Node.js or in JavaScript in general are arrays like
+
+00:10.410 --> 00:11.280
+hobbies.
+
+00:11.670 --> 00:17.610
+An array is defined with square brackets, and in an array you can have any data you could normally
+
+00:17.610 --> 00:18.420
+use to.
+
+00:18.420 --> 00:22.530
+You can use strings in there like sports and cooking.
+
+00:22.560 --> 00:27.060
+You can't have numbers in there and you don't have to use one at the same type in the array.
+
+00:27.060 --> 00:29.370
+Here we are mixing text and numbers.
+
+00:29.370 --> 00:32.700
+You could have arrays with just text, just numbers and so on too.
+
+00:32.700 --> 00:39.810
+Of course you can use Boolean values and you can even store objects in there or other arrays.
+
+00:39.810 --> 00:41.310
+That is all possible.
+
+00:42.710 --> 00:48.890
+Now here I'll have an array of text though, and you can use four loops to go through that.
+
+00:50.260 --> 00:55.900
+With this syntax, for example, with the four off loop where we store each element for each iteration
+
+00:55.900 --> 00:57.340
+in that hobby variable.
+
+00:57.340 --> 01:03.130
+And now if we do that, we would execute console.log two times because we have two elements and we're
+
+01:03.130 --> 01:07.990
+looping through all of them and I'm outputting the current value we're currently looking at because
+
+01:07.990 --> 01:09.730
+this will change for every iteration.
+
+01:09.730 --> 01:14.050
+Going through it from left to right, we'll output that for every iteration.
+
+01:14.050 --> 01:21.430
+So now if I run this, we see sports and cooking printed in two lines because this executes two times.
+
+01:21.700 --> 01:25.660
+So these are arrays for off loop is interesting.
+
+01:25.660 --> 01:32.170
+And it's also interesting that in JavaScript we got a lot of built in methods we can use on arrays.
+
+01:33.100 --> 01:34.890
+So on hobbies on that array.
+
+01:34.900 --> 01:42.820
+If I add a dot, my ID suggests a lot of methods I can use on arrays in JavaScript, and all these methods
+
+01:42.820 --> 01:49.060
+help me go through the elements of the array, manipulate them, get a subset of that array, whatever
+
+01:49.060 --> 01:49.690
+I need.
+
+01:50.020 --> 01:57.520
+Often you'll see a map, for example, which allows you to transform an array or transform the values
+
+01:57.520 --> 02:00.550
+and map will actually return a new array.
+
+02:00.550 --> 02:04.150
+So it will not edit the old one but give you a new one.
+
+02:05.510 --> 02:09.950
+And we can print that new one here, actually.
+
+02:10.400 --> 02:15.410
+And just to show that the old one was not edited, we can print that right below.
+
+02:15.440 --> 02:23.090
+And now MAP always takes a function where you define how to edit that array or how to edit the elements
+
+02:23.090 --> 02:23.780
+in the array.
+
+02:23.990 --> 02:31.130
+That function will be executed on every element in the array, one after another, and you return the
+
+02:31.130 --> 02:33.070
+updated version of the element.
+
+02:33.080 --> 02:35.420
+So here we would get our hobby.
+
+02:35.420 --> 02:36.860
+You can name this however you want.
+
+02:36.860 --> 02:42.140
+And here I'm using an arrow function with one argument only hence no parentheses.
+
+02:42.440 --> 02:46.940
+And in here I'll return the edited version.
+
+02:46.940 --> 02:49.820
+For example, here I could take my old hobby string.
+
+02:50.950 --> 02:52.420
+And simply add.
+
+02:53.150 --> 02:55.760
+Hobby and a wide space in front of that.
+
+02:55.760 --> 03:00.710
+So I'm simply constructing a new string which keeps the old hobby name, but adds hobby cold and white
+
+03:00.710 --> 03:01.820
+space in front of it.
+
+03:02.120 --> 03:08.030
+And yes, since we only got one statement in that arrow function with a return statement, we can get
+
+03:08.030 --> 03:12.580
+rid of the curly braces, get rid of return and just return like this.
+
+03:12.590 --> 03:14.090
+This would be the equivalent.
+
+03:14.840 --> 03:24.320
+And now if I clear this and I run as I see the old array was not edited, that is my second output here.
+
+03:24.320 --> 03:28.160
+It's coming from this console lock where I console lock the original array.
+
+03:28.310 --> 03:36.020
+But the result of my map here is a new array where I have my edited items with hobby added in front
+
+03:36.020 --> 03:37.040
+of every item.
+
+03:37.310 --> 03:41.060
+And this is something you'll see me do quite a bit in this course.
+
+03:41.060 --> 03:42.920
+Use that map method.
+
+03:43.040 --> 03:46.670
+And as I mentioned, it's only one of the many methods provided here.
+
+03:46.700 --> 03:52.090
+Always check out the docs on MDM to learn more about all these methods.
+
+03:52.100 --> 03:59.900
+Link can be found attached to this video and make sure that you understand how they work or that when
+
+03:59.900 --> 04:05.720
+we use one of them in this course, you can quickly look that up in case it's not clear what exactly
+
+04:05.720 --> 04:10.430
+that does though of course I will do my best to explain it when we use it.
+
+04:10.430 --> 04:17.000
+But these are arrays, very important data structures and some very important methods you can use on
+
+04:17.000 --> 04:17.720
+arrays.

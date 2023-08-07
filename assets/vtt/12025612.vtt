@@ -1,0 +1,88 @@
+WEBVTT
+
+00:02.200 --> 00:07.440
+So we added a very basic validation and we get back a message which we want your output.
+
+00:07.510 --> 00:12.730
+So this already shows us how we can work with that validation middleware, we see it rendered that page
+
+00:12.730 --> 00:16.620
+again and now we just need to make sure we don't output object object here
+
+00:16.630 --> 00:22.050
+but a real error message. We can do that in our sign up view of course,
+
+00:22.240 --> 00:28.660
+here we got our error message thing and the error message which I am outputting here is simply an object
+
+00:28.870 --> 00:32.720
+because it's that array and not a single field in there.
+
+00:32.740 --> 00:37.950
+Now we just need to adjust something and in the controller instead of returning an array,
+
+00:37.950 --> 00:40.720
+let's say we always want to return the first error message.
+
+00:40.720 --> 00:43.500
+Now obviously you could change this to change the overall logic
+
+00:43.540 --> 00:47.630
+and you need to change it in other controller actions then too to output all messages
+
+00:47.650 --> 00:52.330
+but for now let's say we simply take the first one which we are guaranteed to have because we'll have
+
+00:52.330 --> 01:03.410
+at least one error and then there, the message. And now if I save that and I do send just test again,
+
+01:03.420 --> 01:05.070
+now I get invalid value, so
+
+01:05.070 --> 01:07.950
+this is how we could output that message.
+
+01:07.950 --> 01:09.900
+We cannot just output the message,
+
+01:09.900 --> 01:12.450
+we can also customize it
+
+01:12.840 --> 01:15.480
+and we have to do that in the place where we added our middleware,
+
+01:15.510 --> 01:19.050
+so in the routes file. After isEmail,
+
+01:19.200 --> 01:25.620
+you can add do you with message function and this will always refer to the validation logic that was
+
+01:25.620 --> 01:29.870
+right before it because you could add multiple checks here,
+
+01:29.970 --> 01:37.880
+you could also add isAlphanumeric to check that it only contains numbers and characters, number and characters,
+
+01:37.920 --> 01:43.770
+so you could add multiple ones but with message, we'll always refer to the validation method right in
+
+01:43.770 --> 01:44.610
+front of it
+
+01:44.700 --> 01:53.730
+and there you could add please enter a valid email, something like that. And if you add this with message
+
+01:53.730 --> 01:57.560
+here, you will see that if I enter just some text here, I get
+
+01:57.570 --> 01:59.400
+please enter a valid email.
+
+01:59.400 --> 02:04.030
+So this is a way of working with the messages and also of customizing it
+
+02:04.030 --> 02:07.170
+and I also mentioned that you can add more validators.
+
+02:07.200 --> 02:09.370
+So let's have a look at this in the next lecture.

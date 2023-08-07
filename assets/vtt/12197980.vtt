@@ -1,0 +1,337 @@
+WEBVTT
+
+00:02.410 --> 00:03.680
+We're almost done,
+
+00:03.790 --> 00:05.400
+let's now make sure we can
+
+00:05.440 --> 00:09.370
+view our user status and delete it
+
+00:09.430 --> 00:14.530
+and as I already mentioned at the end of the last lecture, this again is a great practice for you
+
+00:14.530 --> 00:21.080
+so definitely feel free to try this on your own first, pause the video now and implement these two functionalities. 
+
+00:22.140 --> 00:22.700
+Of course
+
+00:22.710 --> 00:25.100
+we'll also do it together after a short pause.
+
+00:27.490 --> 00:29.400
+So did you succeed?
+
+00:29.680 --> 00:34.070
+Well let's try it together and I'll do both in one go.
+
+00:34.330 --> 00:35.670
+I need to add two things,
+
+00:35.740 --> 00:40.310
+one query and one mutation. The query is for getting the status
+
+00:40.420 --> 00:46.690
+and actually since we're not using the approach I mentioned earlier where we add a new endpoint for
+
+00:46.690 --> 00:52.420
+everything, we have to remember that with graphql, we can control which data we get back.
+
+00:52.630 --> 00:57.070
+So I will add a general user query without any arguments,
+
+00:57.070 --> 01:02.270
+always for the currently logged in user and I will return a user object here.
+
+01:02.560 --> 01:08.950
+Now in my mutations, I will add my update status
+
+01:08.960 --> 01:16.330
+mutation, I could add an update user mutation if I generally would be fine with the user changing, since
+
+01:16.330 --> 01:18.980
+I have no such functionality planned in my app,
+
+01:19.150 --> 01:23.040
+I will only add a special mutation for just the status
+
+01:23.050 --> 01:28.300
+otherwise we could of course go with a more generic approach here too. There
+
+01:29.330 --> 01:36.040
+I expect to get the status as a string and I will return the updated user.
+
+01:36.280 --> 01:40.430
+With that, we can move on to our resolvers,
+
+01:40.560 --> 01:43.620
+let me add the code for returning a user,
+
+01:43.620 --> 01:52.320
+so for this user query. There I get no arguments, so I get that object but I will not retrieve anything
+
+01:52.530 --> 01:54.020
+from there
+
+01:54.510 --> 02:01.370
+and again I will write this as a async function to be able to use the await keyword.
+
+02:01.460 --> 02:03.620
+I'll then check if the user is authenticated,
+
+02:03.630 --> 02:08.920
+if he's not, then well we have a problem and I will not continue
+
+02:09.390 --> 02:17.550
+otherwise I will get my user by awaiting for user find by ID and I can use the user ID stored in the
+
+02:17.550 --> 02:23.000
+request and on that user here, I'm interested in the status right,
+
+02:23.030 --> 02:25.850
+that's the status I want to return.
+
+02:25.960 --> 02:34.120
+So if I find no user for that ID somehow, then I will basically do the same I did when I found no post,
+
+02:34.890 --> 02:39.320
+I'll return error, no user found.
+
+02:39.340 --> 02:46.560
+If I do have a user though, then I will simply return a response and that is my whole user data,
+
+02:46.780 --> 02:55.120
+I just will make sure to replace the ID with user_id toString. So I can now theoretically
+
+02:55.120 --> 03:00.310
+fetch all the data about a user I'm interested in but obviously I'll implement that in a way that I
+
+03:00.310 --> 03:07.660
+only fetch the status and that is something I do here in my feed.js file of my frontend application.
+
+03:08.390 --> 03:14.740
+There in componentDidMount, I send a request to an endpoint which does not exist anymore,
+
+03:14.980 --> 03:17.970
+instead we're now of course targeting graphql,
+
+03:18.130 --> 03:22.330
+the method here will now be post.
+
+03:22.410 --> 03:30.630
+I will send the token but I'll also set the content type to application
+
+03:30.660 --> 03:39.370
+json and I'll set the body to my query and that query is something I need to create up there,
+
+03:39.440 --> 03:47.190
+graphql query is a constant I'll create here. That is an object with the query key
+
+03:48.390 --> 03:55.080
+which again is surrounded by double back ticks or single back ticks but I need two, opening and closing
+
+03:56.090 --> 04:06.260
+and here I'll send my request to my user query or I'll use the user query and of the data I get back,
+
+04:06.250 --> 04:08.660
+I'm not interested in the name or the email,
+
+04:08.720 --> 04:16.520
+I'm only interested in the status. That is my graphql query and that is what I'll send in stringified
+
+04:16.520 --> 04:17.200
+version
+
+04:17.210 --> 04:19.540
+to that endpoint.
+
+04:19.730 --> 04:22.630
+Again handling errors like this will not work,
+
+04:22.640 --> 04:29.990
+let's instead grab the code we have below, here where I just check for the existence of the errors
+
+04:30.290 --> 04:32.910
+object after parsing the request body,
+
+04:34.230 --> 04:38.580
+so here fetching status failed would be my error message
+
+04:38.700 --> 04:45.490
+and when I extract the data, I need to drill into the data field and then the status field.
+
+04:45.500 --> 04:47.870
+Now if I save that and I reload,
+
+04:50.790 --> 04:56.850
+I got an internal error here, cannot return null,
+
+04:56.930 --> 04:59.980
+let's quickly check our resolver, the user resolver,
+
+05:00.060 --> 05:02.740
+I return my user object here
+
+05:03.230 --> 05:04.410
+but I did not save it
+
+05:04.430 --> 05:10.690
+I guess, this now looks better but I'm not seeing the status here
+
+05:10.710 --> 05:18.320
+and I got an error about which I'll take care in a second. My status here is not found in data,
+
+05:18.340 --> 05:20.910
+I have to drill into the user field as well.
+
+05:20.950 --> 05:26.590
+We can see that if we go to the network tab and have a look at that request where we get that data, we
+
+05:26.590 --> 05:33.310
+get data and in there, user which is the name of our query of course and I forgot that but obviously
+
+05:33.570 --> 05:39.370
+query name is always where the data is stored in and that then has the status field.
+
+05:39.370 --> 05:41.610
+So this is a change that is required
+
+05:41.830 --> 05:45.410
+and now with that, we see the status and this error message also is gone,
+
+05:46.230 --> 05:47.040
+like that.
+
+05:47.340 --> 05:48.360
+So this is it,
+
+05:48.390 --> 05:54.030
+now let's also make sure we can update a status and for that, let's first of all make sure we do something
+
+05:54.030 --> 05:54.930
+for this schema
+
+05:54.930 --> 06:00.150
+we added, for the update status schema in our resolvers file.
+
+06:00.540 --> 06:05.720
+So this is the last resolver function I'll add here, update status.
+
+06:05.780 --> 06:15.000
+I'll get my status argument and the request of course and I will as before use my async function
+
+06:15.000 --> 06:18.720
+syntax and in here,
+
+06:18.880 --> 06:22.350
+I first of all will check whether the user is authenticated,
+
+06:22.570 --> 06:29.420
+if that's not the case, we throw an error and then I'll get my user by awaiting for user find by ID
+
+06:29.430 --> 06:32.440
+for the request
+
+06:32.440 --> 06:33.410
+user ID,
+
+06:33.520 --> 06:41.740
+so for the logged in user. If I have no user then, we get a problem so I will copy that code from above
+
+06:41.770 --> 06:42.700
+and throw an error
+
+06:42.720 --> 06:49.040
+if that's the case otherwise I'll set the user status to the new status I'm getting as an argument
+
+06:49.330 --> 06:53.480
+and then I will await user save to save the updated
+
+06:53.500 --> 06:53.890
+user.
+
+06:56.730 --> 07:05.490
+I can then return an object where I take my user.data and where I replace the ID,
+
+07:05.710 --> 07:09.900
+so user ID with the stringified version of it
+
+07:10.130 --> 07:13.000
+and this is my update status mutation. Now
+
+07:13.010 --> 07:16.670
+last but not least, I also need to edit this on the frontend,
+
+07:18.290 --> 07:24.860
+so in my react app and there, we simply search for the status update handler here where we of course
+
+07:24.860 --> 07:29.660
+send a request to graphql and that should be a post request.
+
+07:29.660 --> 07:34.280
+The headers are all right and I will define my graphql query
+
+07:34.280 --> 07:37.040
+here, is an object
+
+07:37.160 --> 07:46.640
+with the query key, my back ticks of course and the query now is a mutation with the name update status
+
+07:46.700 --> 07:51.900
+or whatever you defined in your graphql schema file
+
+07:52.110 --> 07:54.720
+and there I need to pass in the status which is a string,
+
+07:54.780 --> 08:00.500
+so we need double quotation marks around the value which I'll now inject here and the value is this
+
+08:00.660 --> 08:06.780
+state status, this is where the status is stored which the user enters into the input field and of
+
+08:06.780 --> 08:08.020
+the data I get back,
+
+08:08.040 --> 08:16.650
+I'm only interested in the status. Then we want to send this here in a stringified
+
+08:16.670 --> 08:19.900
+version and again we don't handle errors here,
+
+08:19.900 --> 08:27.010
+we handled them as we do up there checking for the existence of the errors object in our parsed response
+
+08:27.070 --> 08:27.810
+data
+
+08:29.950 --> 08:32.390
+and that is already it.
+
+08:32.410 --> 08:36.220
+Now if I save that and save the backend as well,
+
+08:36.310 --> 08:40.990
+if I add a couple of exclamation marks and I click update, seems to succeed and
+
+08:41.130 --> 08:47.350
+we can validate this by reloading. If I now login with a different user, there of course we should
+
+08:47.350 --> 08:49.200
+not see that updated status,
+
+08:49.210 --> 08:51.620
+there we see the status of that user.
+
+08:51.850 --> 08:58.870
+And with that, we moved our entire rest API over to graphql and I hope you see the power graphql
+
+08:58.900 --> 09:06.190
+gives you by being more flexible regarding the data you fetch from the backend and therefore, your frontend
+
+09:06.190 --> 09:13.280
+development can move faster because your backend gives you the entire bandwidth of data
+
+09:13.330 --> 09:14.710
+you might be interested in.

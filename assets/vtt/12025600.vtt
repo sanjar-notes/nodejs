@@ -1,0 +1,160 @@
+WEBVTT
+
+00:02.290 --> 00:05.850
+Now how do you validate user input?
+
+00:05.850 --> 00:10.210
+Well obviously we got our user entering some data into a form, we got our server
+
+00:10.260 --> 00:11.470
+where we want to handle that
+
+00:11.670 --> 00:15.110
+and now we got a couple of places where we can add validation.
+
+00:15.150 --> 00:20.090
+For example we can validate on the client side with the help of javascript,
+
+00:20.100 --> 00:27.420
+so before any request is sent, we can write some javascript that for example watches the inputs for key
+
+00:27.420 --> 00:27.870
+events,
+
+00:27.870 --> 00:33.990
+so for the user typing and then checks the input whilst the user is working on the form and then you can
+
+00:33.990 --> 00:38.680
+display an error because you can use javascript to change the dom at runtime,
+
+00:38.760 --> 00:44.840
+you can display an error right in the browser before anything is sent to the server.
+
+00:44.880 --> 00:50.520
+Now this can greatly enhance your user experience and it is something which I discuss in my dedicated
+
+00:50.790 --> 00:52.830
+javascript and javascript framework 
+
+00:52.820 --> 00:57.750
+courses like my react course, my angular course and it's totally optional,
+
+00:58.040 --> 00:59.070
+that is important.
+
+00:59.070 --> 01:03.990
+It can definitely improve the user experience and therefore you might want to consider using it
+
+01:04.110 --> 01:12.690
+but it is optional because since we use client side javascript, so javascript code that runs in the browser,
+
+01:13.170 --> 01:20.760
+the user can see that code, the user could change that code and the user can of course disable javascript.
+
+01:20.760 --> 01:27.930
+So this is not a protection that secures you against incorrect data being sent to your server,
+
+01:27.930 --> 01:30.330
+this is not a secure solution,
+
+01:30.360 --> 01:36.570
+it's only there to improve the user experience because of course there you can validate and you can
+
+01:36.570 --> 01:42.090
+show a nice error message and keep the old input so that the user doesn't have to re-enter that email
+
+01:42.090 --> 01:44.780
+address where the @ sign was forgotten
+
+01:45.030 --> 01:49.580
+but it's only for a user experience thing,
+
+01:49.650 --> 01:51.550
+it's not really secure.
+
+01:52.050 --> 01:55.680
+So your next option is to validate on the server side.
+
+01:55.680 --> 02:00.810
+Now this is what we'll focus on in this module and in this course because this is of course what we do
+
+02:00.810 --> 02:01.570
+with nodejs.
+
+02:01.650 --> 02:08.460
+We have to do that because this code can't be seen or changed by the user,
+
+02:08.520 --> 02:14.330
+the user can't disable us using that code because it happens on the server, not in the browser
+
+02:14.550 --> 02:21.480
+and this is the crucial part where we have to add validation, where we really have to filter out invalid
+
+02:21.550 --> 02:22.400
+values,
+
+02:22.440 --> 02:28.140
+so this is a must have, it's absolutely required and it is what we'll focus on. And this then ensures that
+
+02:28.140 --> 02:34.650
+we only work with valid data in our node app and ultimately if we do plan on storing it, that we do store
+
+02:34.680 --> 02:36.050
+correct data.
+
+02:36.450 --> 02:42.930
+Now also important, for some database engines and for most database engines actually, like for example
+
+02:42.930 --> 02:43.800
+mongodb,
+
+02:43.800 --> 02:47.040
+there is also a built in validation which you can turn on,
+
+02:47.040 --> 02:48.430
+I do cover that for the example in
+
+02:48.430 --> 02:51.150
+my mongodb course if you want to learn more about that.
+
+02:51.150 --> 02:57.630
+It's also optional because this can be a last resort but if you have good server side validation in
+
+02:57.630 --> 03:04.500
+place as you should have, then this might not be required because there is not really a scenario where
+
+03:04.560 --> 03:10.280
+invalid data could reach your database because you filter it out in that server side validation already ready.
+
+03:10.800 --> 03:16.390
+No matter which approach you have if you validate on the server side and or in the database, though
+
+03:16.650 --> 03:18.000
+or is not really an option
+
+03:18.000 --> 03:23.550
+you should validate on the server side at all means but no matter what you choose, in the end
+
+03:23.550 --> 03:27.510
+this can of course fail and then you should always return an error message,
+
+03:27.540 --> 03:35.130
+a helpful error message if possible and never reload the page but always keep the data the user already
+
+03:35.130 --> 03:41.100
+inserted because that of course is a horrible user experience which we all know that you enter something
+
+03:41.160 --> 03:42.750
+incorrect and you get back
+
+03:42.790 --> 03:48.890
+hey this password is not known or this e-mail address is unknown and you have to enter it all again.
+
+03:49.020 --> 03:55.430
+So this is another part on which I'll focus in this module, that we provide a good user experience. And
+
+03:55.430 --> 04:00.230
+with that we know how to do validation at least in theory,
+
+04:00.320 --> 04:02.090
+time to turn that into practice.

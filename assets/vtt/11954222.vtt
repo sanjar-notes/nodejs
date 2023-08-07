@@ -1,0 +1,241 @@
+WEBVTT
+
+00:02.080 --> 00:09.090
+So let's work on that login page and for that I'll first of all add a new routes file which I'll name auth.js
+
+00:09.290 --> 00:12.810
+and in there, I want to manage my authentication related routes.
+
+00:13.240 --> 00:19.660
+Now for that, I will first of all set this up in a similar way to my other route files which means I will
+
+00:19.750 --> 00:22.730
+set up the express router,
+
+00:22.890 --> 00:24.860
+so let me simply create that here,
+
+00:24.880 --> 00:33.570
+we don't need the admin control though, so we have that router and I'll then export that router and for now I
+
+00:33.570 --> 00:42.210
+need one get route in here. A get route for /login then which will load the login page,
+
+00:42.230 --> 00:45.640
+so /login is what I want to handle here
+
+00:45.690 --> 00:53.340
+and as always, we have our request response next function here for handling that incoming request.
+
+00:53.340 --> 01:00.930
+Now in order to reach that route, we of course need to register it in the app.js file and in app.js,
+
+01:01.080 --> 01:03.910
+first of all let's import that route,
+
+01:03.960 --> 01:10.080
+so I'll duplicate my shop routes, name them auth routes, the name is up to you of course and it's in the
+
+01:10.260 --> 01:12.900
+auth file in the routes folder,
+
+01:12.900 --> 01:17.220
+so that file we just added and with the auth routes added there,
+
+01:17.730 --> 01:21.840
+I will simply add them below my shop routes. Just like the shop routes,
+
+01:21.840 --> 01:23.680
+I have no leading filter
+
+01:23.700 --> 01:29.980
+so every request will go in there and anything which is not found in the shop routes will therefore
+
+01:30.000 --> 01:33.090
+go into the auth routes and in the auth routes, I will handle
+
+01:33.090 --> 01:37.680
+/login, this route here. Now in here
+
+01:37.920 --> 01:45.900
+I simply want to render a page and I want to render a page in the let's say auth folder and just as I do
+
+01:45.900 --> 01:51.280
+this in the shop controller here, I will also create an auth controller for that.
+
+01:51.300 --> 01:58.010
+So let's maybe duplicate this get orders action from the shop controller, add it here
+
+01:58.110 --> 01:58.680
+and let's name it
+
+01:58.680 --> 02:00.080
+get login
+
+02:00.360 --> 02:03.050
+and then I don't need to find any orders or anything like that,
+
+02:03.050 --> 02:04.920
+that of course can be removed,
+
+02:04.920 --> 02:06.570
+I just want to render something,
+
+02:06.570 --> 02:10.470
+I want to render auth login here,
+
+02:10.650 --> 02:19.590
+the path will be /login, your orders well I will simply name this login and I don't pass any other
+
+02:19.680 --> 02:20.090
+data.
+
+02:20.100 --> 02:26.010
+So it's a really simple controller action in my auth.js file and with that in the auth.js file
+
+02:26.040 --> 02:29.300
+in the routes folder, I can simply import that,
+
+02:29.520 --> 02:39.110
+so here I will import my auth controller by requiring that from the controllers folder in the, whoops,
+
+02:39.290 --> 02:40.910
+the auth file there
+
+02:41.070 --> 02:48.640
+and then here for login, I will not use that function but point at my controller with the get login function.
+
+02:48.930 --> 02:55.560
+Ok so now we get the same setup we used for the other routes and now we have that login controller
+
+02:55.560 --> 03:00.270
+action which will render the login page with the appropriate title.
+
+03:00.270 --> 03:02.190
+Now let me head over to navigation.ejs
+
+03:02.190 --> 03:07.620
+real quick and make sure that this gets highlighted when we are on the page
+
+03:07.620 --> 03:14.510
+and for that I will copy that class assignments, that css class assignment, add it here
+
+03:14.670 --> 03:20.980
+and the path should be /login or whatever you assigned in your controller action.
+
+03:21.150 --> 03:26.580
+With that out of the way, let's add that folder and file in the views folder,
+
+03:26.610 --> 03:30.380
+so I'll add an auth folder here and in there a login.ejs
+
+03:30.420 --> 03:36.150
+file because that is just what I try to render my controller right, there
+
+03:36.150 --> 03:38.430
+I try to render auth login.
+
+03:38.430 --> 03:47.830
+so we need to have that path and file in our views folder. And for that I will really just use my product
+
+03:48.150 --> 03:54.550
+excuse me, my admin, my edit product page because there I have a form and I will move that into the login.ejs
+
+03:54.590 --> 03:55.690
+file,
+
+03:55.720 --> 03:57.900
+I will include head.ejs,
+
+03:58.030 --> 04:00.610
+I don't need the product.css but I need the forms.css
+
+04:00.610 --> 04:01.500
+.
+
+04:01.510 --> 04:10.630
+I will include the navigation, then this here will receive a new class, we can name this login form and
+
+04:10.630 --> 04:13.110
+see how we have to adjust the styling for that
+
+04:13.120 --> 04:18.480
+then. The action here, well that action will always be the same,
+
+04:18.480 --> 04:20.050
+we don't have different modes here,
+
+04:20.100 --> 04:26.430
+the action is always login and we send a post request to that login route. And then here let's say we
+
+04:26.430 --> 04:33.860
+have an email address, we name that field email here and we give it an ID of email,
+
+04:33.890 --> 04:36.500
+it's also of type email and not of type text
+
+04:36.800 --> 04:41.360
+and let's not start with a default value, so we don't need that here
+
+04:41.690 --> 04:48.720
+and we also need a password let's say, so let's add password here, name this password and give it an ID
+
+04:48.720 --> 04:54.020
+of password and the type here will also be password so that the characters are hidden
+
+04:54.260 --> 04:58.600
+and with that, we get also rid of this value here.
+
+04:58.610 --> 05:03.290
+Now we don't need the other form controls so we can get rid of these form controls,
+
+05:03.290 --> 05:11.250
+slso of the hidden one for now and let's simply add a button at the bottom which is of type submit and
+
+05:11.250 --> 05:13.740
+which simply says login,
+
+05:13.740 --> 05:18.150
+so a really simple form. With all of that in place,
+
+05:18.260 --> 05:23.520
+if we now click onto that login button, we are indeed loading that login page.
+
+05:23.520 --> 05:29.610
+Now the styling is a bit off because we need to style that login form and for that, I'll real quick add
+
+05:29.640 --> 05:35.660
+a new css file which I'll name auth.css and in there on the login form,
+
+05:35.700 --> 05:37.550
+let's have a look at the product form,
+
+05:37.560 --> 05:40.290
+I think we can just reuse that style here
+
+05:40.360 --> 05:45.840
+and yes we could have therefore also like refactored it into a global style but I'll just do it
+
+05:45.840 --> 05:47.960
+like this. And in login.ejs,
+
+05:47.960 --> 05:54.750
+we now just make do, need to make sure that we do also import that new auth.css file I just added.
+
+05:54.870 --> 05:58.000
+So if you now reload this, this looks pretty good.
+
+05:58.290 --> 05:59.480
+So now we got this in place
+
+05:59.520 --> 06:03.810
+and as I mentioned, I will not implement a full login flow right now,
+
+06:03.810 --> 06:08.690
+we'll do that in the next module where we dive into authentication and everything that belongs to it.
+
+06:08.910 --> 06:15.530
+But here I want to show you how we can use a cookie to save the information that this user is logged in
+
+06:15.750 --> 06:20.540
+and for that, we'll continue in the next lecture and see how we can use cookies.

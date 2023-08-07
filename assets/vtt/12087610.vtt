@@ -1,0 +1,244 @@
+WEBVTT
+
+00:02.280 --> 00:11.190
+Rest APIs are there to solve one problem you could say. Not every frontend user interface works with
+
+00:11.280 --> 00:17.340
+html pages or not every user interface might want your server to generate,
+
+00:17.400 --> 00:21.580
+well the html code which effectively is the user interface.
+
+00:21.840 --> 00:23.360
+Think about mobile apps,
+
+00:23.370 --> 00:30.990
+for example the Twitter app, these apps typically don't work with server side rendered html code,
+
+00:30.990 --> 00:37.080
+they don't need a templating language on the server to render the html code because you build these
+
+00:37.080 --> 00:47.390
+apps with Java for Android or with swift objective C for iOS and you use a rich suite of pre-built UI
+
+00:47.400 --> 00:49.200
+widgets, you use UI
+
+00:49.200 --> 00:53.420
+libraries provided by Apple, by Google and so on,
+
+00:53.420 --> 01:01.140
+you use these libraries to build your user interfaces in the respective IDEs of these programming
+
+01:01.140 --> 01:05.420
+languages like Android Studio for Android development.
+
+01:05.430 --> 01:10.540
+You build these user interfaces totally decoupled from your server,
+
+01:10.560 --> 01:15.090
+you don't want html code because you can't really render it there.
+
+01:15.120 --> 01:17.190
+Obviously you have mobile browsers too,
+
+01:17.200 --> 01:23.040
+you have a browser on your mobile phone and that will render html pages but all the apps you install
+
+01:23.040 --> 01:28.580
+through the App Store most often don't use html to draw the interface
+
+01:28.710 --> 01:35.670
+but instead they build the interface with the tools given to them by the, well by Apple, by Google
+
+01:35.670 --> 01:40.690
+and then you only need to data to fill these user interfaces with life.
+
+01:40.890 --> 01:46.170
+Another example would be single page web apps. You might not have heard of these but the Udemy
+
+01:46.170 --> 01:49.190
+course player is actually a great example for that.
+
+01:49.560 --> 01:50.750
+Here's an example,
+
+01:50.760 --> 01:56.730
+this is a course by me but of course this is the case for any course. Watch this refresh icon at the top left
+
+01:56.730 --> 01:59.540
+corner as I now click around to course content,
+
+01:59.580 --> 02:01.600
+Q&A and so on.
+
+02:01.620 --> 02:08.350
+Now all these parts here do re-render without the page reloading or the page being refreshed
+
+02:08.370 --> 02:14.550
+and the reason for that is that this entire page is actually rendered through browser side javascript,
+
+02:14.550 --> 02:17.770
+you can of course execute javascript in the browser as you know
+
+02:17.970 --> 02:24.090
+and this javascript code can manipulate the dom, the dom is simply the rendered html code.
+
+02:24.330 --> 02:29.610
+So what Udemy does here and what is very popular, not just on Udemy but on many modern web
+
+02:29.610 --> 02:37.400
+applications is that you only fetch one initial html page that does not really contain a lot of real
+
+02:37.430 --> 02:46.050
+html content but that does load all these javascript script files and then these javascript scripts reach
+
+02:46.050 --> 02:52.530
+out to some backend API, to a restful API and only fetch the data they need to work with to then
+
+02:52.530 --> 02:54.030
+re-render the user interface.
+
+02:54.030 --> 03:00.380
+So if I click on Q&A, some javascript code would reach out to a Udemy server and get me the
+
+03:00.390 --> 03:07.260
+Q&A items I want to display. If I click on course content, another script reaches out to the backend
+
+03:07.260 --> 03:12.940
+and gives me these course items and if I click on one of them, then I might enter a new area where another
+
+03:12.950 --> 03:15.270
+part of javascript takes over.
+
+03:15.360 --> 03:22.140
+So such web applications are very popular because they give us a mobile app like feeling. We click around
+
+03:22.230 --> 03:24.510
+and we don't have to wait for a page refresh,
+
+03:24.600 --> 03:29.670
+we always stay on the same page and only the data that gets rendered changes and therefore only the
+
+03:29.670 --> 03:36.950
+data is exchanged behind the scenes, all the user interface rendering is done through browser side javascript.
+
+03:36.960 --> 03:43.810
+So this is another kind of popular user interface of popular frontend you build these days
+
+03:43.890 --> 03:51.150
+and I actually got a lot of courses on react, on angular, on vue which are popular browser side javascript
+
+03:51.150 --> 03:58.620
+frameworks that you can use to build such user interfaces. You also might not work on a particular frontend,
+
+03:58.670 --> 04:04.980
+maybe you are working on a classic node application as we did thus far but you also have certain
+
+04:04.980 --> 04:06.710
+service APIs that
+
+04:06.720 --> 04:09.650
+you might want to use, like the Google Maps API.
+
+04:09.840 --> 04:16.260
+So here it's not the frontend that requires us to build a rest API on our own but this is another example
+
+04:16.260 --> 04:20.460
+for a case where you only need the data and no user interface.
+
+04:20.460 --> 04:25.730
+You don't expect the Google Maps API to give you back the html code,
+
+04:25.770 --> 04:29.360
+you might just be interested in some coordinates, something like this,
+
+04:29.430 --> 04:33.840
+so again you're interested in the data. And that's the common theme here.
+
+04:33.900 --> 04:40.170
+We have a frontend or we have code that is decoupled from the backend or from a certain backend
+
+04:40.170 --> 04:47.940
+logic like Google Maps and we only need to exchange the data because we don't want to get any user interface,
+
+04:47.970 --> 04:50.030
+we don't want to get html code,
+
+04:50.040 --> 04:51.670
+we build that on our own,
+
+04:51.690 --> 04:58.410
+we just have a backend that needs to serve us data and that is a core idea or that is the core idea
+
+04:58.500 --> 04:59.420
+of building rest
+
+04:59.430 --> 05:07.760
+APIs because there we need a different kind of response. And rest API or rest stands for representational
+
+05:07.760 --> 05:09.180
+state transfer
+
+05:09.380 --> 05:16.540
+and the simple translation I like to use is that we transfer data instead of user interfaces.
+
+05:16.580 --> 05:23.840
+So instead of html, we just transfer data and we leave it to the client or to the frontend, be that
+
+05:23.840 --> 05:26.810
+a mobile app, be that a single page application,
+
+05:26.810 --> 05:31.930
+we leave it to that frontend to then do with this data whatever it wants to do.
+
+05:32.450 --> 05:37.610
+And thus far in the course, we always rendered the html page on the server
+
+05:37.790 --> 05:42.790
+and that of course did not only include the data but also already the user interface.
+
+05:42.980 --> 05:46.000
+And let me also highlight that this is not bad at all,
+
+05:46.010 --> 05:51.950
+it's a common pattern for a lot of web applications but for other applications, you might want to build
+
+05:51.950 --> 05:57.370
+a decoupled frontend or you might need to and then rest APIs are the solution.
+
+05:57.480 --> 06:04.190
+It's also important to highlight that only the response and the request data changes but not the general
+
+06:04.190 --> 06:05.410
+server side logic.
+
+06:05.630 --> 06:11.720
+So everything you learned about validating, about reaching out to databases, about handling files on the
+
+06:11.720 --> 06:14.740
+server, all these things don't change,
+
+06:14.780 --> 06:22.160
+you do that in exactly the same way when building a rest API and that is really important to me because
+
+06:22.160 --> 06:29.000
+often, rest APIs and traditional web apps where you render the views on the server are seen as
+
+06:29.000 --> 06:30.890
+two totally different things. 
+
+06:30.920 --> 06:38.420
+They are not, they only differ in the response and in the kind of data you expect but they don't differ
+
+06:38.540 --> 06:40.210
+in what happens on the server
+
+06:40.220 --> 06:45.580
+besides the fact that you don't render the view there and that is really important and this is also
+
+06:45.590 --> 06:52.610
+of course why what you learned thus far is now not redundant, actually we'll reuse 99% of the knowledge,
+
+06:52.790 --> 06:58.580
+we'll only tune our data usage or our data handling and the response a little bit.

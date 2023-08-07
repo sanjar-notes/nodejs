@@ -1,0 +1,115 @@
+WEBVTT
+
+00:02.230 --> 00:08.750
+Now before we finally dive into the javascript refresher or optionally in case you skip that, into the
+
+00:08.810 --> 00:10.010
+nodejs basics,
+
+00:10.220 --> 00:17.180
+let me dive into two different ways of executing your node code. One way of executing it which I briefly
+
+00:17.180 --> 00:25.700
+mentioned earlier in this module is the repl. Repl stands for read, reading user input, eval, evaluating
+
+00:25.700 --> 00:35.390
+user input, print, outputting a result and l, loop for returning and waiting for new input and the repl
+
+00:35.390 --> 00:36.380
+is what you use
+
+00:36.440 --> 00:43.040
+if you just type node into your terminal. Here I am in the terminal or on Windows this would be your command
+
+00:43.040 --> 00:48.950
+prompt and there if you just type node with node installed, you are now in the repl which you can identify
+
+00:48.950 --> 00:54.350
+by the fact that you now don't have that full path of your computer name at the beginning but just that
+
+00:55.010 --> 00:56.340
+greater than sign
+
+00:56.480 --> 01:05.090
+and there you can execute node commands like console log, two plus two or also writing, interacting with
+
+01:05.090 --> 01:05.750
+files.
+
+01:05.810 --> 01:12.860
+You can import the file system there just as we did it previously in our file and then we can use that
+
+01:12.890 --> 01:15.760
+to write a file synchronously and so on,
+
+01:15.860 --> 01:17.340
+so that will all work here
+
+01:17.570 --> 01:21.870
+and this is of course an environment where we don't store our code in files
+
+01:21.920 --> 01:25.890
+but we write our node application with every line.
+
+01:25.940 --> 01:28.150
+The lines don't work independent from each other,
+
+01:28.190 --> 01:31.730
+so I can now use the file system package for example
+
+01:31.730 --> 01:39.710
+now that I imported it one line earlier but once I quit out of this process with control c, I'm done.
+
+01:39.710 --> 01:41.090
+This is not saved anywhere,
+
+01:41.090 --> 01:45.950
+this is not a file I can execute again and this therefore is a great playground.
+
+01:45.950 --> 01:51.470
+The alternative to running codes is that you execute files as we did it before and as we will basically
+
+01:51.470 --> 01:53.250
+do it for the rest of the course,
+
+01:53.260 --> 01:56.900
+this is the alternative to using the repl. When you execute files,
+
+01:56.900 --> 02:02.750
+the advantage of course is and that is why we use it for real apps, that we write our code in advance
+
+02:02.750 --> 02:08.930
+and we can always execute it and when we build a real app, we want to save our code of course in files
+
+02:08.930 --> 02:14.120
+which we can then deploy in the end which we could share with other developers and where we can also pause
+
+02:14.120 --> 02:15.840
+our work and pick up later
+
+02:15.880 --> 02:22.060
+and where we never lose the code we write. But the repl is a great playground because we can use that to run some
+
+02:22.070 --> 02:27.660
+commands, to try out certain things because we execute code as we write it and therefore these are the
+
+02:27.710 --> 02:30.650
+two ways of running your node code,
+
+02:30.800 --> 02:35.390
+obviously we'll go with the store code in files approach in this course
+
+02:35.480 --> 02:41.750
+but whenever I say repl, I'm referring to this direct input way which I can recommend for trying out
+
+02:41.750 --> 02:45.710
+some features but not for writing real applications,
+
+02:45.710 --> 02:47.510
+that is not what you would do.
+
+02:47.510 --> 02:50.430
+I just wanted to get these two ways out of the way,
+
+02:50.480 --> 02:56.270
+we'll focus on the left one here and with that, let's dive into writing some code with the next modules.

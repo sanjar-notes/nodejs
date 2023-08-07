@@ -1,0 +1,250 @@
+WEBVTT
+
+00:02.160 --> 00:09.050
+Now that we are able to sign up, let's also add some functionality to ensure that we can sign in
+
+00:09.590 --> 00:17.630
+and for that, we obviously have our login page and when we enter something here, we reach our post login
+
+00:17.630 --> 00:18.620
+route here.
+
+00:18.800 --> 00:24.350
+Now in there we still have the old dummy code where we just find our default user which by the way won't
+
+00:24.350 --> 00:26.380
+exist anymore because we deleted it
+
+00:26.570 --> 00:28.360
+and then we would create a session.
+
+00:28.370 --> 00:32.030
+This is obviously not the approach I want to use anymore,
+
+00:32.060 --> 00:38.040
+instead what I want to do is I want to find a user in here but I want to find the user by the email
+
+00:38.120 --> 00:39.170
+the user entered,
+
+00:39.170 --> 00:45.740
+so let's first of all extract that. Let's extract the email from the request body and let's extract
+
+00:45.770 --> 00:48.130
+the password from the request body,
+
+00:48.170 --> 00:51.760
+these are two pieces of information I need for signing a user in.
+
+00:52.370 --> 00:59.500
+And then here I'll not use find by ID but find one to find one user with a specific e-mail
+
+00:59.600 --> 01:05.330
+and there should be only one user with an email in the database and I'll find the user by looking for
+
+01:05.330 --> 01:11.850
+the email field in the documents and comparing it to the e-mail value we are extracting here.
+
+01:12.990 --> 01:14.420
+Now if I find a user here
+
+01:14.430 --> 01:21.900
+so if I make it into here and I then have a user, then I know that we can check the password next.
+
+01:22.050 --> 01:25.900
+If I don't have a user here, so if user is undefined,
+
+01:25.920 --> 01:31.080
+I didn't find a user in the database and then I can simply return here,
+
+01:31.140 --> 01:37.980
+not execute the other code and simply redirect back to login for now because the login failed because
+
+01:37.980 --> 01:45.170
+we tried to use an e-mail which does not exist in the database as we didn't find a user for it. If we
+
+01:45.170 --> 01:46.140
+make it past
+
+01:46.290 --> 01:52.080
+this if check, we know that the e-mail exists but now we need to validate the password of course. We'll do this
+
+01:52.090 --> 01:58.650
+with the bcrypt package again because the password is of course stored in a hashed form
+
+01:58.850 --> 02:02.090
+and I mentioned that we can't reverse this,
+
+02:02.090 --> 02:05.250
+so how can we now compare the password?
+
+02:05.660 --> 02:14.630
+Well remember that bcrypt was responsible for creating the hash, bcrypt uses a certain algorithm
+
+02:14.630 --> 02:15.410
+for that
+
+02:15.680 --> 02:22.040
+and we can essentially pass the password the user entered into bcrypt and let bcrypt compare
+
+02:22.040 --> 02:29.840
+it to the hashed value and bcrypt can then find out if the hashed value does make sense, taking into
+
+02:29.840 --> 02:34.820
+account the algorithm that is used for creating that for the password you entered as plain text.
+
+02:34.910 --> 02:41.120
+So if that plaintext password, if you would hash it could result in the hash password and if the answer
+
+02:41.120 --> 02:48.450
+is true, then you know the user entered a valid password. And for this, brypt has the compare function
+
+02:48.590 --> 02:50.440
+and there we enter the password
+
+02:50.510 --> 02:52.100
+we want to check,
+
+02:52.130 --> 02:57.290
+so the password we extract from the incoming request and then the hashed value against we want to compare
+
+02:57.290 --> 02:57.580
+it
+
+02:57.860 --> 03:02.960
+and that is found in our user document which we get from the database and there of course in the
+
+03:02.960 --> 03:04.890
+password field.
+
+03:04.940 --> 03:07.970
+Now this also returns a promise,
+
+03:07.970 --> 03:12.250
+so here we can add then and a catch block.
+
+03:12.320 --> 03:14.620
+Now if we have an error here,
+
+03:14.660 --> 03:24.280
+so if we fail to compare this, then I also want to redirect back to the login page but if we make it
+
+03:24.280 --> 03:28.730
+into the then block, then I want to check whether we were successful.
+
+03:28.810 --> 03:33.300
+Now important, with compare we'll only face an error
+
+03:33.340 --> 03:40.720
+if something goes wrong, not if the passwords do not match. In both a matching and a non-matching case,
+
+03:40.930 --> 03:47.540
+we make it into the then block and result will be a boolean that is true if the passwords are equal,
+
+03:47.680 --> 03:52.500
+so we could also name this do match to make this clearer and it will be false
+
+03:52.570 --> 03:54.330
+if they are not equal.
+
+03:54.400 --> 03:57.050
+So here we can check if do match is true,
+
+03:57.130 --> 04:04.750
+that means the passwords are equal, the user entered a valid password and then we could return to not
+
+04:04.750 --> 04:06.280
+execute any other code,
+
+04:06.280 --> 04:09.660
+we could return a redirect to the starting page.
+
+04:09.850 --> 04:16.030
+If we don't make it into there, then we want to redirect back to the login page because then the user
+
+04:16.030 --> 04:18.190
+entered an invalid password.
+
+04:18.190 --> 04:21.650
+Now we also want to set a session as we did it before
+
+04:21.910 --> 04:25.980
+and that session code should only be set if we have a matching password,
+
+04:25.990 --> 04:30.950
+so if the user did authenticate. Then we can still set is logged in,
+
+04:31.150 --> 04:36.790
+we can still store the user in the session because we still need the user object and the user here keep
+
+04:36.790 --> 04:43.690
+in mind is the user we retrieved from the database and we want to save that session and only redirect
+
+04:43.770 --> 04:47.200
+in that session after we saved it successfully.
+
+04:47.200 --> 04:54.520
+Therefore we should also return this to avoid code execution of this line because the callback here
+
+04:54.610 --> 04:57.070
+will execute asynchronously,
+
+04:57.100 --> 05:01.580
+so this needs to be returned to not execute this line here, in here
+
+05:01.600 --> 05:07.510
+we don't need to return then because after this line, this line can't be reached because this line is in
+
+05:07.540 --> 05:10.570
+a callback in a different function.
+
+05:10.570 --> 05:15.780
+So with all that in place, we should be able to sign in if we do enter a valid password,
+
+05:16.180 --> 05:17.490
+let's give this a try.
+
+05:17.770 --> 05:25.450
+So keep in mind my email is test2 and I used tester as a password and first of all I will try a wrong
+
+05:25.510 --> 05:29.250
+email, I'm redirected back to login
+
+05:29.270 --> 05:31.930
+so this didn't seem to succeed.
+
+05:32.380 --> 05:38.680
+We can also quickly go to the sessions and clear all sessions here so that we can really prove that
+
+05:38.680 --> 05:41.110
+no session was created.
+
+05:42.330 --> 05:50.340
+So now let me enter a valid email but an incorrect password and I'm again redirected back and no session
+
+05:50.340 --> 05:51.960
+was created here
+
+05:52.440 --> 05:58.760
+but now let me enter the valid email and the valid password
+
+05:58.970 --> 06:00.340
+and now I'm on the starting page.
+
+06:00.350 --> 06:02.840
+I see all options which is looking good,
+
+06:02.870 --> 06:04.630
+we get no error here
+
+06:04.910 --> 06:11.240
+and if I have a look at my sessions collection, we've got a session here because now I am logged in,
+
+06:11.310 --> 06:13.470
+this is the user object with which I'm logged in,
+
+06:13.470 --> 06:14.770
+so this is correct
+
+06:14.780 --> 06:19.660
+and now we got a working login flow, taking into account our email and so on.

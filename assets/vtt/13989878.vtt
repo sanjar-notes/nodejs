@@ -1,0 +1,244 @@
+WEBVTT
+
+00:02.310 --> 00:07.350
+With that dummy user set up, we can now do our actual testing logic.
+
+00:07.590 --> 00:14.370
+So if we have a look at our off controller here at the off controller file, so in the controllers folder,
+
+00:14.730 --> 00:22.470
+we need a request that has a user ID field because we're finding a user by that user ID and then we
+
+00:22.470 --> 00:28.050
+alter the response object by calling a status method on it and adjacent method.
+
+00:28.050 --> 00:33.930
+So we need to pass in a request object that has a user ID and the response object that has a status
+
+00:33.930 --> 00:38.880
+method and adjacent method where we then can set some status data.
+
+00:38.880 --> 00:44.910
+And again we can of course pass our own response object here instead of using the real one to fine tune
+
+00:44.910 --> 00:48.210
+it to our needs so that we can easily test this.
+
+00:49.020 --> 00:55.380
+So I'll create my request object here first of all, where I have a user ID and of course that user
+
+00:55.380 --> 01:00.210
+ID should be the idea of the user we're creating here now to simplify this.
+
+01:00.880 --> 01:09.700
+We can give this user an ID, you can explicitly set one and here that can be a string.
+
+01:09.700 --> 01:12.070
+Now the format of the string matters.
+
+01:12.070 --> 01:17.950
+You can use the one you find attached to this video here, which is a string considered to be a valid
+
+01:17.950 --> 01:19.390
+ID by MongoDB.
+
+01:19.420 --> 01:26.350
+So I'll give this user my own ID so that I can pass the user ID here in the request so that I do really
+
+01:26.350 --> 01:27.910
+find a user that exists.
+
+01:27.910 --> 01:32.620
+Of course we could all to test our code for cases where we don't find the user with the wrong ID.
+
+01:32.650 --> 01:40.090
+But here I want to get a real user and I want to test if this response is set up correctly.
+
+01:40.940 --> 01:42.800
+Right, because that is what we're testing.
+
+01:42.800 --> 01:45.560
+We should send a response with a valid user status.
+
+01:47.990 --> 01:49.190
+For an existing user.
+
+01:49.820 --> 01:50.570
+So.
+
+01:51.390 --> 01:53.550
+This is the request now for the response.
+
+01:53.550 --> 01:59.250
+I will no longer just send an empty object, but instead the response object will need a status method
+
+01:59.250 --> 02:05.160
+and adjacent method and some place to store that user status and the response status code.
+
+02:05.580 --> 02:08.550
+So I will have an object here.
+
+02:10.050 --> 02:15.750
+With a status code field of 500, let's say initially of.
+
+02:18.530 --> 02:25.220
+A user status of null initially, then a status method.
+
+02:25.220 --> 02:34.970
+So a function here where I get a status code and I then set this status code equal to code and then
+
+02:34.970 --> 02:43.040
+I return this here so that status returns this response object again so that here.
+
+02:45.150 --> 02:50.760
+I can actually call Jason on this object because here I am able to change these methods.
+
+02:50.760 --> 02:55.620
+So to be able to do this, I need to return this here and then I'll add this.
+
+02:55.710 --> 02:56.850
+Jason.
+
+02:58.160 --> 02:59.210
+Function here.
+
+02:59.940 --> 03:02.520
+Where I have some data which I get as an argument.
+
+03:02.730 --> 03:09.000
+Now the data, of course, will be here an object where we have a status key, which is the user status.
+
+03:10.020 --> 03:17.370
+And therefore here I will then set this user status equal to data status because again, the data we're
+
+03:17.370 --> 03:20.120
+getting will be an object with a status key.
+
+03:20.130 --> 03:22.260
+So I'm extracting that and storing that here.
+
+03:22.560 --> 03:27.840
+And therefore, we now have a response object with which we should be able to interact just as we do
+
+03:27.840 --> 03:29.070
+in the off controller.
+
+03:29.970 --> 03:34.920
+Now it's the time to actually run our test code and use the off controller.
+
+03:34.950 --> 03:36.240
+Get user status.
+
+03:37.010 --> 03:42.890
+And then here, because this still is async function and therefore it implicitly returns a promise.
+
+03:43.370 --> 03:50.480
+So here I then need to of course pass in my request response and then this empty next function.
+
+03:50.750 --> 03:57.380
+And then in here, in this function which executes once our controller is done there, I can define
+
+03:57.380 --> 03:58.700
+my expectation.
+
+03:58.700 --> 04:05.120
+And my expectation is that this response object now has a status code.
+
+04:06.180 --> 04:07.740
+Which is equal.
+
+04:07.740 --> 04:14.130
+So with to be equal, for example, which is equal to 200 and not 500 anymore because we should set
+
+04:14.130 --> 04:17.430
+it to 200 here if we succeeded extracting that user.
+
+04:18.380 --> 04:26.600
+And of course, that the status is extracted correctly so that our user status field is populated.
+
+04:29.000 --> 04:35.190
+To the default status we have in our user model, which is IMU with an exclamation mark.
+
+04:35.210 --> 04:36.710
+So this is our default status.
+
+04:36.710 --> 04:42.110
+Since we don't set a different status here in our dummy user object, we should have that default status.
+
+04:42.110 --> 04:49.400
+So I expect it to be set and thereafter I call done because this is when I let Mark finish this up.
+
+04:50.950 --> 04:54.790
+Now let's give this a try and let's run NPM test.
+
+04:57.940 --> 05:02.380
+And we have six passing tests, including this one here.
+
+05:02.680 --> 05:04.510
+It took quite long, which is okay.
+
+05:04.630 --> 05:11.740
+By the way, if this times out, you can define a longer time out period by going to your scripts and
+
+05:11.740 --> 05:17.920
+adding dash dash time out here after mocha and set this to 5 seconds, for example, with 5000, because
+
+05:17.920 --> 05:20.560
+this is in milliseconds, the default is 2000.
+
+05:20.560 --> 05:23.080
+And if you're timing out here, set it to 5000.
+
+05:23.260 --> 05:25.610
+But now this seems to work.
+
+05:25.630 --> 05:30.460
+Let's also have a look at the database now and see if the test database exists and if the dummy user
+
+05:30.460 --> 05:31.480
+exists there.
+
+05:32.020 --> 05:33.820
+So we'll look at our collections here.
+
+05:35.010 --> 05:39.200
+Now, if I have a look at my database, I have a couple of collections.
+
+05:39.200 --> 05:43.340
+I do have that text messages database and there I have a user's collection.
+
+05:43.340 --> 05:46.340
+And in there indeed I have that dummy user.
+
+05:46.610 --> 05:52.340
+Now, just to really be sure, if I check for a different status and I rerun this, you can quit that
+
+05:52.340 --> 05:54.470
+process, which was still running with control.
+
+05:54.510 --> 06:04.100
+See now indeed, we get a timeout error here because we got one failing test where we have that test
+
+06:04.100 --> 06:05.390
+up there failing.
+
+06:06.190 --> 06:09.070
+However, it fails for a different reason.
+
+06:09.070 --> 06:13.510
+If you watch closely, you see it fails because we have a duplicate key issue.
+
+06:13.720 --> 06:20.080
+And that of course stems from our setup code here where I create a new user that now for the second
+
+06:20.080 --> 06:23.920
+test run already exists and the result is a different issue.
+
+06:23.920 --> 06:26.050
+This process doesn't quit as it did before.
+
+06:26.050 --> 06:27.910
+We manually have to do this with control.
+
+06:27.940 --> 06:31.240
+See, now let's fix all these things in the next lectures.

@@ -1,0 +1,43 @@
+WEBVTT
+
+00:02.180 --> 00:08.330
+Now that we learned what sessions and cookies are and we had our dummy authentication flow in place, let's dive
+
+00:08.330 --> 00:14.360
+into real authentication. This means that in this module, we'll add a functionality that allows users to
+
+00:14.360 --> 00:22.250
+sign up, to sign in and we'll make sure that some resources can really only be accessed by users who
+
+00:22.310 --> 00:29.720
+are signed in and that we're not just hiding the menu options but that we really lock down access,
+
+00:29.720 --> 00:33.760
+I will also show you how to store passwords securely and so on.
+
+00:34.070 --> 00:36.330
+So what exactly is inside of this module?
+
+00:36.530 --> 00:43.070
+Well first of all, we'll have a look at what exactly authentication is, how it works in a node application
+
+00:43.190 --> 00:49.010
+or in a web application in general because this is actually not limited to nodejs,
+
+00:49.010 --> 00:55.460
+authentication would be implemented like this in a PHP app in the same way and in all the other languages
+
+00:55.460 --> 01:00.350
+too. We'll have a look at how we can store and use the credentials,
+
+01:00.350 --> 01:06.440
+so the email and password with which the user signed up and I will dive into protecting routes,
+
+01:06.560 --> 01:12.830
+that is what I meant with locking down access to make sure that users are only able to access the routes
+
+01:12.860 --> 01:18.830
+they need to access and that we don't just hide the menu options but that we really check the permissions
+
+01:19.040 --> 01:20.420
+on the server side.

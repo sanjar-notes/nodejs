@@ -1,0 +1,340 @@
+WEBVTT
+
+00:02.300 --> 00:06.300
+Time to work on our product model again. In there we get a save method
+
+00:06.320 --> 00:08.880
+and right now we used that to create a new product.
+
+00:09.320 --> 00:15.080
+Now why don't we also use that for updating an existing product if we already have it?
+
+00:16.700 --> 00:23.920
+To do this what we'll have to do is in save we just have to check if we already have an ID and therefore
+
+00:23.920 --> 00:31.270
+when creating a new product, we should accept an ID too and then set this ID equal to ID but we'll
+
+00:31.270 --> 00:37.090
+simply pass null here for a brand new product, so that we can still create products that don't have
+
+00:37.090 --> 00:39.780
+an ID yet then the ID will be assigned here
+
+00:40.000 --> 00:47.050
+but if I we're editing one, we do have the ID already so we can simply assign it here. And then in save,
+
+00:47.080 --> 00:53.410
+we can simply check if this ID is already existing, if it is null, this will fail and will automatically make
+
+00:53.410 --> 00:55.870
+it to the next line which we want
+
+00:56.080 --> 01:02.620
+but if we do have an ID, save should not create a new ID and new product, instead it should simply update
+
+01:02.620 --> 01:07.980
+the existing one. We'll still have to get all the products though,
+
+01:08.020 --> 01:14.950
+so indeed this should be moved into our callback because we need all the products anyways and the new
+
+01:15.070 --> 01:19.350
+ID creation can also move in there but after this if statement.
+
+01:19.360 --> 01:25.240
+Now in this if statement, I now want to update the existing product and for that, I need to find it first.
+
+01:25.760 --> 01:34.450
+So I'll find my existing product index again by searching for or going through all my products with the find
+
+01:34.780 --> 01:36.080
+index method,
+
+01:37.450 --> 01:43.900
+products will be an array as we know and there, I will get access to all my products stored in the temporary
+
+01:43.900 --> 01:49.960
+prod argument here or in the prod argument of this anonymous function I should say and I can simply check
+
+01:50.020 --> 01:56.640
+if the ID of the product I'm looking at in this array is equal to this ID, put in other words if I'm
+
+01:56.650 --> 01:58.250
+now looking at the product
+
+01:58.390 --> 02:00.000
+I plan on editing.
+
+02:00.430 --> 02:05.920
+If that's the case then I found the index of the product I want to edit and now I simply have to replace
+
+02:05.920 --> 02:07.760
+that in that products array.
+
+02:08.970 --> 02:09.750
+So I'll create an
+
+02:09.780 --> 02:17.610
+updated products array where I use that spread operator again to pull out all the existing product elements,
+
+02:17.760 --> 02:25.470
+store them in a new array and then on that array updated products, I'll replace my existing product index
+
+02:25.740 --> 02:28.150
+with this because this
+
+02:28.230 --> 02:35.610
+inside of this class here is of course the updated product because you have to imagine that I create
+
+02:35.610 --> 02:43.770
+a new product instance, I will populate it with information about my existing product and then I just call
+
+02:43.770 --> 02:49.500
+save and I will find out that I already have this product and therefore I just replace it in the array
+
+02:49.500 --> 02:54.490
+which is stored in the file with the newly created product I'm in.
+
+02:54.870 --> 02:59.550
+So with that being saved, I just have to write that information to the file,
+
+02:59.760 --> 03:02.470
+so fs write file is what I need to execute,
+
+03:02.670 --> 03:04.800
+so this code will stay the same,
+
+03:04.950 --> 03:12.780
+just that I need to call it on updated products here and I will now also wrap the other part here in the
+
+03:12.780 --> 03:17.690
+else block so that not both snippets execute but only one of them.
+
+03:17.700 --> 03:23.150
+So now we're storing the updated products and write file will always replace all the old content,
+
+03:23.190 --> 03:25.320
+so we won't add it or anything like that,
+
+03:25.350 --> 03:26.500
+it will replace it
+
+03:26.910 --> 03:32.610
+and therefore we should now have a save function that we can use both for adding new products or editing
+
+03:32.700 --> 03:34.680
+existing products.
+
+03:34.680 --> 03:36.600
+Now this has one important implication,
+
+03:36.600 --> 03:43.490
+we now need to go to the controller and when adding a new product here in post add product, we now also
+
+03:43.500 --> 03:50.850
+need to set null as an ID, as a first argument here on our product constructor because we just added
+
+03:50.850 --> 03:54.470
+this as an additional argument here in the constructor
+
+03:54.690 --> 04:01.020
+and if it is null, then this check will fail and we will therefore make it into the new product created
+
+04:01.020 --> 04:02.510
+mode which is what we want.
+
+04:03.840 --> 04:09.410
+We now can also work on the post add, edit product method, there
+
+04:09.510 --> 04:11.090
+I need to do two things.
+
+04:11.130 --> 04:17.280
+First of all I need to fetch information for the product, then I need to create a new product instance
+
+04:17.400 --> 04:22.220
+and populate it with that information and then I need to call save.
+
+04:22.290 --> 04:29.660
+Let's first of all extract the product ID, prod ID by accessing the request and there since it's a
+
+04:29.660 --> 04:30.660
+post request,
+
+04:30.750 --> 04:33.630
+I expect to get that information in the request body.
+
+04:33.900 --> 04:36.480
+However at the moment this will not happen,
+
+04:36.810 --> 04:40.590
+so let's go to the view first to the edit product.ejs file
+
+04:40.920 --> 04:45.660
+and there I need to add a new hidden input which stores the existing product ID.
+
+04:45.960 --> 04:51.240
+However that is only an option if I'm editing a product, not if I'm adding one, 
+
+04:51.240 --> 04:59.470
+so first of all I'll use ejs to again check if I am editing and also close that here, here we also need
+
+04:59.470 --> 05:02.540
+to open a curly brace therefore
+
+05:02.760 --> 05:09.450
+and if I am editing and only in this case, I'll render a new input here which is hidden, so which
+
+05:09.450 --> 05:15.770
+the user can't see where the value is now my product ID,
+
+05:15.940 --> 05:21.660
+so I'm using ejs to output the product ID there. And this will now therefore be included in the form,
+
+05:21.660 --> 05:25.070
+now I just need to give it a name, product ID maybe
+
+05:25.170 --> 05:33.770
+and now I can extract it by that name in the incoming request in my controller, so request body product
+
+05:33.800 --> 05:40.710
+ID because I used product ID as a name here in the view on the hidden input.
+
+05:40.730 --> 05:47.450
+Now with that ID fetched, I could fetch my product through the product model but actually this is the
+
+05:47.450 --> 05:47.780
+edit
+
+05:47.790 --> 05:48.360
+route right,
+
+05:48.410 --> 05:54.560
+so I get the new values I want to store as part of my post request body because the user enters them
+
+05:54.560 --> 05:55.550
+here in the form.
+
+05:58.460 --> 05:59.010
+Here
+
+05:59.210 --> 06:08.060
+all this is sent to me, so I will now simply store all that in values or in constants like my updated
+
+06:08.240 --> 06:17.150
+title will be request body title, I'll have my updated price which is request body price,
+
+06:17.300 --> 06:20.120
+I'll have my updated image
+
+06:20.120 --> 06:25.360
+url and you can name these constants however you want. Now important of course is what you access
+
+06:25.360 --> 06:26.930
+here on the request body,
+
+06:26.930 --> 06:34.680
+these keys have to match the names you have on your inputs in your well added product view.
+
+06:34.730 --> 06:41.390
+Last but not least, we got the updated description here which is request body description. And now with
+
+06:41.390 --> 06:44.990
+all that data, I can create an updated product,
+
+06:45.010 --> 06:51.760
+this name is also up to you, instantiate a new product therefore and here, I do pass my existing prod ID as
+
+06:51.760 --> 06:55.770
+the first argument and this will ensure that in the product model,
+
+06:55.860 --> 07:01.720
+in this check here we do find a valid ID and therefore we go into this updating mode instead of the
+
+07:02.420 --> 07:11.610
+add mode. So I'll pass that ID and I'll pass my updated title then, I'll then also pass my updated image
+
+07:11.620 --> 07:12.440
+url,
+
+07:12.550 --> 07:17.060
+I'll pass my updated description and my updated price.
+
+07:17.320 --> 07:18.560
+So this is what I pass
+
+07:18.730 --> 07:26.970
+and now thanks to our changes to the product model, I can call updated product, save and it should hopefully
+
+07:26.970 --> 07:30.880
+just save that and override the existing one.
+
+07:32.440 --> 07:33.740
+Now let's try this out
+
+07:33.790 --> 07:36.550
+and for that, let's go to our admin.js routes
+
+07:36.580 --> 07:44.290
+first of all and register this newly added post added product action on the added product post route
+
+07:45.220 --> 07:50.810
+and now let's reload our page here and add a couple of exclamation marks and hit update product
+
+07:51.220 --> 07:54.720
+and the problem is I never send a response so this failed
+
+07:54.850 --> 08:01.660
+but if we have a look at our products.json file, the first product didn't change but the second one indeed
+
+08:01.660 --> 08:03.490
+has all the exclamation marks,
+
+08:03.490 --> 08:05.140
+so this does work.
+
+08:05.230 --> 08:08.580
+So the missing thing just is that we send the response in our controller,
+
+08:08.800 --> 08:18.010
+so here after calling save, I will actually call res redirect and go back to just /admin
+
+08:18.040 --> 08:21.690
+or let's have a quick look at the admin.js routes,
+
+08:21.770 --> 08:25.310
+I want to go to /products, so /admin/products
+
+08:25.310 --> 08:27.670
+I mean, this is what I want to redirect to.
+
+08:28.010 --> 08:29.330
+So let's save this,
+
+08:32.230 --> 08:33.160
+go back and reload,
+
+08:33.160 --> 08:35.020
+here we see the estimation marks too,
+
+08:35.020 --> 08:42.800
+let's change the price to 30.95 and also change the description,
+
+08:42.800 --> 08:43.940
+it's really great.
+
+08:43.940 --> 08:49.400
+Update the product, we are redirected and we can already see the changes here and we can edit it again
+
+08:49.400 --> 08:49.820
+of course,
+
+08:49.820 --> 08:52.820
+for example remove the estimation marks.
+
+08:52.820 --> 08:53.840
+So this is working,
+
+08:53.840 --> 08:56.000
+we're now able to edit the product.

@@ -1,0 +1,370 @@
+WEBVTT
+
+00:02.390 --> 00:04.720
+How does uploading data work now?
+
+00:04.720 --> 00:09.530
+The thing is graphql only works with json data,
+
+00:09.830 --> 00:18.090
+you can find a couple of articles, third party packages that help you with getting data through graphql
+
+00:18.320 --> 00:24.980
+but in the end, one of the cleanest solutions is to use a classic endpoint like a rest endpoint where
+
+00:24.980 --> 00:32.870
+you send your image to and then let that endpoint store the image and return the path to the image and
+
+00:32.870 --> 00:39.260
+then send another request with that path to the image and your other data to your graphql
+
+00:39.260 --> 00:44.260
+endpoint and this is the solution I'll implement here. I'll implement it in app.js
+
+00:44.390 --> 00:47.660
+because you could outsource this into a separate file
+
+00:47.680 --> 00:51.020
+but it'll be the only other route we add here and there,
+
+00:51.020 --> 00:57.470
+I'll register a new route on my app for incoming put requests because I plan to send that image with a
+
+00:57.470 --> 00:59.950
+put request to slash
+
+01:00.080 --> 01:02.330
+let's say post image,
+
+01:02.330 --> 01:04.940
+you can name this path however you want.
+
+01:04.940 --> 01:08.360
+There we have our traditional middleware function,
+
+01:08.360 --> 01:13.880
+I hope you still know that even though we haven't used it in the last lectures and there I'll first
+
+01:13.880 --> 01:16.430
+of all check if we don't have a file.
+
+01:16.490 --> 01:18.050
+Now how can I check that?
+
+01:18.340 --> 01:20.520
+Well I still have multer in place,
+
+01:20.600 --> 01:27.440
+we added that in the rest API module and multer is the package which takes our multipart form data
+
+01:27.500 --> 01:34.940
+requests and extracts a file and stores it in the image folder and I still have that in place.
+
+01:34.940 --> 01:41.810
+So all my files still will be extracted and multer then populates the file object with information
+
+01:41.810 --> 01:43.950
+about the extracted file.
+
+01:43.950 --> 01:54.500
+Now if this is not set, then I'll just return a response here with a status of 200 and a message where
+
+01:54.500 --> 01:59.930
+I say no file provided. You could set an error code here
+
+01:59.940 --> 02:07.350
+but actually this scenario is fine for me as you will see when we later edit a post because there we
+
+02:07.350 --> 02:09.960
+might or might not add a new image,
+
+02:09.960 --> 02:11.520
+maybe we stick to the old one,
+
+02:11.580 --> 02:13.410
+maybe we did choose a new one
+
+02:13.530 --> 02:16.710
+and then this is one way of handling both cases.
+
+02:16.710 --> 02:20.440
+If we do have a request file, we can get some data from it though
+
+02:20.610 --> 02:28.160
+and of course we want a clear and existing image if there is one. For that, I'll create a new function
+
+02:28.160 --> 02:28.490
+here
+
+02:28.520 --> 02:30.850
+or actually I have that function in the feed.js
+
+02:30.860 --> 02:38.200
+controller already, I can copy that from there, the clear image function at the bottom of the feed.js
+
+02:38.220 --> 02:39.470
+file.
+
+02:39.590 --> 02:41.010
+I'll move that into app.js,
+
+02:41.030 --> 02:49.430
+this depends on the fs package, on the path package, the path module, path is already imported,
+
+02:49.520 --> 02:55.210
+now I'll also import fs here and now with that all imported,
+
+02:58.550 --> 03:01.050
+back in our put request here,
+
+03:01.400 --> 03:08.120
+I'll check for the existence of a body field which is named old path which simply means that an old
+
+03:08.120 --> 03:16.240
+path was passed with the incoming request in which case I want to clear my old image and I'll pass in
+
+03:16.250 --> 03:21.080
+the old path because then we added a new image.
+
+03:21.080 --> 03:22.470
+We can be certain about that
+
+03:22.490 --> 03:28.970
+after this if check and then we should also have an old path which we delete so that we don't keep the
+
+03:28.970 --> 03:30.320
+old image and the new image,
+
+03:30.380 --> 03:36.410
+instead we delete the old image here and then only keep the new image which was stored by multer. And
+
+03:36.410 --> 03:39.110
+then at the end here, I will return a response
+
+03:39.850 --> 03:45.940
+with a status code of 201 and that differentiates it from this response
+
+03:45.940 --> 03:52.930
+and here I will add some json data, let's say a message, file stored
+
+03:52.950 --> 03:59.760
+but more importantly, I'll add a file path or however you want to name it which is request file path
+
+03:59.880 --> 04:02.720
+and this is the path where multer stored the image
+
+04:02.730 --> 04:07.680
+and this is the path we can then use in the frontend. With this added on the backend,
+
+04:07.890 --> 04:14.220
+we can now work on the frontend to use this rest API endpoint and this also shows you that you can
+
+04:14.220 --> 04:17.810
+use rest and graphql concepts together,
+
+04:17.820 --> 04:20.650
+it's not like a hard decision you have to make,
+
+04:20.670 --> 04:24.260
+you can use the best for a given problem.
+
+04:24.270 --> 04:30.740
+So now we can use that on the frontend and we want to use it in this finish edit handler,
+
+04:30.990 --> 04:36.640
+so in the feed.js file of the react app, in the finish edit handler, there
+
+04:36.650 --> 04:43.230
+I'm preparing some form data and this form data does not get a title and content anymore but it
+
+04:43.230 --> 04:45.250
+would still get the image.
+
+04:45.480 --> 04:51.640
+Additionally though, I also want to check if we are in edit mode,
+
+04:51.810 --> 05:03.970
+so if this state edit post if that is true and then I will append the old path field which is this state
+
+05:04.660 --> 05:13.850
+edit post which is the post we're currently editing, image path.
+
+05:13.870 --> 05:19.690
+This is a field we're setting when we're loading all posts, there when we load all posts,
+
+05:19.760 --> 05:24.460
+we also set the image path and this is a field which we therefore also should set
+
+05:24.500 --> 05:28.160
+when we edit our posts. So there when I create a new post,
+
+05:31.210 --> 05:39.740
+I should also add image path here and get that from create post, that should be my image
+
+05:39.750 --> 05:46.740
+url which I get there and that is also something I need to request therefore, image url is something
+
+05:46.740 --> 05:49.130
+I do request here so I do have it available.
+
+05:49.500 --> 05:52.200
+So I'm setting this image path, I have that available,
+
+05:52.200 --> 05:54.000
+this will be the path of the
+
+05:54.150 --> 06:01.320
+well the old image on the server and now with that, I have my form data setup.
+
+06:01.450 --> 06:04.140
+Now before I send my graphql query,
+
+06:04.390 --> 06:10.080
+I will therefore send another query to http localhost 8080
+
+06:10.690 --> 06:12.820
+but there to /postimage,
+
+06:12.850 --> 06:20.530
+so to this new endpoint I defined and the method here will be put because on my backend here, I simply
+
+06:20.530 --> 06:26.650
+defined this to handle put requests, you could of course also argue to use post but since I'll replace
+
+06:26.650 --> 06:29.850
+the old image, put makes a lot of sense,
+
+06:29.860 --> 06:32.020
+I'll then add my headers.
+
+06:32.020 --> 06:41.050
+Now regarding authorization here, we want to make sure that our auth middleware actually runs first on
+
+06:41.050 --> 06:44.560
+the server so that we know if the user is authenticated
+
+06:44.650 --> 07:01.520
+and if isAuth is false, then we can certainly throw a new error here, not authenticated so that we protect
+
+07:01.540 --> 07:03.040
+this route as well.
+
+07:03.340 --> 07:09.640
+So now on the frontend, we need to add our authorization header and now we'll just copy the headers
+
+07:09.910 --> 07:15.870
+from my graphql request because the headers actually are the same and the body is now here,
+
+07:15.880 --> 07:21.840
+my form data. This fetch request will be made first,
+
+07:22.040 --> 07:29.570
+then after it has been made, I'll get back a response, some response data
+
+07:29.580 --> 07:36.390
+where I'll parse the body and thereafter I'll have my file response data,
+
+07:36.400 --> 07:37.830
+you can name this however you want
+
+07:37.960 --> 07:48.000
+and in here, I now can extract the image url by accessing file response data and there, file path
+
+07:48.080 --> 07:58.110
+because in my endpoint, I am setting this file path key here and I can now use that in the graphql
+
+07:58.310 --> 08:03.250
+query. So now let me grab all that graphql
+
+08:03.250 --> 08:11.120
+code here, this code up to the then block, cut it and move it into this then block and then remove
+
+08:11.150 --> 08:13.870
+this semi-colon and chain this then block
+
+08:13.870 --> 08:20.770
+here, I just need to return this fetch call so that the next then block refers to the result of this fetch
+
+08:21.040 --> 08:21.760
+block here.
+
+08:22.760 --> 08:26.370
+So now I do have my image url,
+
+08:26.390 --> 08:31.970
+now I just need to pass it here for my graphql query image
+
+08:32.080 --> 08:39.740
+url and now we should have a setup where we are able for now to at least create new posts,
+
+08:39.740 --> 08:42.120
+editing is something we'll work on later.
+
+08:42.650 --> 08:44.040
+So let's try that out,
+
+08:44.120 --> 08:45.570
+let's try creating a new post
+
+08:45.590 --> 08:51.740
+and first of all on the server, I'll clear all the images in the images folder so that we can tell whether
+
+08:51.740 --> 08:53.140
+this works or not,
+
+08:53.540 --> 08:56.470
+so back here I need to login again,
+
+08:56.470 --> 08:57.750
+let's quickly do that
+
+08:59.030 --> 09:04.190
+and let's create a new duck, a new post but it can be a duck, a duck with an image
+
+09:04.200 --> 09:08.080
+hopefully. Let's choose our duck.jpg,
+
+09:08.340 --> 09:16.790
+this is a lovely duck again, accept and I get this error regarding payload too large and
+
+09:16.800 --> 09:23.520
+this is actually coming from an error on my side that fetch request here where I send the post image, I
+
+09:23.520 --> 09:26.130
+should not set the content type to application json
+
+09:26.130 --> 09:31.730
+otherwise it will be parsed as json data and that does not work for my binary data here.
+
+09:31.920 --> 09:34.220
+So after removing this header,
+
+09:34.590 --> 09:39.420
+let's try this again with another duck here,
+
+09:40.950 --> 09:42.480
+add that image,
+
+09:42.480 --> 09:49.510
+so lovely, accept this and now it uploads this first and we can prove that by looking into images,
+
+09:49.550 --> 09:51.120
+here is our duck image.
+
+09:51.180 --> 09:55.210
+So this works and it still creates that post which we can see here.
+
+09:55.230 --> 10:02.230
+Next challenge is to make sure that we can click that view button and view the detail page for one post
+
+10:02.250 --> 10:08.940
+and this again is a challenge for you. Implement something, some schema or a query in the schema of your
+
+10:08.940 --> 10:16.910
+graphql API and add a resolver that takes the ID of a post and loads that post.
+
+10:17.070 --> 10:20.320
+You can then work on the frontend too if you feel bold
+
+10:20.400 --> 10:24.640
+otherwise focus on the backend. We'll do it together in the next lecture.

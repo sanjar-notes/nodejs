@@ -1,0 +1,70 @@
+WEBVTT
+
+00:02.410 --> 00:05.000
+We added this isAuth middleware on the server,
+
+00:05.080 --> 00:11.770
+let's now protect all feed routes with it. Now this is super simple, we just copy that middleware and we add
+
+00:11.770 --> 00:19.040
+it to every route we have there. As the first middleware before we do anything else because if no token
+
+00:19.040 --> 00:19.470
+is there,
+
+00:19.490 --> 00:21.810
+we don't even need to continue with anything else.
+
+00:22.220 --> 00:23.970
+Every route should be protected here,
+
+00:24.020 --> 00:30.010
+so we simply add this to every single route.
+
+00:30.010 --> 00:35.110
+Now once you did add it to every route, you have to make sure that you pass the token on the front
+
+00:35.110 --> 00:35.540
+end.
+
+00:35.860 --> 00:42.040
+So this header set up where you add this authorization header,
+
+00:42.080 --> 00:45.340
+this is something you now need to add in a couple of places in the frontend,
+
+00:46.480 --> 00:55.890
+for example our edit handlers there. There on the fetch request, we now should also add some headers and
+
+00:55.890 --> 00:59.100
+the headers should contain our authorization token.
+
+01:01.870 --> 01:05.770
+If we scroll down further, we also got delete post handler,
+
+01:05.980 --> 01:12.680
+well there obviously we also want to add some headers and that one header we want to add is our
+
+01:12.790 --> 01:18.420
+authorization token. Of course we can also fetch single posts,
+
+01:18.420 --> 01:25.030
+so in this single post.js file in the frontend code where we fetch a single post, we also want to pass
+
+01:25.030 --> 01:31.330
+that second argument to fetch, add our headers and there, add the authorization header.
+
+01:31.330 --> 01:35.210
+Now we should be able to navigate around as long as we are authenticated
+
+01:35.230 --> 01:41.190
+but I also want to lock down access to ensure that I can only edit and delete posts which I actually
+
+01:41.180 --> 01:42.090
+created.
+
+01:42.130 --> 01:44.430
+Now in the last lecture, I deleted all posts,
+
+01:44.530 --> 01:49.890
+so let's make sure that we first of all connect posts and users when we create new posts.

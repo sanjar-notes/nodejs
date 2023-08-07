@@ -1,0 +1,142 @@
+WEBVTT
+
+00:02.120 --> 00:05.060
+So it's time for a quick summary and clean up,
+
+00:05.060 --> 00:08.470
+first of all let's clean up. Since we're using ejs now,
+
+00:08.480 --> 00:12.710
+we don't need the layouts folder because we only use that for pug and handlebars, 
+
+00:12.710 --> 00:14.800
+so let's delete layouts here.
+
+00:15.080 --> 00:21.410
+We also can delete all hbs, html and pug files here because we don't need either of those,
+
+00:21.410 --> 00:23.030
+we just use the ejs files
+
+00:23.030 --> 00:25.510
+now, so let's delete all these files.
+
+00:25.550 --> 00:31.190
+Now this is much cleaner and now I just want to make sure that you really understood the flow of how
+
+00:31.190 --> 00:35.420
+data flows into the templates and what the templating engines do.
+
+00:35.450 --> 00:43.100
+We do render a template with the special render method provided by expressjs, that render method will
+
+00:43.130 --> 00:50.210
+always look for the registered view engine, something we do here at the beginning in app.js. We do register
+
+00:50.570 --> 00:52.290
+our ejs view engine
+
+00:52.370 --> 00:59.420
+in this case by setting this special view engine configuration, a reserved configuration key which is understood
+
+00:59.420 --> 01:00.870
+by expressjs.
+
+01:00.980 --> 01:06.800
+We also tell expressjs where our views are to be found though that actually would be the default
+
+01:06.800 --> 01:07.900
+setting here by the way,
+
+01:07.940 --> 01:13.890
+so you don't need to add this if you do use the views folder. With that, expressjs
+
+01:13.900 --> 01:14.550
+.
+
+01:14.660 --> 01:21.710
+will render, will take our templating engine which we still have to install separately as a npm
+
+01:21.710 --> 01:22.220
+package
+
+01:22.220 --> 01:23.160
+keep that in mind,
+
+01:23.180 --> 01:31.730
+we did install ejs as we did install pug and handlebars and then you always just refer to the name
+
+01:31.730 --> 01:35.670
+of your view, like we do here, add-product.ejs,
+
+01:35.780 --> 01:41.790
+by the way if that were in a subfolder, like products, it would simply refer to it like this.
+
+01:41.980 --> 01:47.920
+But then you just refer to that view without adding the file extension and you can also define an
+
+01:47.920 --> 01:55.240
+object which will hold the data that is passed as variables into that template,
+
+01:55.240 --> 02:00.940
+so not the entire object is passed in there as you learned but instead, you will have a page title variable
+
+02:00.990 --> 02:02.990
+available in the template,
+
+02:03.040 --> 02:07.810
+you'll have a path variable available in the template and so on
+
+02:07.960 --> 02:13.090
+and this is why we can use something like this here. This is now syntax
+
+02:13.120 --> 02:18.150
+understood by the specific templating engine we're using, ejs in this case.
+
+02:18.160 --> 02:25.480
+It simply detects these tags here and then it simply looks for a variable named page title and tries
+
+02:25.480 --> 02:29.060
+to output its value, well and finds the page title
+
+02:29.110 --> 02:36.370
+because we do set a page title property here. And we got more features than just outputting values,
+
+02:36.540 --> 02:42.480
+as you can see in the shop.ejs file, we can also use if statements or for loops and you learned the
+
+02:42.600 --> 02:47.630
+different versions of this for the different view engines in this module.
+
+02:47.640 --> 02:51.870
+So this is how the templating engines work, what they do and why you use them
+
+02:52.020 --> 02:58.470
+and it's important to keep in mind that in the end if you inspect the source code, you always just get
+
+02:58.470 --> 02:59.550
+back normal
+
+02:59.590 --> 03:05.820
+html code, you don't find any ejs code in here or any javascript code.
+
+03:06.000 --> 03:15.300
+This is just html code that is generated on the fly but also on the server. This is not code
+
+03:15.480 --> 03:17.680
+that would be generated in the browser, 
+
+03:17.790 --> 03:24.630
+it's generated on the server, on demand for the request you're getting. And templating engines also do some
+
+03:24.630 --> 03:32.040
+advanced stuff like caching some built templates for you if the data input didn't change, so that they
+
+03:32.040 --> 03:38.340
+can return the template even faster and don't have to rebuild it for every request even if the data
+
+03:38.370 --> 03:41.120
+didn't change. But that some behind the scenes stuff,
+
+03:41.220 --> 03:44.420
+for you it's important to understand the general flow.

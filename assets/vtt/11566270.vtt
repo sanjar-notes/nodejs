@@ -1,0 +1,157 @@
+WEBVTT
+
+00:02.150 --> 00:05.440
+So we now had some basic work with expressjs
+
+00:05.470 --> 00:06.310
+.
+
+00:06.320 --> 00:13.490
+now let's also dig into the internals of expressjs, at least a little bit. Here is the expressjs
+
+00:13.940 --> 00:15.660
+code repository on github,
+
+00:15.680 --> 00:20.880
+it's open source so you can dive into the code and no worries, we'll not do a deep dive analysis
+
+00:20.990 --> 00:23.930
+but it's interesting to see how some things work.
+
+00:23.960 --> 00:31.040
+So in there on that github repo, click on lib and then you'll find a response.js file, now click
+
+00:31.040 --> 00:34.790
+on it, in that file you will find a lot of code.
+
+00:34.790 --> 00:42.610
+Now let's simply search for send and then an opening bracket and you will see how the send function,
+
+00:42.620 --> 00:48.740
+so basically a function we are calling here, how this is defined internally and this helps us understand
+
+00:48.740 --> 00:48.930
+it
+
+00:49.010 --> 00:54.550
+and this by the way is always a great technique if you want to see what something does behind the scenes.
+
+00:54.650 --> 01:00.350
+and if you need to do something yourself, for example set some header or if that is done for you and
+
+01:00.350 --> 01:03.540
+we had that default header of text html
+
+01:03.540 --> 01:04.430
+right,
+
+01:04.430 --> 01:07.010
+so let's see what send does internally.
+
+01:07.040 --> 01:12.290
+It does a bunch of checks to see if we're using outdated versions of that function which we didn't
+
+01:12.290 --> 01:18.850
+in this course so let's ignore that and then down there, it basically analyzes what kind of data you
+
+01:18.860 --> 01:19.780
+are sending
+
+01:19.970 --> 01:26.750
+and you see that if it's a string data, so some text as we are doing it here, that in this case it sets
+
+01:26.870 --> 01:27.980
+the content type to
+
+01:28.020 --> 01:31.000
+html but only if we haven't set it yet.
+
+01:31.130 --> 01:37.040
+So it checks if the content type header is not present yet in which case it sets it, otherwise it would
+
+01:37.130 --> 01:42.190
+leave our default. If we have other values like a number, a boolean and so on,
+
+01:42.320 --> 01:46.320
+it would actually set it to binary or json data.
+
+01:46.580 --> 01:49.150
+So this is just some of the internal things it does
+
+01:49.370 --> 01:52.040
+and you don't need to go through the entire code here,
+
+01:52.100 --> 01:57.260
+it's a bit much and you're using express so that you don't have to do everything on your own but diving
+
+01:57.260 --> 01:59.690
+into this can help sometimes.
+
+02:00.630 --> 02:07.170
+Now one other interesting thing to see is that we can actually also shorten this code here where we
+
+02:07.170 --> 02:08.330
+set up the server.
+
+02:08.730 --> 02:12.620
+We can pass app to that create server method
+
+02:12.900 --> 02:17.270
+but instead we can also just use app and call listen
+
+02:17.450 --> 02:22.640
+and this will do both these things for us, something we can see in the official code
+
+02:22.740 --> 02:30.270
+if you go into the application.js file. In there what we can see is that if we search for listen
+
+02:32.420 --> 02:39.320
+here, the listen function in the end just does the two things we did before, it calls http create server and passes
+
+02:39.380 --> 02:40.040
+itself,
+
+02:40.040 --> 02:46.510
+so the app object which we previously also passed to that passes it to create server and then this in 
+
+02:46.500 --> 02:51.200
+the end just make sure that listen gets called on that server object.
+
+02:51.290 --> 02:53.140
+So it internally does the same we
+
+02:53.180 --> 02:55.880
+did here and this of course save some code
+
+02:56.000 --> 02:59.870
+and now we can also remove that http import up there.
+
+02:59.990 --> 03:03.350
+So now our code looks like this and we'll still work fine,
+
+03:03.440 --> 03:04.680
+it restarts here
+
+03:04.760 --> 03:07.950
+and if I reload this page, this is looking good to me.
+
+03:08.210 --> 03:13.850
+So now we're using expressjs and you hopefully get a basic understanding of what it's doing and why
+
+03:13.850 --> 03:18.950
+this helps you write cleaner code because now you have a clearly fine structure,
+
+03:19.030 --> 03:22.710
+use this middleware funnel and you save code.
+
+03:22.760 --> 03:29.420
+The question of course is how can we now handle different routes as we previously did where we had slash
+
+03:29.420 --> 03:32.130
+message and slash nothing and so on
+
+03:32.420 --> 03:37.030
+and of course it would be nice if we now could also read incoming requests in an easier way.
+
+03:37.160 --> 03:40.040
+Well we'll do both and see both over the next lectures.

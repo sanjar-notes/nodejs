@@ -1,0 +1,31 @@
+WEBVTT
+
+00:02.340 --> 00:09.750
+You learned about a brand new type of backend application you can build with nodejs and restful API
+
+00:10.200 --> 00:16.770
+and you learned that it's not that far off from the server side rendered node application we built before,
+
+00:16.890 --> 00:20.600
+the only major difference is how you handle requests and response data,
+
+00:20.760 --> 00:23.940
+you send json data. Now with that out of the way,
+
+00:23.970 --> 00:30.870
+I want to dive into something totally different which is applicable to any node application, not just
+
+00:30.870 --> 00:32.390
+to restful APIs.
+
+00:32.670 --> 00:39.960
+I want to dive into the async await keywords which is a relatively new javascript language feature which
+
+00:39.960 --> 00:43.240
+you can use again in any place in your nodejs
+
+00:43.250 --> 00:50.700
+code, this does not have to be used in a restful API, you can or can not use it anywhere.
+
+00:50.730 --> 00:56.140
+Now I will explain what's up with these two keywords, how you use them and why you would use them.

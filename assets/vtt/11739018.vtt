@@ -1,0 +1,61 @@
+WEBVTT
+
+00:02.560 --> 00:08.710
+Now let's work on the admin products page because there, I also want to display my products so that
+
+00:08.710 --> 00:10.440
+we can interact with them.
+
+00:10.480 --> 00:11.210
+So in admin.js
+
+00:11.210 --> 00:12.350
+again,
+
+00:12.580 --> 00:15.560
+get product still uses fetch all, now
+
+00:15.660 --> 00:20.280
+it's of course a good practice for you to make this work with sequelize.
+
+00:20.350 --> 00:26.110
+So definitely pause the video at this point and try to change this code here such that it does retrieve
+
+00:26.110 --> 00:29.300
+the products and render them on the admin page.
+
+00:31.500 --> 00:32.830
+Were you successful?
+
+00:33.210 --> 00:37.030
+Well the code to you is of course the same code we used in the shop.js,
+
+00:37.060 --> 00:41.030
+instead of fetch all, we'll use find all
+
+00:41.240 --> 00:46.680
+and we don't use the callback function approach here because we're not using a callback function with
+
+00:46.830 --> 00:47.800
+sequelize,
+
+00:47.850 --> 00:52.200
+instead we have then and catch since we're using promises.
+
+00:52.200 --> 01:00.300
+So let's console log our error in this case or pass our function we used as a callback before to then and
+
+01:00.300 --> 01:06.700
+now here, we have our render function where we render the products. Therefore if I now reload this
+
+01:06.750 --> 01:12.480
+admin page, I see my product here and I can now add it or delete it.
+
+01:12.570 --> 01:17.340
+These however are two things that don't work, added doesn't work because I don't load the product
+
+01:17.340 --> 01:20.350
+successfully and delete wouldn't work either.
+
+01:20.370 --> 01:23.310
+So in the next lectures, we'll work on these two things.

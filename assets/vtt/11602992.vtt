@@ -1,0 +1,112 @@
+WEBVTT
+
+00:02.240 --> 00:08.720
+We're now storing a product with all the data we need, now we should also display all that real data
+
+00:08.810 --> 00:11.110
+and don't show any dummy data anymore.
+
+00:11.450 --> 00:17.630
+So for that, let's go to our product-list.ejs file which is one of the views where we do display
+
+00:17.630 --> 00:23.670
+all products and there, we already output the real product title but that's it.
+
+00:23.960 --> 00:28.970
+The image source for example is something we should now also replace
+
+00:29.100 --> 00:35.240
+and we can simply add our ejs expression in there and output image url and this will be
+
+00:35.240 --> 00:36.720
+a string that should be a valid
+
+00:36.730 --> 00:39.410
+url, so this should be displayable.
+
+00:39.410 --> 00:43.460
+Now for the alternative text, we can also use the title again,
+
+00:43.580 --> 00:48.490
+so I simply copied the ejs expression up there, for the price
+
+00:48.500 --> 00:50.660
+let's say it's always dollars,
+
+00:50.810 --> 00:59.520
+so I'll keep that dollar sign here as hardcoded text and then output product price and for the description
+
+00:59.520 --> 01:00.060
+here,
+
+01:00.420 --> 01:09.070
+I will of course also replace the dummy text with my description as it is saved in the product.
+
+01:09.180 --> 01:13.330
+Now all old products will not fulfill this new structure,
+
+01:13.500 --> 01:21.420
+so in the data folder in products.json, I will actually remove them all from that array here so that
+
+01:21.420 --> 01:22.880
+it's an empty array again.
+
+01:23.490 --> 01:26.220
+With that back in product list, this is looking good,
+
+01:26.220 --> 01:29.010
+now in index.ejs, we have the same logic
+
+01:29.010 --> 01:34.850
+so we can simply copy that and back in index.ejs simply replace it.
+
+01:34.860 --> 01:42.600
+Now if I reload my app on shop and product, we got no products but if I add a new one, this is a test
+
+01:42.600 --> 01:51.300
+product or simply a book. Let's search an image, I picked a url here and insert it here,
+
+01:51.560 --> 01:54.290
+then let's add a price 19.99
+
+01:54.290 --> 01:57.800
+and this is an awesome book,
+
+01:57.800 --> 01:59.610
+sounds like a good title.
+
+01:59.630 --> 02:07.920
+Now you can press add products and right now this does not support decimal numbers, to fix this,
+
+02:07.960 --> 02:14.420
+we can change something in the add product view, there on the number input
+
+02:14.440 --> 02:19.110
+we simply have to add a step attribute and set the step to 0.01,
+
+02:19.120 --> 02:25.080
+this means you can have well two decimal places essentially and increment in this step size.
+
+02:25.240 --> 02:26.890
+I'll save this but not reload,
+
+02:26.890 --> 02:33.070
+for now I'll simply go with a number without decimal places to not lose my other data and hit add product
+
+02:33.070 --> 02:39.430
+and indeed on the starting page, it's now showing this product with all the data I entered.
+
+02:39.430 --> 02:43.250
+So now we improved that and we made a major step forward,
+
+02:43.340 --> 02:46.500
+therefore on both these pages obviously we see it,
+
+02:46.780 --> 02:53.220
+let's now of course also work on making sure that as an admin, we also see the products here
+
+02:53.380 --> 02:57.800
+and we then not just see them but we can also edit or delete them.
+
+02:58.030 --> 02:59.750
+That will be the next step.

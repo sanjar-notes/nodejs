@@ -1,0 +1,64 @@
+WEBVTT
+
+00:02.370 --> 00:03.780
+It's important to understand
+
+00:03.810 --> 00:12.180
+that when we install nodejs, we get two tools or two things for the price of one you could say. We get nodejs
+
+00:12.240 --> 00:15.710
+and we get npm, node's package manager
+
+00:15.900 --> 00:23.370
+and remember that this was the tool we used for installing packages into our project or when I share
+
+00:23.370 --> 00:29.430
+my project, like with all the code attachments, that you could re-install all dependencies required by
+
+00:29.430 --> 00:30.350
+that project
+
+00:30.450 --> 00:36.300
+even though I did not share the node modules folder because we have that package.json file where
+
+00:36.300 --> 00:38.520
+we see all the dependencies.
+
+00:38.520 --> 00:39.500
+So nodejs
+
+00:39.700 --> 00:46.440
+is the programming language we used to execute code, to execute javascript code based on that nodejs runtime
+
+00:46.440 --> 00:53.730
+with all the features that gives us and especially important when we look at it from a build tool perspective,
+
+00:53.850 --> 01:00.930
+we have to remember that with nodejs, we were able to interact with files and this will become important
+
+01:00.930 --> 01:02.010
+in a second.
+
+01:02.310 --> 01:05.160
+Npm as I said is node's package manager,
+
+01:05.250 --> 01:10.980
+so we manage guess what, packages with it and with that, I mean we can install packages, download them,
+
+01:11.340 --> 01:15.690
+manage their versions and so on and we can also run scripts.
+
+01:15.690 --> 01:22.170
+We did that with npm start for example to start our server so that we don't have to write or type the
+
+01:22.170 --> 01:24.220
+full command for that.
+
+01:24.240 --> 01:31.380
+Now let's have a closer look at these two pieces and see what else they can do or how that can be helpful
+
+01:31.650 --> 01:38.790
+to use them in the context of build tooling, so in the context of utility scripts and not in the context
+
+01:38.790 --> 01:40.290
+of spinning up a web server.

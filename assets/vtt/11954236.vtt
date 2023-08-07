@@ -1,0 +1,115 @@
+WEBVTT
+
+00:02.180 --> 00:03.640
+So we had to look at cookies,
+
+00:03.740 --> 00:05.240
+what is a session?
+
+00:05.570 --> 00:11.360
+Well we have the same set up as before, user using the frontend our view is interacting with our server
+
+00:11.420 --> 00:16.160
+where we have our node application code. We send a request and we do login
+
+00:16.160 --> 00:20.330
+and again let's assume we do send the valid credentials there,
+
+00:20.330 --> 00:25.350
+we're not validating them in this module because I want to focus on sessions and cookies.
+
+00:25.400 --> 00:32.150
+So now instead of storing the information that the user is authenticated in the frontend which was
+
+00:32.150 --> 00:37.970
+a bad place as we learned, we'll store it in the backend with a so-called session and a session is a new 
+
+00:38.000 --> 00:40.400
+construct which we haven't used before.
+
+00:40.490 --> 00:44.900
+With that I'm not meaning that we store it in the request because we already saw that this will not
+
+00:44.900 --> 00:45.530
+work
+
+00:45.590 --> 00:52.250
+and I also don't mean that we store it in some variable in our express app because that would be shared
+
+00:52.250 --> 00:55.280
+across all users and all requests,
+
+00:55.280 --> 01:00.440
+we only want to share the information across all requests of the same user and that's really important,
+
+01:00.830 --> 01:04.900
+the same user so that other users can't see your data, can't
+
+01:05.120 --> 01:12.390
+assume your role, can't tell the server that they are authenticated, only you are authenticated.
+
+01:12.520 --> 01:15.020
+Now for that, we need to store it on the server,
+
+01:15.110 --> 01:21.260
+we'll start by storing it in memory which is then pretty similar to storing in that variable
+
+01:21.320 --> 01:26.480
+but eventually we'll move to a different session storage, the database and we need one important piece
+
+01:26.480 --> 01:34.880
+of information. A client needs to tell the server to which session he belongs because the session will
+
+01:34.880 --> 01:39.650
+in the end just be an entry stored in memory or stored in a database.
+
+01:39.650 --> 01:45.680
+Now we're not matching this by IP address or anything like that because that is a bit hard to maintain
+
+01:45.720 --> 01:48.440
+and can be faked and all that fun stuff,
+
+01:48.440 --> 01:49.770
+so we're not doing that
+
+01:50.060 --> 01:55.000
+instead we'll use a cookie where we will store the ID of the session.
+
+01:55.250 --> 02:02.150
+Now obviously you can still change that and assume a different ID if you want to but that will not work
+
+02:02.150 --> 02:09.440
+like this because actually the value we store will not be the ID but the hashed ID, hashed with a certain
+
+02:09.470 --> 02:15.890
+algorithm where only the server can confirm that it has not been fiddled with so that you didn't play
+
+02:15.890 --> 02:19.030
+around with it and tried to create a different one.
+
+02:19.160 --> 02:24.710
+So this will be a secure way because you basically store the ID in an encrypted way where only the
+
+02:24.710 --> 02:31.610
+server is able to confirm that the stored cookie value relates to a certain ID in the database
+
+02:31.790 --> 02:35.290
+and therefore we got a safe value stored in the cookie which you can't,
+
+02:35.320 --> 02:38.700
+you can change it but you will not assume a different session,
+
+02:38.720 --> 02:45.680
+a session can be matched and that session can then contain the confidential data which you can't change
+
+02:45.860 --> 02:47.340
+from inside the browser,
+
+02:47.360 --> 02:48.650
+that is the idea here.
+
+02:48.770 --> 02:54.390
+So sessions are stored on the server side, cookies client side, sessions server side.
+
+02:54.590 --> 02:56.480
+Now let me show you how to implement a session.

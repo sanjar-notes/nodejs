@@ -1,0 +1,112 @@
+WEBVTT
+
+00:02.410 --> 00:08.840
+We're able to to save a new product and fetch all products, let's now find a single product by ID.
+
+00:09.010 --> 00:11.670
+This also is not that difficult,
+
+00:11.710 --> 00:19.870
+we can again use our db pool, execute a query and the query we want to execute here is select everything
+
+00:19.870 --> 00:26.300
+from products and everything here means not all rows but simply all fields
+
+00:26.440 --> 00:33.610
+but now we can restrict the number of rows with a where condition and where is another SQL keyword.
+
+00:33.750 --> 00:42.310
+So there we can execute where products ID equals one equals sign only, not multiple ones as in javascript,
+
+00:42.730 --> 00:48.990
+where the ID is equal to question mark simply to let my MySql inject the value again, the ID we're
+
+00:49.000 --> 00:50.790
+getting as an argument here.
+
+00:50.800 --> 00:53.840
+Now let's return this promise here
+
+00:54.010 --> 00:58.950
+and this is our statement for fetching a single product with all the columns though,
+
+00:58.990 --> 01:06.630
+so with all the data. Now we can go back to shop.js and there where we do fetch a single product in
+
+01:06.630 --> 01:12.710
+get product, well there we still use find by ID for a given product ID
+
+01:12.840 --> 01:16.270
+but of course no nested function here,
+
+01:16.290 --> 01:17.360
+that didn't change
+
+01:17.370 --> 01:19.700
+so let's strip that out of there,
+
+01:19.770 --> 01:29.250
+simply call find by id like this and instead add then and catch and in catch, we got our error which we
+
+01:29.250 --> 01:35.160
+can output and in then, we got our product in the end or to be precise
+
+01:35.160 --> 01:42.030
+we of course got that nested array where we know that the first element will be all the rows we got
+
+01:42.090 --> 01:46.490
+and that will just be our product or it should just be the product.
+
+01:46.530 --> 01:51.570
+Make sure to wrap that special syntax with the square brackets in the parentheses.
+
+01:52.080 --> 01:59.610
+So now we just need the render function here and place it in this function we passed to then and we're
+
+01:59.610 --> 02:03.700
+extracting a product here, we're passing it to our view here,
+
+02:03.750 --> 02:06.180
+let's see if that works.
+
+02:06.270 --> 02:12.450
+If I now save this and I click on details, this failed,
+
+02:12.510 --> 02:18.810
+now let's simply console log our products here to see why it failed.
+
+02:20.470 --> 02:23.920
+If I reload this page, here's what gets logged
+
+02:24.030 --> 02:29.820
+and the reason why it failed is that product still is an array, an array with one element only but still
+
+02:29.820 --> 02:30.550
+an array
+
+02:30.750 --> 02:35.780
+but the view simply expects one single object, not an array with one object.
+
+02:35.780 --> 02:39.380
+The solution is to simply pass the first element in that array
+
+02:39.540 --> 02:42.850
+and we know that there will only be one element in that array.
+
+02:42.870 --> 02:44.590
+So now if I reload this page,
+
+02:44.670 --> 02:46.440
+we see the second product,
+
+02:46.440 --> 02:48.270
+I just didn't add an image for that
+
+02:48.270 --> 02:50.150
+otherwise we would see that too.
+
+02:50.580 --> 02:52.330
+So this is working,
+
+02:52.350 --> 02:54.840
+we're able to fetch a single product too.

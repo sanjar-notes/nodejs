@@ -1,0 +1,100 @@
+WEBVTT
+
+00:02.300 --> 00:09.050
+That's it for the basics of rest APIs, we'll dive much deeper into rest APIs and build a real project
+
+00:09.050 --> 00:12.020
+with the rest API in the next module.
+
+00:12.080 --> 00:14.540
+The core concept and ideas are that rest
+
+00:14.540 --> 00:21.720
+APIs are all about data, no user interface logic is exchanged. Rest APIs are normal node servers though
+
+00:21.800 --> 00:26.060
+and that is really important to keep in mind, we're not building a totally different kind of app all of
+
+00:26.060 --> 00:34.640
+a sudden, just the data format and the way we send responses changes because now we simply expose a couple
+
+00:34.640 --> 00:38.330
+of endpoints which is a combination of http methods and paths
+
+00:38.330 --> 00:40.200
+but we did this before too,
+
+00:40.310 --> 00:47.390
+we just have more http methods available now and we exchange data in the json format for both requests and
+
+00:47.390 --> 00:48.190
+responses,
+
+00:48.260 --> 00:51.750
+we don't return html pages as the response anymore.
+
+00:51.970 --> 00:56.780
+Rest APIs are decoupled from the clients therefore, they are totally decoupled,
+
+00:56.780 --> 01:01.830
+they don't share any connection history or store any connection history.
+
+01:01.970 --> 01:07.070
+Now when we have a look at the requests and responses, it is important to understand that you should
+
+01:07.070 --> 01:13.460
+attach data for requests and responses in the json format and that you should let the other end know
+
+01:13.820 --> 01:16.290
+by setting the content type header.
+
+01:16.530 --> 01:20.450
+Expressjs does this automatically when using the json method, in the browser
+
+01:20.480 --> 01:24.980
+it depends on which method you use, when using the fetch API as we did,
+
+01:25.010 --> 01:28.170
+we had to set it manually, when you would use axios
+
+01:28.240 --> 01:33.300
+another common library in browser side javascript for sending async requests,
+
+01:33.380 --> 01:35.500
+it would be done automatically.
+
+01:35.700 --> 01:38.510
+Cors errors are also something we had to look at,
+
+01:38.510 --> 01:44.870
+they occur when the API and your client are sitting on different servers, different domains and they
+
+01:44.870 --> 01:46.280
+want to exchange data.
+
+01:46.280 --> 01:50.550
+You fix them in quotation marks because they are a security mechanism
+
+01:50.600 --> 01:57.530
+but you can bypass that on purpose by setting the right cors headers which basically tell the client
+
+01:57.710 --> 01:59.180
+hey it's fine,
+
+01:59.180 --> 02:00.460
+I'm a public API,
+
+02:00.470 --> 02:02.170
+you may use my data.
+
+02:02.330 --> 02:04.130
+These are the basics.
+
+02:04.130 --> 02:06.660
+Now let's dive much deeper into that,
+
+02:06.680 --> 02:10.580
+use different http methods, add authentication and so on
+
+02:10.610 --> 02:12.320
+by working on a real project.

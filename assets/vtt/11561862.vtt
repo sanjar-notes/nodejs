@@ -1,0 +1,91 @@
+WEBVTT
+
+00:02.100 --> 00:08.700
+Now that I had a quick look at the very basics and the core terms, you have to know let's dive into
+
+00:08.700 --> 00:13.260
+some next gen JavaScript syntax you'll see throughout this module or throughout this course.
+
+00:14.910 --> 00:21.090
+War is a keyword that creates a new variable, and actually it's a bit of an outdated syntax.
+
+00:21.330 --> 00:28.580
+From now on, we'll use Led instead of war and let also creates a variable.
+
+00:28.590 --> 00:32.460
+The scoping behaves a bit differently, but we can ignore that for now.
+
+00:32.460 --> 00:38.490
+Here, check out some next gen JavaScript resource like my ES6 course or of course all of them free
+
+00:38.490 --> 00:40.890
+resources to learn all about let.
+
+00:41.100 --> 00:48.600
+But the core reason for using lattice that we now also have another way of creating a variable.
+
+00:48.600 --> 00:53.580
+And with that I mean a variable which never changes, which actually is the case for all three here.
+
+00:53.580 --> 01:00.450
+But let's say we actually do assign a new value to H here, but we never change name or has hobbies
+
+01:00.600 --> 01:02.370
+we could absolutely use let.
+
+01:02.370 --> 01:04.560
+There is nothing strictly wrong with that.
+
+01:04.560 --> 01:11.730
+But to be clearer about our intentions in the code and we know that we'll never change let.
+
+01:12.540 --> 01:14.190
+Name and has hobbies.
+
+01:14.220 --> 01:20.010
+We can also use a new keyword available in JavaScript and that's the const keyword.
+
+01:20.040 --> 01:26.820
+This creates a so called constant and this makes clear that we never plan on changing the value of name
+
+01:26.820 --> 01:28.080
+or has hobbies.
+
+01:28.260 --> 01:34.290
+We do plan to change it of age and that is why we have led and that is the reason why we have two different
+
+01:34.290 --> 01:36.960
+keywords for creating variables.
+
+01:36.960 --> 01:39.270
+Though again, these are not really variables.
+
+01:39.270 --> 01:45.610
+There are constants either const or let, depending on whether you plan to change this or not.
+
+01:45.630 --> 01:49.260
+So now if I execute this, it works in exactly the same way as before.
+
+01:49.920 --> 02:00.120
+But by the way, if I would try to set a name to Maximillian here and I do run node places again, I
+
+02:00.120 --> 02:04.620
+actually get an error now that I try to assign to a constant variable.
+
+02:05.450 --> 02:12.110
+So this actually already shows us the idea behind concept and you want to use concert as often as possible
+
+02:12.110 --> 02:15.920
+to be as clear about what happens in your code as possible.
+
+02:15.920 --> 02:22.100
+And if something should never change, make it a concert so that you get an error if you do accidentally
+
+02:22.100 --> 02:22.750
+change it.
+
+02:22.760 --> 02:24.620
+So here I'll revert this change.
+
+02:24.620 --> 02:27.380
+But I wanted to show you how let and cons to work.

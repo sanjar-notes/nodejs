@@ -1,0 +1,82 @@
+WEBVTT
+
+1
+00:00:02.250 --> 00:00:05.500
+<v Instructor>In the previous module, we took a first look</v>
+
+2
+00:00:05.500 --> 00:00:09.020
+at Deno, or Deno, however you wanna pronounce it,
+
+3
+00:00:09.020 --> 00:00:11.970
+and I showed you how it relates to Note
+
+4
+00:00:11.970 --> 00:00:14.920
+and also what some differences are.
+
+5
+00:00:14.920 --> 00:00:18.500
+Now, in order to take you one step further
+
+6
+00:00:18.500 --> 00:00:22.030
+and to really enable you to work with Deno
+
+7
+00:00:22.030 --> 00:00:24.370
+as you're able to work with Note,
+
+8
+00:00:24.370 --> 00:00:27.840
+in this module we'll have a closer look at Deno
+
+9
+00:00:27.840 --> 00:00:30.410
+and we'll do a bit more with Deno.
+
+10
+00:00:30.410 --> 00:00:32.840
+Specifically, in this module we're going
+
+11
+00:00:32.840 --> 00:00:36.260
+to connect a front end to the rest API we built
+
+12
+00:00:36.260 --> 00:00:38.090
+in the previous module.
+
+13
+00:00:38.090 --> 00:00:39.780
+For that, of course, you should make sure
+
+14
+00:00:39.780 --> 00:00:42.850
+that you go through that last module, of course,
+
+15
+00:00:42.850 --> 00:00:46.560
+also to pick up the basics about Deno in general,
+
+16
+00:00:46.560 --> 00:00:49.100
+and besides connecting a front end,
+
+17
+00:00:49.100 --> 00:00:53.420
+we'll also connect a database, MongoDB in this example,
+
+18
+00:00:53.420 --> 00:00:56.400
+so that you also see how Deno could interact
+
+19
+00:00:56.400 --> 00:00:57.530
+with a database,
+
+20
+00:00:57.530 --> 00:00:58.773
+so let's get started.
+

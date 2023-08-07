@@ -1,0 +1,226 @@
+WEBVTT
+
+00:02.140 --> 00:08.170
+So we found out that using a request for storing this is not ideal because the request is dead after
+
+00:08.170 --> 00:11.180
+sending a response, which alternatives do we have?
+
+00:12.200 --> 00:19.490
+Well one alternative would be some kind of global variable. You could use a global variable which you
+
+00:19.490 --> 00:26.260
+store in an extra file and which you export from that file and which you then change and that variable
+
+00:26.270 --> 00:28.920
+would actually survive your request cycles
+
+00:28.940 --> 00:36.800
+but since that variable would be shared across all requests, it would also be shared across all users
+
+00:37.670 --> 00:43.010
+and that is exactly where cookies can help us. With cookies we can store data in the browser of a single
+
+00:43.010 --> 00:50.660
+user and store data in that browser which is customized to that user which does not affect all the other users
+
+00:50.840 --> 00:57.650
+but can be sent with requests to tell us hey I already am authenticated and that is exactly what we
+
+00:57.650 --> 00:58.990
+will do here.
+
+00:59.000 --> 01:06.350
+So instead of just redirecting here, what we can do is we can set a cookie and we set such a cookie simply
+
+01:06.620 --> 01:08.810
+by setting a header.
+
+01:08.810 --> 01:13.350
+So we set a header on our response and we set a header here
+
+01:13.380 --> 01:18.210
+by first of all defining the name of the header and the name is set cookie indeed,
+
+01:18.320 --> 01:25.850
+that is a reserved name which well sets a cookie and then you have the value of that header and the value
+
+01:25.850 --> 01:33.680
+for set cookie in its simplest form is simply a key value pair where you define any name you want and any
+
+01:33.680 --> 01:35.000
+value you want.
+
+01:35.000 --> 01:41.000
+So you could have something like logged in or logged in, makes it easier to read
+
+01:41.130 --> 01:47.460
+equals true, this would set a cookie and I can show this to you. If you now save this and you go to the
+
+01:47.460 --> 01:55.900
+login page and you click post here or click login, open your developer tools and in the chrome developer
+
+01:55.900 --> 01:59.770
+tools, you can go to the application tab and there to cookies
+
+01:59.770 --> 02:03.890
+and if you expand this, you should see your current address here and
+
+02:03.950 --> 02:07.200
+if you click on that, you will see some cookies.
+
+02:07.500 --> 02:13.030
+Now some cookies will be set by third party plugins, chrome extensions and so on
+
+02:13.620 --> 02:17.260
+but you will also see logged in and the value true,
+
+02:17.280 --> 02:20.640
+you should see that at least and that is the cookie we just set.
+
+02:20.710 --> 02:22.030
+Let me zoom out a bit here,
+
+02:23.410 --> 02:26.170
+there you see the domain to which it belongs,
+
+02:26.170 --> 02:32.670
+the path, when it will expire and this state is in the past because it's a so-called session cookie,
+
+02:32.670 --> 02:37.510
+it will basically expire once you close the browser and come back,
+
+02:37.620 --> 02:42.720
+you see the size and some other information to which I will come back in a second.
+
+02:43.140 --> 02:45.120
+So this cookie is now set
+
+02:45.240 --> 02:53.670
+and now this cookie is not only set but the browser by default sends it to the server with every request
+
+02:53.670 --> 02:54.360
+we make,
+
+02:54.360 --> 02:58.330
+so if I click on products here for example, we go to the network tab,
+
+02:58.490 --> 03:01.340
+this is the request which was sent to the products page
+
+03:01.590 --> 03:07.080
+and there if we have a look at the headers and we scroll down to the request headers, you see that a cookie
+
+03:07.080 --> 03:07.780
+was sent.
+
+03:07.830 --> 03:11.530
+The first one comes from an extension but here this is our cookie,
+
+03:11.550 --> 03:19.770
+so it was sent to our server and now since we have that, every request will have that cookie attached
+
+03:19.770 --> 03:24.160
+to itself and therefore this data is sent with every request
+
+03:24.480 --> 03:25.640
+and now we can use that.
+
+03:25.800 --> 03:33.210
+Let's start simple, let's say in the get login page here. We can have a look at our headers, let me console
+
+03:33.210 --> 03:40.320
+log request get and then you enter the header name which is cookie because remember in the client side
+
+03:40.380 --> 03:46.890
+dev tools, you saw that the cookie header was sent with the request and now if you go to the login page
+
+03:47.160 --> 03:51.810
+or reload that page if you are on it, I reloaded it a couple of times,
+
+03:51.840 --> 03:53.350
+you see this output.
+
+03:53.360 --> 03:56.730
+Now we can ignore the first cookie but this is our logged in cookie
+
+03:57.030 --> 04:06.090
+and now we could extract that value for example by splitting on the semi-colon and then taking the second
+
+04:06.090 --> 04:07.260
+value in that array,
+
+04:07.260 --> 04:11.550
+the array index starts at zero so one gives us the second element
+
+04:11.550 --> 04:19.360
+and now if I reload this, you see I get logged in true here, you could trim that to remove any excess white
+
+04:19.360 --> 04:23.080
+spaces, we could split this again on the equal sign,
+
+04:23.120 --> 04:25.180
+this is obviously a very complex way
+
+04:25.300 --> 04:30.550
+but if I do this again and then I use the second value, then I should get the true or false value.
+
+04:31.700 --> 04:34.730
+So now if I reload this, I get
+
+04:34.740 --> 04:36.440
+true here,
+
+04:36.490 --> 04:39.880
+so obviously this is a very complex way but should be quite readable
+
+04:40.120 --> 04:48.760
+and then I can extract my is logged in information from the incoming request header, I'm getting the
+
+04:48.760 --> 04:50.560
+cookie header,
+
+04:50.930 --> 04:57.790
+I make sure that I get the second cookie that is sent which happens to be our is logged in cookie.
+
+04:57.940 --> 05:03.890
+If you only have one cookie being sent by the way, then make sure you extract the first value,
+
+05:04.300 --> 05:09.340
+so whatever or wherever is logged in is located for you, if you only have one cookie, use the first
+
+05:09.340 --> 05:10.380
+one with zero,
+
+05:10.480 --> 05:13.820
+if you've got multiple ones, use the third one and so on
+
+05:14.110 --> 05:16.210
+and then I extract the true value
+
+05:16.290 --> 05:21.290
+and now I have that is logged in information which I can pass to isAuthenticated.
+
+05:21.400 --> 05:29.170
+And with that on that page, if I now reload it, hey here are our two options in the menu because now we
+
+05:29.170 --> 05:33.680
+do enable that again because now we store that information across requests.
+
+05:33.700 --> 05:36.970
+So now even if I navigate away to another page or
+
+05:37.000 --> 05:38.440
+I don't extract that cookie 
+
+05:38.620 --> 05:43.840
+yet and I come back to login, there I do extract it and it is always sent with every request,
+
+05:43.840 --> 05:47.210
+so it is a cross request data storage.
+
+05:47.260 --> 05:50.280
+Still there is a big disadvantage
+
+05:50.380 --> 05:52.860
+and do you know which one that is?

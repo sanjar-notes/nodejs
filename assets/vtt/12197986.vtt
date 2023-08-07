@@ -1,0 +1,625 @@
+WEBVTT
+
+00:02.220 --> 00:08.910
+Now finally before we leave that module, there's one thing we can optimize now because there is one thing
+
+00:08.910 --> 00:15.450
+which I did in a way that is ok to do that will work but that is not recommended doing and that we can
+
+00:15.450 --> 00:16.550
+do better.
+
+00:16.690 --> 00:24.270
+Whenever we pass a dynamic value to our GraphQL queries as we are for example doing it here where
+
+00:24.270 --> 00:32.910
+I do have a page, we currently do use the interpolation syntax here where I use this dollar sign curly brace
+
+00:32.910 --> 00:38.340
+thing to inject or interpolate a value into my string literal.
+
+00:38.340 --> 00:40.910
+Now this absolutely does work
+
+00:41.160 --> 00:46.770
+but this is indeed not the recommended way of adding variables into our GraphQL query,
+
+00:46.800 --> 00:48.570
+there is a better way.
+
+00:48.720 --> 00:55.650
+Maybe you also remember that for mutations, we had to add mutation here but for queries, we didn't have
+
+00:55.650 --> 00:56.830
+to add query here
+
+00:56.850 --> 01:00.940
+and indeed if you would have added a query like this, we would have gotten an error.
+
+01:01.170 --> 01:05.050
+Well now I will add it because now I will also add something else,
+
+01:05.160 --> 01:11.700
+I'll give this query a name, a name that does not really make a difference, it does not make it behave
+
+01:11.730 --> 01:16.110
+differently, it will help in error messages for example
+
+01:16.230 --> 01:19.360
+but that name then also allows us to do something else.
+
+01:19.650 --> 01:27.120
+So here we are of course getting all posts, so here I'll name this fetch posts and you can give this any
+
+01:27.120 --> 01:27.840
+name you want,
+
+01:27.840 --> 01:30.250
+so this here is totally up to you.
+
+01:30.420 --> 01:37.720
+Now with this name assigned, I can add parentheses after this name to define which variables this query
+
+01:37.740 --> 01:42.160
+will use and we create such a variable here with a dollar sign
+
+01:42.180 --> 01:44.410
+but then no curly braces
+
+01:44.550 --> 01:48.350
+and then the name of the variable you want to use and that name is again up to you,
+
+01:48.360 --> 01:52.610
+I'll name it page but you could have named it current page, whatever you want.
+
+01:53.730 --> 01:56.010
+This will be of type integer,
+
+01:56.190 --> 02:01.590
+so you assign a GraphQL type again here and this is really important to understand,
+
+02:01.590 --> 02:03.480
+this is GraphQL syntax here,
+
+02:03.480 --> 02:05.630
+this will be parsed on the server,
+
+02:05.640 --> 02:09.120
+this is not javascript code that runs in the client.
+
+02:09.120 --> 02:16.260
+This will only tell our GraphQL server that we have a query which will use an internal variable.
+
+02:16.290 --> 02:21.720
+Now that I'm saying internal, the question of course is where do we use that $page?
+
+02:21.720 --> 02:28.080
+Well we use it in the place where we do have a dynamic, a variable value and that would be here where we
+
+02:28.080 --> 02:30.120
+currently inject our value.
+
+02:30.150 --> 02:36.440
+Now I use my $page here and this name here has to match this name and it has to start with
+
+02:36.440 --> 02:37.520
+dollar sign
+
+02:37.740 --> 02:39.630
+and now GraphQL knows
+
+02:39.640 --> 02:42.350
+ok this part here is dynamic,
+
+02:42.420 --> 02:47.050
+it might change and it will be an integer because we're defining this here,
+
+02:47.310 --> 02:54.540
+so now the only question is how do we get our page variable here in javascript into our
+
+02:54.540 --> 02:54.870
+$page
+
+02:54.860 --> 02:57.810
+variable here in GraphQL and for that,
+
+02:57.840 --> 03:02.810
+we add a second property to that query object we're creating here.
+
+03:02.850 --> 03:07.390
+Thus far I only have the query expression, now after that
+
+03:07.400 --> 03:10.370
+I'll add a comma and I'll add a second property
+
+03:10.530 --> 03:17.290
+which are my variables and this has to be named variables, just as this here had to be named query.
+
+03:17.400 --> 03:19.980
+This now is the query expression and variables
+
+03:19.980 --> 03:26.340
+now is an object where we can assign values to the variables we pass into our query here.
+
+03:26.340 --> 03:28.880
+So here I have $page, here
+
+03:28.880 --> 03:31.820
+it then should be just page without the dollar sign
+
+03:31.980 --> 03:36.510
+and then my javascript variable or value, so I could pass one here
+
+03:36.540 --> 03:39.790
+to always use the first page or in my case,
+
+03:39.810 --> 03:46.050
+I do have that page constant or variable here in javascript now, so this is the value I want to assign
+
+03:46.050 --> 03:46.550
+here.
+
+03:46.560 --> 03:53.220
+Now I have page two times but the first page refers to the internal variable used in the GraphQL query
+
+03:53.640 --> 03:59.330
+and the second page after the colon refers to my javascript variable, just to make this clear.
+
+03:59.490 --> 04:05.070
+And now with that let's save this and let's reload our application or first of all let's quickly log
+
+04:05.070 --> 04:07.710
+in there because I was logged out
+
+04:07.710 --> 04:10.000
+and now here you see I get my post,
+
+04:10.020 --> 04:12.960
+now if I add another duck here
+
+04:21.160 --> 04:25.210
+and I then add one more item so that we do have pagination going on,
+
+04:32.760 --> 04:36.870
+then after reloading, we can indeed see that this works
+
+04:36.900 --> 04:42.510
+as before, I can switch between my two pages and I simply have two cups in there.
+
+04:42.600 --> 04:50.330
+By the way maybe you notice that we didn't get that next and previous link after we created our item,
+
+04:50.400 --> 04:56.630
+our new item and that is something we can fix too but for now let's focus on the variables and there in
+
+04:56.640 --> 04:57.580
+our frontend code,
+
+04:57.580 --> 04:59.090
+this is how we use variables
+
+04:59.170 --> 05:05.220
+and technically it works just as before but this is the more elegant, the better way of using variables
+
+05:05.310 --> 05:06.960
+in your GraphQL queries.
+
+05:07.320 --> 05:09.710
+So now we can replace that in all our queries,
+
+05:09.720 --> 05:15.390
+for example in this mutation. There I also use string interpolation to get my value in there,
+
+05:15.390 --> 05:17.860
+better would be to give this a name,
+
+05:18.000 --> 05:20.300
+update user status or anything like that
+
+05:20.580 --> 05:22.580
+and then define which variable we need in here,
+
+05:22.620 --> 05:24.780
+that would be the let's say user status,
+
+05:24.780 --> 05:26.330
+again this name is up to you
+
+05:26.520 --> 05:29.770
+and then the GraphQL type of that which will be a string.
+
+05:30.000 --> 05:34.270
+Then here without the double quotation marks because we define it to be a string,
+
+05:34.440 --> 05:40.750
+you add user status like this and then again, you add a second variable to that GraphQL query object
+
+05:40.860 --> 05:41.400
+where you add
+
+05:41.400 --> 05:46.440
+that variables key where you now assign a value to that variable you defined here
+
+05:46.560 --> 05:50.390
+without the dollar sign and then the value you want to store there
+
+05:50.400 --> 05:54.780
+and in this case this would be this state status just as before.
+
+05:55.370 --> 06:04.880
+Now if I continue, here in the next query where I do edit or create a post, there I also give this a
+
+06:04.880 --> 06:05.330
+name,
+
+06:05.330 --> 06:12.040
+create new post seems like a fitting name here and there we'll have a couple of variables which is no
+
+06:12.040 --> 06:17.230
+problem, we can of course have more than one, we'll have the title which is a string, we'll have the content
+
+06:17.320 --> 06:21.770
+which is a string and we'll have the image url which is also a string.
+
+06:21.970 --> 06:25.740
+And now just as before, we use these values in here,
+
+06:25.780 --> 06:26.610
+so title,
+
+06:29.720 --> 06:30.640
+content
+
+06:30.860 --> 06:34.830
+and of course also the image url
+
+06:35.050 --> 06:38.340
+and now we just need to add that second argument here,
+
+06:38.350 --> 06:47.350
+the variables, so that we can store our title and you might remember, this was post data title, then the
+
+06:47.350 --> 06:48.250
+content was
+
+06:48.250 --> 06:51.340
+post data content and the image url,
+
+06:51.340 --> 06:57.480
+well that is our image url variable in javascript or the constant which I am creating here.
+
+06:58.620 --> 07:05.310
+Now when we edit a post, update existing post could be a name we assign to that and there we also have
+
+07:05.310 --> 07:12.920
+some variables and there we will need our post ID let's say which is an ID,
+
+07:13.240 --> 07:16.820
+we then also have our title which is a string,
+
+07:16.990 --> 07:19.720
+we then have our content which is a string
+
+07:20.020 --> 07:26.650
+and now just as before I'll copy that value because I'll need it in a second but then I'll replace this
+
+07:26.650 --> 07:29.910
+here with post ID,
+
+07:30.060 --> 07:31.800
+I'll replace the rest in a second too,
+
+07:31.830 --> 07:35.050
+let me first of all add my variables below that
+
+07:35.050 --> 07:39.440
+and then here, we have that post ID which is the value I just cut out
+
+07:39.790 --> 07:43.750
+and then here we have the post data title and the post data content.
+
+07:43.780 --> 07:46.640
+So here we use the title, there
+
+07:46.660 --> 07:55.400
+we use the dollar sign content not wrapped in double quotation marks and we also have the image url
+
+07:55.400 --> 07:57.310
+up there which is also a string,
+
+07:57.380 --> 08:03.750
+so we should also of course use the image url here and now we need to assign values to these variables
+
+08:03.780 --> 08:04.880
+down there too.
+
+08:05.060 --> 08:08.560
+So we have the title which is post data title,
+
+08:08.750 --> 08:11.870
+we have the content which is post data content
+
+08:12.140 --> 08:16.180
+and we have the image url which is image url.
+
+08:16.370 --> 08:23.240
+Always remember, the first part here so the key name in our variables object refers to the variables
+
+08:23.240 --> 08:24.080
+we defined here
+
+08:24.110 --> 08:25.680
+without the dollar sign,
+
+08:25.820 --> 08:28.100
+the second part after the colon,
+
+08:28.100 --> 08:34.700
+so the value of our key value pairs here refers to the value we want to pass into that variable.
+
+08:34.850 --> 08:38.560
+Time for a little save to just check if that is all working.
+
+08:38.780 --> 08:45.800
+So now if we create a new post, another duck because as you can tell by now ducks are lovely
+
+08:46.640 --> 08:50.100
+animals, it's still lovely,
+
+08:50.540 --> 08:55.020
+if I accept that, then we seem to have an issue here
+
+08:55.130 --> 08:57.080
+so that did not work
+
+08:57.350 --> 09:04.190
+and the problem we have here can be found when I inspect my GraphQL request which fails. There I get some
+
+09:04.220 --> 09:04.820
+errors and
+
+09:04.970 --> 09:11.300
+we see that all my variables here of type string expected a type string which is required and that of
+
+09:11.300 --> 09:12.890
+course is my mistake here.
+
+09:13.010 --> 09:18.710
+We should add an exclamation mark here because if we have a look at our backend and our schema here and we have
+
+09:18.710 --> 09:20.700
+a look at our mutations there,
+
+09:20.900 --> 09:29.140
+then we can see that create user has user input data and create post has post input data and that is
+
+09:29.140 --> 09:31.750
+what we working on and that input data,
+
+09:31.780 --> 09:35.410
+the post input data indeed does require all these strings.
+
+09:35.410 --> 09:37.160
+The page previously was optional,
+
+09:37.160 --> 09:41.640
+there we had no exclamation mark which is why I did get no such error before.
+
+09:41.680 --> 09:47.950
+For the status by the way, we would also get an error because the status as you can tell also has a required
+
+09:47.950 --> 09:53.900
+string and that is really important and therefore good that this slipped through. The types you assign
+
+09:53.900 --> 09:59.300
+in your frontend for your variables have to match the types in your backend schema.
+
+09:59.320 --> 10:07.060
+So here for example in create new post, all my strings here are required and for update existing post,
+
+10:07.340 --> 10:09.190
+well there for update post,
+
+10:09.190 --> 10:15.580
+we also have the same type of data and a required ID, so we should make sure that we add that exclamation
+
+10:15.580 --> 10:20.470
+mark after all these values here because they are required in our schema,
+
+10:20.470 --> 10:23.090
+they have to be required in our frontend too.
+
+10:23.320 --> 10:24.350
+So let's add this
+
+10:24.430 --> 10:27.040
+also on update status.
+
+10:27.040 --> 10:29.730
+So after this change, let me go back,
+
+10:29.800 --> 10:33.070
+let's try this again with another duck,
+
+10:36.080 --> 10:39.500
+entering some dummy value here and now this is looking better.
+
+10:39.500 --> 10:42.550
+Now let me edit this by removing the exclamation mark
+
+10:46.300 --> 10:52.570
+and there I still get an error, image url was not provided.
+
+10:52.670 --> 10:56.330
+Let me quickly have a look at what's wrong there,
+
+10:56.330 --> 11:02.430
+if we go to our update existing post, I do have my image
+
+11:02.430 --> 11:13.990
+url here and on the backend in update post, I also do require it there but indeed the problem I have
+
+11:13.990 --> 11:21.430
+here is that the image url is not always set when we don't choose a new image, right. And you might remember
+
+11:21.640 --> 11:31.600
+that indeed on our backend, we have a check in update post where we see if that is undefined as a text,
+
+11:31.750 --> 11:36.680
+so I should at least pass that text in to go through that check.
+
+11:36.790 --> 11:44.230
+So what I'll do is if my image url cannot be set here, I'll set it to a string undefined which is not
+
+11:44.230 --> 11:47.050
+the same as the default value, of the type undefined
+
+11:47.260 --> 11:52.300
+and with that, if we now reload and I tried it again,
+
+11:52.410 --> 11:57.770
+now that works because now we're setting this to a value we are checking for in the backend for the
+
+11:57.770 --> 12:00.120
+use case that we don't have a new image
+
+12:00.230 --> 12:01.960
+and then we'll keep the old image here.
+
+12:03.270 --> 12:12.470
+With that back in the frontend, this is taking good shape, the other queries in feed.js are all right.
+
+12:12.890 --> 12:14.010
+In the single post.js
+
+12:14.030 --> 12:16.480
+file there though, here
+
+12:16.730 --> 12:24.020
+I also have a query where I inject a value when I get a single post, so here I'll give this a name by
+
+12:24.020 --> 12:27.150
+adding query and the name, fetch single post
+
+12:27.330 --> 12:33.650
+and there, I expect to have a post ID which will be of type ID and that is required because that is required
+
+12:33.650 --> 12:46.820
+in our backend schema, here in our post query we do require that ID and then here, I can also assign
+
+12:46.830 --> 12:47.630
+that here
+
+12:47.700 --> 12:55.170
+and as you learn add a second element to that GraphQL query object. The variables property where
+
+12:55.170 --> 13:04.410
+I then set post ID equal to post ID, so to this post ID which I'm extracting here. And now with that if I save
+
+13:04.410 --> 13:08.830
+this and I go back and click view, this still works without issues.
+
+13:09.870 --> 13:16.790
+Now with that, let's also go to app.js in our frontend code because there we do sign users up and in
+
+13:16.950 --> 13:20.100
+and here, we also inject values into our query.
+
+13:20.160 --> 13:24.540
+Now just as before, we should name these queries and use that different approach,
+
+13:24.540 --> 13:26.400
+so here I'll name that user login
+
+13:26.670 --> 13:31.170
+and I do get an e-mail which is of type string and which is required
+
+13:31.320 --> 13:35.780
+and I do get my password which is of type string and required.
+
+13:35.880 --> 13:41.720
+And then here where I have auth data email and auth data password, I can use e-mail,
+
+13:41.730 --> 13:51.180
+so $email and $password and we add that new variables object here as a property
+
+13:51.180 --> 13:54.420
+to the GraphQL query and that email will be auth
+
+13:54.420 --> 13:58.410
+data email and password will be auth
+
+13:58.420 --> 14:00.060
+data password
+
+14:00.060 --> 14:04.340
+just as before but now with that more elegant syntax.
+
+14:04.860 --> 14:10.730
+And last but not least when we sign up, so when we create new users, then I'll also give this mutation
+
+14:10.730 --> 14:14.310
+a name, create new user, whatever you want
+
+14:15.180 --> 14:18.170
+and here, again I expect a couple of values.
+
+14:18.180 --> 14:24.000
+I expect an email which is a string and which is required, I expect a name which is a string and which
+
+14:24.000 --> 14:29.400
+is required and you can always check your backend schema to learn what is required and what is not
+
+14:29.430 --> 14:33.770
+and here our user input data is what we have to pass to the backend.
+
+14:38.060 --> 14:39.470
+So last but not least here
+
+14:39.470 --> 14:47.090
+I also have my password which is a required string and then I'll just quickly copy that because now
+
+14:47.090 --> 14:52.750
+I will replace these values with my GraphQL variable equivalence,
+
+14:52.790 --> 15:01.530
+so $email, $name and of course here, $password
+
+15:01.760 --> 15:07.460
+and then again add that variables object and pass email which is auth data
+
+15:07.460 --> 15:11.900
+sign up form email value, pass the name which is auth data
+
+15:12.020 --> 15:17.950
+sign up form name value and pass the password which is auth data
+
+15:17.960 --> 15:22.100
+sign up form password value just as before.
+
+15:22.340 --> 15:28.580
+And with that, we should have replaced all injected values in our application with new values.
+
+15:28.580 --> 15:35.520
+Now let me quickly sign up with a new user here,
+
+15:35.570 --> 15:41.730
+now let me also quickly login with that user and that also works
+
+15:41.750 --> 15:44.670
+and with that, we got everything in place.
+
+15:44.840 --> 15:47.900
+I can't delete that obviously because I'm not the user who created it,
+
+15:47.970 --> 15:51.180
+I would have to login with the correct user for that.
+
+15:51.560 --> 15:54.770
+So with that, everything is working the way it should
+
+15:54.770 --> 16:01.550
+and now we have a GraphQL API that uses that new variable syntax which is the recommended way of passing
+
+16:01.550 --> 16:04.090
+dynamic values into your queries.

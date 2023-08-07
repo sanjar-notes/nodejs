@@ -1,0 +1,124 @@
+WEBVTT
+
+00:02.300 --> 00:04.310
+We had a closer look at error handling,
+
+00:04.310 --> 00:10.970
+now let me remove that code here where I create a duplicate ID so that it works again.
+
+00:10.970 --> 00:15.890
+I hope you got an idea of how error handling can work and how we can use that central error handling
+
+00:15.890 --> 00:21.500
+function or our own logic which we have in place all the time where we check for the existence of a
+
+00:21.500 --> 00:24.320
+product and redirect otherwise and so on.
+
+00:24.320 --> 00:30.290
+So we get a bunch of code already in our application where we do handle a certain situations which we
+
+00:30.290 --> 00:31.760
+want to avoid of course
+
+00:32.030 --> 00:35.770
+and you can always be more creative and handle them in a better way.
+
+00:35.780 --> 00:37.790
+For example here and get added product,
+
+00:37.820 --> 00:41.150
+if I don't find a product, I redirect to the starting page.
+
+00:41.150 --> 00:46.880
+Now you can of course enhance this and you could redirect back to the admin products page and flash
+
+00:46.880 --> 00:52.580
+a message onto that page which you then output in the ejs template to give the user more information
+
+00:52.580 --> 00:53.720
+on what went wrong,
+
+00:53.900 --> 01:00.410
+I'm not doing this here to not spend a lot of time on working on the UI only but these are all things
+
+01:00.410 --> 01:07.340
+you can do. What I want you to takeaway here is that you have measures or that you have tools for
+
+01:07.340 --> 01:08.420
+handling errors
+
+01:08.570 --> 01:14.900
+and one of the most important tool is to at least handle all these catch blocks here correctly
+
+01:15.110 --> 01:20.080
+and therefore I will do that and replace it with my catch block where I throw that error or where I
+
+01:20.130 --> 01:26.780
+forward this error here because this allows me to at least centrally handle them with a 500 page, if
+
+01:26.780 --> 01:28.070
+I do nothing else,
+
+01:28.100 --> 01:29.800
+this is better than nothing.
+
+01:29.810 --> 01:34.790
+So I'll use that on all my catch blocks here, also in auth.js,
+
+01:34.800 --> 01:38.210
+there not for this one here
+
+01:38.220 --> 01:46.630
+but for this one, I'll also add this catch block, the same for this one, basically for all the catch blocks
+
+01:46.640 --> 01:48.840
+where I just log something to the console,
+
+01:48.970 --> 01:58.680
+there I want to forward to the 500 page. Here as well and you can call that anywhere of course, not
+
+01:58.680 --> 01:59.960
+just inside the next block
+
+02:00.080 --> 02:06.090
+whenever you create an error object and you next it and you avoid any code being executed
+
+02:06.120 --> 02:11.220
+after this by returning next with the error, whenever you do that, you end up in your express error
+
+02:11.220 --> 02:12.510
+handling function.
+
+02:12.510 --> 02:16.230
+And just because it's really important, this is just one way of handling this,
+
+02:16.260 --> 02:19.170
+you also have all the other if checks and so on which we added,
+
+02:19.170 --> 02:25.850
+so this is just my last resort here that I always do at least that if everything else fails.
+
+02:26.040 --> 02:32.310
+And now we should have an application which is a little bit more hardened or at least shows some message
+
+02:32.310 --> 02:36.030
+to the user when something fails instead of just doing well
+
+02:36.060 --> 02:43.460
+nothing basically as we did before because you want to avoid situations where the app just crashes and
+
+02:43.460 --> 02:49.820
+you don't even tell the user, it's better to have some code in place that at least returns an error page.
+
+02:50.150 --> 02:56.300
+And now with all these changes here, you should be able to still click around and use that application
+
+02:56.570 --> 02:57.810
+as you did before,
+
+02:59.460 --> 03:02.070
+you can also delete for example, so that all works.
+
+03:02.070 --> 03:07.530
+But now we got proper error handling in place for scenarios where something does go wrong.

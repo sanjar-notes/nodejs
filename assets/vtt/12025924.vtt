@@ -1,0 +1,148 @@
+WEBVTT
+
+00:02.470 --> 00:09.460
+Here's our shop and I created three products behind the scenes, so you can of course create any three products
+
+00:09.550 --> 00:14.290
+on one or more user accounts, doesn't matter, in the end you will have three products.
+
+00:14.290 --> 00:18.580
+Now obviously we can absolutely display these three products like this,
+
+00:18.580 --> 00:22.680
+nothing wrong with that. But let's say we have hundreds of products,
+
+00:22.780 --> 00:25.900
+we would not want to display all these products on one page,
+
+00:25.990 --> 00:32.440
+instead we'd like to split them across multiple pages and then somewhere on the page, often at the bottom,
+
+00:32.650 --> 00:38.390
+we'd have some controls to go to page one, page two, the next or the previous page
+
+00:38.390 --> 00:40.720
+and that is exactly what I want to implement here,
+
+00:40.720 --> 00:41.870
+pagination.
+
+00:42.100 --> 00:46.180
+Now you can certainly find some third party packages that can help you with that
+
+00:46.270 --> 00:52.240
+and these would be fine to use but I will show you how to implement that from scratch on your own because
+
+00:52.290 --> 00:55.060
+that is obviously how you learn the most.
+
+00:55.070 --> 00:59.240
+So back in our project, how can we implement pagination?
+
+00:59.660 --> 01:01.660
+Well typically, you handle this
+
+01:01.730 --> 01:06.440
+as I said by adding some controls which always leads to the same path.
+
+01:06.520 --> 01:09.670
+so always /products or slash
+
+01:09.670 --> 01:10.390
+nothing
+
+01:10.580 --> 01:16.730
+but then you add a query parameter, remember query parameters are these parameters you add after a questionmark
+
+01:17.120 --> 01:23.480
+which allow you to specify optional data and there you could specify something like page equals one to load
+
+01:23.480 --> 01:29.570
+the first page or page equals two to load the second page and you would change these query parameters with these
+
+01:29.570 --> 01:30.830
+controls you add.
+
+01:31.100 --> 01:32.570
+Let me show you what I mean.
+
+01:32.780 --> 01:38.390
+I will go into my views folder and let's work on that slash, so on that root route,
+
+01:38.390 --> 01:45.130
+so that index.ejs file here and there at the bottom beneath my products
+
+01:45.140 --> 01:52.040
+but inside of that first if block, so where I know that I have some products, in there I'll add a new section.
+
+01:52.040 --> 01:57.230
+I'll give it a class of pagination because this will be the section where I manage the pagination
+
+01:57.530 --> 02:02.780
+and my idea is to have a link here which says 1 for Page 1 and 2 for Page 2
+
+02:02.960 --> 02:08.850
+and here I would go to slash and have page equal to one let's say and here, page equal to two.
+
+02:08.890 --> 02:14.200
+So here I would set a query parameter to value one or respectively, to value two.
+
+02:14.600 --> 02:20.610
+If I save this and reload, we can see that on the left here,
+
+02:20.620 --> 02:23.480
+now let's change the styling real quick.
+
+02:23.490 --> 02:30.660
+So for that, I'll go into my public folder, css and there the main css file and I'll scroll all the way
+
+02:30.660 --> 02:36.570
+to the bottom right before that media query, I'll add pagination so that class I added to the section
+
+02:36.990 --> 02:41.890
+and I'll set text align to center and I'll also style my links.
+
+02:41.910 --> 02:47.910
+This is of course totally optional but I will style my anchor tags in there to have no text decoration,
+
+02:47.940 --> 02:54.510
+so to not be underlined. I'll give them a color of let's say my green which I'm using in this project,
+
+02:55.290 --> 03:03.810
+I will also add some padding of let's say .5rem and give them a border of one pixel solid and that same
+
+03:04.050 --> 03:10.360
+green color and also some margin of 1rem left and right,
+
+03:10.530 --> 03:15.620
+something like this. If I now save that, I have these buttons here.
+
+03:15.680 --> 03:23.630
+Now one more thing, on the whole pagination section, I'll add a margin top of 2rem and I also want
+
+03:23.630 --> 03:31.180
+to make sure my buttons have some hover style, so pagination a hover and pagination a
+
+03:31.370 --> 03:37.990
+active sets these styles when I hover over them or when I click on them and there, I will set a background
+
+03:39.620 --> 03:44.090
+of this green color and change the text color to white.
+
+03:44.090 --> 03:45.640
+Now this is all optional,
+
+03:45.710 --> 03:48.860
+I just want to have some stylings here for my buttons.
+
+03:48.860 --> 03:52.940
+So now we have these buttons and if I click one of them, you can see the url changes,
+
+03:53.000 --> 03:58.400
+it's the same path, just slash nothing but I have an optional parameter in there.
+
+03:58.520 --> 04:04.910
+Now with that set up here, let's now see how we can work with that parameter on the backend to control
+
+04:04.910 --> 04:06.290
+the data we are fetching.

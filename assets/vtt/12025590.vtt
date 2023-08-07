@@ -1,0 +1,40 @@
+WEBVTT
+
+00:02.140 --> 00:05.990
+Now what we learned how to add users to our application,
+
+00:06.070 --> 00:13.720
+let's take a step backward and let's have a look at an important topic that is related to any visitor,
+
+00:13.780 --> 00:18.810
+no matter if he or she is authenticated or not, interacting with your website.
+
+00:18.880 --> 00:25.930
+I'm talking about handling user input and most importantly, that will be the topic of this module, validating
+
+00:26.110 --> 00:28.000
+that user input.
+
+00:28.000 --> 00:29.020
+Therefore in this module,
+
+00:29.020 --> 00:32.770
+we'll have a look at why validation is important,
+
+00:32.770 --> 00:38.180
+so what do I mean with validating user input and why would we want to do that
+
+00:38.200 --> 00:41.680
+and of course how can we validate user input.
+
+00:41.680 --> 00:49.330
+These are the core things and I will show you how you can ensure that the data you work with is really
+
+00:49.330 --> 00:53.560
+the data and in the format you expect to get it.
+
+00:53.620 --> 00:55.900
+So this is what we'll dive into in this module,
+
+00:55.930 --> 01:00.980
+so let's see what exactly validation is and why we would want to add it.

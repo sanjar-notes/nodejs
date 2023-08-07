@@ -1,0 +1,157 @@
+WEBVTT
+
+00:02.100 --> 00:04.100
+So what is mongodb?
+
+00:04.130 --> 00:10.910
+Now let me first of all tell you that I do actually have a complete course for developers on mongodb,
+
+00:10.920 --> 00:15.930
+so you might want to check that out if you want to learn way more about mongodb than I'll be able
+
+00:15.930 --> 00:17.450
+to cover in this course
+
+00:17.460 --> 00:23.460
+but now with that let me start with a brief introduction to mongodb at least, what is it? Mongodb
+
+00:23.580 --> 00:30.420
+is both the name of the company which developed mongodb but also then of their most famous product,
+
+00:30.660 --> 00:38.010
+a database solution, a database engine you could say, a tool you can use to run very efficient NoSQL
+
+00:38.010 --> 00:39.080
+databases.
+
+00:39.180 --> 00:45.630
+The name stems from the word humongous because mongodb was built for one major purpose, that you could
+
+00:45.630 --> 00:47.350
+store and work
+
+00:47.430 --> 00:53.440
+and that really is important, the work part, that you could store and work with lots and lots of data.
+
+00:53.460 --> 01:00.720
+So mongodb is built for large scale applications, mongodb is built to quickly query data, store
+
+01:00.720 --> 01:02.340
+data, interact with data,
+
+01:02.380 --> 01:09.870
+so it's really fast and it's really awesome database philosophy that is behind NoSQL databases and
+
+01:09.870 --> 01:10.930
+therefore also behind
+
+01:10.930 --> 01:12.280
+mongodb.
+
+01:12.390 --> 01:13.630
+Now how does it work?
+
+01:13.920 --> 01:20.690
+Well just like in the SQL world, we spin up a mongodb server and there we can have multiple databases,
+
+01:20.790 --> 01:27.990
+for example a shop database. Now in such a database in the SQL world, we would have multiple tables,
+
+01:28.380 --> 01:30.620
+in the NoSQL mongodb world
+
+01:30.660 --> 01:35.260
+we have multiple collections like the users and orders collection for example.
+
+01:35.490 --> 01:41.610
+Now inside of each collection, we don't have so-called records but we have a couple of documents. Now
+
+01:41.620 --> 01:43.360
+documents also look different
+
+01:43.380 --> 01:47.220
+than records did and it's not just about different names being used,
+
+01:47.220 --> 01:51.070
+the core philosophy behind the database really is a totally different one.
+
+01:51.300 --> 01:58.500
+For example mongodb is schemaless, inside of one collection, your documents which is your data, your
+
+01:58.500 --> 02:04.350
+entry so to say don't have to have the same structure. In SQL that was totally different,
+
+02:04.380 --> 02:09.690
+we had a users table there and in that users table, we had an ID, a name, an email, a password.
+
+02:09.690 --> 02:11.520
+Now here that is different,
+
+02:11.580 --> 02:15.130
+here we can have any kind of data in one and the same collection.
+
+02:15.280 --> 02:21.240
+Often you will still end up with an at least similar structure but you're not forced to have exactly
+
+02:21.240 --> 02:22.170
+the same structure
+
+02:22.200 --> 02:28.680
+and this gives you more flexibility, also for your application to grow and to change its data requirements
+
+02:28.710 --> 02:29.490
+over time
+
+02:29.490 --> 02:34.010
+without that being difficult to depict in your database world.
+
+02:34.260 --> 02:38.420
+So this is one thing, a document in mongodb looks like this
+
+02:38.520 --> 02:41.990
+and this looks a lot like javascript object notation
+
+02:41.990 --> 02:47.850
+and to be precise it kind of is. Mongodb uses json to store data in collections,
+
+02:47.910 --> 02:51.420
+so every document you store looks something like this,
+
+02:51.540 --> 02:57.330
+it follows the javascript object notation format. To be very precise mongodb uses something which
+
+02:57.330 --> 03:03.840
+is called bson for binary json but that only means that mongodb kind of transforms this behind
+
+03:03.840 --> 03:06.930
+the scenes before storing it in the files
+
+03:06.930 --> 03:08.450
+but you don't have to worry about that,
+
+03:08.520 --> 03:15.660
+you will basically use it as json. Now such a json document is basically the same as a javascript
+
+03:15.660 --> 03:22.920
+object you could say and there as you see, we can have nested or as mongodb calls them, embedded
+
+03:23.040 --> 03:27.380
+documents, for example the address here would hold an embedded document.
+
+03:27.600 --> 03:31.450
+And you can also have arrays inside of that document and that array can
+
+03:31.470 --> 03:37.940
+like in this case hold other documents, other objects or it could also just hold strings, numbers,
+
+03:37.980 --> 03:39.240
+anything of that kind.
+
+03:39.360 --> 03:47.040
+So again for the data, you have great flexibility and the existence of these nested documents also means
+
+03:47.340 --> 03:52.830
+that relations are managed a bit differently in the NoSQL mongodb world.
+
+03:52.830 --> 03:54.890
+So let me come back to that in the next lecture.

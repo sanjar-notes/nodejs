@@ -1,0 +1,253 @@
+WEBVTT
+
+00:02.360 --> 00:07.160
+Let's connect posts and users. For this in my backend code,
+
+00:07.160 --> 00:11.850
+first of all I'll go to my post model and there we have that creator object,
+
+00:11.900 --> 00:12.450
+right.
+
+00:12.650 --> 00:17.100
+Well that was like an intermediate solution,
+
+00:17.180 --> 00:25.710
+now that we know users in our application, creator will no longer be of type object type schema types
+
+00:26.060 --> 00:35.450
+object ID because I will store a reference to a user, so this will now be a reference to a user here,
+
+00:35.450 --> 00:37.460
+this will also be require true and
+
+00:37.550 --> 00:41.010
+not required string, what I had before, this was a mistake of course.
+
+00:41.030 --> 00:44.610
+So now we have a relation between posts and users,
+
+00:44.660 --> 00:50.630
+we store the creator of a post in every post we create and on the user model, we add the post to the
+
+00:50.630 --> 00:52.450
+list of posts for that user.
+
+00:52.640 --> 00:58.970
+That of course means we now need to adjust our feed controller in the place where we do create new posts.
+
+01:01.120 --> 01:06.860
+There in create post, the validation which we do at the beginning still is
+
+01:06.880 --> 01:13.120
+all right but then before I create the post, I should get my user ID.
+
+01:13.310 --> 01:18.950
+Now I remember in my isAuth middleware, I do actually store that in the request object,
+
+01:18.950 --> 01:20.950
+I get it from the decoded token,
+
+01:21.140 --> 01:24.050
+so we have that user ID available here.
+
+01:24.050 --> 01:32.520
+Now with that information, I'll set creator equal to request user ID, that will be a string not an object
+
+01:32.520 --> 01:32.820
+ID
+
+01:32.850 --> 01:35.790
+but mongoose will take care about that and convert it,
+
+01:35.820 --> 01:40.350
+so now we create a new post assigned to that user.
+
+01:40.440 --> 01:44.670
+Now once I save the post, I'll not immediately send the response though,
+
+01:44.790 --> 01:50.500
+instead I now also want to add that post to the list of posts for the given user.
+
+01:50.500 --> 01:55.490
+Therefore I'll import my user model into that feed.js
+
+01:55.500 --> 01:56.030
+.
+
+01:56.070 --> 02:00.470
+file by requiring it from the models folder of course
+
+02:01.600 --> 02:03.510
+and in create post
+
+02:03.570 --> 02:11.460
+once we did save the post, I'll use that user model to find the user by ID for the request user ID,
+
+02:11.460 --> 02:19.030
+so for that user id I extracted from the token. Then I'll return this and close this
+
+02:19.080 --> 02:21.750
+then block and add a new then block
+
+02:22.260 --> 02:32.050
+where I now get that user that was created. Now in this second then block here, I now have a user, so
+
+02:32.130 --> 02:35.300
+not the user which was created but the user which was found,
+
+02:35.310 --> 02:43.080
+I have that user which is the currently logged in user and now I can take that user object which is
+
+02:43.290 --> 02:47.820
+a mongoose model here in the end and I can access the post of this user,
+
+02:47.820 --> 02:56.020
+keep in mind the user model has a posts property. I can access this post and I can push the newly
+
+02:56.020 --> 02:57.630
+created post,
+
+02:57.700 --> 03:04.630
+so this post here, I can push that posts object to that user and mongoose will do all the heavy lifting
+
+03:04.750 --> 03:11.750
+of pulling out the post ID and adding that to the user actually.
+
+03:11.760 --> 03:18.600
+Now I'll also add a new variable at the top which I'll name creator which is uninitialized
+
+03:18.810 --> 03:23.820
+and once I found a user, I'll store the user in that creator variable.
+
+03:23.820 --> 03:25.370
+Now what do I need that for?
+
+03:25.500 --> 03:29.190
+Well I do update my user here,
+
+03:29.280 --> 03:36.180
+that means that here I will also call user save and I will return that and hence we need another
+
+03:36.210 --> 03:39.920
+then block where I get the result of this operation.
+
+03:40.020 --> 03:46.770
+Now in this next block, I'll send my response and there I will not just send the post but I also want
+
+03:46.770 --> 03:49.660
+to send information about the creator,
+
+03:49.680 --> 03:56.430
+so here I'll add a creator key and that will be let's say some object with an ID _id
+
+03:56.850 --> 04:03.610
+of creator _id and name which is creator name.
+
+04:03.630 --> 04:06.670
+So I'm just passing this extra information with the response
+
+04:06.680 --> 04:09.390
+and if I want to do that, I have to do it through a variable.
+
+04:12.450 --> 04:18.650
+So now posts get saved and get connected to users in both directions,
+
+04:18.650 --> 04:20.090
+let's try that out.
+
+04:20.120 --> 04:25.160
+Let's save this code, go back to the frontend and there
+
+04:25.170 --> 04:27.050
+let's create a new post.
+
+04:27.120 --> 04:28.860
+Good old duck again,
+
+04:29.130 --> 04:33.400
+let's add a duck image, a duck,
+
+04:33.430 --> 04:35.110
+how lovely,
+
+04:35.200 --> 04:36.470
+click accept here
+
+04:37.350 --> 04:39.410
+and I get an error.
+
+04:39.690 --> 04:41.340
+Let's see what's going wrong,
+
+04:41.730 --> 04:44.160
+I do get back a response with a post
+
+04:44.620 --> 04:51.200
+and the problem is that post holds my user data actually which is a mistake
+
+04:51.210 --> 04:57.030
+on my side of course. The post I am sending back here is not the result, the result here is the user which
+
+04:57.030 --> 05:00.910
+I updated. Here post should be the post model,
+
+05:00.930 --> 05:03.470
+the post object I created up there,
+
+05:03.630 --> 05:04.690
+so that's my mistake.
+
+05:04.800 --> 05:07.220
+I do create a post there, I store it in a constant,
+
+05:07.290 --> 05:12.580
+I can reuse that constant down there to send data about that create post back to the client.
+
+05:12.760 --> 05:14.790
+So let me save that, now
+
+05:14.850 --> 05:18.960
+still what we'll see is in the database, if I go to the post collection,
+
+05:19.020 --> 05:24.450
+it was created though because it only failed when it came to sending back the correct data
+
+05:24.450 --> 05:29.260
+and there we see that it's also connected to a user which ends with ABC.
+
+05:29.460 --> 05:35.790
+If you have a look at the users, this is this user and there in posts, we also find the ID of the post which
+
+05:35.790 --> 05:37.610
+ends with 6E5,
+
+05:38.040 --> 05:39.800
+yes that is correct.
+
+05:39.840 --> 05:41.110
+So this worked, now
+
+05:41.160 --> 05:44.440
+only a minor mistake here regarding the data I send back.
+
+05:44.580 --> 05:46.370
+Let's simply give this a try again,
+
+05:46.450 --> 05:47.860
+here's our post,
+
+05:47.940 --> 05:53.230
+let's add a cup like this,
+
+05:54.240 --> 05:58.900
+superhot and now this works without an error.
+
+05:59.090 --> 06:02.880
+So now we are able to connect posts and users,
+
+06:02.990 --> 06:08.990
+let's now take it a step further and make sure that editing and deleting is only possible for posts
+
+06:09.140 --> 06:11.210
+that belong to the currently logged in user.

@@ -1,0 +1,112 @@
+WEBVTT
+
+00:02.340 --> 00:08.700
+Now let's start with uploading files and there, we have a really great use case and that of course
+
+00:08.790 --> 00:16.290
+is that when we add a new product, we right now always have to enter a url. That is not a very realistic
+
+00:16.290 --> 00:24.270
+set up because in a real world application, your users who are trying to sell things will probably
+
+00:24.270 --> 00:28.790
+not have pictures of their products stored somewhere in the web,
+
+00:28.920 --> 00:34.530
+so we definitely want to give our users the possibility of uploading images and that is exactly what
+
+00:34.530 --> 00:40.920
+I'll work on now. Adding file upload means that we have to do two things,
+
+00:40.950 --> 00:47.430
+the first thing is that we need to adjust our form here to show a file picker to our users,
+
+00:47.430 --> 00:53.030
+so a tool which they can use to well select a file on their operating system on their computer.
+
+00:53.370 --> 00:59.250
+And then the second part is that we need to be able to accept that file in the place where we well handle
+
+00:59.250 --> 01:02.100
+it, where we handle the incoming requests.
+
+01:02.100 --> 01:06.770
+Now let's start with the form and let's add a file picker there.
+
+01:06.810 --> 01:11.930
+So we'll dive into our views and there it's in the admin section, the edit product.ejs
+
+01:11.970 --> 01:15.660
+file, there we will have our image
+
+01:15.690 --> 01:19.360
+url control, this one and in the end,
+
+01:19.410 --> 01:25.080
+this image url should now become a file picker. For that, I'll
+
+01:25.080 --> 01:28.240
+copy this old block and comment it out
+
+01:28.350 --> 01:31.900
+so that we still have it around in case we need it later
+
+01:32.010 --> 01:34.380
+but this will now become a new image uploader.
+
+01:34.380 --> 01:37.170
+There I'll just have image as a label.
+
+01:37.380 --> 01:44.730
+Now that class here where I try to mark this as invalid, I'll remove that because we'll not have an input
+
+01:44.750 --> 01:52.750
+where we would add a red border around, the type here will be changed to file, the name I'll change
+
+01:52.750 --> 01:59.340
+that to image and I'll change the ID too, also up here therefore
+
+01:59.410 --> 02:02.050
+and now the value with which I'll pre-populate this,
+
+02:02.110 --> 02:08.350
+I'll remove that because even if we're editing this, I will always present an empty file picker and
+
+02:08.350 --> 02:11.120
+we'll just have to tweak our backend logic later
+
+02:11.140 --> 02:16.960
+so that when we're editing this and we're not sending a new file, we simply keep the old one and we overwrite
+
+02:16.960 --> 02:18.680
+the old one if we do send a new one
+
+02:18.760 --> 02:22.630
+but for now I'll simply set up my file input like this.
+
+02:22.630 --> 02:26.790
+Now if I save that and I reload this page,
+
+02:26.800 --> 02:30.770
+now we have our file picker here which is a default html element and
+
+02:30.770 --> 02:36.950
+if we click it, we can select a file like this boat here, you can pick any file, it should be an image
+
+02:36.950 --> 02:37.820
+of course.
+
+02:38.240 --> 02:46.190
+So now I have chosen that and now if I would enter the rest and add this product, we would fail because
+
+02:46.250 --> 02:53.440
+right now we got no logic in place to handle an incoming file, to store it or to do anything with it
+
+02:53.480 --> 02:56.320
+and this is the part we'll have to adjust now.
+
+02:56.420 --> 03:02.450
+So in the next lecture, I want to make sure that we can handle incoming files just as well as incoming text
+
+03:02.540 --> 03:04.580
+which we previously always accepted.

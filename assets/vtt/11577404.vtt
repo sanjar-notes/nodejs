@@ -1,0 +1,187 @@
+WEBVTT
+
+00:02.170 --> 00:09.940
+You probably do notice that we do repeat a base structure in all our files here and of course it's
+
+00:09.940 --> 00:12.450
+a bit annoying that we manually have to do that,
+
+00:12.460 --> 00:19.510
+for example this base setup and also the import of main css as well as the header is part of every
+
+00:19.570 --> 00:27.460
+single page and therefore it's a bit cumbersome if we manually have to repeat this setup or this import
+
+00:27.550 --> 00:28.500
+all the time,
+
+00:28.510 --> 00:31.180
+so what can we do regarding that?
+
+00:31.330 --> 00:38.560
+We can create a so-called layout. For this I'll create a new subfolder in views which I'll name layouts
+
+00:38.570 --> 00:42.080
+in case we might have multiple ones and I'll add a main layout.pug
+
+00:42.170 --> 00:43.670
+file.
+
+00:43.670 --> 00:50.420
+Now I'll take my add or my shop.pug file or maybe 404 which is the most minimal one and copy
+
+00:50.420 --> 00:53.810
+that file content into main layout.
+
+00:53.810 --> 00:59.810
+Now of course we get some elements in here which are dynamic now, which depend on the page I want to use 
+
+00:59.810 --> 01:04.210
+and the question is how can we reuse this skeleton anyways.
+
+01:04.280 --> 01:11.930
+Well we can extend this layout from inside our other pug views and we can actually define some placeholders,
+
+01:11.960 --> 01:16.620
+some hooks in this layout where other views can then enter their content.
+
+01:16.640 --> 01:21.330
+For example here in the links, we get a base layout which looks like this
+
+01:21.500 --> 01:24.670
+but in other views that should extend this layout,
+
+01:24.740 --> 01:28.820
+they might use this layout and add more links in this place.
+
+01:29.120 --> 01:35.090
+We can define such a hook by adding the block keyword which pug understands and then defining any name
+
+01:35.090 --> 01:37.730
+of our choice, styles for example.
+
+01:37.850 --> 01:42.780
+Now we will be able to add more styles from inside other files here
+
+01:42.860 --> 01:46.070
+and I will show you how to add this in a second.
+
+01:46.130 --> 01:49.230
+I also want to remove that active link here,
+
+01:49.490 --> 01:56.630
+by the way also in the 404.pug file because I have no assumption about what's active and I will show you how
+
+01:56.630 --> 01:59.290
+to dynamically set this in a second too.
+
+01:59.630 --> 02:02.900
+Now the content below the header also is dynamic
+
+02:03.200 --> 02:05.470
+and here I again will reserve a block,
+
+02:05.510 --> 02:09.460
+so a hook which I'll name content and the name again is up to you.
+
+02:09.800 --> 02:15.650
+So now we get this basic layout with two hooks we can dynamically enter content into from inside our
+
+02:15.820 --> 02:17.580
+other files.
+
+02:17.600 --> 02:22.300
+Now let's start with the 404.pug page here, there
+
+02:22.720 --> 02:30.960
+I will just copy that content that matters to me and remove the entire rest and we can now extend the layout
+
+02:30.960 --> 02:38.140
+by adding the extends keyword which pug understands and now we just need to point at the layout. For that
+
+02:38.190 --> 02:42.730
+we have the layouts folder and we want to use the main layout file in there,
+
+02:43.630 --> 02:45.480
+we have to add .pug here too.
+
+02:45.560 --> 02:48.590
+So now we're telling pug that we want to extend this
+
+02:48.940 --> 02:55.450
+and now we just have to tell it what to render in that content and maybe also in that styles hook we
+
+02:55.450 --> 03:01.510
+defined. For styles I don't need any special setting here but for the content block, I want to enter
+
+03:01.510 --> 03:08.890
+my own custom content and I do this by again typing block content but now since I extend a layout, this will
+
+03:08.890 --> 03:15.030
+not define a hook but actually allow me to add content in that layout and then indent it here,
+
+03:15.130 --> 03:20.320
+I define what should be injected into the content block in the layout,
+
+03:20.320 --> 03:28.600
+so in this place. With that if I save that and I enter some random path which doesn't exist, I still get
+
+03:28.600 --> 03:36.480
+page not found but now behind the scenes, this actually uses my layout and we can of course do the same
+
+03:37.500 --> 03:46.170
+on the other pages, like add product. There let's also for now keep the other content so that we can copy and paste
+
+03:46.470 --> 03:49.260
+content over into our new layout,
+
+03:49.260 --> 03:52.810
+so we extend main layout pointing at the layout file
+
+03:53.040 --> 04:02.160
+and here I will add something to the content but also into my styles block and we do that by simply
+
+04:02.190 --> 04:10.170
+typing block styles here and then indent it, we add what we want to add and these are these two lines
+
+04:10.200 --> 04:14.980
+because these are the two style imports which are not part of the default layout.
+
+04:15.150 --> 04:22.560
+So let's add them here in the styles block and then we have the other block, the content block, this one
+
+04:23.130 --> 04:25.990
+where I want to enter my own content.
+
+04:26.020 --> 04:33.400
+So for that, I will copy the entire part in the main section here or the entire main section actually, like
+
+04:33.400 --> 04:40.880
+this, cut it and move it over and replace this h1 tag here and make sure the indentation is correct
+
+04:40.960 --> 04:49.120
+and now we can remove the entire rest here and we should now have a file that does extend our layout
+
+04:50.560 --> 04:57.220
+and therefore still looks the way it look before but now it uses this way more concise approach which
+
+04:57.220 --> 05:02.510
+also ensures that if we ever change something to the layout, we don't have to change it in all the files
+
+05:02.650 --> 05:08.430
+but only in that main layout file and the other files since they extend it will automatically get it.
+
+05:08.440 --> 05:13.780
+So let's save this, let's go to add product and this looks good. Styling is good
+
+05:13.780 --> 05:21.390
+so all these styles are imported as you can see and it looks like before almost. We got this active class
+
+05:21.400 --> 05:25.030
+missing, we don't see that the add product link is the active one
+
+05:25.180 --> 05:29.490
+and that makes sense because in the main layout, we make no assumption what is active.
+
+05:29.500 --> 05:32.710
+So the question is, how can we dynamically set this?

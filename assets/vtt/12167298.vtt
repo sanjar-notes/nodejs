@@ -1,0 +1,97 @@
+WEBVTT
+
+00:02.330 --> 00:09.270
+To be able to re-use one and the same io object that manages the same connection that is exposed,
+
+00:09.530 --> 00:14.400
+let's create a new file. I'll name it socket.js, the name is up to you though
+
+00:14.720 --> 00:19.890
+and in that file here, I will create a new variable which I'll name io
+
+00:20.420 --> 00:26.900
+and then I'll export with the nodejs export syntax, an object, in that object I want to have two
+
+00:26.990 --> 00:30.110
+methods, two functions. The init method
+
+00:30.960 --> 00:38.270
+and this is how you define a function in nodejs syntax, you have that key here like in a normal object
+
+00:38.270 --> 00:45.480
+then a colon and then the value and the value here is a function which receives the http server as an
+
+00:45.510 --> 00:46.280
+argument
+
+00:46.400 --> 00:54.320
+and in that function body, I'm using an arrow function here of course, in that function body, you require
+
+00:54.350 --> 00:54.870
+socket.io,
+
+00:54.930 --> 01:00.060
+so just as we do it in app.js here, we require socket.io and we pass the server to the function
+
+01:00.120 --> 01:05.960
+that gets exposed by the exported object or by that exported package.
+
+01:05.970 --> 01:13.120
+So here I also execute this function and I pass in that http server I expect to get here as an argument.
+
+01:13.140 --> 01:22.930
+Now the result of that is our io object which I'll store in that io variable here and then I can return
+
+01:23.200 --> 01:27.450
+io like this in the init function. In app.js,
+
+01:27.540 --> 01:32.870
+I can now require /socket,
+
+01:32.950 --> 01:35.310
+so my own socket.js file
+
+01:35.560 --> 01:38.890
+and there I will call init, this function
+
+01:38.950 --> 01:45.250
+I just defined in there, so this function, I call that and there I still pass my server because in that
+
+01:45.250 --> 01:52.610
+function I expect to get that server. The other code here does not change, it stays the way it is.
+
+01:52.750 --> 01:55.340
+In socket.js I now just add another function,
+
+01:55.450 --> 01:58.680
+so another key value pair in that exported object,
+
+01:58.680 --> 02:01.990
+so let's add a comma and then I'll name this get io,
+
+02:02.050 --> 02:04.270
+the name is up to you just as it was for init
+
+02:04.270 --> 02:12.280
+by the way. Here I don't expect any arguments but in the function body, I'll check if io does not exist,
+
+02:12.280 --> 02:21.550
+so if this variable is undefined in which case I'll throw a new error, socket.io not initialized
+
+02:21.550 --> 02:23.130
+or something like that.
+
+02:23.440 --> 02:30.430
+If I make it past this if check, I know that io has been initialized and then I will just return it.
+
+02:30.430 --> 02:31.320
+Now with this,
+
+02:31.390 --> 02:37.030
+we're managing the connection in this file and we can import this file in all the places of our app where
+
+02:37.030 --> 02:40.130
+we need to be able to interact with io, like our feed.js
+
+02:40.180 --> 02:44.800
+controller. So let's continue with that next.

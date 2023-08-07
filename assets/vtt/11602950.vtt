@@ -1,0 +1,106 @@
+WEBVTT
+
+00:02.250 --> 00:05.430
+We added our products controller in the last lecture,
+
+00:05.430 --> 00:10.900
+now let's also make sure we handle the 404 route with a controller.
+
+00:10.950 --> 00:15.540
+In theory this is of course is not required, it's totally optional but it's a good practice.
+
+00:15.600 --> 00:20.920
+So definitely pause the video here and try this on your own before we then do that together,
+
+00:21.090 --> 00:27.360
+make sure to decide which controller you want to use, a new one or the existing products controller and
+
+00:27.360 --> 00:30.170
+how you would extract the 404,
+
+00:30.180 --> 00:36.180
+here is the 404 page logic into that controller and connect the existing route to it,
+
+00:36.180 --> 00:39.860
+good luck.
+
+00:40.010 --> 00:40.570
+Were you
+
+00:40.580 --> 00:41.820
+successful?
+
+00:41.840 --> 00:48.170
+Let's try that out and for that, let's first of all identify where we are rendering that 404 route
+
+00:48.470 --> 00:51.780
+and that is in the app.js file here at the bottom.
+
+00:51.830 --> 00:54.420
+Now we can absolutely leave that code here,
+
+00:54.530 --> 01:00.790
+it's very simple and there's nothing wrong with it but to be in line with our other code, I also
+
+01:00.790 --> 01:06.800
+want to put that into a controller. Now it's clearly not related to products because we can have many features
+
+01:06.800 --> 01:11.990
+on our page and every path can fail or the user can enter any random path,
+
+01:12.080 --> 01:14.550
+so instead I'll create a new controller here
+
+01:14.810 --> 01:16.850
+and you can name this however you want,
+
+01:16.850 --> 01:18.590
+you can name it 404.js,
+
+01:18.620 --> 01:20.350
+I'll name it
+
+01:20.490 --> 01:29.480
+error.js and in there, I will export a function with exports and then I'll name it get 404 page
+
+01:30.020 --> 01:37.280
+or you get 404 to be in line with get products which I have in the other controller and now I will cut
+
+01:37.310 --> 01:38.600
+that function here,
+
+01:38.660 --> 01:43.530
+this middleware function from app.js and in error.js,
+
+01:43.550 --> 01:48.030
+this is what I will store here in get 404.
+
+01:48.050 --> 01:52.130
+This is my function where I return the 404 page
+
+01:52.250 --> 01:55.220
+and with this I just have to go back to app.js
+
+01:55.370 --> 01:59.720
+and in there, I will simply import my controller,
+
+01:59.870 --> 02:07.640
+so const error controller is imported by going to the controllers folder and there to the error.js
+
+02:07.640 --> 02:14.870
+file and we can now take that error controller here and down there on app use,
+
+02:15.000 --> 02:21.600
+I will simply put error controller get 404, just like this as a reference to this function.
+
+02:21.720 --> 02:27.530
+And now this is also in line with the other routes and with the other products controller.
+
+02:27.960 --> 02:30.450
+So this is now the controller being added
+
+02:30.450 --> 02:33.060
+and with that we get views and controllers.
+
+02:33.060 --> 02:34.970
+Let's move on to the model next.

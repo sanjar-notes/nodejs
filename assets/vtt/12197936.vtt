@@ -1,0 +1,160 @@
+WEBVTT
+
+00:02.300 --> 00:03.610
+Did you try it on your own?
+
+00:03.740 --> 00:10.850
+Well let's wire it up together. For that in the frontend, we need to go to the login handler which is
+
+00:10.850 --> 00:18.500
+where we do login the users. In the login handler, I need to send a request to /graphql
+
+00:18.570 --> 00:20.730
+of course, it's a post request
+
+00:21.040 --> 00:23.260
+and now I'll define my query,
+
+00:23.380 --> 00:28.010
+so my graphql query, you can name this constant however you want.
+
+00:28.010 --> 00:35.630
+It's a javascript object with the query keyword and then a string that defines the query and for a normal query,
+
+00:35.760 --> 00:41.430
+you now don't repeat query, you just start right away with the curly braces as we did it
+
+00:41.450 --> 00:44.950
+in the graphiql interface earlier.
+
+00:44.950 --> 00:54.110
+Now let me split this over multiple lines to make it easier to read. In that query here,
+
+00:54.240 --> 00:55.990
+I want to reach out to my login query,
+
+00:56.070 --> 01:02.660
+so to that query I defined in that schema, login. I need to pass email and password here,
+
+01:02.730 --> 01:11.600
+so login actually gets curly braces here and the email between double quotation marks will be the email
+
+01:11.610 --> 01:15.950
+I also extract down there, auth data email in this case,
+
+01:16.110 --> 01:24.440
+the second argument separated with a comma in this function-like call here is the password, also enclosed
+
+01:24.510 --> 01:30.250
+between double quotation marks and there you inject auth password, auth data password.
+
+01:31.880 --> 01:39.190
+Now we can get back some data which we enclose between curly braces and the data we get back,
+
+01:39.200 --> 01:46.010
+well there I'm interested in both the token and the user id, so I specify both between these curly braces
+
+01:46.010 --> 01:46.780
+here.
+
+01:47.210 --> 01:53.000
+That is the query I want to execute and that is the data I pass to json stringify on my request
+
+01:53.000 --> 01:54.230
+body here.
+
+01:54.590 --> 01:59.530
+Now as you learned, checking the response like this will not work,
+
+01:59.560 --> 02:02.990
+instead we can grab the code we used for signing up,
+
+02:08.030 --> 02:16.770
+this code here and copy that over, in the login handler we therefore remove these checks in the first
+
+02:16.860 --> 02:22.440
+then block, in the second then block we now add the copied checks
+
+02:22.530 --> 02:28.280
+and here I just will say user login failed because creation doesn't make much sense here.
+
+02:28.300 --> 02:34.340
+Thereafter we set the state and the way we retrieve data from the response will not work,
+
+02:34.340 --> 02:36.780
+I can already say that. Now
+
+02:36.810 --> 02:43.540
+why will it not work? Well for that, let's first of all run the query in the graphiql interface. There
+
+02:43.920 --> 02:47.060
+let me get rid of that mutation, instead
+
+02:47.280 --> 02:48.440
+let's run a query,
+
+02:49.820 --> 02:57.850
+you can also omit this by the way and in there, it only sees hello, I need to reload, it now sees
+
+02:57.880 --> 03:00.830
+login.
+
+03:00.900 --> 03:12.430
+Let me specify the valid email which I did use for the user and the password
+
+03:12.680 --> 03:18.950
+and now I want to get the token and the user id. If I now hit control enter,
+
+03:19.190 --> 03:20.590
+I do get my data here
+
+03:21.610 --> 03:29.470
+and I do get it on an object which has a data field that is always added by graphql. In there, I have
+
+03:29.470 --> 03:34.580
+the name of my query which was login and in there I have my response data.
+
+03:34.630 --> 03:40.330
+So this is my res data object in my react code though,
+
+03:40.360 --> 03:44.940
+so res data will be this entire object.
+
+03:44.940 --> 03:50.190
+So if I want to get the token, I need to drill into it, into data login token.
+
+03:50.250 --> 03:54.930
+So in places where I just accessed res data token, I instead need to do res data
+
+03:54.990 --> 04:03.420
+data login token and that is now the case for all the places where I retrieve something from the response
+
+04:03.420 --> 04:06.090
+data, I need to add data login.
+
+04:09.050 --> 04:10.460
+With that in place,
+
+04:10.610 --> 04:16.040
+if I now save that frontend code and the backend should be saved too of course, we can go back
+
+04:16.040 --> 04:18.670
+to our app and try logging in here
+
+04:20.110 --> 04:25.720
+and indeed we then get an error for fetching the posts which makes sense because we try to use a rest
+
+04:25.720 --> 04:32.120
+API url which does not exist but logging in actually succeeded.
+
+04:32.560 --> 04:36.570
+So we got users sign up and login in place,
+
+04:36.580 --> 04:43.050
+we now need to add some routes for or some endpoints for getting posts and for adding posts of course
+
+04:43.180 --> 04:52.610
+and we then also want to use that token we do get to protect certain but not all graphql endpoints.
+
+04:52.660 --> 04:54.870
+These will all be steps with which we continue.

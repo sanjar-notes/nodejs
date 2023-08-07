@@ -1,0 +1,148 @@
+WEBVTT
+
+00:02.090 --> 00:04.820
+Ok getting a single product was real easy,
+
+00:04.820 --> 00:11.030
+now let's complete the crud functionalities back on the admin side by making sure we can also edit
+
+00:11.060 --> 00:15.470
+and delete products and for that, let's start with editing.
+
+00:15.590 --> 00:22.040
+First of all get edit product should load a product and because as I explained in the last lecture,
+
+00:22.040 --> 00:27.010
+because we would have find by ID by default, I can leave that code as it is,
+
+00:27.110 --> 00:32.360
+I can leave that code as it is and I will get my product and I shouldn't be loading that into my edit
+
+00:32.360 --> 00:33.920
+product page.
+
+00:33.920 --> 00:42.260
+So for that, I'll just need to go to the admin routes file and there I should comment my get products
+
+00:42.260 --> 00:44.890
+routes back in, I'll work on this in a second too
+
+00:47.100 --> 00:52.890
+and also my edit product, get edit product route, I should comment that back in as well.
+
+00:52.890 --> 00:57.990
+Now let me quickly work on that route where I load all products, that is also something we need of course,
+
+00:59.350 --> 01:07.270
+we can find that here, get products. I mentioned fetch all does not exist but find does and find also
+
+01:07.270 --> 01:13.350
+already gives us the documents and not just a cursor so we can leave that code as it is
+
+01:13.480 --> 01:17.450
+and with that if we save that, we won't be able to submit a change
+
+01:17.650 --> 01:25.630
+but we should be able to see all products and to then click edit here and it is populated with our data,
+
+01:25.630 --> 01:27.310
+so that is looking great.
+
+01:27.370 --> 01:29.260
+Now the next step is that
+
+01:29.350 --> 01:34.180
+we are able to click that update product button and that this works of course.
+
+01:34.270 --> 01:39.540
+Now for that, let's work on the post edit product route in the admin controller,
+
+01:39.760 --> 01:42.870
+we extract all the data we require which is of course great
+
+01:43.120 --> 01:49.270
+and then here we need to change that code a little bit. Instead of creating a new product and calling
+
+01:49.270 --> 01:50.380
+save,
+
+01:50.380 --> 02:02.450
+I will fetch a product and I'll fetch a product by ID with the prod ID, add a then block and in that then
+
+02:02.450 --> 02:08.240
+block, I know I have access to my product right, to the product which was fetched from the database.
+
+02:08.240 --> 02:15.560
+The cool thing is I can now move product save into my function here and call save on the product that
+
+02:15.560 --> 02:21.350
+was fetched from the database because thanks to mongoose, this will now not be a javascript object with
+
+02:21.350 --> 02:27.870
+the data but we will have a full mongoose object here with all the mongoose methods like save
+
+02:28.000 --> 02:34.400
+and if we call save on an existing object, it will not be saved as a new one but the changes will be
+
+02:34.400 --> 02:34.880
+saved,
+
+02:34.910 --> 02:38.330
+so it will automatically do an update behind the scenes.
+
+02:38.330 --> 02:44.140
+The only thing I need to do is I need to set my fields, so I need to set product title to the updated
+
+02:44.150 --> 02:45.010
+title,
+
+02:45.140 --> 02:49.130
+I need to set product price to the updated price,
+
+02:49.280 --> 02:59.660
+I need to set product description, whoops, description to the updated description and I need to set product
+
+02:59.750 --> 03:07.190
+image url to the updated image url and thereafter, I can call product save and I can then return
+
+03:07.190 --> 03:10.720
+this and chain then here.
+
+03:11.180 --> 03:17.560
+So now I have a setup where I first of all find the product and I get back a full mongoose object
+
+03:17.630 --> 03:20.320
+hence I can manipulate it and call save again,
+
+03:20.330 --> 03:26.770
+I return the result of that and then call then on that to redirect once the saving was done.
+
+03:26.790 --> 03:28.170
+Let's see if that works,
+
+03:28.260 --> 03:34.630
+if I save my code and I adjust the price and let's say I add an exclamation mark after the title,
+
+03:34.800 --> 03:40.290
+if I now would click update product, I actually would fail because I need to comment in my route again,
+
+03:40.290 --> 03:46.230
+I just remembered, here I need to comment in that post edit product route, so make sure you comment that
+
+03:46.230 --> 03:49.780
+in and save your server side code. You don't need to reload that page,
+
+03:49.800 --> 03:53.510
+you can now just click update product and this is looking good.
+
+03:53.520 --> 03:59.370
+I can already see my changes here so this seems to have worked and I can also reload compass and of
+
+03:59.370 --> 03:59.760
+course
+
+03:59.760 --> 04:06.190
+I see my changes there too. So this is how we can update with mongoose, again very similar to how we did
+
+04:06.190 --> 04:11.820
+it with sequelize all through logic and through manipulating our data.

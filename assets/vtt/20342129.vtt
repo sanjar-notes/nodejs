@@ -1,0 +1,486 @@
+WEBVTT
+
+1
+00:00:02.100 --> 00:00:03.820
+<v Instructor>Okay, so we know about some</v>
+
+2
+00:00:03.820 --> 00:00:06.100
+essential TypeScript Basics,
+
+3
+00:00:06.100 --> 00:00:08.770
+actually the core essentials already.
+
+4
+00:00:08.770 --> 00:00:11.530
+But now let's also dive into some other key types,
+
+5
+00:00:11.530 --> 00:00:13.240
+which you'll see throughout the course
+
+6
+00:00:13.240 --> 00:00:15.000
+and what you need to know in general
+
+7
+00:00:15.000 --> 00:00:18.210
+and that are object and array types.
+
+8
+00:00:18.210 --> 00:00:20.920
+Here we're working with numbers and strings,
+
+9
+00:00:20.920 --> 00:00:25.700
+but actually also already with objects, HTML input element
+
+10
+00:00:25.700 --> 00:00:28.660
+and the HTML button element, which is inferred here,
+
+11
+00:00:28.660 --> 00:00:30.880
+is actually an object type,
+
+12
+00:00:30.880 --> 00:00:35.280
+because we have DOM objects here in JavaScript.
+
+13
+00:00:35.280 --> 00:00:40.170
+Now, we can also define our own object types of course.
+
+14
+00:00:40.170 --> 00:00:45.170
+Let's say we have another function, print result
+
+15
+00:00:45.240 --> 00:00:48.740
+and here it actually wants a result object, let's say
+
+16
+00:00:49.820 --> 00:00:54.290
+and it wants that object to have a val prop,
+
+17
+00:00:54.290 --> 00:00:58.140
+so that it console logs result object val.
+
+18
+00:00:58.140 --> 00:01:01.040
+Now this example clearly is not made up here,
+
+19
+00:01:01.040 --> 00:01:03.980
+but it is realistic that in bigger applications
+
+20
+00:01:03.980 --> 00:01:06.970
+which are writing, you'll have functions
+
+21
+00:01:06.970 --> 00:01:10.750
+that want objects as parameters, for example.
+
+22
+00:01:10.750 --> 00:01:14.340
+So here we want an object, which has a val prop.
+
+23
+00:01:14.340 --> 00:01:17.510
+Now you could add any here as an explicit any type,
+
+24
+00:01:17.510 --> 00:01:19.890
+to make this code work, but I wanna be very clear
+
+25
+00:01:19.890 --> 00:01:22.210
+that I have an object which has a val prop.
+
+26
+00:01:22.210 --> 00:01:23.690
+I also wanna be clear,
+
+27
+00:01:23.690 --> 00:01:26.750
+what the type of the val prop value is.
+
+28
+00:01:26.750 --> 00:01:29.030
+And for that, we can set up an object type
+
+29
+00:01:29.030 --> 00:01:33.320
+by adding curly braces here after the type definition colon.
+
+30
+00:01:33.320 --> 00:01:36.990
+And then we simply define the structure of the object here.
+
+31
+00:01:36.990 --> 00:01:39.950
+So with this code, I'm not creating a new object.
+
+32
+00:01:39.950 --> 00:01:43.520
+This is not a place in code where we could create a object.
+
+33
+00:01:43.520 --> 00:01:48.260
+Instead here, I just define the structure of the object,
+
+34
+00:01:48.260 --> 00:01:51.510
+I expect to get here on result object.
+
+35
+00:01:51.510 --> 00:01:54.663
+I'm defining a so called object type.
+
+36
+00:01:55.760 --> 00:01:58.870
+And with that here, we can then say that
+
+37
+00:01:58.870 --> 00:02:00.930
+we want a val field in there
+
+38
+00:02:00.930 --> 00:02:04.363
+and well, let's say is always a number.
+
+39
+00:02:05.450 --> 00:02:07.720
+Now of course, we could have more properties in there
+
+40
+00:02:07.720 --> 00:02:10.020
+separated by a semicolon.
+
+41
+00:02:10.020 --> 00:02:15.020
+We could for example also have a timestamp here.
+
+42
+00:02:15.720 --> 00:02:19.180
+And that should actually be of type date object.
+
+43
+00:02:19.180 --> 00:02:21.640
+The date object is built into JavaScript
+
+44
+00:02:21.640 --> 00:02:24.340
+and we can refer to its constructor function
+
+45
+00:02:24.340 --> 00:02:26.223
+as a type like this.
+
+46
+00:02:27.600 --> 00:02:29.810
+And now when we call print result,
+
+47
+00:02:29.810 --> 00:02:33.190
+we have to ensure that we pass in such a object.
+
+48
+00:02:33.190 --> 00:02:35.490
+So here I can call print result
+
+49
+00:02:36.430 --> 00:02:39.030
+and pass in an object which has a val key
+
+50
+00:02:39.030 --> 00:02:40.800
+which should hold a number.
+
+51
+00:02:40.800 --> 00:02:44.850
+Hence I use result here because that holds a number.
+
+52
+00:02:44.850 --> 00:02:47.107
+And I need the timestamp here
+
+53
+00:02:47.107 --> 00:02:51.153
+and the timestamp can be generated with new date like this.
+
+54
+00:02:53.551 --> 00:02:55.380
+Now here actually TypeScript
+
+55
+00:02:55.380 --> 00:02:57.550
+is not able to understand correctly
+
+56
+00:02:57.550 --> 00:03:00.200
+that result will always be a number,
+
+57
+00:03:00.200 --> 00:03:02.030
+since I'm passing into numbers,
+
+58
+00:03:02.030 --> 00:03:05.090
+it theoretically could be able to infer this,
+
+59
+00:03:05.090 --> 00:03:07.231
+that we then always return a number.
+
+60
+00:03:07.231 --> 00:03:09.010
+But to let TypeScript know that
+
+61
+00:03:09.010 --> 00:03:11.440
+this will always be a number, I can of course,
+
+62
+00:03:11.440 --> 00:03:13.220
+cast it with as number,
+
+63
+00:03:13.220 --> 00:03:16.080
+because I know that this always is a number.
+
+64
+00:03:16.080 --> 00:03:18.890
+With that we're passing such a object
+
+65
+00:03:18.890 --> 00:03:22.660
+and here we're creating the concrete object as a value,
+
+66
+00:03:22.660 --> 00:03:24.590
+we're passing it to print result
+
+67
+00:03:24.590 --> 00:03:27.980
+where we defined the type of the parameter
+
+68
+00:03:27.980 --> 00:03:31.480
+and that the type should be such a object type.
+
+69
+00:03:31.480 --> 00:03:33.930
+With that, we'll make it very clear which kind of data
+
+70
+00:03:33.930 --> 00:03:36.323
+we're accepting and how it should look like.
+
+71
+00:03:37.410 --> 00:03:39.950
+Now objects are nice, sometimes you'll of course,
+
+72
+00:03:39.950 --> 00:03:41.530
+work with arrays.
+
+73
+00:03:41.530 --> 00:03:43.710
+Let's say instead of logging my results here,
+
+74
+00:03:43.710 --> 00:03:45.870
+I wanna store them in arrays.
+
+75
+00:03:45.870 --> 00:03:49.833
+So add some arrays up there, numResults,
+
+76
+00:03:51.270 --> 00:03:52.970
+which initially is an empty array,
+
+77
+00:03:54.260 --> 00:03:59.260
+and string results or textResults, which is an empty array.
+
+78
+00:04:00.770 --> 00:04:05.770
+And here where I generate a new numeric result,
+
+79
+00:04:06.180 --> 00:04:10.480
+I'll reach out to numResults and push the result.
+
+80
+00:04:10.480 --> 00:04:12.380
+And here I'll reach out to textResults
+
+81
+00:04:13.400 --> 00:04:15.753
+and push my string result.
+
+82
+00:04:18.000 --> 00:04:21.299
+And thereafter, I will actually console.log
+
+83
+00:04:21.299 --> 00:04:24.003
+numResults here and textResults.
+
+84
+00:04:26.570 --> 00:04:29.300
+Now, you'll already see that I'm getting an error here.
+
+85
+00:04:29.300 --> 00:04:34.300
+That, the type of numResults implicitly is any array
+
+86
+00:04:35.160 --> 00:04:38.190
+and that describes the problem really well.
+
+87
+00:04:38.190 --> 00:04:41.000
+We are pretty specific about the types of data
+
+88
+00:04:41.000 --> 00:04:43.520
+we accept in this function for example.
+
+89
+00:04:43.520 --> 00:04:47.200
+We are very unspecific regarding those arrays,
+
+90
+00:04:47.200 --> 00:04:50.370
+sure, both constants hold arrays,
+
+91
+00:04:50.370 --> 00:04:52.460
+but we're not specific regarding
+
+92
+00:04:52.460 --> 00:04:56.390
+the values stored inside of the arrays.
+
+93
+00:04:56.390 --> 00:04:58.851
+And that's something we can be with TypeScript.
+
+94
+00:04:58.851 --> 00:05:01.710
+We can assign a type to this constant,
+
+95
+00:05:01.710 --> 00:05:04.930
+just as we assigned it to a parameter with a colon
+
+96
+00:05:04.930 --> 00:05:07.350
+after the constant or variable name.
+
+97
+00:05:07.350 --> 00:05:10.580
+And then here, we wanna set this to type number,
+
+98
+00:05:10.580 --> 00:05:13.860
+but not like this, but to an array full of numbers.
+
+99
+00:05:13.860 --> 00:05:16.030
+And for that the TypeScript shortcut,
+
+100
+00:05:16.030 --> 00:05:18.120
+or the TypeScript way of expressing this,
+
+101
+00:05:18.120 --> 00:05:20.960
+is number followed by square brackets.
+
+102
+00:05:20.960 --> 00:05:25.110
+This means that the type of data stored in numResults
+
+103
+00:05:25.110 --> 00:05:27.130
+is an array full of numbers.
+
+104
+00:05:27.130 --> 00:05:29.733
+And here, we can set this to string array.
+
+105
+00:05:30.910 --> 00:05:33.167
+Now with that, the push methods down there complain,
+
+106
+00:05:33.167 --> 00:05:35.770
+because result is this union type
+
+107
+00:05:35.770 --> 00:05:37.730
+and therefore it could be a string.
+
+108
+00:05:37.730 --> 00:05:39.690
+It's the same problem as before.
+
+109
+00:05:39.690 --> 00:05:41.903
+So here, we can simply tell TypeScript
+
+110
+00:05:41.903 --> 00:05:44.040
+that we know that this is a number
+
+111
+00:05:44.040 --> 00:05:46.760
+and we know that this is a string.
+
+112
+00:05:46.760 --> 00:05:50.420
+With that everything works and we can compile this code.
+
+113
+00:05:50.420 --> 00:05:52.973
+Whoops, compile this code like this.
+
+114
+00:05:54.620 --> 00:05:55.783
+Run it here.
+
+115
+00:05:56.700 --> 00:05:58.440
+Enter five and 11
+
+116
+00:05:58.440 --> 00:06:00.350
+and we see that those values
+
+117
+00:06:00.350 --> 00:06:02.973
+were added to the respective arrays.
+
+118
+00:06:04.070 --> 00:06:06.040
+These are array types.
+
+119
+00:06:06.040 --> 00:06:08.754
+And array types are of course very important because,
+
+120
+00:06:08.754 --> 00:06:13.550
+that ensures, that we never add wrong data accidentally
+
+121
+00:06:13.550 --> 00:06:15.433
+to an array that shouldn't hold it.
+

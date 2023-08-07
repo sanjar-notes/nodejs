@@ -1,0 +1,199 @@
+WEBVTT
+
+00:02.510 --> 00:09.440
+So let's add a view or we do have the view but let's add some logic in that view and for this, I'll take the code
+
+00:09.440 --> 00:15.440
+from one of my other simple views like orders.ejs class and paste in there so that I got the head and
+
+00:16.280 --> 00:19.190
+also my navigation and so on.
+
+00:19.220 --> 00:22.940
+Now in here, I don't want to output nothing there of course
+
+00:22.940 --> 00:32.260
+instead here, I want to output my product information, so my product detail. For this I will quickly give
+
+00:32.270 --> 00:39.220
+this main element here a class of centered and find tune my css code real quick,
+
+00:39.220 --> 00:40.590
+in the main css file
+
+00:40.750 --> 00:43.310
+let's simply add a class, you can add it anywhere,
+
+00:43.320 --> 00:50.710
+I'll add it relatively at the top centered where I set text align to center for now, so that everything is centered
+
+00:51.160 --> 00:52.720
+horizontally.
+
+00:52.720 --> 00:59.990
+Now in there, I'll output my h1 tag and there I expect to get information about the product we loaded,
+
+01:00.220 --> 01:04.770
+so here I want to get some product and output the title.
+
+01:04.960 --> 01:08.750
+Now right now we're not rendering this view and we're not passing the data into it
+
+01:08.800 --> 01:10.270
+but eventually we will.
+
+01:10.510 --> 01:12.070
+So here is my title,
+
+01:12.190 --> 01:19.500
+then maybe render a horizontal line and then let's display an image for this product because we got an image, right.
+
+01:19.810 --> 01:26.920
+So I will add a div here and in this div and image and there I will output product image
+
+01:26.980 --> 01:30.120
+url, that is the field in which we are storing the image,
+
+01:30.130 --> 01:32.230
+check your model in case you're not sure
+
+01:32.440 --> 01:43.660
+and as an alt text I'll output product title. Now below the image, I want to output a h2 tag where I output my product
+
+01:43.840 --> 01:53.130
+price like this and beneath that, a paragraph with my product description, just like this.
+
+01:53.200 --> 01:58.600
+So that is my detail page there and if we now save this, we have to make sure that we render this view
+
+01:58.810 --> 02:00.690
+for our detail route,
+
+02:00.850 --> 02:07.950
+so in our controller where we do get this single product data instead of redirecting here, I'll remove
+
+02:07.960 --> 02:12.070
+that and instead of logging this to the console, I'll say res render
+
+02:12.340 --> 02:19.390
+and I want to render my view in the shop folder and there it's the product-detail view,
+
+02:19.480 --> 02:26.060
+so basically the filename here, product detail and we have to pass in some information.
+
+02:26.080 --> 02:32.890
+We do that by passing a javascript object and in there, we now need to pass in a product property because
+
+02:32.890 --> 02:35.470
+we're accessing this here in the view.
+
+02:35.800 --> 02:38.170
+So back in our shop.js file,
+
+02:38.350 --> 02:45.870
+let's pass in product and set this equal to our product
+
+02:45.880 --> 02:51.520
+we're retrieving here. So product on the right side of the colon is the product we're retrieving, product on
+
+02:51.520 --> 02:56.090
+the left side is simply the key by which we'll be able to access it in the view.
+
+02:57.380 --> 03:05.340
+With that, let's save that and go back to products and load the details here and we get an error that we're
+
+03:05.340 --> 03:12.390
+missing the page title, showing us which line is throwing the error and also tells us page title is not defined
+
+03:12.510 --> 03:20.200
+and this makes sense because in the head of our of each page, we're outputting the page title here,
+
+03:20.280 --> 03:22.890
+so we also have to pass that into our view.
+
+03:23.220 --> 03:29.400
+So in shop.js here, let's make sure we don't just pass the product but also the page title
+
+03:29.460 --> 03:35.950
+and here we can actually use product title to dynamically set the page title to the title of the product.
+
+03:35.950 --> 03:45.910
+With that simply reload this page, I'm also missing the path now because in the navigation, we're using
+
+03:45.910 --> 03:49.420
+that to determine which path is active
+
+03:49.630 --> 03:55.740
+and now there the question is which path do we want to highlight? In a navigation file here,
+
+03:55.750 --> 04:03.040
+we obviously have no path, no link to this exact product but I think it makes sense to highlight the
+
+04:03.040 --> 04:09.920
+products link here because we're still in the products area, just in the detail for a single product.
+
+04:10.240 --> 04:16.900
+If we want to highlight this, the path we should pass is /products because that's the path we're
+
+04:16.900 --> 04:17.740
+checking here.
+
+04:17.920 --> 04:19.010
+So in shop.js
+
+04:19.230 --> 04:19.620
+.
+
+04:19.650 --> 04:26.410
+file, I'll set path to /products here because this is the path for which I want to mark the navigation
+
+04:26.410 --> 04:27.680
+item as active.
+
+04:28.090 --> 04:29.450
+Now if we reload,
+
+04:29.740 --> 04:30.970
+this looks better
+
+04:30.970 --> 04:32.820
+and now here this doesn't look too shabby.
+
+04:32.860 --> 04:35.060
+We got a nice detail page here,
+
+04:35.200 --> 04:36.610
+does the trick for now,
+
+04:36.730 --> 04:41.510
+let's maybe finish it up by adding an add to cart button below the product
+
+04:41.860 --> 04:46.050
+but with that I'd say this is what we need for the moment.
+
+04:46.060 --> 04:52.130
+So let's go back to our product-detail.ejs file and below all that information,
+
+04:52.210 --> 05:01.890
+I will now add a little form which leads to cart with a post request because I want to add that product
+
+05:02.610 --> 05:10.830
+and I'll add a button with class button and type submit and the route for this is missing still where
+
+05:10.830 --> 05:12.560
+I say add to cart
+
+05:12.810 --> 05:16.230
+and now with that if we reload, we got that button here too.
+
+05:16.500 --> 05:17.490
+So this is now working
+
+05:17.520 --> 05:19.140
+and this is looking decent.
+
+05:19.380 --> 05:21.620
+With that I'd say why don't we work on that
+
+05:21.740 --> 05:24.390
+add to cart functionality as a next step.

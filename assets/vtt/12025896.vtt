@@ -1,0 +1,226 @@
+WEBVTT
+
+00:02.360 --> 00:04.900
+So let's create a more useful pdf now.
+
+00:04.910 --> 00:10.090
+Now you can configure a lot and the official docs of pdf kit are the place to go to learn more about
+
+00:10.090 --> 00:10.540
+that
+
+00:10.830 --> 00:17.530
+but let me show you how you can generate some nicely looking pdf in little time.
+
+00:17.540 --> 00:24.040
+For example, let's set a font size here of 26 and then add some text and
+
+00:24.080 --> 00:29.530
+this text will now have this font size and this will have text of invoice.
+
+00:29.960 --> 00:30.870
+If I now save this
+
+00:34.150 --> 00:36.990
+and I reload this page, we get invoice written like this,
+
+00:38.850 --> 00:42.510
+we can also pass an object as a second argument here and configure this,
+
+00:42.510 --> 00:49.100
+for example you can set underline to true here on the text and now if I reload this,
+
+00:49.310 --> 00:51.330
+we have the underlined text.
+
+00:51.460 --> 00:55.790
+So of course you can style way more, you can even add images and all that stuff.
+
+00:56.040 --> 00:58.290
+Now I'm happy with that title,
+
+00:59.170 --> 01:04.760
+I'll simply add some dashes as the next line here
+
+01:08.180 --> 01:11.230
+and then thereafter, I want to have my different items.
+
+01:11.630 --> 01:15.790
+So now I have to loop through all the items that are part of the order, in this order
+
+01:15.800 --> 01:24.990
+I only have one product but I might have more products and actually we can of course do that. If I go to products,
+
+01:27.770 --> 01:38.200
+I can add this product to the cart twice and I can quickly create a new product, prod2 and boring
+
+01:38.200 --> 01:44.380
+as I am I'll use the same image for 29 bucks, product 2,
+
+01:44.620 --> 01:51.380
+let's quickly create that product and then after we created it, I can add that to my cart as well
+
+01:51.490 --> 01:58.390
+and then I could order this and now I've got a brand new order. Now by the way, I should place that invoice link next
+
+01:58.390 --> 02:00.070
+to the order not next to the product
+
+02:00.070 --> 02:03.700
+now that I have a look at it but it doesn't matter, we can change this later.
+
+02:03.850 --> 02:07.420
+For now this will always lead to the same invoice so it does not matter too much,
+
+02:07.420 --> 02:12.790
+now I have multiple products in there and I should loop through them when creating the output. So I can
+
+02:12.790 --> 02:16.840
+add a for loop or simply access,
+
+02:16.840 --> 02:21.550
+keep in mind we already have access to the order here since we fetched it from the database,
+
+02:21.550 --> 02:31.040
+I can access order products and products is an array because we store this products in a database,
+
+02:31.040 --> 02:37.370
+it will be an array of objects where each object has a quantity and then a product key with more detailed
+
+02:37.370 --> 02:38.960
+information.
+
+02:39.190 --> 02:45.070
+So I can loop through my products for example with the forEach method which is a built-in method provided
+
+02:45.070 --> 02:46.600
+by javascript,
+
+02:46.600 --> 02:55.970
+I'll then get information about my product and I can now output some text where I print
+
+02:56.160 --> 02:56.980
+the prod,
+
+02:57.180 --> 03:07.500
+product is then the detail object and in that product, we have the title for example, so I can output the
+
+03:07.500 --> 03:09.320
+title here,
+
+03:09.480 --> 03:18.920
+then let's say we add a blank and a dash and a blank and then I have prod quantity right because we
+
+03:18.920 --> 03:22.560
+have the quantity key directly on the product itself
+
+03:25.640 --> 03:32.250
+and then I add let's say a times character and then we want to output the price,
+
+03:32.300 --> 03:35.570
+so I'll have let's say a dollar sign
+
+03:36.690 --> 03:42.450
+and then last but not least, I'll have the product price,
+
+03:42.760 --> 03:50.470
+so this field here. Now of course you could also use the next gen javascript syntax with back ticks to make this
+
+03:50.470 --> 03:52.360
+a bit easier to read,
+
+03:52.600 --> 03:58.690
+I think it's maybe easier to understand how we are concatenating this from hardcoded values and dynamic
+
+03:58.690 --> 03:59.380
+values
+
+03:59.530 --> 04:04.420
+and now we should be outputting a line of data for each product in that order.
+
+04:04.420 --> 04:10.520
+Now let's also add a sum at the bottom and we can calculate that on the fly here,
+
+04:10.540 --> 04:17.470
+let's total price start at zero and if we are looping through all the products anyways, we can use that
+
+04:17.500 --> 04:26.600
+to also update our total price because total price will then be the old total price plus the product
+
+04:26.600 --> 04:32.690
+quantity times the prod product price.
+
+04:32.690 --> 04:39.590
+So basically what we print here is text, we'll then also add it to our total price here, by the way this
+
+04:39.590 --> 04:42.940
+can be written in a shortcut with this operator,
+
+04:42.950 --> 04:47.810
+now this will always add the result of this calculation to the old total price
+
+04:47.810 --> 04:55.090
+and then here outside of the loop once we are done calculating the total price, I'll access my pdf doc,
+
+04:55.120 --> 05:05.660
+output some text here and that text will be total price dollar sign and then simply total price, like this.
+
+05:05.660 --> 05:08.090
+With all that let's save that
+
+05:08.240 --> 05:12.080
+and let's click on invoice for the second order
+
+05:12.200 --> 05:18.670
+and here I get my invoice which looks like this.
+
+05:18.690 --> 05:21.030
+Now of course we can also revert the font size
+
+05:24.180 --> 05:32.220
+here by setting font size to let's say 14, so that we don't use that super big font for all our text, so
+
+05:32.350 --> 05:34.470
+now by adding this line inside our loop,
+
+05:38.300 --> 05:40.380
+I am sure that this looks like that
+
+05:40.400 --> 05:45.480
+and then maybe just some stylistic thing, though it will not become super pretty.
+
+05:45.980 --> 05:53.760
+I can add maybe some more dashes here to separate the list from the total price and set the font
+
+05:53.760 --> 06:05.280
+size of that total price a bit bigger, to maybe 20. Save that, reload and here it is. Now
+
+06:05.340 --> 06:11.340
+obviously, this is not the most beautiful invoice we ever saw and you can learn way more about how you
+
+06:11.340 --> 06:14.360
+may style that in your official docs of pdf kit.
+
+06:14.490 --> 06:17.370
+The important thing is the data in there is correct,
+
+06:17.400 --> 06:19.380
+so the data does look correct,
+
+06:19.380 --> 06:24.810
+the total price is correct and this is how you can generate data on the fly and how you can then return
+
+06:24.810 --> 06:31.500
+it in a response and also save it in a file because that is important too. We do both at the same step
+
+06:31.710 --> 06:35.700
+and I believe its very interesting to see which power nodejs has and
+
+06:35.750 --> 06:41.460
+what you can do with it especially when also playing around with the features of writable and readable
+
+06:41.460 --> 06:47.490
+streams, like here where we are creating a pdf on the fly and we were streaming it both into a file and
+
+06:47.490 --> 06:48.450
+back to the client.

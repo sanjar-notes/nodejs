@@ -1,0 +1,289 @@
+WEBVTT
+
+00:02.330 --> 00:09.870
+So serving images statically is fine but we don't want to serve only images or only public files,
+
+00:09.900 --> 00:15.280
+I want to serve an invoice and that invoice should only be available to me.
+
+00:16.440 --> 00:22.040
+Now for that, let's start with a dummy invoice and I'll create a new folder for that,
+
+00:23.470 --> 00:25.840
+I'll name it invoices.
+
+00:26.310 --> 00:32.520
+You could of course put all images and invoices and so on into a parent folder, like data to not have them
+
+00:32.550 --> 00:35.400
+all as root level folders,
+
+00:35.400 --> 00:39.960
+that might be something you want to do. I'll move the invoices in there, images is kind of like a special
+
+00:39.960 --> 00:43.680
+case but my private data should be maybe somewhere else,
+
+00:43.680 --> 00:46.970
+so I'll put it into the data folder which was redundant until now,
+
+00:46.980 --> 00:48.140
+now it's not anymore
+
+00:48.420 --> 00:52.090
+and I prepared a simple pdf which I'll move in there.
+
+00:52.130 --> 00:53.780
+Now this is a really simple pdf,
+
+00:54.150 --> 00:56.310
+you can write it on your own,
+
+00:56.400 --> 01:00.540
+it's just holding some text looking like this.
+
+01:00.540 --> 01:04.500
+So here is my invoice, that is the pdf file I'm serving now,
+
+01:04.500 --> 01:06.870
+later we'll also generate this dynamically,
+
+01:06.870 --> 01:07.990
+now we won't,
+
+01:08.080 --> 01:10.060
+now I just want to show you how to serve that.
+
+01:10.120 --> 01:17.400
+Now obviously, we could make our invoices folder here statically accessible but that's not what I want to do.
+
+01:17.400 --> 01:22.440
+Now first of all let me work on the orders view to make sure we have a link to get that invoice.
+
+01:23.700 --> 01:31.460
+So for each order, this list item here which we have, let's maybe add a dash in the list item and in there,
+
+01:31.460 --> 01:38.210
+let's add an anchor tag which says invoice and then it should be pointing at the invoice.
+
+01:38.210 --> 01:43.310
+So now if I reload this page we have invoice here as a link,
+
+01:43.310 --> 01:45.950
+now I want to be able to click this and download the invoice,
+
+01:45.980 --> 01:47.990
+how can we do that?
+
+01:48.020 --> 01:55.190
+Well since I want to handle this privately, I need to set up my own route for working with invoices because
+
+01:55.190 --> 02:00.480
+that will then allow me to check for things like is the user authenticated and so on.
+
+02:00.500 --> 02:06.060
+So let me go to the routes folder and in there under
+
+02:06.060 --> 02:14.160
+shop because this is a customer feature, not admin related, under shop here I'll add a new route,
+
+02:15.740 --> 02:16.720
+orders
+
+02:16.850 --> 02:25.150
+and then maybe invoice ID or order ID maybe because the invoice let's say will have a name of that order
+
+02:25.150 --> 02:25.530
+ID
+
+02:25.550 --> 02:26.210
+ultimately,
+
+02:28.850 --> 02:34.400
+we could name this file differently, we can name it invoice and then let me quickly look up my order
+
+02:34.400 --> 02:37.280
+ID to make this all work correctly.
+
+02:38.130 --> 02:46.150
+Got a bunch of orders in there but this is my latest order which I just placed, so let's grab
+
+02:46.150 --> 02:47.470
+that text ID here
+
+02:50.030 --> 02:54.350
+and add that to the invoice name here,
+
+02:54.440 --> 02:57.400
+maybe after a dash we have the order ID, something like this.
+
+02:57.620 --> 03:04.880
+So this is my invoice and I'm getting the order ID in this route, I should be protected, authenticated
+
+03:04.880 --> 03:10.530
+to see tha, so I'll protect this route and then I'll use my shop controller and there, I get invoice controller
+
+03:10.560 --> 03:12.800
+action which I have yet to add.
+
+03:12.950 --> 03:16.120
+So that's why it crashed here because I don't have that action yet.
+
+03:16.340 --> 03:24.620
+In the shop controller at the bottom maybe, let's export get invoice here and that will be our default
+
+03:24.650 --> 03:28.070
+middleware function with request response and next
+
+03:28.430 --> 03:32.330
+and in here, I now want to return that file.
+
+03:32.330 --> 03:41.950
+First of all, I need the invoice ID for that, the order ID, excuse me, order ID will be a request and then it's
+
+03:41.950 --> 03:49.780
+encoded in the url, so it's params and then order ID, that is what I specified here in my routes
+
+03:49.930 --> 03:55.840
+file, order ID that's the name and therefore I have to retrieve it by that name in my controller,
+
+03:55.840 --> 03:57.840
+so order ID here.
+
+03:58.090 --> 04:07.690
+Now I have that order ID, the file name or the invoice name we'll be looking therefore will be invoice- and then my order
+
+04:08.380 --> 04:11.630
+ID and then .pdf right,
+
+04:11.650 --> 04:15.560
+that is the format in which all our invoices are stored let's say.
+
+04:15.610 --> 04:21.280
+So now we need to retrieve that file and we can retrieve files with nodes file system.
+
+04:21.280 --> 04:23.560
+We use that before in the course already,
+
+04:23.590 --> 04:25.220
+so let's start using it again, 
+
+04:25.270 --> 04:32.920
+let's import it, file system by requiring file system, this is a core node module if you remember,
+
+04:32.980 --> 04:38.590
+you don't need to install a package it's already included in node and the file system allows you to do things
+
+04:38.590 --> 04:43.630
+like read files which sounds like a thing that makes sense here.
+
+04:43.750 --> 04:47.830
+So let's use the file system and read a file,
+
+04:47.830 --> 04:50.570
+we know it will be found in the data folder,
+
+04:50.580 --> 04:57.040
+now the path here should be constructed with the path core module so that it works on all operating
+
+04:57.040 --> 04:58.090
+systems.
+
+04:58.120 --> 05:06.610
+So let's also import path by requiring path, another core node module, the path module and let's construct
+
+05:06.670 --> 05:16.620
+that path to the invoice, so here I'll have my invoice path and I'll create it with path join and I'll be looking
+
+05:16.860 --> 05:18.940
+for the data folder, 
+
+05:18.990 --> 05:21.030
+that's the first element,
+
+05:21.030 --> 05:26.730
+then the invoices folder and then the invoice name, the file name.
+
+05:26.750 --> 05:29.650
+So this is the path which I want to read,
+
+05:29.690 --> 05:35.980
+so I'll pass that invoice path to read file, read file then gives me a callback,
+
+05:36.050 --> 05:42.580
+so a function which it will execute once it's done reading that file,
+
+05:42.580 --> 05:51.350
+so here I will either get an error or the data. Now data will be in the form of a buffer.
+
+05:51.360 --> 05:54.000
+Now of course we should check if we have an error
+
+05:54.030 --> 06:00.150
+and if that is the case, well then we simply next it so that the default error handling function can
+
+06:00.150 --> 06:04.030
+take over otherwise if we don't have an error,
+
+06:05.290 --> 06:08.280
+here I'll return by the way so that the other code won't execute.
+
+06:08.290 --> 06:13.110
+So if we don't have an error, then data should be my my file right,
+
+06:13.120 --> 06:16.130
+so then I can call res send
+
+06:16.300 --> 06:21.810
+which is a function provided by the express middleware, my data.
+
+06:21.820 --> 06:24.460
+Now theoretically that should be the file,
+
+06:24.460 --> 06:25.760
+now let's see if that works
+
+06:25.780 --> 06:31.950
+and to make it work, we have to use this route in our anchor tag.
+
+06:32.290 --> 06:41.810
+So in orders.ejs, in this anchor tag we'll be looking for /orders/
+
+06:41.990 --> 06:46.640
+and now we need to output something dynamic with ejs and that is the order ID because that's what
+
+06:46.640 --> 06:48.860
+we're looking for in the route,
+
+06:48.860 --> 06:55.430
+so the order ID is simply order_id which we use up there already.
+
+06:55.480 --> 06:57.300
+So let's output that here, 
+
+06:57.890 --> 07:03.100
+let's save that and reload that page and now
+
+07:03.110 --> 07:04.640
+let's click this invoice here
+
+07:04.660 --> 07:11.880
+and I do get my download option here. Let me save that and try to open that file
+
+07:12.130 --> 07:18.100
+and indeed, it should open as a pdf or you should be able to open it as a pdf but of course it was
+
+07:18.100 --> 07:21.060
+not the most convenient way of downloading this.
+
+07:21.100 --> 07:23.460
+We had a strange filename right,
+
+07:23.500 --> 07:27.610
+this strange cryptic name, we don't have the pdf extension and all of that.
+
+07:27.850 --> 07:29.740
+So we can certainly improve that,
+
+07:29.740 --> 07:31.610
+let's do that in the next lecture.

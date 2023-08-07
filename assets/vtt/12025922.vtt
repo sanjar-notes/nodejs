@@ -1,0 +1,28 @@
+WEBVTT
+
+00:02.140 --> 00:07.690
+I'm really happy with the shape our course application is taking and we're diving into many exciting
+
+00:07.690 --> 00:08.230
+features
+
+00:08.230 --> 00:14.740
+we can build with node and express as you see. Now that we're able to work with files and even generate
+
+00:14.740 --> 00:17.130
+them on the fly on the server,
+
+00:17.290 --> 00:24.830
+let's dive back into some work with our database or interactions with our database. There right now
+
+00:24.850 --> 00:31.900
+we always fetch all products when we display the product page. In this module, we'll dive into a technique
+
+00:31.930 --> 00:38.590
+called pagination which allows us to split our data across multiple pages, something you typically want
+
+00:38.590 --> 00:41.370
+to do when you work with a lot of data.
+
+00:41.380 --> 00:46.530
+So let me show you how this can be implemented with our application in this module.

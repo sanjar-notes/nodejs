@@ -1,0 +1,271 @@
+WEBVTT
+
+00:02.250 --> 00:05.620
+Now that we're able to store orders for the user,
+
+00:05.790 --> 00:10.100
+let's add a new method to the user model to also get orders
+
+00:10.170 --> 00:12.090
+and this will be a method we need to make
+
+00:12.120 --> 00:18.350
+our orders page work again. Now getting orders is pretty straightforward,
+
+00:19.430 --> 00:29.900
+we reach out to our orders collection here and then we need to find all orders for the given user and oh,
+
+00:30.410 --> 00:31.770
+how do we do that?
+
+00:32.180 --> 00:34.520
+Well there's one thing which we forgot
+
+00:34.520 --> 00:34.850
+right
+
+00:34.880 --> 00:40.580
+when adding orders, our orders right now contain the content of the cart but no information about the
+
+00:40.580 --> 00:41.820
+user to which they belong
+
+00:42.020 --> 00:43.580
+and that is something we need to change
+
+00:43.580 --> 00:45.680
+first of all. So let's pause
+
+00:45.680 --> 00:50.510
+getting orders for now and let's tweak our add order function here.
+
+00:50.780 --> 00:55.090
+We insert one order and right now the orders only are a cart.
+
+00:55.370 --> 00:58.070
+Well this is not the entire truth, right,
+
+00:58.070 --> 01:00.930
+we also need information about the user,
+
+01:01.040 --> 01:06.590
+so let's create a new constant order in here which is the object we actually want to save
+
+01:06.590 --> 01:08.670
+and in there we certainly want to have the items,
+
+01:08.690 --> 01:14.120
+so we want to have the cart items in there, that is for sure. But we also want to have some information
+
+01:14.120 --> 01:16.020
+about the user and for this
+
+01:16.040 --> 01:26.230
+I'll add an embedded document where I add the id and here, I want to create a new objectid based on this
+
+01:26.380 --> 01:28.150
+ID, so on the ID of the user
+
+01:28.150 --> 01:36.440
+we're working with but I also want to store the name which we have as a property here and the email.
+
+01:36.580 --> 01:42.270
+So here I will duplicate data because this will then end up in the orders collection and in the users
+
+01:42.280 --> 01:43.090
+collection
+
+01:43.240 --> 01:49.810
+but I don't care too much about this because the data I have been here, the user data I have in here might
+
+01:49.840 --> 01:56.810
+change for sure but it doesn't need to be updated on all the orders because if you had like processed
+
+01:56.820 --> 02:03.130
+and open orders, for all processed orders, you wouldn't care too much if the user email changed because
+
+02:03.130 --> 02:04.780
+you might not need to touch it there
+
+02:04.990 --> 02:08.360
+and of course if you do care, you can always get rid of all the data.
+
+02:08.380 --> 02:13.480
+So now even if the user name would change, I could be fine with not changing it here and only in the
+
+02:13.570 --> 02:15.470
+users collection.
+
+02:15.550 --> 02:21.640
+I also want to store more information about my products by the way because right now, my items are really
+
+02:21.640 --> 02:23.280
+just the product IDs
+
+02:23.290 --> 02:30.500
+but the idea was that we have more information about our products than just their IDs. To be precise
+
+02:30.640 --> 02:34.430
+when we have a look at our orders.ejs file, here
+
+02:34.510 --> 02:41.990
+I also output the product title for example and you could argue you also want to show the price. So storing
+
+02:41.990 --> 02:45.770
+some extra information would be useful too,
+
+02:45.890 --> 02:52.580
+therefore we also need to work on this cart items again and we need to fetch some data from our products
+
+02:52.580 --> 02:53.250
+database,
+
+02:53.270 --> 02:57.190
+so we need to tweak that add order method a bit more. 
+
+02:57.220 --> 03:02.050
+Now we learned how to fetch product information with get cart, there
+
+03:02.050 --> 03:07.550
+we actually get a cart with enriched information about all products.
+
+03:07.570 --> 03:16.510
+So actually what we can do is in add order, I can first of all call this get cart and then add then to
+
+03:16.510 --> 03:18.520
+work with the data get cart gives me,
+
+03:18.580 --> 03:27.370
+so with my updated products. So inside then here, I get my cart products and these products will have
+
+03:27.400 --> 03:30.650
+all the product information along with the quantity
+
+03:32.170 --> 03:35.510
+and I then create my order inside of that then block,
+
+03:35.510 --> 03:40.940
+so once I know that I have that products data because outside of that then block, the code would execute
+
+03:40.940 --> 03:41.870
+too early.
+
+03:42.230 --> 03:45.770
+And then my items here will be my products,
+
+03:45.800 --> 03:49.810
+so an array of products with the product information and the quantity,
+
+03:49.880 --> 03:53.830
+so now the product information will also be part of the order.
+
+03:53.990 --> 04:01.010
+And here I really don't care about that information changing because if it should change, for orders
+
+04:01.130 --> 04:02.710
+we need a snapshot anyways,
+
+04:02.810 --> 04:07.070
+if the price of a product changes, that doesn't affect the past order,
+
+04:07.100 --> 04:11.320
+so there we wouldn't want to update the price even if it would change.
+
+04:11.540 --> 04:18.800
+So for orders, such a snapshot and therefore an embedded document is a great way of relating the order
+
+04:18.800 --> 04:24.170
+and the product because the product data might be duplicate but it doesn't need to change in the orders
+
+04:24.170 --> 04:27.770
+collection because there, we want the snapshot.
+
+04:27.830 --> 04:33.190
+So now I have my products in there and some user data, not all but some
+
+04:33.330 --> 04:38.760
+and now I'll take my insertion code here and move that into this
+
+04:38.760 --> 04:44.390
+then block after my const order thing and move this then block up.
+
+04:44.430 --> 04:50.340
+So now the order is we get the cart which is essentially an array of products, we create an order with
+
+04:50.340 --> 04:51.250
+that data,
+
+04:51.510 --> 04:58.620
+then we insert this order into our orders collection, that's new, we need to insert that, we'd return the
+
+04:58.620 --> 04:59.730
+result of that
+
+04:59.880 --> 05:05.610
+and then here, we know that we were successful with inserting this and we clean up our existing cart.
+
+05:06.620 --> 05:07.150
+With that,
+
+05:07.250 --> 05:15.490
+let's test this. Let's go back to our application and add a couple of products to the cart,
+
+05:15.950 --> 05:18.050
+let's say like this
+
+05:18.230 --> 05:26.880
+and now let's click order now and I get an error, yeah because I need to return the result of this add
+
+05:26.920 --> 05:27.810
+order thing
+
+05:27.910 --> 05:35.400
+so that outside of add order, to be precise in my controller, I can call then on that.
+
+05:35.400 --> 05:37.020
+So that needs to change,
+
+05:37.020 --> 05:40.700
+so let me go back to my cart here,
+
+05:40.860 --> 05:44.400
+it's actually deleted because we did write it to the database,
+
+05:44.400 --> 05:47.910
+so if I do update orders, we actually can see it there.
+
+05:47.910 --> 05:49.500
+This was our old order,
+
+05:49.500 --> 05:51.750
+we can delete that with the trash
+
+05:51.750 --> 05:57.900
+icon here, the second document is the new order we just added and there you see items indeed does have
+
+05:57.960 --> 06:03.810
+all the enriched product information, the snapshots of our products and the quantity in there and we have
+
+06:03.810 --> 06:05.070
+some user data.
+
+06:05.070 --> 06:06.080
+So this works
+
+06:06.180 --> 06:08.890
+and now with that little change I just made,
+
+06:08.940 --> 06:11.050
+let's also see if that works again.
+
+06:11.990 --> 06:12.880
+If I order now,
+
+06:12.890 --> 06:13.260
+yes
+
+06:13.340 --> 06:14.560
+now we get no error.
+
+06:14.720 --> 06:19.540
+So now we can work on that cart page and on getting our order information.

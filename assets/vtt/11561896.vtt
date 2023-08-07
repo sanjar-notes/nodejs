@@ -1,0 +1,172 @@
+WEBVTT
+
+00:02.260 --> 00:09.340
+So we made sure that we listen to requests to just slash nothing and that we return some html code
+
+00:09.340 --> 00:11.750
+with our input field on it.
+
+00:11.800 --> 00:16.930
+Now when we click that send button, we send a post request to /message but we're not doing anything
+
+00:16.930 --> 00:19.300
+with that, time to change that.
+
+00:19.300 --> 00:21.290
+Let's add another if statement here
+
+00:21.610 --> 00:28.030
+and let's check if the url is equal to message and let's add another condition and that condition is
+
+00:28.250 --> 00:34.150
+that I want to be sure that we're not handling a get request but a post request here,
+
+00:34.240 --> 00:45.030
+so let's also parse the method from request method and make sure that method is equal to post.
+
+00:45.130 --> 00:51.220
+Now we'll only enter this if statement if we have a post request to /message which happens to be
+
+00:51.220 --> 00:54.100
+exactly what we create with this form.
+
+00:54.280 --> 01:03.940
+In this case, I want to do two things, I want to redirect the user back to slash nothing,
+
+01:04.210 --> 01:07.000
+so not leave him on /message
+
+01:07.000 --> 01:13.360
+and I want to create a new file and store the message the user entered in it.
+
+01:13.390 --> 01:15.630
+Now this involves a couple of things,
+
+01:15.880 --> 01:19.570
+let's start with redirecting and creating that file.
+
+01:19.570 --> 01:23.650
+We actually already worked with a file in the first core section
+
+01:23.650 --> 01:26.410
+and do you remember how that worked?
+
+01:26.410 --> 01:35.590
+Feel free to go along on your own if you know that. We need another package, another core module
+
+01:35.600 --> 01:38.740
+and that was the file system core module.
+
+01:38.810 --> 01:42.650
+So let's import it by storing the functionality in a constant,
+
+01:42.650 --> 01:43.930
+you can name it however you want,
+
+01:43.940 --> 01:44.360
+I'll name it
+
+01:44.360 --> 01:45.000
+fs
+
+01:45.020 --> 01:49.930
+because the package is named fs but you can also name this differently.
+
+01:49.970 --> 01:56.570
+This, not the package, just the constant. So fs allows us to work with the file system
+
+01:56.740 --> 02:00.010
+and here I now want to write a new file,
+
+02:00.250 --> 02:07.990
+so here let's execute write file and write file takes a path to the file and I'll just use the file name
+
+02:07.990 --> 02:16.480
+to create it in the same folder as app.js and I'll simply name it message.text and in there, I obviously
+
+02:16.480 --> 02:18.190
+want to store what the user sent.
+
+02:18.200 --> 02:24.430
+Now this is a little bit more work, so for now let's just put some dummy text in there and let's redirect
+
+02:24.430 --> 02:25.230
+the user.  Now
+
+02:25.300 --> 02:26.220
+important,
+
+02:26.260 --> 02:32.080
+we should actually use write file sync for now and I'll explain what the difference to write file which
+
+02:32.080 --> 02:34.560
+also exists is in a while,
+
+02:34.720 --> 02:37.700
+so let's use write file sync for now.
+
+02:37.840 --> 02:38.860
+Now write
+
+02:38.880 --> 02:46.330
+head which basically allows us to write some meta information in one go and then we set a status
+
+02:46.330 --> 02:49.430
+code of 302 which stands for redirection
+
+02:49.600 --> 02:52.960
+and then we pass a javascript object with some headers
+
+02:53.080 --> 02:55.570
+we want to set and you could also do this in two steps
+
+02:55.570 --> 03:04.690
+by the way, you can also set the status code to 302 and then simply have, whoops set header
+
+03:04.960 --> 03:07.060
+And there we set the location,
+
+03:07.060 --> 03:10.030
+this is also a default header accepted by the browser
+
+03:10.150 --> 03:14.440
+and we set that location to just slash and I will automatically use the host
+
+03:14.440 --> 03:16.690
+we're already running on
+
+03:16.690 --> 03:23.470
+and then we have to call res end. And important, as before return this so that we don't execute these
+
+03:23.470 --> 03:26.880
+lines otherwise we will get an error.
+
+03:26.890 --> 03:29.610
+Now let's restart our file here
+
+03:30.630 --> 03:38.100
+and make sure to go back to slash nothing and reload that page with the input field and send any value
+
+03:38.220 --> 03:43.800
+and you should simply reload that in the end because you get redirected here but you can see that redirect
+
+03:43.800 --> 03:50.670
+here in the network tab of the developer tools, here 302 indicates we send a request to message and we
+
+03:50.670 --> 03:53.420
+were redirected to localhost.
+
+03:53.460 --> 03:54.300
+So this is working
+
+03:54.300 --> 03:57.840
+and we also got the message text with dummy inside of it.
+
+03:57.840 --> 04:00.480
+Now let's also get rid of that though
+
+04:02.190 --> 04:04.880
+and let's work on actually parsing the data
+
+04:04.890 --> 04:08.860
+the user sent us and writing that data into that file.

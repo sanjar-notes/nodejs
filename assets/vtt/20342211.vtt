@@ -1,0 +1,498 @@
+WEBVTT
+
+1
+00:00:04.250 --> 00:00:06.130
+<v Narrator>So let's get started with Deno.</v>
+
+2
+00:00:06.130 --> 00:00:09.160
+And what better way to get started than to write
+
+3
+00:00:09.160 --> 00:00:12.760
+our first very simple Deno program.
+
+4
+00:00:12.760 --> 00:00:17.193
+For that visit deno.land, yes, that is a valid URL.
+
+5
+00:00:18.110 --> 00:00:21.810
+And there, you will be able to learn more about Deno,
+
+6
+00:00:21.810 --> 00:00:24.020
+but you will also learn more about it in this course.
+
+7
+00:00:24.020 --> 00:00:26.640
+Of course, most importantly, you will find
+
+8
+00:00:26.640 --> 00:00:29.900
+installation instructions for different environments
+
+9
+00:00:29.900 --> 00:00:32.420
+and also using different approaches.
+
+10
+00:00:32.420 --> 00:00:35.230
+Now you can, of course use any of the approaches
+
+11
+00:00:35.230 --> 00:00:38.260
+being listed here depending on your operating system
+
+12
+00:00:38.260 --> 00:00:39.380
+and what you want to do.
+
+13
+00:00:39.380 --> 00:00:42.760
+And if you click on this Deno installing here,
+
+14
+00:00:42.760 --> 00:00:45.540
+you also will again find a nice overview
+
+15
+00:00:45.540 --> 00:00:48.960
+of all possible ways of installing Deno.
+
+16
+00:00:48.960 --> 00:00:51.790
+Now we might be getting different installation options
+
+17
+00:00:51.790 --> 00:00:53.100
+in the future.
+
+18
+00:00:53.100 --> 00:00:56.980
+For the moment, I will use one of those options.
+
+19
+00:00:56.980 --> 00:00:59.860
+On Mac and Linux, you can simply copy this command here
+
+20
+00:00:59.860 --> 00:01:01.790
+into the default terminal.
+
+21
+00:01:01.790 --> 00:01:04.620
+On Windows you can copy this command here
+
+22
+00:01:04.620 --> 00:01:06.670
+into the windows PowerShell.
+
+23
+00:01:06.670 --> 00:01:09.040
+So not the normal Command Prompt you got
+
+24
+00:01:09.040 --> 00:01:11.680
+on your operating system, but the PowerShell.
+
+25
+00:01:11.680 --> 00:01:14.010
+Which is already pre-installed in which you can launch
+
+26
+00:01:14.010 --> 00:01:16.410
+as a program on Windows.
+
+27
+00:01:16.410 --> 00:01:18.760
+Since I'm on a Mac, I'm going to use this command.
+
+28
+00:01:18.760 --> 00:01:21.380
+So I'll just paste this here into my terminal,
+
+29
+00:01:21.380 --> 00:01:23.330
+this curl command and hit Enter.
+
+30
+00:01:23.330 --> 00:01:25.520
+And this will download this install script,
+
+31
+00:01:25.520 --> 00:01:29.330
+download Deno and install Deno on my machine.
+
+32
+00:01:29.330 --> 00:01:31.370
+Now, what you'll see is that once
+
+33
+00:01:31.370 --> 00:01:34.570
+this finishes successfully, that I won't be able
+
+34
+00:01:34.570 --> 00:01:35.640
+to run Deno.
+
+35
+00:01:35.640 --> 00:01:37.760
+Normally there should be a Deno command,
+
+36
+00:01:37.760 --> 00:01:40.320
+which you can execute by just typing Deno
+
+37
+00:01:40.320 --> 00:01:42.610
+in your terminal or a Command Prompt.
+
+38
+00:01:42.610 --> 00:01:45.313
+But if I do that, I get command not found.
+
+39
+00:01:46.170 --> 00:01:48.750
+But actually I get the fix here as well.
+
+40
+00:01:48.750 --> 00:01:51.600
+After the installation, that I should manually add
+
+41
+00:01:51.600 --> 00:01:55.690
+the directory to your Home bash profile or similar.
+
+42
+00:01:55.690 --> 00:01:58.540
+These two entries to be precise.
+
+43
+00:01:58.540 --> 00:02:00.850
+You can just copy and paste these entries.
+
+44
+00:02:00.850 --> 00:02:03.450
+And again, depending on the point of time
+
+45
+00:02:03.450 --> 00:02:06.640
+you're watching this and on the operating system you're on,
+
+46
+00:02:06.640 --> 00:02:08.220
+the exact instructions
+
+47
+00:02:08.220 --> 00:02:10.090
+you are seeing here might differ.
+
+48
+00:02:10.090 --> 00:02:13.560
+Simply follow the instructions you are seeing here.
+
+49
+00:02:13.560 --> 00:02:15.860
+In my case, I should add these two instructions
+
+50
+00:02:15.860 --> 00:02:18.960
+to my bash profile, which is basically a configuration file
+
+51
+00:02:18.960 --> 00:02:22.390
+for your whole system, which tells your operating system
+
+52
+00:02:22.390 --> 00:02:24.890
+which commands are available in the Command Prompt,
+
+53
+00:02:24.890 --> 00:02:26.220
+so to say.
+
+54
+00:02:26.220 --> 00:02:28.610
+Now, since I'm on Mac OS Catalina,
+
+55
+00:02:28.610 --> 00:02:30.660
+I don't need the bash profile.
+
+56
+00:02:30.660 --> 00:02:33.170
+You only need that if you have a Mac version,
+
+57
+00:02:33.170 --> 00:02:36.870
+a smaller or older than Catalina.
+
+58
+00:02:36.870 --> 00:02:37.742
+If you have Catalina,
+
+59
+00:02:37.742 --> 00:02:41.610
+you should look into your users folder
+
+60
+00:02:41.610 --> 00:02:45.570
+for a .zprofile file.
+
+61
+00:02:45.570 --> 00:02:46.540
+If you're not seeing that,
+
+62
+00:02:46.540 --> 00:02:48.823
+make sure you're showing hidden files.
+
+63
+00:02:49.770 --> 00:02:52.520
+Then you can just edit this and in case you don't have it,
+
+64
+00:02:52.520 --> 00:02:56.200
+you can simply create such a .zprofile file.
+
+65
+00:02:56.200 --> 00:02:58.173
+And I'm going to edit it with TextEdit.
+
+66
+00:02:59.280 --> 00:03:01.850
+And in there, the file might look different for you,
+
+67
+00:03:01.850 --> 00:03:04.900
+but in there, the only important thing is that at the end
+
+68
+00:03:04.900 --> 00:03:08.960
+you add these lines you saw in the Command Prompt.
+
+69
+00:03:08.960 --> 00:03:10.720
+So that's what I'm doing here.
+
+70
+00:03:10.720 --> 00:03:14.140
+And with that, save that file, close it
+
+71
+00:03:14.140 --> 00:03:15.870
+and open a new terminal.
+
+72
+00:03:15.870 --> 00:03:19.090
+So close the terminal and open a new one.
+
+73
+00:03:19.090 --> 00:03:22.350
+And once you do that, you should be able to run Deno
+
+74
+00:03:22.350 --> 00:03:24.290
+and it does not give you an error,
+
+75
+00:03:24.290 --> 00:03:27.400
+but instead entered this interactive mode here.
+
+76
+00:03:27.400 --> 00:03:30.100
+Now let's explore this and what we can do with Deno
+
+77
+00:03:30.100 --> 00:03:31.203
+in the next lecture.
+
+78
+00:03:32.250 --> 00:03:35.190
+So now this was Mac OS, now for Windows,
+
+79
+00:03:35.190 --> 00:03:38.670
+I'm going to grab this command for the PowerShell
+
+80
+00:03:38.670 --> 00:03:41.010
+and just open up the PowerShell,
+
+81
+00:03:41.010 --> 00:03:44.410
+which is a default tool on Windows.
+
+82
+00:03:44.410 --> 00:03:47.840
+And in there, I'll just copy it in and hit Enter.
+
+83
+00:03:47.840 --> 00:03:50.750
+And this is now going to basically send the request
+
+84
+00:03:50.750 --> 00:03:54.500
+to Deno's servers and also run an installation script
+
+85
+00:03:54.500 --> 00:03:57.350
+to install Deno on our system.
+
+86
+00:03:57.350 --> 00:04:00.133
+So let's wait for this to finish.
+
+87
+00:04:01.970 --> 00:04:05.500
+And once this finished, unlike on Mac OS,
+
+88
+00:04:05.500 --> 00:04:08.860
+I'm not even prompted here to do anything else,
+
+89
+00:04:08.860 --> 00:04:10.870
+and you probably aren't either.
+
+90
+00:04:10.870 --> 00:04:12.720
+And therefore we can just go ahead
+
+91
+00:04:12.720 --> 00:04:16.290
+and type the Deno command right away and it should work here
+
+92
+00:04:16.290 --> 00:04:18.063
+instead of the PowerShell.
+
+93
+00:04:19.170 --> 00:04:22.610
+So that's how easy it is to set up Deno on Windows.
+
+94
+00:04:22.610 --> 00:04:24.853
+And before that also on Mac OS.
+
+95
+00:04:26.290 --> 00:04:28.930
+With that done, you should have Deno installed,
+
+96
+00:04:28.930 --> 00:04:31.410
+and if you now restart the terminal
+
+97
+00:04:31.410 --> 00:04:34.583
+or the Command Prompt or PowerShell,
+
+98
+00:04:35.530 --> 00:04:38.670
+you are able to run Deno just like this.
+
+99
+00:04:38.670 --> 00:04:41.650
+This is now a globally available command.
+
+100
+00:04:41.650 --> 00:04:45.290
+And if you run it, you enter the Deno rappel.
+
+101
+00:04:45.290 --> 00:04:48.080
+Now, you know the rappel from Node.js.
+
+102
+00:04:48.080 --> 00:04:51.230
+If you run Node, you enter the Node rappel,
+
+103
+00:04:51.230 --> 00:04:53.730
+and there you can execute basic Node code.
+
+104
+00:04:53.730 --> 00:04:56.030
+You can use it as a basic calculator
+
+105
+00:04:56.030 --> 00:04:59.793
+and you can quit it with control C or control D.
+
+106
+00:05:01.460 --> 00:05:03.510
+And for Deno, it's the same.
+
+107
+00:05:03.510 --> 00:05:05.630
+You enter the Deno rappel here.
+
+108
+00:05:05.630 --> 00:05:07.690
+You can execute basic Deno code.
+
+109
+00:05:07.690 --> 00:05:11.090
+You can use it as a basic calculator and you can quit it
+
+110
+00:05:11.090 --> 00:05:14.313
+with control D or by running Close.
+
+111
+00:05:15.160 --> 00:05:17.250
+Now, the idea is the same.
+
+112
+00:05:17.250 --> 00:05:19.580
+This is really just a nice playground,
+
+113
+00:05:19.580 --> 00:05:22.360
+or to try out some things in reality,
+
+114
+00:05:22.360 --> 00:05:25.130
+you're going to write JavaScript code
+
+115
+00:05:25.130 --> 00:05:26.930
+or TypeScript code with Deno,
+
+116
+00:05:26.930 --> 00:05:28.890
+and you can then run those code files
+
+117
+00:05:28.890 --> 00:05:30.520
+with the Deno executable.
+
+118
+00:05:30.520 --> 00:05:33.090
+That's how you would run most of the code
+
+119
+00:05:33.090 --> 00:05:35.070
+when working with Deno.
+
+120
+00:05:35.070 --> 00:05:36.630
+Now, speaking of that,
+
+121
+00:05:36.630 --> 00:05:39.770
+let's maybe write some first Deno code
+
+122
+00:05:39.770 --> 00:05:42.860
+so that we get an idea for how it works
+
+123
+00:05:42.860 --> 00:05:46.230
+and also so that we can gradually dive
+
+124
+00:05:46.230 --> 00:05:48.803
+into the differences compared to Node.
+

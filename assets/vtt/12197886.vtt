@@ -1,0 +1,424 @@
+WEBVTT
+
+00:02.320 --> 00:09.230
+To see it in action, I'm back in our rest API project we created earlier where we previously added socket.io
+
+00:09.230 --> 00:09.880
+.
+
+00:10.010 --> 00:15.870
+and first of all, I'll get rid of that socket.io part, I'll remove it, I'll remove the socket in js
+
+00:15.880 --> 00:22.490
+file, in app.js I will also remove my routes because we will have no more routes, we'll not set
+
+00:22.490 --> 00:26.650
+up routes anymor, we'll use graphql endpoints instead.
+
+00:26.650 --> 00:29.070
+I'll leave the rest as it is for now,
+
+00:29.360 --> 00:31.830
+remove that code where I use my routes
+
+00:32.000 --> 00:38.470
+and then here I will not store the server because I will not setup any socket.io connection
+
+00:38.720 --> 00:44.060
+and we can also now remove the routes folder because we'll not use that anymore.
+
+00:44.120 --> 00:49.940
+So now I clean that up a little bit and now I want to use graphql and for that I'll install two
+
+00:49.970 --> 00:51.370
+new packages.
+
+00:51.410 --> 00:54.040
+The first one is called just graphql,
+
+00:54.200 --> 00:58.100
+this will be required for defining the schema of our graphql
+
+00:58.100 --> 00:59.150
+service,
+
+00:59.150 --> 01:03.250
+so basically the definition of the queries and mutations and so on
+
+01:03.250 --> 01:04.570
+we want to allow
+
+01:04.880 --> 01:11.330
+and I will also add express graphql to install a simple server that will do the parsing of incoming
+
+01:11.330 --> 01:13.420
+requests and so on.
+
+01:13.430 --> 01:19.230
+Now if you want to learn more about graphql, check out graphql.org,
+
+01:19.490 --> 01:26.390
+it's a great resource with a lot of documentation on graphql and its query language which by the way
+
+01:26.510 --> 01:27.720
+is clearly defined
+
+01:27.860 --> 01:36.080
+and we need a strong ruleset to know how we write queries and there if you click on code, you also find
+
+01:36.230 --> 01:38.590
+libraries for all kinds of languages
+
+01:38.840 --> 01:43.940
+and if you choose javascript, you'll find the graphql package we just installed which allows us
+
+01:43.940 --> 01:46.140
+to define such a schema as I mentioned.
+
+01:46.460 --> 01:51.770
+You'll find the express graphql and you also find other solutions for other frameworks, Apollo
+
+01:51.920 --> 01:56.340
+for example is super popular and works with any node framework,
+
+01:56.420 --> 02:00.780
+it offers more than the barebone setup express graphql
+
+02:00.780 --> 02:07.220
+gives us though and I want to show you a very raw approach in this module so that you understand
+
+02:07.280 --> 02:12.180
+all the behind the scenes things, Apollo would hide some of these things,
+
+02:12.230 --> 02:16.280
+so I will instead use express graphql.
+
+02:16.460 --> 02:21.630
+Now with that out of the way, we installed that, we cleaned up our project,
+
+02:21.640 --> 02:25.140
+now let's add some graphql logic
+
+02:25.160 --> 02:27.010
+and how do we do that?
+
+02:27.050 --> 02:33.230
+First of all I'll create a new folder named graphql where I will put my graphql related code and
+
+02:33.230 --> 02:40.280
+there, I'll add my schema.js file where I define the queries, mutations and types I work with in my
+
+02:40.290 --> 02:47.750
+graphql service I'll create and I'll add a resolvers.js file where I will define the logic that
+
+02:47.750 --> 02:50.750
+is then executed for incoming queries.
+
+02:51.320 --> 02:55.070
+Now in schema.js, let's start with that, there
+
+02:55.160 --> 03:03.740
+I'll first of all import something from that graphql package I installed, not from express graphql but
+
+03:03.770 --> 03:05.080
+just graphql
+
+03:05.390 --> 03:11.240
+and that something I import is the build schema function which allows me to build a schema which can
+
+03:11.240 --> 03:20.350
+then be parsed by graphql and by express graphql. I will export this schema so I'll use module exports
+
+03:20.600 --> 03:25.210
+and then I will call the build schema function and I will return that schema object
+
+03:25.220 --> 03:27.230
+this will generate for me
+
+03:27.230 --> 03:33.440
+and now here we pass a string where we describe our schema. Use double backticks here,
+
+03:33.440 --> 03:40.940
+so not single quotation marks but backticks to create a string literal, a template literal because there
+
+03:41.060 --> 03:44.080
+you can simply write multiline strings.
+
+03:44.210 --> 03:53.000
+And now to define a graphql schema in this string, we type schema and add curly braces,
+
+03:53.000 --> 04:02.340
+please note that there is no colon after schema and in that schema we now define a query field
+
+04:02.510 --> 04:08.600
+and this now will be an object with all the queries and queries are the parts where you get data,
+
+04:08.900 --> 04:12.650
+so all the queries you want to allow. To make that easier to read,
+
+04:12.690 --> 04:18.700
+I'll now add a separate type for that with the type keyword which I'll name query, you could name this
+
+04:18.710 --> 04:28.240
+differently, you name this root query, however you want. Now in there, you will have all the different queries
+
+04:28.240 --> 04:29.760
+you can make in the end,
+
+04:29.770 --> 04:32.560
+for example you can add one that is named hello,
+
+04:32.680 --> 04:42.470
+simply a basic dummy query here, hello which let's say returns a string.
+
+04:42.540 --> 04:44.830
+This is how you define the return type for a query,
+
+04:44.850 --> 04:52.080
+you add a colon after the query name and then the type and graphql knows a couple of types, strings,
+
+04:52.230 --> 04:58.710
+integers, floats, booleans, IDs and you can learn all about that in the official docs of course.
+
+04:58.710 --> 05:04.260
+So now this is my root query and this is the return type of my query here,
+
+05:04.290 --> 05:10.130
+this is now a very basic schema where we can send a hello query to get back some text.
+
+05:10.500 --> 05:20.800
+Now that some text now is the defined in the resolver, the resolver is an exported object where we now need
+
+05:21.130 --> 05:22.260
+a hello function, a
+
+05:22.330 --> 05:23.550
+hello method,
+
+05:23.560 --> 05:26.930
+so you need a method for every query or mutation
+
+05:27.010 --> 05:30.300
+you define in your schema and the name has to match of course,
+
+05:30.460 --> 05:34.750
+I have a method named hello here because here I have a query named hello.
+
+05:34.990 --> 05:40.810
+You don't need a resolver for this query because in your schema, you basically setup your root query which
+
+05:40.810 --> 05:44.820
+is then made up of these sub-queries which now need resolvers.
+
+05:44.830 --> 05:50.620
+So now we have a resolver for hello, that hello method and there we need to return a string,
+
+05:50.650 --> 05:50.930
+right,
+
+05:50.950 --> 05:56.620
+we expect the string, you can by the way make this string required by adding an exclamation mark.
+
+05:56.670 --> 05:59.930
+Now if you don't return a string, you'll get an error.
+
+06:00.510 --> 06:12.030
+So here I could return hello world like this, if I now save that I have a very simple graphql service.
+
+06:12.030 --> 06:16.500
+Now before we test it, let's make it a little bit more complex, in my schema
+
+06:16.500 --> 06:20.030
+I'll add a new type and I'll name that test data,
+
+06:20.040 --> 06:27.360
+the name is up to you and there I'll have a text which is a string and I'll have a views property
+
+06:27.600 --> 06:29.790
+which is like say an integer.
+
+06:29.790 --> 06:31.040
+Both are required,
+
+06:31.050 --> 06:33.980
+please note there is no comma after these fields,
+
+06:33.990 --> 06:35.810
+you simply use new lines
+
+06:35.880 --> 06:43.570
+and now let's say my hello query should return that test data instead of a boring string. Well then we
+
+06:43.570 --> 06:45.220
+can go back to the resolver
+
+06:45.400 --> 06:49.810
+and now we need to return an object in there with a text field that should be a string,
+
+06:50.020 --> 06:53.400
+hello world
+
+06:53.600 --> 06:59.140
+and with a views field which should be an integer.
+
+06:59.160 --> 07:00.780
+Now we have a valid resolver,
+
+07:00.780 --> 07:02.220
+we have a valid schema,
+
+07:02.220 --> 07:09.050
+now we need to expose it to the public and that can be done with the express graphql package. In app.js,
+
+07:09.050 --> 07:11.330
+we now import that,
+
+07:11.400 --> 07:17.640
+so here I'll import graphql http,
+
+07:17.710 --> 07:24.950
+you can name this however you want from express graphql and let's now scroll down all the way to
+
+07:24.950 --> 07:32.350
+the error handling middleware and there let's add another middleware so that all the other middlewares do apply and here
+
+07:32.810 --> 07:37.490
+I will apply this to /graphql and you could change that
+
+07:37.490 --> 07:39.750
+but that is a common convention to use
+
+07:40.070 --> 07:45.390
+and I deliberately don't limit this to post requests here and I will show you why in a second
+
+07:45.440 --> 07:52.640
+so please make sure you use use here and then you use that graphql http method which is provided by
+
+07:52.640 --> 08:01.520
+express graphql and you pass a javascript object to it to configure it. Now this needs two items to work.
+
+08:01.590 --> 08:03.540
+The first is the schema
+
+08:03.540 --> 08:09.090
+and for that we need to import the schema which we export in the schema.js file,
+
+08:09.090 --> 08:22.250
+so here I'll import graphql schema by requiring it from graphql schema and I need to import my
+
+08:22.250 --> 08:31.580
+graphql resolver by importing it from the resolvers file in the graphql folder.
+
+08:31.580 --> 08:37.160
+Now we can go down and use the graphql schema here as the schema
+
+08:37.340 --> 08:42.070
+and we also need to set the root value which now points at our resolver,
+
+08:42.080 --> 08:44.770
+so this is now the graphql resolver.
+
+08:45.200 --> 08:53.020
+With this setup, we can start our node server here and now let's try this out.
+
+08:53.180 --> 08:57.180
+You might remember that we have to send post requests right,
+ 
+08:57.530 --> 09:01.850
+so let's use postman for testing. There
+
+09:02.000 --> 09:09.780
+I'll send a request to localhost 8080/graphql and that should be a post request.
+
+09:10.660 --> 09:16.130
+Now in the body of that request, we send some json data that describes our query,
+
+09:16.180 --> 09:19.540
+so we set this to raw application json
+
+09:19.810 --> 09:22.740
+and here, you send data like this.
+
+09:22.740 --> 09:27.500
+You send a javascript object with a query key and this does not mean that we send a query and not
+
+09:27.550 --> 09:28.380
+mutation,
+
+09:28.540 --> 09:35.690
+it simply is something which the express graphql package will look for. Inside of these curly braces,
+
+09:35.710 --> 09:37.200
+you now write the real query
+
+09:37.210 --> 09:39.740
+but actually here this is a string
+
+09:40.030 --> 09:46.780
+and then the value here between double quotation marks is your graphql query expression
+
+09:47.110 --> 09:53.390
+and there, you add curly braces and in-between, the name of the query you want to target
+
+09:53.650 --> 09:58.980
+and if we have a look at our schema, we see that we have a hello query. So we can target
+
+09:59.200 --> 10:02.710
+hello here and hello
+
+10:03.170 --> 10:07.250
+returns us test data which has text and views.
+
+10:07.310 --> 10:13.070
+Now we need to define which data we want to get back for that query and therefore after the name of
+
+10:13.070 --> 10:13.590
+the query,
+
+10:13.640 --> 10:19.970
+we add another pair of curly braces and in-between, we list the properties, the fields we want to get
+
+10:19.970 --> 10:21.270
+back for that query,
+
+10:21.410 --> 10:24.140
+we simply separate them with blanks.
+
+10:24.140 --> 10:29.560
+So here I could get my text for example but not the views. If I now hit send,
+
+10:29.810 --> 10:32.160
+indeed you should get hello world here
+
+10:32.300 --> 10:36.420
+and if you add a whitespace and then views, you will get the views too
+
+10:36.500 --> 10:38.870
+and this shows you the flexibility already.
+
+10:38.870 --> 10:43.720
+It's one and the same endpoint but we define which data we want to get on the frontend
+
+10:43.970 --> 10:49.310
+and it's important to understand that we don't filter the data on the frontend, it gets filtered on
+
+10:49.310 --> 10:51.580
+the server by express graphql
+
+10:51.600 --> 10:57.530
+in our case which does the heavy lifting here and we simply define our schema and the resolver.
+
+10:58.040 --> 10:59.130
+In the resolver,
+
+10:59.180 --> 11:05.330
+we return all the data but then graphql on the server will filter out just the data that was
+
+11:05.330 --> 11:07.250
+requested by the client.
+
+11:07.270 --> 11:09.580
+This is how graphql works in a nutshell,
+
+11:09.770 --> 11:12.680
+let's now see how we can add a mutation.

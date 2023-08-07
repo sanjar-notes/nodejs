@@ -1,0 +1,178 @@
+WEBVTT
+
+00:02.570 --> 00:10.310
+So time to use sequelize outside of the table creation. For this, let's go into our controller files
+
+00:10.430 --> 00:15.920
+and there let's start with creating a new product because that will be helpful for later also retrieving
+
+00:15.920 --> 00:23.130
+them. In admin.js, we right now import our product model from the models file
+
+00:23.270 --> 00:27.350
+and that is fine because we do still export it there at the bottom,
+
+00:27.350 --> 00:29.670
+so we should still import it in admin.js
+
+00:29.670 --> 00:38.150
+but here in post add product, we will now work with that product a bit differently. What it will do
+
+00:38.150 --> 00:47.270
+here is I will get rid of that old code we used for creating a product and instead, I will now create
+
+00:47.360 --> 00:49.000
+a new product here
+
+00:50.340 --> 00:57.030
+by calling one of the methods provided by sequelize and by just typing the dot, my IDE suggests me a 
+
+00:57.030 --> 01:03.210
+lot of methods I can call and these methods are all coming from sequelize which shows its great power
+
+01:04.020 --> 01:11.310
+and there we got create for example. Create creates a new element based on that model and immediately
+
+01:11.310 --> 01:13.730
+saves it to the database.
+
+01:13.740 --> 01:19.660
+There also is build which also creates a new object based on the model but only in javascript
+
+01:19.800 --> 01:21.780
+and then we need to save it manually,
+
+01:21.870 --> 01:24.970
+so create basically does it in one go, with build
+
+01:25.050 --> 01:29.510
+we get the object in javascript first before we then have to save it manually.
+
+01:29.610 --> 01:37.980
+I would go for create to immediately store it and now create here simply takes some arguments that we
+
+01:37.980 --> 01:43.920
+need to pass per our model definition. So I can pass in a javascript object
+
+01:43.920 --> 01:50.350
+and now here, I even get the auto-completion by my IDE to assign field values.
+
+01:50.370 --> 01:52.100
+Now I don't need to assign an ID,
+
+01:52.120 --> 01:54.130
+that will be managed automatically
+
+01:54.180 --> 01:59.150
+but for example I need to assign a title by storing the title here,
+
+01:59.160 --> 02:04.770
+so on the right side of the colon, I'm referring to my constant, left side refers to one of the attributes
+
+02:04.790 --> 02:06.690
+I defined in the model.
+
+02:06.690 --> 02:09.750
+I also have a price which I assign to price,
+
+02:09.750 --> 02:16.560
+I also have an image url which I assign to image url, whoops, image url and I also get a description
+
+02:16.560 --> 02:23.640
+which I assign the description value I fetched and as I said, this will immediately save it to database.
+
+02:23.640 --> 02:29.820
+Now just as MySQL did in the last course module, sequelize works with promises.
+
+02:29.880 --> 02:34.820
+So here we can chain then and we can chain catch,
+
+02:35.200 --> 02:43.180
+we can catch any error we might get to see what's going wrong and we can now also have a look at the result
+
+02:43.210 --> 02:43.990
+we get
+
+02:44.020 --> 02:46.570
+in case it does not go wrong.
+
+02:46.710 --> 02:54.830
+Now with that if we save this, let's go to our application and it won't work by default because fetch all
+
+02:54.940 --> 02:59.190
+is not working because we have no function place to fetch products.
+
+02:59.470 --> 03:04.600
+So for now, we have to immediately go to /admin/add product to load this page,
+
+03:04.600 --> 03:07.150
+the other pages won't work
+
+03:07.420 --> 03:11.430
+and here I'll store my first book. I fetch an image url,
+
+03:11.470 --> 03:19.450
+make sure it's not a base64 url but a real url pointing at some jpg or png file. I'll
+
+03:19.540 --> 03:26.980
+assign a price here and I will store a description, this is the first book
+
+03:27.080 --> 03:31.350
+I add through sequelize.
+
+03:31.540 --> 03:40.280
+If I click add product here and we go back to nodejs, this seems to have succeeded here because
+
+03:40.280 --> 03:41.640
+we get no errors,
+
+03:41.660 --> 03:43.780
+here we see the SQL statement it executed,
+
+03:43.790 --> 03:44.850
+insert into.
+
+03:45.110 --> 03:48.510
+I got an error before that though,
+
+03:48.650 --> 03:50.820
+that was when I tried to reach the
+
+03:51.050 --> 03:56.390
+well the page listing all the products where we failed to call fetch all because that is not provided
+
+03:56.390 --> 03:57.320
+by sequelize
+
+03:57.560 --> 03:59.790
+but thereafter once I was in the right page,
+
+03:59.900 --> 04:01.870
+inserting this was executed.
+
+04:02.090 --> 04:07.130
+You see it also executed the syntax where it escapes the values automatically as we did in the last
+
+04:07.130 --> 04:10.900
+module and in the return value, this is looking good,
+
+04:10.910 --> 04:17.700
+it looks like it did create this book and we can prove that by going to our products table and refresh this and
+
+04:17.900 --> 04:24.210
+we should see our book being added there, so this indeed succeeded.
+
+04:24.240 --> 04:27.760
+So this is how we can add a value through sequelize
+
+04:27.900 --> 04:35.090
+and this is a huge step forward of course and I'll comment out my result log here and simply log
+
+04:35.090 --> 04:41.280
+created product to not pollute my console as much.
+
+04:41.360 --> 04:43.310
+So now we created a product,
+
+04:43.430 --> 04:47.270
+let's in the next step have a look at how we can use sequelize to retrieve data.

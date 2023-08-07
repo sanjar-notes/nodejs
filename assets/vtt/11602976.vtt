@@ -1,0 +1,52 @@
+WEBVTT
+
+00:02.180 --> 00:09.260
+With the last module, we took a major step forward because whilst still a lot of useful things like working
+
+00:09.260 --> 00:14.960
+with the database, authentication and so on are missing, we now have the general pattern set
+
+00:14.960 --> 00:21.830
+and you should have a general understanding of how a node and node express application works, how the
+
+00:21.830 --> 00:29.670
+flow is, how you connect your different pieces and which part of your code plays which role.
+
+00:29.990 --> 00:31.630
+So therefore this was a crucial part
+
+00:31.640 --> 00:36.630
+and now we're going to work a bit on the course project and therefore we'll practice what you learned.
+
+00:36.710 --> 00:41.450
+We'll add a couple of new views and we'll try to move this a bit further
+
+00:41.450 --> 00:42.250
+in the direction 
+
+00:42.280 --> 00:45.450
+of a more realistic online shop.
+
+00:45.560 --> 00:50.810
+Now one important note, this module is completely optional,
+
+00:50.990 --> 00:57.770
+you can of course skip it and simply download the finished code which we'll add to this module at the end
+
+00:57.770 --> 01:01.480
+of this module or in the first lecture of the next module.
+
+01:01.730 --> 01:07.140
+So if you're not interested in practicing this and adding all these new views and controllers and you
+
+01:07.140 --> 01:10.550
+simply want to learn the next concept, you can skip ahead,
+
+01:10.550 --> 01:14.850
+you can skip this module or fast forward through it
+
+01:14.870 --> 01:15.470
+otherwise
+
+01:15.560 --> 01:18.910
+let's dive in and let's continue working on our course project.

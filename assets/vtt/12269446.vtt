@@ -1,0 +1,292 @@
+WEBVTT
+
+00:02.390 --> 00:05.190
+Let's first of all understand npm a bit better,
+
+00:05.530 --> 00:10.580
+it's node's package manager as you learned and in the end it's a cli, a command line interface.
+
+00:10.630 --> 00:17.830
+We always used it from the command line from the terminal by running npm and then some command, mostly
+
+00:17.950 --> 00:24.640
+npm install in this course. The idea behind packages or tools like npm
+
+00:24.700 --> 00:30.520
+and every programming language has a similar concept you could say is that we might have some isolated
+
+00:30.520 --> 00:38.810
+functionality, some code that we wrote or that we came up with that does something useful,
+
+00:38.830 --> 00:41.130
+let's say it generates a random number.
+
+00:41.140 --> 00:47.090
+Now we can use that in our web application but maybe we want to use it in other applications as well
+
+00:47.140 --> 00:54.280
+because this isolated functionality does not depend on our business logic in the project we're creating
+
+00:54.370 --> 00:56.900
+or maybe we want to share it with the public.
+
+00:57.310 --> 01:03.910
+Well if we want to share it internally or externally, we can put it into a package with the help of npm.
+
+01:04.000 --> 01:11.650
+You can use npm not just to install packages but also to create and share packages through that npm
+
+01:11.650 --> 01:17.680
+repository which is a cloud service where you don't have to pay for where you can host packages you
+
+01:17.680 --> 01:23.740
+created and this is also a service where you will in the end fetch packages from with the npm install
+
+01:23.740 --> 01:24.500
+command.
+
+01:24.760 --> 01:30.970
+So in this repository which is managed globally, you'll find thousands of packages obviously and if
+
+01:30.970 --> 01:38.680
+you now have some node project, you can use any of that, you can use any of those packages with the npm
+
+01:38.680 --> 01:41.000
+install command through that cli
+
+01:41.110 --> 01:44.550
+and that is how you add packages to your project,
+
+01:44.650 --> 01:51.760
+no matter if that is a package shared by you and you can also have private repositories or private packages
+
+01:51.850 --> 01:52.390
+on npm
+
+01:52.390 --> 01:58.360
+by the way, that is something you do have to pay for but you can always use public packages and share
+
+01:58.420 --> 01:59.990
+packages with the public.
+
+02:00.140 --> 02:02.030
+That's the idea behind npm,
+
+02:02.050 --> 02:07.840
+now let's have a closer look at the official npm repository page and the available commands
+
+02:07.840 --> 02:11.870
+we can use. You can visit npmjs.com,
+
+02:11.870 --> 02:14.170
+that is the official page of npm
+
+02:14.210 --> 02:16.210
+and there you can search for packages,
+
+02:16.220 --> 02:21.500
+for example we could search for express here which is of course a package we used, the express framework
+
+02:22.010 --> 02:28.160
+and then you see all kinds of packages that kind of were found for that, maybe packages that use express,
+
+02:28.420 --> 02:29.090
+maybe also
+
+02:29.120 --> 02:31.420
+of course the express package itself.
+
+02:31.760 --> 02:37.990
+And if you click on that, you find some quick docs, you see the versions that were released here
+
+02:38.060 --> 02:40.850
+so here you can see the different versions
+
+02:40.940 --> 02:44.950
+you could install through npm, you can target a specific version
+
+02:44.950 --> 02:52.630
+by the way by going to your terminal and there with npm install, you can choose the package and then an @
+
+02:52.760 --> 02:55.660
+sign and then a specific version number,
+
+02:55.670 --> 03:01.550
+for example we could choose 4.16.3 by typing for 4.16.3
+
+03:01.550 --> 03:06.890
+and now we would install that version into our project. If we select no version, the latest one is picked
+
+03:06.890 --> 03:07.940
+by default,
+
+03:07.970 --> 03:11.580
+that's just a little side note. So we can see that version history,
+
+03:11.690 --> 03:14.910
+we can see which other packages this package relies on
+
+03:14.980 --> 03:19.040
+and these packages will be installed for you automatically when you install expressjs
+
+03:19.070 --> 03:19.620
+.
+
+03:19.670 --> 03:25.610
+So these will also end up in node modules as will the dependencies of these packages and that is why you
+
+03:25.610 --> 03:31.280
+quickly end up with a big node modules folder by the way because you have a lot of dependencies of dependencies
+
+03:31.280 --> 03:32.590
+of dependencies.
+
+03:33.050 --> 03:35.530
+You also see other things like the official home page,
+
+03:35.530 --> 03:41.630
+the github repository, so the repository where you can find the source code for this package and so
+
+03:41.630 --> 03:42.410
+on.
+
+03:42.410 --> 03:44.170
+So this is really useful,
+
+03:44.230 --> 03:49.760
+now if you want to learn more about the npm command though, so what else you can run besides install
+
+03:49.910 --> 03:51.840
+or how you can configure install
+
+03:51.860 --> 03:59.100
+for example with --save versus --save dev to install a production or a development dependency,
+
+03:59.180 --> 04:04.400
+if you want to learn more about that, the official docs are of course the right place. There if you
+
+04:04.400 --> 04:06.920
+dive in,
+
+04:06.930 --> 04:12.360
+you can learn way more about npm and diving deeply into that would really be beyond the scope of this
+
+04:12.360 --> 04:19.530
+course because npm creating and managing packages, that is a topic on its own not closely related to
+
+04:19.550 --> 04:23.600
+nodejs the language, just an additional feature you get for free,
+
+04:23.670 --> 04:29.460
+so here you can learn way more about that and here on this page if you scroll down a bit further, you'll
+
+04:29.460 --> 04:32.470
+also see all available commands you could run
+
+04:32.670 --> 04:40.520
+and then if you click on one of them, for example uninstall, you also see how you may use it.
+
+04:40.520 --> 04:46.160
+So here you see detailed instructions on how you may configure it, for example that you can run it
+
+04:46.160 --> 04:53.180
+in global mode to install a package on your system and not just in a project or that you can of course
+
+04:53.240 --> 05:01.850
+also install it with the --save flag save dev or save prod which is the same as just
+
+05:01.850 --> 05:03.090
+--save in the end,
+
+05:03.290 --> 05:08.910
+so there you see all the ways of configuring that or running that command in different ways
+
+05:08.990 --> 05:11.170
+and if you want to learn way more about that
+
+05:11.330 --> 05:18.910
+and for most cases, you just need npm install --save or --save dev or -g
+
+05:18.980 --> 05:24.090
+but if you want to learn way more, of course these official docs are the place to go.
+
+05:25.140 --> 05:31.680
+It is worth pointing out that you also can get help here locally, when you type npm help here,
+
+05:31.890 --> 05:38.490
+you also get instructions on the available commands you may run and you can also get help on a specific
+
+05:38.490 --> 05:39.310
+command.
+
+05:39.330 --> 05:45.400
+So if I run npm install --help here or just -h,
+
+05:45.720 --> 05:53.580
+then I see how I may run this command and also which options I have to add additional flags.
+
+05:53.610 --> 05:58.270
+However these are just the common options, not all options, for the full docs of course,
+
+05:58.320 --> 06:02.590
+you should dive into the official documentation here.
+
+06:02.630 --> 06:08.540
+The commands you can run here especially installing are one powerful thing
+
+06:08.600 --> 06:09.830
+npm allows you to do,
+
+06:09.830 --> 06:15.170
+you can add any package you want to your project. Another important feature is that if you click on
+
+06:15.170 --> 06:22.190
+using npm here, you can run scripts with npm and that generally is related to that package.json
+
+06:22.190 --> 06:30.050
+file you get when you put a project under control of npm which you do with help of the npm init command,
+
+06:30.050 --> 06:35.070
+we also use that in that course. That will ask you a couple of questions and then give you a package.json
+
+06:35.090 --> 06:41.870
+file which you can use to configure a project and there you can not only keep a list of your dependencies,
+
+06:41.870 --> 06:49.310
+you can also add certain scripts and you can run these scripts either with npm start to run the start
+
+06:49.310 --> 06:53.770
+script or npm run and then any script name you configured in there
+
+06:54.080 --> 07:01.040
+and that is very powerful especially when it comes to using npm and nodejs to build projects.
+
+07:01.040 --> 07:04.280
+It is something I can best show in the react application
+
+07:04.280 --> 07:06.600
+we worked with in this course.
+
+07:06.670 --> 07:12.580
+Here I am in that application and there if we had a look at that package.json file, you see that
+
+07:12.580 --> 07:16.540
+scripts area and there you see a couple of scripts which you can run,
+
+07:16.540 --> 07:20.220
+for example start with npm start but that's a special case,
+
+07:20.230 --> 07:27.880
+all other scripts with npm run and then for example, build or eject and then these scripts are executed.
+
+07:27.940 --> 07:30.950
+Now these scripts actually use a third party package,
+
+07:31.000 --> 07:36.790
+so a dependency which was installed, react scripts we see it here in the dependencies list and then
+
+07:36.790 --> 07:42.130
+that dependency holds the code that will actually do something and that is the next step I will come
+
+07:42.130 --> 07:50.020
+back to with nodejs being able to run on your machine and not being limited to spinning up a web server.

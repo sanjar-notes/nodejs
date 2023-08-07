@@ -1,0 +1,157 @@
+WEBVTT
+
+00:02.100 --> 00:04.090
+So we know how we store data
+
+00:04.290 --> 00:09.360
+and I mentioned that this gives you more flexibility, also regarding the storage of relations between
+
+00:09.360 --> 00:10.810
+different data.
+
+00:11.010 --> 00:14.460
+Now in NoSQL it would be pretty normal to have something like this,
+
+00:14.580 --> 00:18.810
+here are three collections and we have some duplicate data in there,
+
+00:18.870 --> 00:24.720
+we have a users collection which holds all the details about a user but then we might have some copy
+
+00:24.720 --> 00:31.920
+of that data or of a part of that data in an embedded or nested document in another document in another
+
+00:31.920 --> 00:33.000
+collection.
+
+00:33.030 --> 00:40.350
+So instead of just matching by ID as you do it in the SQL world, here you can also depict a relation
+
+00:40.410 --> 00:43.300
+by embedding data into other documents.
+
+00:43.350 --> 00:46.770
+You could embedded the ID which points at another document
+
+00:46.770 --> 00:52.470
+so that you still have to merge two documents manually and you will indeed have to do that pretty manually
+
+00:52.830 --> 00:59.400
+but you can also just take the information that is important for you in the context of another document.
+
+00:59.430 --> 01:04.500
+Let's say here, some user data for the orders and you copy that into the orders
+
+01:04.710 --> 01:10.260
+and then you have that data right there whenever you fetch all orders without you having to fetch all
+
+01:10.260 --> 01:13.930
+orders, then look for the fitting users and fetch them too
+
+01:14.040 --> 01:19.540
+and this is part of what makes NoSQL and especially mongodb so fast and efficient.
+
+01:19.680 --> 01:26.370
+It really is built to make sure that you query your data in the format you need it, that you store the
+
+01:26.370 --> 01:31.500
+data in the format you need it, that you don't have to do a lot of merging and so on but that you can
+
+01:31.500 --> 01:36.720
+really fetch data in the format you need it without having to combine multiple collections behind
+
+01:36.720 --> 01:38.290
+the scenes on the server.
+
+01:38.730 --> 01:44.780
+That being said, you can still do that, nested and embedded documents are one alternative for depicting
+
+01:44.880 --> 01:45.730
+relations,
+
+01:45.870 --> 01:48.030
+references are another one.
+
+01:48.030 --> 01:54.110
+So here's the embedded document example where the address is part of our customer document,
+
+01:54.150 --> 02:00.000
+so instead of having two collections, customers and addresses and then matching by ID, here we put the
+
+02:00.000 --> 02:02.330
+address right into the customer.
+
+02:02.340 --> 02:08.040
+There also are cases where you would have a lot of data duplication and where you need to work with that
+
+02:08.040 --> 02:12.870
+data a lot and hence it would change a lot and you would have to manually update it in all duplicate
+
+02:12.870 --> 02:17.160
+places, where using embedded documents is not ideal.
+
+02:17.340 --> 02:20.730
+So for example if you have some favorite books for every customer,
+
+02:20.910 --> 02:25.320
+well you would have lots of data duplication because a lot of customers might have the same favorite
+
+02:25.320 --> 02:28.380
+books and these books might then change a lot,
+
+02:28.410 --> 02:35.170
+maybe there is a new edition published and you would have to go to all customers who have these books as
+
+02:35.250 --> 02:39.800
+favorites and update the entries for each customer. In such a scenario
+
+02:39.810 --> 02:45.540
+it would be easier to still go with two collections and only store the references to the books in a customers
+
+02:45.540 --> 02:51.900
+documents and then manually merge that with the books which are managed in a different collection.
+
+02:51.900 --> 02:56.010
+And over time you'll get a feeling for which approach you want to follow,
+
+02:56.010 --> 03:01.800
+I'll show you some examples in this course and have a look at this complete mongodb course I did mention
+
+03:02.010 --> 03:07.420
+which drives much deeper into that and shows you way more examples that can be helpful to you.
+
+03:07.440 --> 03:14.670
+So this is the idea here though, we can embed or we can use references, whatever fits the purpose a bit
+
+03:14.670 --> 03:15.430
+better
+
+03:15.750 --> 03:20.820
+and with that, we know how mongodb generally works, that we have
+
+03:20.820 --> 03:24.300
+the important thing of not having a schema
+
+03:24.360 --> 03:27.550
+hence we have more flexibility, no structure is required
+
+03:27.840 --> 03:32.760
+and we have fewer data relations because we can relate by embedding.
+
+03:33.090 --> 03:39.030
+We can still build relations manually with references as you saw but you should always know if that
+
+03:39.030 --> 03:40.630
+is the best approach right now
+
+03:40.650 --> 03:44.780
+or if you can use an embedded document with too much work.
+
+03:44.820 --> 03:49.170
+So these are NoSQL characteristics and therefore the mongodb characteristics
+
+03:49.230 --> 03:55.050
+and these are also part of the reason why mongodb is so popular because of the speed and the flexibility
+
+03:55.050 --> 03:55.670
+it gives you.

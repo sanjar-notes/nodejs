@@ -1,0 +1,208 @@
+WEBVTT
+
+00:02.170 --> 00:09.100
+Ok so now that we're able to relate data and store products that are related to a user, let's work on
+
+00:09.100 --> 00:16.180
+that shopping cart and the orders again so that we can do more to just look at the products. Now previously,
+
+00:16.750 --> 00:23.350
+in our user model in the part which is now commented out, I had utility methods like add to cart to add
+
+00:23.350 --> 00:25.450
+products to the cart of that user
+
+00:25.480 --> 00:32.050
+and actually it was really useful to have these because that allowed us to move logic from our controller
+
+00:32.200 --> 00:36.670
+into the model which is typically where your data related logic should live.
+
+00:37.120 --> 00:41.810
+So therefore I will re-add it and mongoose makes this really simple,
+
+00:42.130 --> 00:45.490
+you can work on your schema so on my user schema here
+
+00:45.730 --> 00:49.380
+and then there you'll have a methods key.
+
+00:49.750 --> 00:55.570
+The methods key is an object which allows you to add your own methods by simply well adding them, Add
+
+00:55.600 --> 00:56.660
+to Cart
+
+00:56.770 --> 00:58.610
+and this should now be a function
+
+00:58.660 --> 01:05.230
+and the important part is it has to be a function written like this so that the this keyword in there still
+
+01:05.230 --> 01:08.200
+refers to the schema and not to something else
+
+01:08.240 --> 01:14.640
+and now in this function you can add your own logic and that is exactly what I want to do. In this function,
+
+01:14.650 --> 01:20.110
+I want to add the logic I had in Add to Cart before and tweak it a little bit.
+
+01:20.200 --> 01:25.530
+So let's grab all that code from Add to Cart,
+
+01:25.750 --> 01:30.660
+let's add it here and comment it back in.
+
+01:30.680 --> 01:35.250
+Now the function here should also receive the product which I want to add,
+
+01:35.290 --> 01:39.570
+that is something we required in the past as well,
+
+01:39.610 --> 01:44.470
+so we still will get a product to that function, this is something we just need to assume because we are
+
+01:44.470 --> 01:46.180
+the one writing the code in the end.
+
+01:46.630 --> 01:54.560
+And now in there, we should still be able to use these cart items because our schema has a cart and then
+
+01:54.560 --> 01:55.800
+an items array,
+
+01:55.840 --> 01:57.180
+so this should still work
+
+01:57.280 --> 02:01.810
+and keep in mind this will be called on a real instance based on that schema,
+
+02:01.810 --> 02:08.380
+so really on an object which will have a populated cart with either an empty array of items or an array
+
+02:08.380 --> 02:10.340
+of items with items in there.
+
+02:10.690 --> 02:15.220
+So this code should still work for getting the product index.
+
+02:15.220 --> 02:19.770
+I also still want to control my quantity as before and update my cart as before
+
+02:19.790 --> 02:26.230
+by first of all copying it, then I will keep the logic of checking whether we already do have the product
+
+02:26.230 --> 02:30.850
+in the cart in which case I'll calculate the new quantity based on the old quantity
+
+02:31.210 --> 02:36.870
+and then I'll update my array or if I will update my array by pushing a new object onto it.
+
+02:36.880 --> 02:40.880
+Now here the thing just is this will not work like that
+ 
+02:41.680 --> 02:47.020
+but I can just store the product ID like this and mongoose should automatically wrap it in an object
+
+02:47.020 --> 02:49.690
+ID,
+
+02:49.800 --> 02:56.220
+the quantity can be stored like this however and this should fit my schema of an item with product in
+
+02:56.220 --> 02:57.020
+the quantity,
+
+02:57.030 --> 03:03.720
+so make sure that the names you used up there in your schema are the names you use down there for creating
+
+03:03.720 --> 03:05.370
+new data.
+
+03:05.370 --> 03:07.870
+So with that, I got my updated cart,
+
+03:08.330 --> 03:10.650
+now I don't need to get access to the database like this
+
+03:10.650 --> 03:17.170
+instead here, I will indeed return something but I will not manually update this
+
+03:17.190 --> 03:23.230
+instead I will just call this save which should work, before I do that
+
+03:23.250 --> 03:27.350
+I just need to set this cart equal to the updated cart.
+
+03:27.780 --> 03:33.660
+Now this should be a utility method that saves itself so where the object saves itself by using
+
+03:33.660 --> 03:37.460
+the built-in save method where we update the cart,
+
+03:38.420 --> 03:47.890
+now let's see if that works as it should. Let's go to the shop.js file and there we have all our
+
+03:48.570 --> 03:50.900
+post cart method.
+
+03:51.030 --> 03:57.060
+Now I find my product by ID which still should work because mongoose gives us this function and then
+
+03:57.450 --> 04:03.060
+I do indeed call request user add to cart which should now also work because we just added this method
+
+04:03.090 --> 04:05.970
+to the user object in our user model,
+
+04:06.300 --> 04:09.520
+so this should work without any changes hopefully,
+
+04:09.540 --> 04:17.080
+let's go to the routes therefore and comment that post cart route back in. If I now save everything,
+
+04:17.180 --> 04:22.430
+let's go to products and let's try add to cart,
+
+04:22.560 --> 04:24.260
+I do get some output here
+
+04:24.420 --> 04:31.440
+and let's now have a look at compass and looking into the users, there I have my cart, I got my items and
+
+04:31.440 --> 04:37.680
+I got an ID in there. Now that was added by mongoose automatically, it adds IDs for sub-documents
+
+04:37.680 --> 04:38.550
+as well
+
+04:38.820 --> 04:47.990
+but most importantly I got my product ID and that product ID which ends with 3C6 should be the ID
+
+04:47.990 --> 04:54.350
+of that product and it is. And now let's confirm if that really works by going back again and adding that
+
+04:54.350 --> 04:56.230
+same product to the cart again,
+
+04:56.330 --> 04:58.890
+it still doesn't find the page it wants to load but that is
+
+04:58.910 --> 05:02.540
+alright. Let's update our users collection now,
+
+05:02.570 --> 05:04.010
+look into the cart,
+
+05:04.070 --> 05:06.030
+we got one object with quantity 2.
+
+05:06.140 --> 05:07.240
+So this is working 
+
+05:07.280 --> 05:13.760
+and this shows us the power of mongoose, we get a bunch of nice built-in methods which we also leverage
+
+05:13.850 --> 05:22.460
+here in our own method which we can add and which we then can call on our objects and are based on our schema.

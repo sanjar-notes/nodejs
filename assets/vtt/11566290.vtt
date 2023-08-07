@@ -1,0 +1,331 @@
+WEBVTT
+
+00:02.070 --> 00:04.990
+Now we had a very close look at the whole middleware thing,
+
+00:05.000 --> 00:10.300
+let's now understand how we can actually work with incoming requests and how we can extract data and
+
+00:10.300 --> 00:10.740
+for that
+
+00:10.760 --> 00:13.870
+I again want to be able to handle a post request.
+
+00:14.030 --> 00:16.940
+So let's say on add product here,
+
+00:17.390 --> 00:24.620
+I want to actually return a html page with a form. For that I'll again return a form and just as a side
+
+00:24.620 --> 00:28.700
+note, this of course is a bit of an incomplete html document,
+
+00:28.790 --> 00:30.480
+we should also wrap this in
+
+00:30.480 --> 00:36.950
+html and body and so on tags. I'm keeping this shorter here to make it easier to read but later we
+
+00:36.950 --> 00:39.210
+will also write proper html code,
+
+00:39.230 --> 00:40.490
+no worries.
+
+00:40.490 --> 00:48.470
+So I have my form here and in there, I'll have my input of type title, of type text here with a name of
+
+00:48.770 --> 00:54.400
+title let's say and I'll add a button again and that button will be of
+
+00:54.400 --> 01:00.050
+type submit because it should submit this form and send a post request therefore and I'll simply give
+
+01:00.050 --> 01:02.890
+it a caption of add product.
+
+01:02.940 --> 01:08.180
+So let's simulate that this is a form that allows us to add a product to our own online shop or something
+
+01:08.180 --> 01:09.620
+like that.
+
+01:09.680 --> 01:13.520
+Now this is our form here and the form needs an action,
+
+01:13.580 --> 01:21.830
+so the path, the url to which the requests should be sent and let's name this product and the method
+
+01:22.220 --> 01:22.970
+should be post
+
+01:22.970 --> 01:25.310
+let's say, can also be written like this.
+
+01:26.340 --> 01:30.830
+So this will send a html code back which holds a form
+
+01:30.990 --> 01:32.670
+and now we need a route
+
+01:32.730 --> 01:36.510
+or a middleware that handles requests to product.
+
+01:36.780 --> 01:40.760
+So we can add app use/product,
+
+01:40.870 --> 01:47.160
+now the important part here is we can place that prior or after this middleware, they won't clash because
+
+01:47.160 --> 01:52.770
+they have nothing in common regarding the path, they have product in common but /add-product
+
+01:52.890 --> 01:54.800
+is different to /product,
+
+01:54.840 --> 02:01.030
+it just has to come before this one because otherwise this would execute prior to that.
+
+02:01.410 --> 02:06.780
+So this position here looks all right and then we again have our function which receives these three
+
+02:06.780 --> 02:12.780
+arguments, as a side note, you can of course omit an argument you are not planning to use, at least the
+
+02:12.770 --> 02:17.790
+third one you can't omit to the first one if you want the response because the order does matter
+
+02:17.790 --> 02:20.420
+but if you never use the third one, you can omit it
+
+02:20.640 --> 02:24.510
+but I always add it here to make it clear that it exists.
+
+02:24.540 --> 02:28.750
+So now with that, we have this function which we'll execute for product and in there
+
+02:28.800 --> 02:35.320
+I want to redirect and for now I want to log the incoming data to the console.
+
+02:35.460 --> 02:39.040
+Now what we can do here is for redirecting,
+
+02:39.180 --> 02:45.480
+I can use response redirect which certainly is easier than manually setting the status code and setting
+
+02:45.480 --> 02:50.440
+the location header. So redirect is another convenience function added by express
+
+02:50.520 --> 02:53.700
+and here I can redirect to let's say just slash,
+
+02:53.820 --> 02:57.130
+so it will automatically redirect me to the slash route.
+
+02:57.420 --> 03:03.970
+But of course this is not the only thing, I'm also interested in getting the body of my incoming requests,
+
+03:04.080 --> 03:11.430
+so extracting what the user has sent me and for this, expressjs now has a convenience feature for
+
+03:11.430 --> 03:20.610
+us. If I console log request body here, this is a new field added by express and let's see what's
+
+03:20.700 --> 03:21.860
+in there.
+
+03:22.050 --> 03:30.060
+So if I now save this, we should be able to go back to /add-product and hopefully see an input
+
+03:30.060 --> 03:34.230
+field and let's add a book here and hit add product,
+
+03:34.230 --> 03:35.740
+we're redirected to slash,
+
+03:35.760 --> 03:43.700
+this is working and in the console, we see undefined. Now let's get rid of the other console logs so that
+
+03:43.710 --> 03:46.580
+this is less clouded with logs,
+
+03:46.590 --> 03:49.120
+we can also remove that.
+
+03:49.170 --> 03:50.730
+So we see undefined
+
+03:50.910 --> 03:52.840
+and the reason is that we're almost there,
+
+03:52.860 --> 04:01.830
+request gives us this body convenience property here but by default, request doesn't try to parse the
+
+04:01.830 --> 04:04.980
+incoming request body. To do that,
+
+04:04.980 --> 04:09.120
+we need to register a parser and we do that by adding another middleware.
+
+04:09.240 --> 04:16.110
+and you typically do that before your route handling middlewares because the parsing of the body should
+
+04:16.110 --> 04:19.460
+be done no matter where your request ends up
+
+04:19.490 --> 04:26.550
+and there, I want to parse the incoming request body. Now for that we can install a third party package
+
+04:27.020 --> 04:29.870
+and we do that by running npm install --save
+
+04:29.910 --> 04:35.220
+because this will also be a package that is used in our code here,
+
+04:35.220 --> 04:37.430
+that does matter for production.
+
+04:37.650 --> 04:42.550
+So just save not save dev and the name is body parser.
+
+04:42.600 --> 04:47.990
+Now this would actually be included in express by default because the community wanted that again,
+
+04:48.030 --> 04:51.640
+it was in the past, then it was removed, then it was re-added,
+
+04:51.660 --> 04:56.730
+I will use that third party package which is the recommended way of using it because if they ever decide
+
+04:56.760 --> 05:01.970
+to pull it out of express again, this code I'm teaching you will still work.
+
+05:01.980 --> 05:07.260
+So now we installed a new package, the body parser and we can import that here,
+
+05:07.580 --> 05:12.960
+I'll store it in a body parser constant, the name as always is up to you and the package is named
+
+05:12.960 --> 05:14.670
+body-parser
+
+05:15.030 --> 05:18.950
+and now we can use that here by calling body parser,
+
+05:19.020 --> 05:25.830
+so using that object and then .urlEncoded.
+
+05:25.970 --> 05:30.750
+This is a function you have to execute and you can pass options to configure it but you don't have to
+
+05:30.750 --> 05:34.590
+here and now what this does is it registers a middleware,
+
+05:34.770 --> 05:39.480
+so this function in the end just yields us such a middleware function,
+
+05:39.510 --> 05:44.640
+so this parses such a function here in the end even though we can't see it and this package will in the
+
+05:44.640 --> 05:50.280
+end, in this middleware function call next in the end, so that the request also reaches our middleware
+
+05:50.670 --> 05:57.690
+but before it does that, it will do that whole request body parsing we had to do manually in the previous
+
+05:57.690 --> 05:59.290
+core sections.
+
+05:59.280 --> 06:06.120
+Now this will not parse all kinds of possible bodies, files, json and so on but this will parse bodies
+
+06:06.300 --> 06:12.330
+like the one we're getting here, sent through a form. If we have other bodies like files and we'll do that
+
+06:12.330 --> 06:13.330
+also in this course,
+
+06:13.380 --> 06:18.880
+we'll use different parsers and this makes expressjs so extensible. If we need something, we can
+
+06:18.880 --> 06:19.850
+just plug it in,
+
+06:19.890 --> 06:21.010
+you see how easy that is,
+
+06:21.060 --> 06:22.240
+it's one line of code,
+
+06:22.340 --> 06:24.570
+well two if you count the import then.
+
+06:24.990 --> 06:29.430
+Now with that, we should actually get an output for this console log statement.
+
+06:29.430 --> 06:31.180
+So now let's restart the server,
+
+06:31.320 --> 06:34.530
+by the way if you install a new package, you need to restart,
+
+06:34.530 --> 06:37.550
+you can't rely on the auto-restart from nodemon
+
+06:37.800 --> 06:41.100
+and we should configure one thing as I'm getting warned here,
+
+06:41.190 --> 06:44.570
+you should pass the config options here and set
+
+06:44.580 --> 06:46.310
+extended to false,
+
+06:46.320 --> 06:51.610
+this is if it should be able to parse non-default features you could say,
+
+06:51.720 --> 06:56.040
+so let's add this to comply with what we should use here
+
+06:56.310 --> 06:59.710
+and with that, we get the body parser enabled.
+
+06:59.730 --> 07:07.810
+Now let's try this again and let's go back to add product and let's add our book again, add product, we're
+
+07:07.860 --> 07:08.840
+redirected
+
+07:09.030 --> 07:16.470
+and now we see this is what we get, a javascript object with a key value pair which also makes extracting
+
+07:16.470 --> 07:17.660
+that value easier
+
+07:17.730 --> 07:22.970
+than we had to do before with the split function where we manually had to create that array and so on.
+
+07:22.980 --> 07:28.020
+Now we get an object where we simply get the key we defined in our input here,
+
+07:28.110 --> 07:34.110
+so this name and then the value the user entered and this is definitely simpler than our custom approach
+
+07:34.110 --> 07:35.060
+we used before
+
+07:35.160 --> 07:40.920
+and now we can work with all the data our users yield us, store them in the database, something we'll
+
+07:40.920 --> 07:45.030
+do later, show them in the response, whatever we need to do.
+
+07:45.080 --> 07:52.440
+Now one thing of course is missing. This right now would also execute for incoming data request,
+
+07:52.440 --> 07:55.190
+well we only want to listen to a post request,
+
+07:55.200 --> 07:57.660
+so what can we do regarding that?

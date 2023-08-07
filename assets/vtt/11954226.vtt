@@ -1,0 +1,289 @@
+WEBVTT
+
+00:02.140 --> 00:07.660
+So in the last lecture we edit this login form which you can reach by clicking on login here on
+
+00:07.660 --> 00:08.910
+the top right corner
+
+00:09.250 --> 00:13.360
+and you can simply download the attached code to have that same starting project,
+
+00:13.360 --> 00:14.460
+if you download it
+
+00:14.530 --> 00:21.340
+just make sure that you use your database credentials here when connecting to the database because mine
+
+00:21.400 --> 00:25.530
+won't work for you obviously because I shut down the server after I'm done recording.
+
+00:25.570 --> 00:30.350
+So I added this login page and we'll not implement authentication right now,
+
+00:30.370 --> 00:35.710
+we'll do this in a separate module but this is a great dummy scenario for using a cookie because let's
+
+00:35.710 --> 00:42.700
+say when we click that submit button here, the login button, we will actually send a login request to
+
+00:42.700 --> 00:49.060
+the backend because that is what we stored in the login form, here in auth login, we are sending a post
+
+00:49.060 --> 00:51.880
+request to /login
+
+00:51.880 --> 00:57.910
+and since we do that, we should handle this and we want to in a real scenario validate the e-mail and
+
+00:57.910 --> 01:04.220
+password, in this module we'll not do that, we'll just assume that the input data is valid
+
+01:04.240 --> 01:06.990
+because it's not the topic we'll focus on for now.
+
+01:07.350 --> 01:13.910
+So let's add a new controller action first of all in the auth.js file and I'll name it post login.
+
+01:14.390 --> 01:21.430
+Now in post login, I will get my login data, e-mail, password and so on and I don't really care about
+
+01:21.490 --> 01:28.230
+that data, so I'll just assume the user is logged in and I will then redirect to just slash.
+
+01:28.630 --> 01:31.150
+However and now that is important,
+
+01:31.630 --> 01:38.190
+if we do it like this and we add a route for this of course to our auth route file,
+
+01:38.320 --> 01:45.400
+so here this is post, a post request to /login and we use the post login controller action,
+
+01:45.520 --> 01:51.220
+if I do this and then click on login here, I am indeed forwarded to the /route.
+
+01:51.450 --> 01:51.740
+Ok
+
+01:51.760 --> 01:54.430
+so this could mean we are authenticated.
+
+01:54.430 --> 01:59.180
+Now let's say we want to store that information that the user is authenticated,
+
+01:59.230 --> 02:01.540
+how could we store that?
+
+02:01.540 --> 02:09.310
+Well you could say I go into my controller and in post login where I do log the user in, I store
+
+02:09.310 --> 02:16.380
+that information in my request object, is logged in because we are already doing a similar thing in
+
+02:16.450 --> 02:17.560
+app.js
+
+02:17.560 --> 02:23.500
+right at the start, we fetch our one dummy user and store that in the request so that we can use it for
+
+02:23.500 --> 02:25.360
+the rest of that request,
+
+02:25.360 --> 02:31.840
+so in all the routes and controllers where we handle that request. We can do the same here and set this
+
+02:31.830 --> 02:35.150
+to true, by default right at the start it will not be set,
+
+02:35.170 --> 02:41.770
+so the value will be undefined which is treated as false and that is the information I need. Now to validate
+
+02:41.770 --> 02:42.850
+whether that works,
+
+02:42.850 --> 02:47.570
+let's actually go to our views and there in the navigation.ejs,
+
+02:47.590 --> 02:53.380
+I commented out two routes for which we could say we need the user to be authenticated,
+
+02:53.620 --> 02:58.430
+let's comment them in but only render them if the user is authenticated.
+
+02:58.780 --> 03:00.780
+So how would we go about that?
+
+03:01.790 --> 03:09.590
+Well we could use ejs for that of course and we can check if, let's say we expect to get some isAuthenticated
+
+03:10.700 --> 03:11.700
+value here,
+
+03:11.720 --> 03:18.980
+so if isAuthenticated then we'll do something, we'll render this part here and otherwise this will
+
+03:18.980 --> 03:21.820
+not be rendered because we don't make it into that if block.
+
+03:22.190 --> 03:26.530
+So if I do it like this and I reload this page, I get an error
+
+03:26.540 --> 03:27.030
+that
+
+03:27.070 --> 03:29.590
+isAuthenticated is not defined
+
+03:29.600 --> 03:34.760
+because we're not always rendering this to our different views.
+
+03:34.760 --> 03:41.220
+So what we actually need to do since the authentication is part of every page, for every render call here,
+
+03:41.390 --> 03:46.550
+we need to pass the information whether the user is authenticated or not
+
+03:46.550 --> 03:53.000
+and for that I'll access request is authenticated because that is exactly or is logged in, excuse me is
+
+03:53.000 --> 03:56.560
+logged in because that is the field we're storing that information.
+
+03:56.570 --> 04:03.080
+So I'll access request is logged in because that is what I will set to true when we do login,
+
+04:03.080 --> 04:08.510
+so I'll add isAuthenticated and store that value to every render call here.
+
+04:09.730 --> 04:13.550
+Here and here for get add product,
+
+04:13.850 --> 04:22.160
+also on the error page here like this and also in shop.ejs of course for all our routes here like this
+
+04:22.160 --> 04:32.670
+one, basically every time when we call render, in all these cases I will add my isAuthenticated information.
+
+04:34.290 --> 04:40.830
+So now that I added it to all routes and I saved all files, if I reload I still fail because I obviously
+
+04:40.830 --> 04:45.890
+also need to render, I need to add it to auth.js, to my render route there,
+
+04:46.080 --> 04:54.660
+so now if I reload, this works and we are missing these two fields. If I login, we are still missing them
+
+04:54.660 --> 04:55.140
+though
+
+04:55.290 --> 04:56.400
+and why is that,
+
+04:56.400 --> 04:58.330
+do you know why this does not work?
+
+04:58.410 --> 05:03.270
+Even though I am storing the information that I am logged in, in is logged in
+
+05:03.300 --> 05:09.510
+when we click that button, I'm storing it in my request and then I use that information in the request on every
+
+05:09.750 --> 05:17.640
+other route I handle and I pass it into isAuthenticated which is the field which I'm using in my frontend,
+
+05:17.670 --> 05:19.080
+in my navigation, there
+
+05:19.080 --> 05:25.930
+I am checking for isAuthenticated and that is what I am passing to that frontend in my render calls
+
+05:25.980 --> 05:27.860
+here.
+
+05:28.030 --> 05:35.080
+Well the problem of course is yes I update is logged in here in the request and what happens to the
+
+05:35.080 --> 05:37.060
+request once I send a response
+
+05:37.060 --> 05:39.680
+and we do send a response by redirecting?
+
+05:40.060 --> 05:43.320
+Well the request is dead, it's done. With a response,
+
+05:43.330 --> 05:47.740
+we basically finished a request, we got a request and we sent a response,
+
+05:47.830 --> 05:48.700
+we're done.
+
+05:48.700 --> 05:51.500
+This data does not stick around,
+
+05:51.520 --> 05:55.810
+this data is lost after the request or after we send the response.
+
+05:56.140 --> 06:02.770
+So whenever we visit a different page, like here where we do get redirected, so we get redirected here
+
+06:02.920 --> 06:09.240
+and we reach our get index action here in the end and there, we do render the shop index page
+
+06:09.280 --> 06:10.690
+but this is a brand
+
+06:10.720 --> 06:18.490
+new request, the redirection creates a brand new request and this is super important to understand. We're
+
+06:18.490 --> 06:25.270
+working with totally separate requests and that is important because your application, your page will
+
+06:25.270 --> 06:31.960
+have hundreds of users and obviously the requests of all these users are not related to each other
+
+06:32.140 --> 06:37.550
+otherwise they could maybe look into data that they shouldn't see and even the requests of a single user,
+
+06:37.660 --> 06:44.680
+so requests made from the same IP address are treated as totally independent requests.
+
+06:44.740 --> 06:48.690
+They are not seen in a bigger context or anything like that
+
+06:48.760 --> 06:49.920
+and this is a good thing,
+
+06:49.930 --> 06:57.670
+this is deliberately designed that way and therefore any data we store here can be used as long as we are
+
+06:57.670 --> 06:59.620
+working on the same request.
+
+06:59.620 --> 07:05.530
+That is why when we retrieve the user in app.js here and I store it in the request, that is why
+
+07:05.530 --> 07:11.950
+we still can use that request user in all our action controllers because they can again at a later point
+
+07:11.950 --> 07:12.590
+of time,
+
+07:12.650 --> 07:17.420
+this middleware runs on every incoming request before our routes handle it.
+
+07:17.470 --> 07:24.460
+So the data we store here is used in the same request cycle, in our route handlers in our controllers
+
+07:24.550 --> 07:31.120
+but if I do change the request at the end of its lifetime, like here, right before I send the response,
+
+07:31.510 --> 07:33.280
+this data will not be useful to us,
+
+07:33.350 --> 07:35.390
+it's really important to understand this.
+
+07:35.410 --> 07:38.320
+So let's now see how we could solve this in a better way.

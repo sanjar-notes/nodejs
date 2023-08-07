@@ -1,0 +1,76 @@
+WEBVTT
+
+00:02.120 --> 00:09.470
+Let's complete the crud operations by ensuring that we cannot just find all products and add them and find
+
+00:09.470 --> 00:14.400
+a single one but that we can also edit and delete our products
+
+00:14.630 --> 00:19.370
+and that is of course something which would happen in the admin area and therefore, we need to work on
+
+00:19.370 --> 00:21.590
+the admin side again. For that
+
+00:21.590 --> 00:27.800
+first of all make sure that our admin page here where we list all products works again, feel free to
+
+00:27.800 --> 00:35.770
+pause the video here to try this on your own before we will implement it together. Were you successful?
+
+00:36.060 --> 00:37.480
+Well let's do it together.
+
+00:37.500 --> 00:45.630
+First of all in the admin routes, I want to comment in my get route here again so that we are again able
+
+00:45.630 --> 00:49.390
+to get all products onto our admin overview page.
+
+00:49.620 --> 00:55.110
+Now here we use admin control in get products to fetch and render all products,
+
+00:55.140 --> 01:03.540
+so if we go to the admin controller here, I of course need to re-add that get products function by simply
+
+01:03.540 --> 01:10.930
+commenting it in again. In there I use request user get products and this will not work anymore,
+
+01:11.090 --> 01:20.720
+so instead let me here simply use my product model and then use fetch all and this also returns a
+
+01:20.720 --> 01:23.430
+promise so we can still use then on it
+
+01:23.480 --> 01:29.270
+and we should still get all products but now through our own modified model.
+
+01:29.330 --> 01:33.970
+So if I now reload this admin products page here,
+
+01:34.520 --> 01:38.690
+I see all the products and now we can try editing and deleting them.
+
+01:38.960 --> 01:44.870
+Now for that, first of all we need to go back to our views and adjust them to take account of the new
+
+01:45.080 --> 01:46.290
+ID format,
+
+01:46.520 --> 01:52.400
+so here in products.ejs in the admin folder in the views folder, in there
+
+01:52.880 --> 01:59.720
+whenever we reference the product ID like we do here, it's products._id, the same here, product.
+
+02:00.200 --> 02:04.190
+_id, that is really important.
+
+02:04.190 --> 02:11.910
+Now with that in place, if we reload that page, our edit and our delete button should work again and should
+
+02:11.910 --> 02:15.660
+make sure that we edit or delete the right product.
+
+02:15.660 --> 02:19.210
+So let's work on editing the product in the next lecture.

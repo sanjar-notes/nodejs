@@ -1,0 +1,175 @@
+WEBVTT
+
+00:02.650 --> 00:07.110
+So what is wrong with this write file sync line here?
+
+00:07.630 --> 00:09.600
+Well it's the sync keyword.
+
+00:09.700 --> 00:18.010
+I earlier mentioned that there also is a write file method but we use write file sync, the sync here
+
+00:18.070 --> 00:26.680
+stands for synchronous and this is a special method which will actually block code execution until this
+
+00:26.680 --> 00:28.990
+file is created.
+
+00:28.990 --> 00:33.130
+Now working with files is available in two modes,
+
+00:33.190 --> 00:40.450
+here is the synchronous mode and we block execution of the next line of code until this file is done.
+
+00:40.450 --> 00:46.140
+Now for this short of a text we enter, this is super fast and we won't even notice it
+
+00:46.420 --> 00:53.770
+but think about a huge file, a couple of hundreds of megabytes or even bigger, if you do something with
+
+00:53.770 --> 00:54.320
+that,
+
+00:54.370 --> 00:59.800
+read it, copy it, whatever it is and you block the code execution,
+
+01:00.130 --> 01:06.570
+then the next line and all the other code will not continue to run until that file operation is done
+
+01:06.880 --> 01:14.150
+and even new incoming requests of other users would not be handled until that file operation is done
+
+01:14.530 --> 01:19.500
+and you don't want that, therefore you should not use that syntax here.
+
+01:19.630 --> 01:26.140
+You can if you know you'll only have a very short file operation but even then, it's better to use this
+
+01:26.140 --> 01:34.310
+write file method here which actually does not just accept the path and the data but also a third argument
+
+01:34.720 --> 01:36.850
+and that is again such a callback,
+
+01:36.880 --> 01:41.110
+so a function that should be executed when it's done.
+
+01:41.140 --> 01:49.650
+So here again just as with create server, nodejs implicitly registers an event listener for us.
+
+01:49.670 --> 01:59.270
+So here, I pass another function and this callback here actually receives an error object which will
+
+01:59.270 --> 02:01.940
+be null if no error occurred
+
+02:01.940 --> 02:07.330
+but if some error occurred, missing permissions or anything like that, you would get it here and you could
+
+02:07.330 --> 02:14.210
+then handle it gracefully by returning a different kind of response, an error response showing to the user
+
+02:14.210 --> 02:15.420
+that an error occurred
+
+02:15.680 --> 02:18.800
+and otherwise return a normal response. Now here 
+
+02:18.830 --> 02:22.950
+I won't do error handling and there is really nothing that could go wrong here,
+
+02:22.970 --> 02:26.930
+we'll of course dive into error handling a bit more later in the course
+
+02:26.930 --> 02:34.040
+but I will move my normal response code in there because this response should only be sent if we're
+
+02:34.040 --> 02:38.600
+done working with the file because that is ultimately the action
+
+02:38.630 --> 02:41.170
+we want to do upon our request, right.
+
+02:41.690 --> 02:48.440
+So now we actually have our event listener with some method or function that will be executed once we're
+
+02:48.440 --> 02:50.300
+done parsing the request
+
+02:50.390 --> 02:53.850
+and in that function that will be executed sometime in the future,
+
+02:53.960 --> 02:59.780
+we have yet another event listener, this nested function here which will be executed once we're done
+
+02:59.780 --> 03:04.130
+writing the file and this is actually pretty standard for nodejs.
+
+03:04.170 --> 03:12.490
+You have this event driven architecture where you basically tell nodejs please do something and
+
+03:12.500 --> 03:17.990
+it will then go ahead and offload that process to the operating system which does use multi-threading
+
+03:17.990 --> 03:25.520
+and so on and will then continue its event loop to listen for event callbacks and always just dispatch
+
+03:25.850 --> 03:33.050
+tiny actions like that to never block the code execution and then always just come back once an operation
+
+03:33.050 --> 03:35.360
+is done by the operating system and so on.
+
+03:35.540 --> 03:39.750
+So this is what nodejs does here and why it is high performant
+
+03:39.830 --> 03:41.720
+because it never blocks your code,
+
+03:41.780 --> 03:43.550
+it never blocks the server,
+
+03:43.670 --> 03:49.550
+it just goes ahead and tells the operating system do that, do this and then eventually comes back and
+
+03:49.550 --> 03:55.110
+does something in the callback, like send a response which is not a blocking operation because this
+
+03:55.110 --> 03:58.770
+is super fast, just a couple of headers and off you go.
+
+03:59.210 --> 04:00.460
+So I hope this is clear
+
+04:00.500 --> 04:10.040
+and with that let's restart this by quitting the server, re-running node app and going back to just slash
+
+04:10.460 --> 04:11.010
+nothing,
+
+04:14.930 --> 04:23.770
+let's enter hello again here and send. And in message.text we see that, again concatenated with an extra
+
+04:23.770 --> 04:26.970
+character, not something we have to worry about right now.
+
+04:27.100 --> 04:29.670
+So you see write file also works
+
+04:29.680 --> 04:36.220
+but this is the way you should use it due to the asynchronous nature of nodejs which I hope now
+
+04:36.220 --> 04:43.510
+became clear because it is a crucial concept of nodejs and one you absolutely have to understand.
+
+04:43.750 --> 04:50.590
+With that, let's wrap this module up with these core basics and let's from now on to move to a more easier
+
+04:50.590 --> 04:54.370
+route where we will make our life simpler and not write
+
+04:54.400 --> 04:57.520
+all this nitty gritty detail code on our own
+
+04:57.670 --> 05:01.980
+but it is super crucial that you understand what's going on here.

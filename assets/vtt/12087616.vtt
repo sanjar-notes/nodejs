@@ -1,0 +1,160 @@
+WEBVTT
+
+00:02.350 --> 00:04.980
+We're almost done with the theory part,
+
+00:04.990 --> 00:11.530
+now there are some core principles that are indeed defined in theory and that are important for you
+
+00:11.530 --> 00:14.620
+to keep in mind where at least there are two core principles
+
+00:14.650 --> 00:21.110
+I want you to keep in mind when building rest APIs. The first one is the uniform interface principle,
+
+00:21.220 --> 00:28.780
+this simply defines that your API will have or should have clearly defined API endpoints, you remember
+
+00:28.990 --> 00:35.440
+endpoints were the combination of http methods and paths with clearly defined request and response data
+
+00:35.440 --> 00:43.150
+structures. Put in other words, your API should be predictable and if possible and if open to the public,
+
+00:43.240 --> 00:45.290
+it should also be well documented.
+
+00:45.610 --> 00:53.020
+So people should know which data does your API expect, which data does it give back, which endpoints do
+
+00:53.020 --> 00:53.790
+I have
+
+00:53.890 --> 00:59.920
+and the thing that happens when a request reaches to an endpoint should of course not change over time,
+
+00:59.930 --> 01:03.370
+it should be predictable, it should be clearly defined.
+
+01:03.430 --> 01:08.860
+The second important principle I want you to keep in mind is the stateless interactions principle
+
+01:09.100 --> 01:15.490
+and this will be super important when we later talk about authentication. When building a rest API, the
+
+01:15.490 --> 01:21.100
+server and the client are totally separated, they don't share a common history.
+
+01:21.340 --> 01:25.330
+So no connection history is stored and no sessions will be used 
+
+01:25.390 --> 01:31.770
+therefore because every incoming request is treated as if no prior requests were sent.
+
+01:31.930 --> 01:36.390
+The server has a look at every request on its own,
+
+01:36.490 --> 01:38.770
+it does not store a session for the client,
+
+01:38.770 --> 01:41.180
+it does not care about the client at all
+
+01:41.180 --> 01:44.850
+actually, that is also a cool thing about resting APIs.
+
+01:45.220 --> 01:47.000
+You can build a rest API,
+
+01:47.170 --> 01:53.050
+open it up to the public like the Google Maps API is for example and you don't care about the individual
+
+01:53.110 --> 01:53.880
+client,
+
+01:53.980 --> 01:56.960
+you just say hey here are the endpoints I have,
+
+01:56.980 --> 01:59.220
+here's the data you get back for each endpoint,
+
+01:59.280 --> 02:04.150
+here's the data I expect from you for my endpoints and then I don't care about you,
+
+02:04.330 --> 02:06.210
+I don't store a session with you.
+
+02:06.490 --> 02:10.410
+We have a strong decoupling of the client and the server
+
+02:10.570 --> 02:16.720
+even if they were to run on the same server because we're building our own API for our own frontend.
+
+02:16.930 --> 02:23.590
+We still would decouple both so that they work independently and just exchange data.
+
+02:23.590 --> 02:30.460
+This means that every time we set up a new endpoint, we have to make sure that it works independent from
+
+02:30.460 --> 02:32.000
+prior requests
+
+02:32.140 --> 02:38.350
+and a typical problem here is authentication where once we logged in, future requests should be treated
+
+02:38.350 --> 02:39.460
+as logged in
+
+02:39.460 --> 02:43.510
+and I will show you how to solve this in this course too of course.
+
+02:43.510 --> 02:50.860
+Now other principles which are less important or which you don't need to learn by heart is the cachable principle
+
+02:50.890 --> 02:56.960
+which means on your rest API, you could send back some headers that tell the client how long the response
+
+02:56.960 --> 03:04.870
+is valid so that the client may cache the response. Client server separation is mentioned again, here
+
+03:04.900 --> 03:11.620
+it's more thinking about the data storage, client and server are decoupled as I said and the client should
+
+03:11.620 --> 03:13.900
+not worry about persistent data storage
+
+03:13.900 --> 03:16.890
+therefore, the server will be responsible for this.
+
+03:17.020 --> 03:23.500
+We may have a layered system which simply means as a client when we send a request to an API, we can't
+
+03:23.500 --> 03:24.840
+rely on that server
+
+03:24.850 --> 03:31.160
+we sent it to you immediately handling the request, the server might instead forward the request or distribute
+
+03:31.160 --> 03:33.100
+it to another server,
+
+03:33.100 --> 03:38.440
+Uultimately we only care about the data we get back which should of course follow the structure that
+
+03:38.440 --> 03:43.570
+was defined by the API. Code on demand is a last optional principle
+
+03:43.660 --> 03:45.770
+and this basically just means the rest
+
+03:45.850 --> 03:51.240
+API could also for some endpoints transfer executable code to the client.
+
+03:51.340 --> 03:57.880
+Now to be honest, in reality you don't see that too often, we're mostly talking about well normal data
+
+03:57.880 --> 04:03.850
+we're using but still, these are the rest principles, the top two ones are the important ones which will
+
+04:03.850 --> 04:07.400
+have great implications especially on authentication.

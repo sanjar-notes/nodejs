@@ -1,0 +1,454 @@
+WEBVTT
+
+1
+00:00:02.300 --> 00:00:05.080
+<v Instructor>So, time for the final two methods.</v>
+
+2
+00:00:05.080 --> 00:00:06.980
+Let's start with updating.
+
+3
+00:00:06.980 --> 00:00:09.210
+Here, we're extracting our todoId
+
+4
+00:00:09.210 --> 00:00:11.180
+and data from the request body.
+
+5
+00:00:11.180 --> 00:00:14.280
+And, previously, we then updated a todo locally
+
+6
+00:00:14.280 --> 00:00:15.603
+in our todos array.
+
+7
+00:00:16.890 --> 00:00:18.780
+Now, we're working with a database now,
+
+8
+00:00:18.780 --> 00:00:21.500
+so, of course, the idea is that we replace that logic
+
+9
+00:00:21.500 --> 00:00:22.810
+with a new logic.
+
+10
+00:00:22.810 --> 00:00:24.850
+So, let's delete that code here.
+
+11
+00:00:24.850 --> 00:00:27.530
+And now, before we send back a response,
+
+12
+00:00:27.530 --> 00:00:30.410
+let's get access to our Db with getDb.
+
+13
+00:00:30.410 --> 00:00:32.580
+Let's connect to the todos collection.
+
+14
+00:00:32.580 --> 00:00:35.030
+The same collection we used for storing todos
+
+15
+00:00:35.030 --> 00:00:36.180
+and for fetching todos.
+
+16
+00:00:37.170 --> 00:00:40.690
+And, on that collection, with MongoDB,
+
+17
+00:00:40.690 --> 00:00:44.070
+we can execute a updateOne method.
+
+18
+00:00:44.070 --> 00:00:46.480
+And this method does what the name implies.
+
+19
+00:00:46.480 --> 00:00:49.700
+It updates one document.
+
+20
+00:00:49.700 --> 00:00:52.670
+Now, updateOne takes two arguments.
+
+21
+00:00:52.670 --> 00:00:55.450
+The first argument is a filter
+
+22
+00:00:55.450 --> 00:00:58.100
+that allows us to find that one document
+
+23
+00:00:58.100 --> 00:01:00.800
+which we wanna update, and the second argument
+
+24
+00:01:00.800 --> 00:01:03.480
+will then be our update instructions.
+
+25
+00:01:03.480 --> 00:01:05.440
+So, let's start with the first argument.
+
+26
+00:01:05.440 --> 00:01:07.260
+You should pass an object here,
+
+27
+00:01:07.260 --> 00:01:11.100
+and then you can define a key, for example, the id,
+
+28
+00:01:11.100 --> 00:01:14.460
+and then the value that key should have in the database
+
+29
+00:01:14.460 --> 00:01:18.060
+to identify this document which you wanna update.
+
+30
+00:01:18.060 --> 00:01:21.000
+So, here, of course, I wanna use the id I got here.
+
+31
+00:01:21.000 --> 00:01:23.820
+However, this will be an id as a string,
+
+32
+00:01:23.820 --> 00:01:28.500
+and MongoDB uses this ObjectId thing internally.
+
+33
+00:01:28.500 --> 00:01:30.090
+Thankfully, converting a string
+
+34
+00:01:30.090 --> 00:01:33.050
+to such an ObjectId object is simple.
+
+35
+00:01:33.050 --> 00:01:36.960
+We just use ObjectId, what we're importing
+
+36
+00:01:36.960 --> 00:01:39.310
+from the Mongo module here.
+
+37
+00:01:39.310 --> 00:01:43.330
+We're just using this as a function,
+
+38
+00:01:43.330 --> 00:01:45.970
+and we pass our string id to it,
+
+39
+00:01:45.970 --> 00:01:48.093
+and this will convert it to an object.
+
+40
+00:01:49.460 --> 00:01:51.580
+Now, we'll also need to change one thing.
+
+41
+00:01:51.580 --> 00:01:54.700
+ObjectId always wants a string,
+
+42
+00:01:54.700 --> 00:01:58.560
+and this tid could actually be undefined,
+
+43
+00:01:58.560 --> 00:02:00.040
+as you see here in the tooltip.
+
+44
+00:02:00.040 --> 00:02:02.310
+The reason for that is that TypeScript doesn't know
+
+45
+00:02:02.310 --> 00:02:05.770
+with certainty whether we'll be able to find a todoId
+
+46
+00:02:05.770 --> 00:02:06.970
+in the params.
+
+47
+00:02:06.970 --> 00:02:08.250
+Well, since we wrote this code,
+
+48
+00:02:08.250 --> 00:02:10.380
+we, of course, know there will be a todoId
+
+49
+00:02:10.380 --> 00:02:11.803
+if this route is reached,
+
+50
+00:02:12.790 --> 00:02:15.920
+and, in TypeScript, we can add a exclamation mark here
+
+51
+00:02:15.920 --> 00:02:19.420
+to really make this clear that this will never be undefined.
+
+52
+00:02:19.420 --> 00:02:22.050
+That this will always be a string, therefore.
+
+53
+00:02:22.050 --> 00:02:24.520
+That's a tiny adjustment we'll need to make here.
+
+54
+00:02:24.520 --> 00:02:27.160
+Otherwise, we'll get an error later.
+
+55
+00:02:27.160 --> 00:02:28.980
+With that, we can add the second argument,
+
+56
+00:02:28.980 --> 00:02:31.350
+which are our update instructions.
+
+57
+00:02:31.350 --> 00:02:34.980
+And here, we can use a MongoDB specific syntax,
+
+58
+00:02:34.980 --> 00:02:36.610
+and you can learn more about MongoDB
+
+59
+00:02:36.610 --> 00:02:38.570
+in my MongoDB course by the way,
+
+60
+00:02:38.570 --> 00:02:41.450
+and that syntax is $set,
+
+61
+00:02:41.450 --> 00:02:44.110
+and then we define the key value pairs
+
+62
+00:02:44.110 --> 00:02:47.090
+where we wanna set a new value.
+
+63
+00:02:47.090 --> 00:02:50.653
+And here, at the end, I want to set text to a new value,
+
+64
+00:02:51.840 --> 00:02:55.160
+and I want to set it to data.value.text,
+
+65
+00:02:55.160 --> 00:02:58.513
+so to the text I have on the incoming request body.
+
+66
+00:03:00.580 --> 00:03:03.400
+That's the code we use to tell MongoDB
+
+67
+00:03:03.400 --> 00:03:05.980
+to update a document accordingly.
+
+68
+00:03:05.980 --> 00:03:08.820
+And now, just like the other MongoDB operations,
+
+69
+00:03:08.820 --> 00:03:11.730
+this returns a promise, so we can await this.
+
+70
+00:03:11.730 --> 00:03:14.680
+Here, I'm not even interested in the result of that
+
+71
+00:03:14.680 --> 00:03:18.193
+because I, thereafter, just set back a response like this.
+
+72
+00:03:19.440 --> 00:03:22.910
+Now, for deleting, it's quite similar to updating.
+
+73
+00:03:22.910 --> 00:03:27.250
+Here, we can replace this code, call getDb,
+
+74
+00:03:27.250 --> 00:03:30.850
+and then reach out to our todos collection.
+
+75
+00:03:30.850 --> 00:03:34.090
+And there, we now have a deleteOne method,
+
+76
+00:03:34.090 --> 00:03:36.370
+which deletes one document,
+
+77
+00:03:36.370 --> 00:03:40.020
+and just like updating, this needs an identifier.
+
+78
+00:03:40.020 --> 00:03:43.900
+It needs a description of how to find that one document.
+
+79
+00:03:43.900 --> 00:03:46.800
+For that, we can copy the exact same logic
+
+80
+00:03:46.800 --> 00:03:50.200
+as we're using it on updateOne for the first argument,
+
+81
+00:03:50.200 --> 00:03:52.580
+and copy that into deleteOne.
+
+82
+00:03:52.580 --> 00:03:55.310
+And now, here's the error I talked about earlier
+
+83
+00:03:55.310 --> 00:03:58.780
+about this tid potentially being undefined
+
+84
+00:03:58.780 --> 00:04:01.270
+and TypeScript not liking that.
+
+85
+00:04:01.270 --> 00:04:03.500
+And, again, as before, we know with certainty
+
+86
+00:04:03.500 --> 00:04:05.390
+that this will never be undefined,
+
+87
+00:04:05.390 --> 00:04:07.210
+that this will always be a string,
+
+88
+00:04:07.210 --> 00:04:10.200
+so we can add the exclamation mark here to make this clear,
+
+89
+00:04:10.200 --> 00:04:11.910
+and, with that, the error is gone,
+
+90
+00:04:11.910 --> 00:04:15.350
+and this will now delete one document.
+
+91
+00:04:15.350 --> 00:04:17.080
+I also want to await that,
+
+92
+00:04:17.080 --> 00:04:19.320
+and, for this, we need to convert this
+
+93
+00:04:19.320 --> 00:04:23.053
+into a async function, and I then return this response.
+
+94
+00:04:24.080 --> 00:04:27.220
+So, now, we got all that logic implemented.
+
+95
+00:04:27.220 --> 00:04:31.110
+That means that we can now got rid of that todos array here.
+
+96
+00:04:31.110 --> 00:04:33.340
+And if we now save all of that,
+
+97
+00:04:33.340 --> 00:04:37.420
+and we rerun this back-end application,
+
+98
+00:04:37.420 --> 00:04:39.330
+we should have an app where we can reload it,
+
+99
+00:04:39.330 --> 00:04:41.540
+and we still fetch the todos.
+
+100
+00:04:41.540 --> 00:04:45.190
+If I edit a todo, you see that's being updated here.
+
+101
+00:04:45.190 --> 00:04:47.650
+And if I reload, that still is there,
+
+102
+00:04:47.650 --> 00:04:50.150
+which means it was stored in a database.
+
+103
+00:04:50.150 --> 00:04:53.180
+And if I delete this, it's also gone now.
+
+104
+00:04:53.180 --> 00:04:55.110
+Now, of course, you could add a loading spinner here
+
+105
+00:04:55.110 --> 00:04:56.130
+on the front it ends on,
+
+106
+00:04:56.130 --> 00:04:57.780
+but this is not about the front-end.
+
+107
+00:04:57.780 --> 00:04:59.660
+It's about the back-end.
+
+108
+00:04:59.660 --> 00:05:03.980
+And if I restart the app, the data is still gone.
+
+109
+00:05:03.980 --> 00:05:08.587
+If I add a todo again, and then edit it like this,
+
+110
+00:05:11.120 --> 00:05:13.880
+and I then restart, the data is still there,
+
+111
+00:05:13.880 --> 00:05:17.920
+which proves that it really is stored in a database.
+
+112
+00:05:17.920 --> 00:05:22.020
+So, that's Deno, and how we can connect to a database
+
+113
+00:05:22.020 --> 00:05:26.743
+like MongoDB with help of the Mongo third-party module.
+

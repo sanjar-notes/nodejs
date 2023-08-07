@@ -1,0 +1,298 @@
+WEBVTT
+
+00:02.280 --> 00:09.230
+In our course project on the admin products page where we can delete products, I want to implement this
+
+00:09.260 --> 00:10.880
+delete function differently.
+
+00:10.880 --> 00:16.580
+Right now when I would click delete, I would simply well delete that, send that request to the server
+
+00:16.880 --> 00:19.400
+and get back a new version of that page
+
+00:19.400 --> 00:22.540
+essentially where this product is then missing
+
+00:22.620 --> 00:27.590
+and we can see that of course on our server side. If we have a look at our admin controller and we have
+
+00:27.590 --> 00:31.690
+a look at the post delete product action, this action here,
+
+00:31.700 --> 00:37.760
+then we see that we, well we also extract some incoming data of course and then we work with the data
+
+00:37.790 --> 00:42.210
+to delete the image belonging to that product and then the product itself
+
+00:42.320 --> 00:48.370
+and by the end, we redirect back to admin products which is a route which will return a new html page.
+
+00:48.410 --> 00:53.930
+Now don't get me wrong, there is nothing wrong with this set up and you can absolutely use it but maybe
+
+00:53.930 --> 00:58.580
+it would be a great user experience if we would never have to leave that page, if we wouldn't reload
+
+00:58.580 --> 00:59.240
+that page
+
+00:59.240 --> 01:04.820
+but if we click delete, we send that information that we want to get rid of that item to the server behind
+
+01:04.820 --> 01:10.940
+the scenes, the server can then still do its thing and once we're done, the server will respond just with
+
+01:10.940 --> 01:12.070
+some json data,
+
+01:12.080 --> 01:14.550
+so some success message or anything like that
+
+01:14.660 --> 01:22.940
+and once we get that message in our browser, we can delete this dom element, so we can delete this article
+
+01:22.940 --> 01:24.220
+here.
+
+01:24.300 --> 01:27.070
+We could do all that with client side javascript,
+
+01:27.090 --> 01:31.420
+so with javascript running in the browser and some help by our server side here
+
+01:31.620 --> 01:38.700
+and that is a so-called asynchronous javascript request or this will use so-called asynchronous javascript
+
+01:38.700 --> 01:39.920
+requests.
+
+01:39.930 --> 01:46.530
+Now the logic on the server won't change too much but the way we expose our route changes a little bit and we'll have
+
+01:46.530 --> 01:49.250
+to add some logic on our client side,
+
+01:49.280 --> 01:51.600
+so let's do that now. And for that, I'll
+
+01:51.600 --> 01:58.470
+first of all go to my public.js folder and I'll create a new file there, the admin.js file,
+
+01:58.480 --> 02:00.200
+now you can name it however you want.
+
+02:00.200 --> 02:00.910
+Important,
+
+02:00.960 --> 02:06.440
+this is javascript code that will now not run on the server but that will run in the client,
+
+02:06.440 --> 02:14.240
+so in the browser. I will import this javascript file into my products page here.
+
+02:14.240 --> 02:22.780
+So there let's say below the bottom here, below our footer, I will import a script with script source
+
+02:23.680 --> 02:25.900
+and you have to close the script tag like this
+
+02:26.020 --> 02:30.470
+and then I will import js admin.js.
+
+02:30.520 --> 02:36.340
+So I will import that javascript file from the js folder which is in a public folder which is served
+
+02:36.400 --> 02:38.030
+statically.
+
+02:38.050 --> 02:44.590
+Now this script will execute on this products.ejs file and if we load it at the end of this file, we make
+
+02:44.590 --> 02:50.530
+sure that the entire dom has been rendered and parsed by the time we execute our javascript code.
+
+02:50.620 --> 02:53.500
+So now we can go back to admin.js and add some logic in there,
+
+02:53.650 --> 02:55.440
+now which logic do I want to add?
+
+02:55.750 --> 03:04.300
+Well I want to react to a click on this delete button here and therefore first of all, this button should
+
+03:04.300 --> 03:06.100
+not be of type submit anymore,
+
+03:06.220 --> 03:08.350
+i should be of type button instead.
+
+03:09.210 --> 03:16.110
+Actually I will remove this entire form because this form was required for sending a request through the
+
+03:16.110 --> 03:21.900
+browser, sending a request with this xwww url form encoded data.
+
+03:22.140 --> 03:24.310
+Now I'll not do it like this anymore,
+
+03:24.360 --> 03:26.200
+I will get rid of that instead
+
+03:28.010 --> 03:32.130
+and instead, I will now gather that data here manually.
+
+03:32.220 --> 03:38.520
+So I will listen to a click to that button and then I will gather the product ID and the csrf token manually
+
+03:38.600 --> 03:42.320
+through the help of my client side javascript.
+
+03:42.350 --> 03:49.670
+Now with the form removed, I'll go back to admin.js and here, I now want to get access to all these delete
+
+03:49.670 --> 03:50.390
+buttons,
+
+03:50.550 --> 03:55.060
+listen to a click on them and then do something when they get clicked.
+
+03:55.070 --> 03:58.460
+Now for that, I'll define a function, admin.js
+
+04:01.340 --> 04:03.810
+delete product,
+
+04:04.030 --> 04:07.360
+here I'm using next gen code but this is code that will run in the browser,
+
+04:07.370 --> 04:13.010
+all modern browsers support the syntax but of course if browser side javascript is new for you, you should
+
+04:13.010 --> 04:18.640
+take a dedicated course on that, this course will not focus on that but here I'll have a function where for
+
+04:18.640 --> 04:22.050
+now, I will simply execute clicked.
+
+04:22.190 --> 04:26.720
+Now this delete product function is a function I can use from inside my
+
+04:26.900 --> 04:30.230
+ejs and therefore html file, on that button
+
+04:30.410 --> 04:40.220
+I can add onClick and simply say delete product, so this function here, delete product like this, execute
+
+04:40.220 --> 04:45.890
+that function when we click on that button. If we now save that and we reload this page here and
+
+04:45.890 --> 04:51.190
+I open the browser developer tools, if I click on delete, you should see clicked here.
+
+04:51.230 --> 04:55.140
+Now it's not deleteing the product anymore because we deleted that form, right.
+
+04:55.190 --> 04:57.850
+So now I'm reacting to a click
+
+04:58.070 --> 05:05.310
+and now the next thing will be that we have to find out which ID and csrf token we have. For that back
+
+05:05.310 --> 05:10.650
+in the admin.js file, when we click I want to get access to the field next to the button,
+
+05:10.770 --> 05:16.050
+I want to get access to the csrf token and as I mentioned, to the product ID.
+
+05:16.290 --> 05:19.200
+Now how do I get access to the surrounding elements?
+
+05:19.200 --> 05:23.300
+Well in products.ejs, we can pass this to delete product.
+
+05:23.310 --> 05:24.850
+This is a special keyword
+
+05:24.900 --> 05:28.320
+and in the context here, it will refer to the element on which we clicked,
+
+05:28.320 --> 05:35.310
+so to the button. Now since I get this, in admin.ejs, I can access to the button since I now receive this
+
+05:35.310 --> 05:41.790
+as an argument and I can prove to you that this is the button by simply logging it.
+
+05:41.900 --> 05:47.210
+If we reload the page and I click delete, we see the button being logged here and here it would be that
+
+05:47.210 --> 05:47.860
+button.
+
+05:48.170 --> 05:49.670
+So now we have access to the button
+
+05:49.750 --> 05:53.090
+and with that we can easily get access to the surrounding inputs.
+
+05:53.090 --> 05:59.820
+I can simply access the parent node of my button which will simply be, well the element around my button,
+
+05:59.820 --> 06:07.130
+so in this case this div here and I can find my inputs in there, the input with the name product ID and
+
+06:07.130 --> 06:14.760
+the input with the name csrf, _csrf. I can do so by using the query selector on the parent
+
+06:14.790 --> 06:23.500
+node and here, I'll use the attribute selector to find name equal product ID.
+
+06:23.500 --> 06:30.550
+Now let me log this to the console to see if it works.
+
+06:30.660 --> 06:33.580
+If I now reload my page and I go to the console log,
+
+06:33.840 --> 06:37.080
+now I get that input ID being logged, that hidden input ID.
+
+06:37.080 --> 06:43.680
+Now from that input, I can of course also extract the value which is then just the product ID itself
+
+06:43.680 --> 06:45.330
+and not the entire dom element.
+
+06:45.330 --> 06:47.090
+So with .value added,
+
+06:47.220 --> 06:51.040
+now I just get the ID and for the other product, I get well
+
+06:51.060 --> 06:51.870
+the other ID.
+
+06:52.110 --> 06:53.960
+So now I have a way of getting that,
+
+06:54.060 --> 06:56.620
+let's store that, prod
+
+06:56.650 --> 07:03.170
+ID in a constant and then let me also store the csrf token
+
+07:03.270 --> 07:11.040
+and here I will simply repeat that code, access the element with a name of _csrf and extract
+
+07:11.040 --> 07:11.990
+the value.
+
+07:12.060 --> 07:17.790
+And now with these two pieces of information, we can now send our asynchronous requests to the server,
+
+07:18.000 --> 07:20.710
+for that of course, we need a fitting route and so on.
+
+07:20.730 --> 07:21.870
+So let's work on that next.

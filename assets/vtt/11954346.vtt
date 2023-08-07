@@ -1,0 +1,91 @@
+WEBVTT
+
+00:02.280 --> 00:09.970
+So let's dive back into our project and make sure you are logged out and make sure you download the attached
+
+00:09.970 --> 00:16.410
+snapshot because there I did add a sign up link to our navigation bar and if we click on that,
+
+00:16.450 --> 00:21.610
+we also load a sign up page where we should edit the caption of the button by the way.
+
+00:21.670 --> 00:27.020
+So if you download the attached code, what was added and you can also add this to your own project.
+
+00:27.160 --> 00:33.730
+I did add the sign up.ejs file where I also should change this to sign up, so you can simply add that file
+
+00:33.730 --> 00:35.700
+to your auth folder.
+
+00:35.800 --> 00:43.150
+I did manipulate or change the navigation.ejs file, there what I did add is I simply added the sign
+
+00:43.150 --> 00:45.610
+up navigation menu entry
+
+00:45.640 --> 00:51.130
+after login, both for the normal menu and also for the mobile menu down there,
+
+00:51.130 --> 00:54.230
+so basically one list item was added to each menu,
+
+00:54.640 --> 00:56.460
+this is what I added in this file.
+
+00:56.740 --> 01:02.980
+And then I worked on my routes, there I added two new routes, posts sign up and get sign up where I use
+
+01:02.980 --> 01:06.610
+my auth controller get sign up and post sign up actions
+
+01:06.790 --> 01:09.830
+and in that controller, I worked on these actions.
+
+01:09.880 --> 01:13.300
+I added posts sign up which is an empty placeholder, nothing in there,
+
+01:13.510 --> 01:18.370
+so that is not that difficult, get sign up also is is a pretty simple route, there
+
+01:18.400 --> 01:20.010
+I simply render the auth
+
+01:20.050 --> 01:26.170
+sign up view. So you can just add this to your existing project or use my attached snapshot and replace
+
+01:26.170 --> 01:29.210
+my mongodb url with yours
+
+01:29.230 --> 01:34.820
+and once you got all that, you should be able to have a running application that looks like this with
+
+01:34.820 --> 01:40.950
+a sign up page that looks like this because now we will use or we will need a way of signing up users.
+
+01:41.000 --> 01:45.530
+So let's now start implementing the full authentication flow in this module
+
+01:45.550 --> 01:51.260
+and for that, we'll first of all make sure that we can create new users, then that we can sign users in and
+
+01:51.260 --> 01:57.190
+sign users out of course, that we can then use the information whether a user is signed
+
+01:57.200 --> 02:03.380
+in or signed out in all our views and that we can protect our routes on the server side too because
+
+02:03.380 --> 02:09.650
+right now even if I'm not signed in, what I can do is I can manually visit admin add product and this
+
+02:09.650 --> 02:10.310
+works.
+
+02:10.460 --> 02:15.680
+So I can't get there by menu because we hide the menu options but manually visiting this works
+
+02:15.680 --> 02:18.660
+and this is also something we'll work on in this module.
+
+02:18.740 --> 02:23.620
+So let's get there step by step and let's start by adding user sign up in the next lecture.

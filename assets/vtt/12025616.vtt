@@ -1,0 +1,142 @@
+WEBVTT
+
+00:02.360 --> 00:04.640
+We added the isEmail validator.
+
+00:04.640 --> 00:10.490
+Now there are way more built-in validators available from which you can choose and you'll find them
+
+00:10.490 --> 00:16.070
+when you visit the express validator page because there if you check the official docs to which this
+
+00:16.070 --> 00:23.930
+link points, you'll see that in the end it's a wrapper around the validator js validator,
+
+00:23.940 --> 00:30.360
+so that's another package that was implicitly installed with express validator. And here on the docs
+
+00:30.360 --> 00:34.280
+of validator js which is a different package which was installed,
+
+00:34.440 --> 00:40.380
+you'll find all the built-in validators and what they do and how you might configure them if possible
+
+00:40.380 --> 00:42.720
+and you see this is the one we're using, isEmail,
+
+00:42.720 --> 00:44.220
+this is what I'm using here,
+
+00:44.250 --> 00:50.670
+we could configure it to change different e-mail formats we want accept or not accept,
+
+00:50.670 --> 00:52.450
+we can check for emptiness,
+
+00:52.560 --> 00:57.460
+we can check whether something is a full domain or a full
+
+00:57.660 --> 00:58.430
+url,
+
+00:58.590 --> 01:05.010
+we got all kinds of things. We can check if a value is in a certain array of possible allowed values,
+
+01:05.310 --> 01:09.130
+if we have a certain length will be important for the password
+
+01:09.330 --> 01:11.030
+and so much more.
+
+01:11.190 --> 01:18.120
+So you see there are a bunch of things we can check and definitely go through this list to learn more about
+
+01:18.120 --> 01:20.100
+the built-in validators.
+
+01:20.130 --> 01:27.390
+You can also add your own validator though and to demonstrate this real quick,
+
+01:27.420 --> 01:30.800
+let's say we're not just using isEmail,
+
+01:30.960 --> 01:33.460
+I also want to make sure it's a specific e-mail
+
+01:33.480 --> 01:43.350
+I want to have. For that I can add custom here and now a validator is in the end a function like this, a
+
+01:43.350 --> 01:51.270
+function that receives the value of the field we're checking, so the value in the email field and optionally,
+
+01:51.540 --> 01:58.050
+an object from which we can extract things like the location to which this was sent, the path or the request
+
+01:58.140 --> 02:01.770
+object in case we need to extract more from the request.
+
+02:01.770 --> 02:07.620
+Now in this function, you want to throw an error when validation fails,
+
+02:07.650 --> 02:15.330
+so here we could simply check if value equals and now let's say it should be test@test.com because
+
+02:15.330 --> 02:16.500
+we don't want to allow that,
+
+02:16.500 --> 02:18.130
+that's just some dummy logic here.
+
+02:18.150 --> 02:28.900
+So if that is the case, then I'll throw an error by calling throw new error with a message of this email
+
+02:29.020 --> 02:32.650
+address is forbidden, something like that.
+
+02:32.740 --> 02:36.520
+Of course this is very arbitrary that I'm checking for exactly that e-mail address
+
+02:36.580 --> 02:42.360
+but this is how you can generally write your own validators, in case the many built-in ones don't suffice
+
+02:42.490 --> 02:43.770
+your requirements.
+
+02:43.780 --> 02:53.160
+So now if I save this, we should see that if I reload that page and I enter test@test.com, I get
+
+02:53.160 --> 02:55.010
+this email address is forbidden,
+
+02:55.200 --> 03:00.580
+if I enter test2@test.com then I get invalid value though.
+
+03:01.570 --> 03:08.070
+The reason for this invalid value here simply is that if we do succeed, we should return true,
+
+03:08.170 --> 03:09.980
+so we throw an error if we fail,
+
+03:10.030 --> 03:16.090
+we could return false to go with the default error message or we throw an error to have our own error
+
+03:16.090 --> 03:19.470
+message or we return true if it succeeded
+
+03:19.690 --> 03:25.650
+and now you will see that if I enter test2, this worked.
+
+03:25.780 --> 03:30.150
+Now this will actually be stored a bit strange in the database now because I entered a new user with
+
+03:30.340 --> 03:35.530
+invalid password, with an empty password but we didn't add any password validation yet.
+
+03:35.620 --> 03:40.410
+The key takeaway is that you saw how you can add your own validator, returning true if it's fine,
+
+03:40.540 --> 03:46.520
+returning false or throw an error if it's not and how you can use the many built-in ones
+
+03:46.600 --> 03:53.030
+and of course that you can chain them after each other to add multiple validators to one and the same field.

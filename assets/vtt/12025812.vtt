@@ -1,0 +1,88 @@
+WEBVTT
+
+00:02.230 --> 00:07.630
+That's it for this module. We had a look at the different types of errors and how to handle them. 
+
+00:07.690 --> 00:10.220
+You can differentiate between a couple of different errors,
+
+00:10.240 --> 00:15.310
+there are technical errors where you get this error object and where some place in your application
+
+00:15.310 --> 00:22.090
+throws an error with the throw keyword and you can do that on your own or some package or express or node
+
+00:22.090 --> 00:23.710
+itself does this
+
+00:23.710 --> 00:29.670
+and you can handle these errors with try catch or with then and catch in a promise for example
+
+00:29.920 --> 00:35.900
+and there are expected errors. These are errors which are not technically errors,
+
+00:35.920 --> 00:39.320
+there is no error being thrown, at least not necessarily
+
+00:39.430 --> 00:45.970
+but there you could be dealing with invalid user input and invalid email or some file access that should
+
+00:45.970 --> 00:50.620
+work most of the time but might fail occasionally. Depending on how you treat that,
+
+00:50.650 --> 00:56.500
+if you throw an error or not, you might still need try catch or then catch here as well but you could
+
+00:56.500 --> 01:00.670
+also just use an if check to see does that e-mail address exist in the database,
+
+01:00.760 --> 01:06.430
+so normally if check could do there. And if you want to throw an error or if you want to forward
+
+01:06.580 --> 01:12.010
+an error in then or catch, you learned that you can use that global express error handling middleware
+
+01:12.130 --> 01:16.170
+of which you can have multiple which are then executed step by step,
+
+01:16.180 --> 01:22.630
+you can use that and express will automatically call it whenever you next an error or you throw an error
+
+01:22.720 --> 01:24.600
+in synchronous code.
+
+01:24.640 --> 01:30.190
+We also had a brief look at status codes and it is a good practice or it is definitely something you
+
+01:30.190 --> 01:35.860
+should consider, that you set the right status codes on your responses so that you don't always return
+
+01:35.860 --> 01:40.310
+200 codes but that you instead let the browser know about certain issues
+
+01:40.540 --> 01:47.470
+and that will become more important later in the rest API section of this course when the browser gains more
+
+01:47.470 --> 01:51.560
+power, when more UI logic is executed in the browser.
+
+01:51.880 --> 01:53.570
+And you've got different types of status codes,
+
+01:53.590 --> 01:57.490
+you can have success codes, the 2x codes, redirects,
+
+01:57.490 --> 01:59.780
+client side errors and server side errors
+
+01:59.950 --> 02:07.900
+and you should look at all these codes and see which code is best set for your scenario, your use case.
+
+02:08.140 --> 02:08.710
+Important
+
+02:08.710 --> 02:14.290
+as I mentioned, when you set a status code, this does not mean that the app crashed or that the response
+
+02:14.290 --> 02:19.090
+is incomplete, it's simply an extra piece of information you pass to the browser.

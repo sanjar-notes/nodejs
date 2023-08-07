@@ -1,0 +1,73 @@
+WEBVTT
+
+00:02.130 --> 00:04.340
+Now let's see what was causing that issue
+
+00:04.420 --> 00:09.070
+and for that let's console log user cart
+
+00:09.110 --> 00:11.000
+items to see what's in there
+
+00:11.150 --> 00:21.230
+when we place an order. So if I click order now now and I increase the console, we see product ID indeed does hold a full
+
+00:21.230 --> 00:25.440
+object and not just the ID which is what gets stored though,
+
+00:25.600 --> 00:32.330
+if I refresh my orders, now I got two but both orders actually just have the product ID in there, not
+
+00:32.330 --> 00:33.500
+the full product,
+
+00:33.590 --> 00:40.810
+I want to have the full product data though. Now one thing we can do is here when I store the product
+
+00:40.810 --> 00:48.040
+ID, I can wrap that in curly braces to create a new javascript object, use the spread operator and use that
+
+00:48.040 --> 00:51.210
+not directly on the product ID but on a special field
+
+00:51.210 --> 00:57.550
+mongoose gives me, _doc. I can access this here because product ID actually will be an object
+
+00:57.550 --> 01:02.560
+with a lot of metadata attached to it even though we can't directly see that when console logging
+
+01:02.560 --> 01:03.040
+it
+
+01:03.280 --> 01:07.720
+but with .doc we get really access to just the data that's in there
+
+01:07.930 --> 01:11.270
+and then with the spread operator inside of a new object,
+
+01:11.320 --> 01:17.800
+we pull out all the data in that document we retrieved and store it in a new object which we save here as a
+
+01:17.800 --> 01:18.910
+product.
+
+01:18.910 --> 01:23.290
+And with that if we save that and we go back to the cart and I click order
+
+01:23.290 --> 01:25.320
+now, I get no error
+
+01:25.500 --> 01:35.020
+and if I go back to my compass interface and I have a look at this new order, there I see indeed I got
+
+01:35.050 --> 01:37.490
+all the product detail data in there too.
+
+01:37.810 --> 01:39.220
+So this is now working
+
+01:39.340 --> 01:45.130
+and this now allows me to store all the data I want to store with every order.
+
+01:45.130 --> 01:49.300
+Now with that being stored, of course the missing part is that we also clear the cart.

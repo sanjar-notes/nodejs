@@ -1,0 +1,211 @@
+WEBVTT
+
+00:01.980 --> 00:03.450
+So we got a token.
+
+00:03.600 --> 00:09.720
+Let's now add a form which allows the user to enter a new password.
+
+00:10.170 --> 00:15.720
+And for that I will go into my views folder again, the all folder there.
+
+00:16.710 --> 00:24.750
+New passwords or however you want to name this and they're all use my log in each s page copy all that
+
+00:24.750 --> 00:26.190
+content into here.
+
+00:27.010 --> 00:33.600
+And then let's just maybe grab our password field here, remove the email for sure.
+
+00:33.610 --> 00:35.200
+You can't add a new email.
+
+00:36.840 --> 00:40.940
+Re-enable the button to update password, you need to see a xref token.
+
+00:40.950 --> 00:44.520
+The action here should be maybe new password.
+
+00:44.520 --> 00:47.580
+Whatever you want a post request to new password.
+
+00:48.620 --> 00:52.130
+Reset password does not make any sense here, so let's remove that link.
+
+00:52.130 --> 00:55.040
+And now we got a prepared new password page.
+
+00:55.040 --> 00:56.510
+Now we want to load that.
+
+00:56.510 --> 00:59.060
+So we need a controller action.
+
+00:59.360 --> 01:07.310
+Exports get new password maybe, but we again have the free arguments we all know and love.
+
+01:08.130 --> 01:10.520
+And in there let's render a view.
+
+01:10.530 --> 01:17.340
+So I'll just copy that surrender method and I want to render my off new dash password view.
+
+01:17.490 --> 01:18.990
+Path is new.
+
+01:19.110 --> 01:19.470
+Oops.
+
+01:19.470 --> 01:20.190
+New.
+
+01:21.020 --> 01:25.520
+Passwords and here the title can be new password.
+
+01:25.550 --> 01:32.030
+I also will add my code for extracting a potential error message if I should work with one.
+
+01:32.120 --> 01:34.970
+So now I have my get new password action.
+
+01:35.450 --> 01:38.980
+Obviously, I don't just want to render that view here though.
+
+01:38.990 --> 01:45.290
+I also want to check whether I find a user for that token which I receive here, because this will be
+
+01:45.290 --> 01:49.910
+the page we load for this page where we do have a token in the URL.
+
+01:50.360 --> 01:53.360
+So let's retrieve that token, first of all.
+
+01:54.750 --> 01:58.440
+By request from request params token.
+
+01:58.440 --> 02:04.650
+Let's say we'll need to add a root later that encodes the token in a token field in our parameters.
+
+02:04.890 --> 02:09.930
+And then I'll find one user where this token fits.
+
+02:09.960 --> 02:16.500
+Now, since our tokens are generated in a random non gas able way, you can't also enter random tokens
+
+02:16.500 --> 02:18.600
+and start editing passwords of other users.
+
+02:18.600 --> 02:21.660
+And even if you could, you would not know the fitting email addresses.
+
+02:21.780 --> 02:28.740
+So here I'll find a token with the reset token field, which we added here, reset token.
+
+02:29.100 --> 02:33.720
+So I'm looking for reset token being equal to the token I have here.
+
+02:33.720 --> 02:40.230
+And we want to make sure that it's still valid from a date perspective so that the document I find does
+
+02:40.230 --> 02:45.380
+not just fulfill this criteria, but another one too.
+
+02:45.480 --> 02:56.010
+I add more criteria with comma that the reset token expiration is still well higher than the current
+
+02:56.010 --> 02:56.580
+date.
+
+02:56.670 --> 03:03.240
+For that, I can use a special operator wrapped in curly braces dollar sign GTI stands for a greater
+
+03:03.240 --> 03:06.660
+than and I can simply compare if it's greater than now.
+
+03:06.660 --> 03:13.170
+So the current date and time only if the token matches and the token expiration is still greater than
+
+03:13.170 --> 03:13.650
+now.
+
+03:13.650 --> 03:15.930
+So the token expiration is in the future.
+
+03:15.960 --> 03:19.830
+Only then I have the user I want to find.
+
+03:20.160 --> 03:23.310
+So here I'll add then and catch.
+
+03:24.170 --> 03:27.560
+Log, any errors I might be getting.
+
+03:27.560 --> 03:33.590
+And in the then block I get the user for whom we want to reset the password.
+
+03:33.890 --> 03:38.510
+So it's here inside of that then block that.
+
+03:38.510 --> 03:48.440
+I want to render my new password view and I want to pass my user ID to that view so that I can include
+
+03:48.440 --> 03:51.950
+it in the post request where we will update the password.
+
+03:51.950 --> 03:55.910
+So here I will include user ID.
+
+03:56.740 --> 04:01.990
+To string, maybe to convert it from an object ID to a real string.
+
+04:02.350 --> 04:09.820
+So now we render new password, and on the new password page I will duplicate my hidden C as our F token
+
+04:09.820 --> 04:16.870
+field because I'll also have a user ID field now which is also hidden where I output that user ID I'm
+
+04:16.870 --> 04:18.100
+passing into the view.
+
+04:18.100 --> 04:23.440
+So this input is new with that hidden user ID and it will output that user ID.
+
+04:23.470 --> 04:27.520
+We'll need that for the post request where we want to save our new password.
+
+04:28.000 --> 04:28.280
+Okay.
+
+04:28.330 --> 04:37.390
+So with that, let's go to our roots, to the off roots here and let's add a new get root here to get
+
+04:37.390 --> 04:43.930
+new password root where I will use to get new password controller action.
+
+04:44.260 --> 04:48.370
+Now, it's not just new password, by the way, or it will not be new password at all.
+
+04:48.370 --> 04:51.370
+It will be reset, but then there will be a token.
+
+04:51.370 --> 04:58.090
+So the URL is reset and then a dynamic parameter, the token parameter, and it has to be named token
+
+04:58.090 --> 05:05.950
+here because in that get new password off controller, I am looking for token in my parents.
+
+05:05.950 --> 05:08.860
+So token here which I'm looking for in request.
+
+05:08.860 --> 05:12.550
+Params means I have to name it token here as well.
+
+05:13.120 --> 05:17.050
+And with that let's go back and reload this page.
+
+05:17.410 --> 05:21.250
+And now I'm on that update password page, which is looking good.
+
+05:21.490 --> 05:25.360
+Now in the next lecture, let's add the logic to update that password.

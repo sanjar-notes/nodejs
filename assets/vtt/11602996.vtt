@@ -1,0 +1,76 @@
+WEBVTT
+
+00:02.280 --> 00:09.400
+To conclude this module, I will now simply add one additional view here in the shop and that is the orders.ejs
+
+00:09.760 --> 00:14.250
+route which is responsible for displaying orders.
+
+00:14.250 --> 00:15.230
+We don't have any yet
+
+00:15.240 --> 00:22.110
+so I will just take my cart.ejs content and put that in there so that we at least have the navigation
+
+00:22.110 --> 00:29.700
+and obviously we could then display something in-between, have some main element and say h1, nothing
+
+00:29.700 --> 00:31.860
+there but we'll work on that obviously
+
+00:32.120 --> 00:37.640
+and I want to add this in my navigation too. There I already have the cart,
+
+00:37.780 --> 00:45.810
+now next to the cart I will add one additional navigation item where I say orders and I go to
+
+00:45.810 --> 00:46.680
+/orders
+
+00:46.950 --> 00:52.310
+and the path here which I check for the active css class is /orders
+
+00:52.680 --> 01:00.930
+and now therefore in my routes here in shop.js, I want to add a new route which allows me to go to
+
+01:01.320 --> 01:07.510
+/orders and this means I need a new action in my shop.js controller, there
+
+01:07.560 --> 01:10.490
+I also want to be able to load that orders page,
+
+01:10.590 --> 01:18.720
+so I will just duplicate the get cart action your name does get orders like this and then simply return
+
+01:18.720 --> 01:20.350
+shop orders,
+
+01:20.350 --> 01:27.180
+this new view I added and then path orders and then here also your orders, like this
+
+01:27.180 --> 01:34.040
+and now we can go back to shop.js in the routes file and have get orders here. With that,
+
+01:34.170 --> 01:35.560
+this is looking good.
+
+01:35.670 --> 01:38.010
+If I save everything and I reload,
+
+01:38.220 --> 01:41.010
+I have this new menu item with nothing there yet
+
+01:41.100 --> 01:42.870
+but now we're well prepared,
+
+01:42.870 --> 01:47.970
+I will make some styling changes and provide the finished code at the beginning of next module and then
+
+01:47.970 --> 01:55.890
+we will learn how we can actually use the express router to work with dynamic data or in general, data
+
+01:55.910 --> 02:03.390
+in the url and how we can use that to retrieve specific items or interact with specific items.
+
+02:03.390 --> 02:06.520
+So for now, let's finish this module and let's move on.

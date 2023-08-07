@@ -1,0 +1,127 @@
+WEBVTT
+
+00:02.560 --> 00:04.710
+Now we worked a lot on our posts,
+
+00:04.750 --> 00:07.100
+I now want to work on my users
+
+00:07.390 --> 00:13.190
+and for that, we first of all need to add a new model in our node project.
+
+00:13.390 --> 00:21.590
+There, I'll add a user.js file where I define how a user should look like in my application.
+
+00:21.820 --> 00:28.360
+So here I'll import mongoose and of course feel free to do these steps on your own,
+
+00:28.360 --> 00:29.970
+we did them a couple of times,
+
+00:30.250 --> 00:39.990
+I will access my schema here and then I'll define my user schema with new schema here
+
+00:41.330 --> 00:50.570
+and we'll add some properties of course, by the end I'll export a mongoose model which I'll name user hence it'll
+
+00:50.610 --> 00:55.440
+get stored in a users collection which uses this user schema.
+
+00:55.440 --> 00:57.670
+Now how should a user look like?
+
+00:58.050 --> 01:04.110
+Obviously that is totally up to you, to fit my frontend, a user should have an e-mail which will be of
+
+01:04.110 --> 01:09.200
+type string and which is required, a user
+
+01:09.200 --> 01:15.510
+also will have a password which is of type string and which will be required.
+
+01:19.350 --> 01:29.330
+A user also will have a name in my application, type string and required, you guessed it and a user here
+
+01:29.350 --> 01:40.360
+also will have a status, so status is also of type string and required, that is this thing which caused this
+
+01:40.450 --> 01:44.290
+error in the frontend all the time because we couldn't load it.
+
+01:44.420 --> 01:49.190
+Now a user will also have a couple of posts, so I'll add my posts here,
+
+01:49.220 --> 01:50.630
+this will be an array
+
+01:50.780 --> 01:59.150
+and now each object in that array will be of type schema types object ID because this will be a reference
+
+01:59.150 --> 02:04.630
+to a post and therefore I add this ref key and add the post model,
+
+02:04.720 --> 02:09.880
+so I'll store references to posts in my users or on my users.
+
+02:09.980 --> 02:14.010
+This is how users should look like, if you want you can also add the timestamps,
+
+02:14.120 --> 02:15.220
+I don't need them here,
+
+02:15.350 --> 02:24.930
+so now I got my model set up. We can now use that model to set up a sign up and later, also a login route.
+
+02:24.980 --> 02:32.300
+So let's create a new route and I'll name that user.js or maybe auth.js because it will be authentication
+
+02:32.310 --> 02:40.980
+related. In there just as before, we import express by requiring express,
+
+02:44.980 --> 02:52.270
+we then create that express router by calling express router as a function like this
+
+02:52.540 --> 02:56.800
+and we have of course export this router. Now in-between
+
+02:56.800 --> 03:03.460
+we define our user or our authentication related routes and there for example, I want to have a post
+
+03:03.460 --> 03:07.400
+route and you could argue that you also set a put route maybe,
+
+03:07.420 --> 03:14.290
+let's go for a put route because actually we create a user once, so we could also say whether it's
+
+03:14.290 --> 03:16.270
+new or we overwrite existing data,
+
+03:16.290 --> 03:18.890
+we put the data but both would be fine.
+
+03:19.880 --> 03:23.170
+Here we'll have sign up as a route let's say
+
+03:23.360 --> 03:26.570
+and then I need some controller of course.
+
+03:26.670 --> 03:34.340
+Now I'll also add validation and to actually reach these routes, we have to go to the app.js file and
+
+03:34.340 --> 03:40.970
+there where I import my feed routes, I'll duplicate this and also set up an auth routes constant where I
+
+03:40.970 --> 03:48.970
+import routes auth. And then at the bottom of the file where I have my feed routes,
+
+03:48.970 --> 03:53.980
+I'll also add /auth to forward requests that start with /auth
+
+03:54.000 --> 03:56.980
+in the path to auth routes.
+
+03:57.100 --> 04:01.330
+Now we are able to reach these routes and now we need the controller.
+
+04:01.540 --> 04:05.840
+So let's work on the controller and add validation in the next lecture.

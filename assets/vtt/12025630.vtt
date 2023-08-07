@@ -1,0 +1,166 @@
+WEBVTT
+
+00:02.410 --> 00:04.900
+Our sign up validation is looking pretty good
+
+00:04.930 --> 00:11.090
+but there is one thing which we are validating in a bit of a strange way right now and that is the fact
+
+00:11.160 --> 00:13.620
+whether the e-mail address is taken or not.
+
+00:13.720 --> 00:19.140
+Right now I'm doing that in my auth controller and there by the way we will not need confirm password anymore,
+
+00:19.150 --> 00:22.120
+we're checking this ahead of time but in auth.js
+
+00:22.210 --> 00:26.270
+I do check for e-mail existence here.
+
+00:26.440 --> 00:33.730
+Now logically it would make sense to check that as part of our validation right
+
+00:34.150 --> 00:36.440
+and the good thing is we can do that.
+
+00:36.640 --> 00:41.570
+Let's grab this code where we find one user here, let's grab that code
+
+00:42.370 --> 00:46.870
+and let's head over to the auth.js file in the routes folder. In there
+
+00:46.870 --> 00:54.100
+let's first of all import our user model by requiring it from the models folder and there from the user
+
+00:54.100 --> 00:54.620
+file
+
+00:54.640 --> 00:55.750
+so we need that
+
+00:56.140 --> 01:02.220
+and then here on my e-mail field, I got this custom validator.
+
+01:02.380 --> 01:07.680
+I'll comment this code out because I want to keep it for you as a reference but now we'll add a more
+
+01:08.110 --> 01:10.500
+well a check that makes more sense.
+
+01:10.750 --> 01:16.470
+I will add my code here where I find one user with that e-mail address,
+
+01:16.490 --> 01:21.290
+now that e-mail address on the right side here is the value of course which you are validating because
+
+01:21.290 --> 01:22.690
+we're doing this on the e-mail field,
+
+01:22.730 --> 01:26.600
+so value will be the entered email, I'm searching for that e-mail
+
+01:26.780 --> 01:32.990
+and then here if I have a user document, well then I will not do it with this flash message and so on
+
+01:32.990 --> 01:33.700
+anymore
+
+01:33.920 --> 01:43.250
+instead I'll just take that error message and inside of this if block which is inside of my then block
+
+01:43.250 --> 01:51.260
+here, I will return a new promise reject call. A promise is a built-in javascript object and with reject,
+
+01:51.280 --> 01:58.610
+I basically throw an error inside of the promise and I reject with this error message I used before.
+
+01:58.780 --> 02:04.040
+What this means is that now after this then block, I could another catch block to catch this but
+
+02:04.130 --> 02:05.630
+I will not do that here
+
+02:08.130 --> 02:16.390
+instead let's close our function curly braces and the normal brackets from the custom function
+
+02:16.590 --> 02:20.410
+and now what I'll do is I will return user find one.
+
+02:20.430 --> 02:22.350
+Now what will this do?
+
+02:22.440 --> 02:30.750
+The express validator package will check for a custom validator to return true or false, to return a
+
+02:30.750 --> 02:34.050
+thrown error or to return a promise.
+
+02:34.290 --> 02:40.530
+If it's a promise as it is the case with this because here we ultimately return a promise because
+
+02:40.620 --> 02:45.320
+every then block implicitly returns a new promise,
+
+02:45.330 --> 02:52.710
+so if we return a promise then express validator will wait for this promise to be fulfilled and if it
+
+02:52.710 --> 02:55.570
+fulfills with in our case nothing,
+
+02:55.570 --> 03:02.740
+so basically no error, then it treats this validation as successful. If it resolves with some rejection
+
+03:02.740 --> 03:08.790
+in the end though which will happen if we make it into this if block, then express validator will detect this rejection
+
+03:09.330 --> 03:12.610
+and will store this as an error,
+
+03:12.630 --> 03:18.210
+this message will then be stored as an error message. And this is how we can add our own asynchronous
+
+03:18.690 --> 03:24.330
+validation, asynchronous because we have to reach out to the database which of course is not an instant
+
+03:24.360 --> 03:29.050
+task but express validator will kind of wait for us here.
+
+03:29.250 --> 03:35.310
+So now we have our own async validation in place and now we should still check for email existence but
+
+03:35.310 --> 03:42.090
+we don't do this in controller anymore because there, I will in the end get rid of that entire user find
+
+03:42.090 --> 03:54.010
+one thing here, instead I will instantly start with b crypt and I'll also remove one pair of brackets
+
+03:54.010 --> 04:00.850
+at the bottom and this semi-colon and this catch block. And now what I do have here is I instantly start
+
+04:00.860 --> 04:08.000
+with hash in my password and so on creating that user because I can rely on the user to not exist already
+
+04:08.080 --> 04:14.150
+inside of my controller because I do check for its existence ahead of time in my auth.js route with the
+
+04:14.150 --> 04:16.820
+help of that validation middleware.
+
+04:16.850 --> 04:22.010
+So now let's go back and let's add an email address and a valid password
+
+04:22.070 --> 04:28.040
+of a user that already exists and indeed I get e-mail exists already, so that is great. If I however
+
+04:28.640 --> 04:36.980
+do add an email address that does not exist yet and I do enter valid passwords, I get my sign up page
+
+04:36.980 --> 04:37.250
+here or
+
+04:37.260 --> 04:38.040
+my login page
+
+04:38.090 --> 04:44.400
+because the user was created successfully. So this now works and this is how you can add async validation.

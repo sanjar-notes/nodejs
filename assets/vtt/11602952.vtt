@@ -1,0 +1,313 @@
+WEBVTT
+
+00:02.280 --> 00:06.650
+With controllers and views added, it's time to care about the model.
+
+00:06.660 --> 00:08.830
+The problem with our model is that we,
+
+00:09.120 --> 00:10.770
+well we have a very simple one,
+
+00:10.980 --> 00:18.930
+we manage our products array here and a product is simply created on the fly as an object that looks
+
+00:18.930 --> 00:20.090
+like this.
+
+00:20.130 --> 00:23.040
+Now in the end, that product represents our data,
+
+00:23.040 --> 00:27.310
+we have products in our app, later we'll also have our things like a user
+
+00:27.360 --> 00:29.960
+but for now it's just a product. Still
+
+00:30.000 --> 00:35.310
+we can define a model for that and for this, let's create a new folder in our root project and name
+
+00:35.310 --> 00:36.830
+it models.
+
+00:36.930 --> 00:40.980
+Now all these names are exchangeable of course but this makes the separation really clear,
+
+00:40.980 --> 00:46.360
+we get controllers, we get views, we get models and that makes up the mvc pattern.
+
+00:46.500 --> 00:48.880
+Now in there, I'll add a new file product.js
+
+00:48.920 --> 00:50.390
+.
+
+00:50.630 --> 00:55.910
+Now please note it's not products here because I want to represent a single entity because in the end,
+
+00:55.970 --> 00:58.630
+our core data is a product.
+
+00:58.640 --> 01:04.280
+Sure we also have lists of products with which we work but the core thing that makes up the app is how
+
+01:04.280 --> 01:11.090
+a product looks like, which fields it has, does it have an image, a title, that is our core data. A list
+
+01:11.090 --> 01:17.420
+of products is boring, it's just well more of that type, a single product is what defines our app in the
+
+01:17.420 --> 01:20.490
+end or part of what defines the app.
+
+01:20.490 --> 01:27.860
+Now how this this model look like? This is totally up to you in the end, you can define this in which ever
+
+01:27.860 --> 01:29.450
+way you want,
+
+01:29.720 --> 01:34.710
+you can for example simply export a constructor function here,
+
+01:35.000 --> 01:43.770
+so a function which I name product and you call that to create new objects based on that, using an ES5
+
+01:43.780 --> 01:45.450
+constructor function
+
+01:45.820 --> 01:52.990
+but if you're using next gen javascript as I'm doing it here, you can instead create a class. You can create
+
+01:53.020 --> 01:55.670
+a class named product that looks like this
+
+01:55.750 --> 01:57.600
+and this is now also exported
+
+01:57.670 --> 02:00.450
+and in case you're not sure what a class is,
+
+02:00.490 --> 02:03.340
+check that javascript refresher at the beginning of the course,
+
+02:03.430 --> 02:05.110
+I do explain it there too.
+
+02:06.190 --> 02:11.870
+Now here in this class, I want to define the shape of a product and for this, I'll first of all create
+
+02:11.870 --> 02:13.690
+the constructor function,
+
+02:13.690 --> 02:19.970
+So here I want to receive a title for the product which I'll then create from inside my controller,
+
+02:19.990 --> 02:26.800
+so here I get my title and you can name this title of course and I will then create a property in this
+
+02:26.800 --> 02:27.470
+class,
+
+02:27.610 --> 02:34.060
+so basically like a variable in the class you could say. You do this with the this keyword and then this title is
+
+02:34.090 --> 02:36.740
+equal to the title I'm receiving as an argument here
+
+02:36.880 --> 02:41.710
+and these names don't have to match and to avoid confusion, you can also name this t here.
+
+02:42.100 --> 02:44.440
+So now I'm creating a property in this class,
+
+02:44.440 --> 02:50.200
+this allows me to then create an object based on this class where I can pass the title to the constructor
+
+02:50.230 --> 02:51.890
+which we call with new
+
+02:52.330 --> 02:55.330
+and then this will get stored in the created object.
+
+02:55.450 --> 03:01.450
+But obviously I don't just want to be able to create objects with a title, I can do this with the current
+
+03:01.480 --> 03:03.420
+curly brace syntax too,
+
+03:03.790 --> 03:13.180
+instead here I want to be able to create my or to store my product to an array of products and fetch
+
+03:13.180 --> 03:13.580
+it
+
+03:13.840 --> 03:21.010
+and for this I will reintroduce my products array here and we will change this later when we use a real
+
+03:21.010 --> 03:21.850
+database
+
+03:22.030 --> 03:28.490
+but for now let's go with this approach and I will add a save method to my class here by calling save or
+
+03:28.510 --> 03:32.370
+by typing save, adding parentheses and then curly braces.
+
+03:32.470 --> 03:36.790
+So it's like a function, just without the function keyword.
+
+03:36.850 --> 03:40.700
+So this is now a method available in this class and in the save method,
+
+03:40.810 --> 03:48.520
+I want to store my product in this array and I can do this by reaching out to products and then calling
+
+03:48.530 --> 03:55.210
+push here just as we did it before in the controller and I simply push this because this will
+
+03:55.210 --> 04:02.670
+refer to the object created based on the class and that is exactly the object I want to store in this array.
+
+04:02.700 --> 04:07.390
+Now obviously I also want to be able to retrieve all products from that array
+
+04:07.470 --> 04:16.440
+and I also want to do that through my product model, however whereas save makes sense to be called on a concrete
+
+04:16.500 --> 04:23.670
+instantiated object based on product, I also want to have a fetch all method which is like the utility
+
+04:23.670 --> 04:29.130
+function you could say. This is not called on a single instance of the product because it should fetch
+
+04:29.160 --> 04:35.460
+all products and I don't want to create a new object with the new keyword with some dummy title just
+
+04:35.460 --> 04:42.150
+to fetch all existing products and therefore I will add the static keyword which javascript offers which
+
+04:42.150 --> 04:49.160
+makes sure that I can call this method directly on the class itself and not on an instantiated object
+
+04:49.500 --> 04:55.110
+and then in here, I will return this, whoops, products like that.
+
+04:56.330 --> 04:57.820
+Now this is the model finished,
+
+04:57.830 --> 05:00.500
+now let's move to the products controller file.
+
+05:00.960 --> 05:08.500
+There I will first of all get rid of products here at the top and also of products push down there because
+
+05:08.500 --> 05:10.050
+now I want to use my model,
+
+05:10.280 --> 05:12.090
+I also don't need that anymore,
+
+05:12.990 --> 05:17.010
+so that I got no products array related logic left in this file
+
+05:17.130 --> 05:23.090
+instead I will now import my class by adding a new constant, product and you can name this however you want
+
+05:23.130 --> 05:28.500
+but the convention is to use a capital starting character for classes and in the end, we do just import
+
+05:28.590 --> 05:29.280
+this class
+
+05:29.340 --> 05:33.100
+so I will add the capital character in this controller file too
+
+05:33.150 --> 05:41.430
+and I do import a class by requiring this from the models folder, from that product.js file. With
+
+05:41.440 --> 05:43.650
+that added, in post add product
+
+05:43.650 --> 05:49.710
+I will now create a new object based on this class blueprint and that is what classes are in the end,
+
+05:49.800 --> 05:58.290
+they are blueprints. So I will create a new product, a local constant with new product and there I will
+
+05:58.290 --> 06:06.460
+pass request body title and that simply takes the title I have here as a name on my input which is submitted.
+
+06:08.680 --> 06:12.250
+With this, we create a new product based on our class,
+
+06:12.250 --> 06:14.810
+now there's one additional thing that needs to be done though,
+
+06:14.890 --> 06:18.550
+I want to save that and I can do that by calling product,
+
+06:18.670 --> 06:28.100
+save. This will use that save method we defined and it will therefore for now push that onto this array.
+
+06:28.120 --> 06:36.100
+Now with that in get products, I also want to fetch all products. So I will create a new local constant, products and
+
+06:36.100 --> 06:40.510
+now I will use that static method because I don't want to create a new product where I would have
+
+06:40.510 --> 06:44.650
+to set up some dummy title because I don't create a product here,
+
+06:44.710 --> 06:48.230
+instead I just want to use product and call fetch
+
+06:48.270 --> 06:55.000
+all and this should give me all the products and now I have my products here and if I save this, it should
+
+06:55.000 --> 06:59.100
+now work. If I go back and I reload this page,
+
+06:59.110 --> 07:00.160
+I get cannot read
+
+07:00.160 --> 07:02.210
+property length,
+
+07:02.350 --> 07:07.010
+that makes sense because fetch all returns this product which is incorrect,
+
+07:07.040 --> 07:13.760
+it should just return products because we are returning this array, not some local property of this class,
+
+07:13.760 --> 07:16.620
+there is no products property.
+
+07:16.660 --> 07:20.950
+So after fixing this and removing this down there, now if I reload
+
+07:20.950 --> 07:24.950
+this, this works and if I now try adding a first book,
+
+07:25.120 --> 07:32.330
+this again works now using a model. And whilst this might look more complicated right now
+
+07:32.590 --> 07:35.480
+and it certainly is because we're just using our dummy storage here,
+
+07:35.590 --> 07:41.260
+this is great once you really got more complex models with more fields, with more methods and where
+
+07:41.260 --> 07:43.350
+you don't store them in some random array
+
+07:43.480 --> 07:49.420
+but where you got the whole database connection logic and so on too, you then put that all into your model
+
+07:49.540 --> 07:55.360
+and you don't have to care about it in your controller. And it actually simulate this by moving away
+
+07:55.360 --> 08:01.390
+from our array storage here and move towards a file storage at least, before we then later in the course
+
+08:01.420 --> 08:02.800
+also use a real database.

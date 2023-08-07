@@ -1,0 +1,196 @@
+WEBVTT
+
+00:02.130 --> 00:06.870
+We did add a basic authentication flow or a signup flow in the last lecture
+
+00:06.960 --> 00:11.660
+but we have one huge security flaw in our current approach.
+
+00:11.700 --> 00:16.060
+Do you know which flaw that is? Well we can see it in this line
+
+00:16.100 --> 00:17.900
+when we store a password.
+
+00:17.900 --> 00:22.070
+We're storing the password in plain text and we can see that here in compass,
+
+00:22.130 --> 00:26.120
+this is the password I entered and it's stored in plain text.
+
+00:26.120 --> 00:28.360
+Now this is not how you should do it
+
+00:28.610 --> 00:33.370
+because if your database gets compromised which of course we want to avoid
+
+00:33.380 --> 00:40.580
+but if it happens or if some employee of your company has the rights to look into it, your user passwords
+
+00:40.730 --> 00:42.420
+are fully exposed.
+
+00:42.740 --> 00:46.360
+So what we should do is we should encrypt that password,
+
+00:46.370 --> 00:53.510
+we should hash it in a way that is not reversible, where people cannot construct the password from, so
+
+00:53.650 --> 00:56.050
+that even if you get access to the database,
+
+00:56.150 --> 01:03.260
+you might be able to see the e-mail but you're not able to see the password, the real password that belongs
+
+01:03.260 --> 01:04.550
+to the e-mail.
+
+01:04.580 --> 01:08.210
+This is something you should implement and this is something we will implement now
+
+01:08.630 --> 01:14.630
+and for this we'll install another package. So I'll quit my server with Control C and install that package
+
+01:14.630 --> 01:19.420
+with npm install --save and the name of the package is bcryptjs,
+
+01:19.590 --> 01:21.440
+written like this.
+
+01:21.440 --> 01:27.260
+This is a package that helps us with encryption and that will help us with encrypting the password.
+
+01:27.260 --> 01:33.710
+Now once this was installed, we can restart our server with npm start and now in the auth controller here,
+
+01:34.400 --> 01:36.890
+we can use bcrypt,
+
+01:36.890 --> 01:41.110
+so here I will add an import at the top and I'll name it bcrypt,
+
+01:41.150 --> 01:45.160
+the name is up to you and I'll require bcryptjs, like this,
+
+01:45.170 --> 01:48.880
+so the package we just installed. With it installed,
+
+01:49.040 --> 01:55.820
+let's head over to post sign up here and here instead of storing the password like this, I will store
+
+01:55.820 --> 02:00.090
+a hash password. For this right before I create my user,
+
+02:00.200 --> 02:08.500
+I'll use the bcrypt package which I installed and which I imported here and I will call the hash
+
+02:08.590 --> 02:14.270
+method. The hash method as a first value takes the string which you want to hash,
+
+02:14.290 --> 02:17.920
+so in our case the password, so we'll pass the password here.
+
+02:17.950 --> 02:22.110
+The second argument then is the salt value,
+
+02:22.120 --> 02:26.160
+now this is simply specifying how many rounds of hashing will be applied you could say
+
+02:26.290 --> 02:30.400
+and the higher the value, the longer it will take but the more secure that will be,
+
+02:30.400 --> 02:35.620
+currently a value of 12 is accepted as highly secure.
+
+02:35.620 --> 02:38.250
+Now this will generate a hash password
+
+02:38.440 --> 02:43.420
+but this is an asynchronous task and therefore this actually gives us back a promise.
+
+02:43.540 --> 02:51.550
+So I will return this so that I can chain another then call, a then block where I will get my hashed
+
+02:51.550 --> 02:53.020
+password as an argument
+
+02:53.020 --> 02:53.900
+once it's done,
+
+02:54.010 --> 03:00.010
+so this function here will be called once the hashing is done and therefore the user creation will go
+
+03:00.010 --> 03:06.430
+into this then block and there I have the hashed password available and the hashed password is what I'll
+
+03:06.430 --> 03:07.350
+store here.
+
+03:07.660 --> 03:16.740
+And with that, we dramatically improve the performance because now if I do sign up again, first of all
+
+03:16.860 --> 03:18.260
+let's use a different e-mail
+
+03:18.260 --> 03:20.900
+otherwise it should fail, we can test this in a second too.
+
+03:21.090 --> 03:22.510
+So I use a different e-mail,
+
+03:22.770 --> 03:29.070
+if I sign up now and I look into my collection, this is the new user and this is of course not the password
+
+03:29.100 --> 03:30.000
+I entered,
+
+03:30.000 --> 03:37.130
+this is the hashed value and the important thing is you can't reconstruct the password I use,
+
+03:37.290 --> 03:39.380
+you can't decrypt this.
+
+03:39.380 --> 03:44.670
+This is also the reason why we don't encrypt the e-mail because we won't be able to decrypt this,
+
+03:44.730 --> 03:49.800
+I will still show you how we can then find out if the user entered a correct password but we can't decrypt
+
+03:49.800 --> 03:50.130
+it,
+
+03:50.250 --> 03:55.800
+so if we need to send messages to that e-mail, that would not work if we encrypt the e-mail as well because
+
+03:55.800 --> 03:57.600
+we could not revert that.
+
+03:57.600 --> 04:01.620
+So we need to store the e-mail like this but the password is secured,
+
+04:01.620 --> 04:03.660
+it's not readable.
+
+04:03.660 --> 04:05.220
+So this is how we should store it
+
+04:05.250 --> 04:10.940
+and now I will get rid of my other user but not before testing whether that works.
+
+04:10.950 --> 04:16.650
+So if I try to create a user with that same email again, I'm redirected to sign up.
+
+04:16.740 --> 04:21.210
+So I don't see an error message because I didn't add anything that would show such a message
+
+04:21.480 --> 04:23.150
+but it seems to fail here,
+
+04:23.160 --> 04:24.040
+that is good
+
+04:24.090 --> 04:28.350
+so for now, we can't create a new user with the same credentials.
+
+04:28.350 --> 04:33.530
+Let's now get rid of this one with the insecure password and continue with the one with the secure password.

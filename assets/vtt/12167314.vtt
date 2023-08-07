@@ -1,0 +1,34 @@
+WEBVTT
+
+00:02.460 --> 00:05.880
+So now we also manage updating via socket.io,
+
+00:06.030 --> 00:08.510
+there's one tiny thing you might be wondering about.
+
+00:08.730 --> 00:12.390
+If we create a new post, like a duck again
+
+00:14.030 --> 00:16.620
+where I add the image and some content,
+
+00:16.620 --> 00:21.980
+it does show up at the top but once I reload, it's actually at the bottom of the list.
+
+00:22.320 --> 00:25.320
+Well this is simply due to how I sort on the backend
+
+00:25.500 --> 00:34.020
+when I get all posts here in our feed.js controller get posts, there we simply have to sort
+
+00:36.860 --> 00:42.230
+by createdAt date in a descending way.
+
+00:43.190 --> 00:48.830
+And now by doing that, if I reload on the frontend, our latest posts come first there too.
+
+00:48.850 --> 00:54.830
+So that's just some tiny cosmetics which better align with the rest of our application of course,
+
+00:55.090 --> 00:58.060
+it doesn't affect the way we use socket.io though of course.

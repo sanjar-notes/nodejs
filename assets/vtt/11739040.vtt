@@ -1,0 +1,97 @@
+WEBVTT
+
+00:02.400 --> 00:07.880
+We learn about associations and that we get these cool magic methods here about which you can learn
+
+00:07.880 --> 00:09.480
+more in the official docs of course,
+
+00:09.530 --> 00:14.860
+now which implications does this have for our other admin.js actions?
+
+00:14.930 --> 00:20.690
+Well for get added product, there's no implication, we fetch a single product here and we can do this as before,
+
+00:20.930 --> 00:22.940
+we don't really care about the user here,
+
+00:23.090 --> 00:29.240
+you could argue that you only want to find products for the currently logged in user though. Then what
+
+00:29.240 --> 00:37.370
+you actually want to do is you want to use request user get products
+
+00:40.500 --> 00:49.340
+and there define where ID equals prods ID to also have that filter and then you can chain your normal
+
+00:49.340 --> 00:57.380
+then call and so on. And with that if you click on edit, we see an empty form because it generally did work
+
+00:57.410 --> 01:03.050
+and we see the SQL statement here where it simply looks for a product with the user id one and that
+
+01:03.050 --> 01:07.700
+is not the condition we wrote, we're responsible for this part where it then also narrows down the product
+
+01:07.700 --> 01:12.910
+ID but user ID one was added by sequelize because we use get products on the user
+
+01:13.250 --> 01:17.780
+but keep in mind here we get back an array even if it only holds one element,
+
+01:17.780 --> 01:25.790
+so we got products and therefore we know that one product, the one we are interested in will always
+
+01:25.790 --> 01:27.410
+be the first element,
+
+01:27.770 --> 01:30.670
+so we have to store that separately in a new constant
+
+01:30.860 --> 01:33.650
+and now if we reload this, this works.
+
+01:33.680 --> 01:40.580
+So this is a more elegant way, though we could also still only use the ID if we want to use the old approach.
+
+01:41.750 --> 01:45.420
+If we move on for post editing a product, there
+
+01:45.450 --> 01:51.530
+I'm fine with finding the product like this because if we are at this point, I assume we already have a
+
+01:51.530 --> 01:53.130
+product for this user only,
+
+01:53.300 --> 01:56.280
+so if I update it like this, it's fine.
+
+01:57.100 --> 02:02.680
+Now get product should change, instead of finding all products, I want to find products for this user,
+
+02:02.860 --> 02:07.800
+so I'll call get products like that which will give me all products for this user
+
+02:08.230 --> 02:10.220
+and then I can render them here.
+
+02:10.540 --> 02:17.080
+So if I now go to admin products, I see the products for this user here because this select statement
+
+02:17.080 --> 02:24.200
+gets executed where we narrow down the user to the user with the ID one and post delete product,
+
+02:24.250 --> 02:28.140
+here again we could only find a product for this user with this ID,
+
+02:28.180 --> 02:30.170
+I'm fine with this setup though.
+
+02:31.060 --> 02:34.450
+So some tiny changes showing you more of that power
+
+02:34.450 --> 02:38.970
+sequelize gives you for associated models.
+
+02:38.970 --> 02:44.540
+Let's next have a look at how we can reintroduce the cart to our application.

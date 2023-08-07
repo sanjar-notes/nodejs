@@ -1,0 +1,220 @@
+WEBVTT
+
+00:02.250 --> 00:04.980
+Ok so time to use our user object
+
+00:05.100 --> 00:08.800
+and the question of course is where do I want to use my user object?
+
+00:09.030 --> 00:12.340
+Well I want to use that user object when creating a new product,
+
+00:12.480 --> 00:12.720
+right,
+
+00:12.720 --> 00:18.440
+when saving a product, I want to store a reference to a user here or embed the entire user data
+
+00:18.450 --> 00:19.220
+as you learned.
+
+00:19.350 --> 00:24.860
+However for products in users, you could actually find arguments for both approaches here,
+
+00:24.870 --> 00:30.690
+you certainly don't want to enclose all the user data in an embedded document because that would mean
+
+00:30.690 --> 00:34.710
+that if the user data changes, you need to change that data in all products
+
+00:34.710 --> 00:40.290
+but if you do include something which is unlikely to change very often, like the username for example,
+
+00:40.650 --> 00:45.600
+well then you could certainly go ahead and embed that together with the ID so that you always have
+
+00:45.600 --> 00:48.860
+that ID to fetch more data about the user if you need to,
+
+00:48.900 --> 00:54.420
+you've got to find by the method in the user model after all or that you have at least some snapshot data
+
+00:54.600 --> 00:59.080
+like the username available immediately, if that should change, you need to update it everywhere.
+
+00:59.190 --> 01:01.980
+The alternative to this is that you just store the ID,
+
+01:02.010 --> 01:06.960
+so just a reference and therefore if you need connected data, you always have to fetch it manually from
+
+01:06.960 --> 01:08.420
+two collections 
+
+01:08.520 --> 01:11.870
+but on the other hand you might not do that too often and therefore here
+
+01:11.910 --> 01:17.580
+indeed when I fetch the product, I don't really need the user data, we're not displaying the user name anywhere
+
+01:17.580 --> 01:18.320
+in our app,
+
+01:18.360 --> 01:23.030
+so I actually just want to store the user id so that we know who is connected
+
+01:23.100 --> 01:24.990
+even though we're not fetching that a lot.
+
+01:24.990 --> 01:28.430
+Now what does this mean for our application here though?
+
+01:28.890 --> 01:34.990
+Well it means that when creating a new product, we can pass the user id, we can accept the user
+
+01:34.980 --> 01:35.740
+id here,
+
+01:35.940 --> 01:42.930
+so this user ID is equal to user ID, we store this as a property of our product now and with that, we
+
+01:42.930 --> 01:45.450
+have all we need in the product model.
+
+01:45.450 --> 01:49.680
+Now we need to make sure that we do pass that user data when creating a product,
+
+01:49.680 --> 02:00.610
+so in the admin.js controller when adding new products, here I want to pass null for the product ID because
+
+02:00.610 --> 02:07.180
+we dont have that when creating a new product but for the user id, I want to pass the ID of the user which
+
+02:07.210 --> 02:11.160
+as you know we now store in our request. We do this in the app.js file right,
+
+02:11.170 --> 02:16.910
+we have that middleware which we set up in an earlier module where we find that user and where I then store
+
+02:16.910 --> 02:19.060
+that user in our request.
+
+02:19.060 --> 02:25.000
+Now this is a bit of a constructed example because I'm storing it just to extract the ID which I hardcoded
+
+02:25.000 --> 02:28.250
+here, so we could just hardcode it into our code anyways
+
+02:28.360 --> 02:33.580
+but the idea here of course is to show you how you can extract the user in one central place and then
+
+02:33.580 --> 02:36.450
+reuse it in any other route
+
+02:36.520 --> 02:37.970
+and that's the idea here.
+
+02:38.110 --> 02:43.120
+Later once we get an authentication, we'll manage that user a bit differently.
+
+02:43.150 --> 02:48.640
+So for now, we just have that user object in the request and therefore in the admin.js controller,
+
+02:48.880 --> 02:56.200
+here I can access request user and then _id which will be just a string here because when
+
+02:56.200 --> 03:00.480
+retrieving data, the object id is converted to a string for us,
+
+03:00.550 --> 03:02.970
+so we have just the string here.
+
+03:04.020 --> 03:11.420
+Now with that, we should actually store the user ID when creating a new product.
+
+03:11.490 --> 03:16.860
+Let me first of all delete that old product and then let's quickly add a new product here
+
+03:17.730 --> 03:25.710
+and I get an error that I can't read Property ID of undefined and this should be coming from inside our
+
+03:25.920 --> 03:30.750
+admin.js file here when I try to access my user _id,
+
+03:31.050 --> 03:33.990
+so something seems to be going wrong here.
+
+03:35.120 --> 03:37.630
+I'm storing the request user here though,
+
+03:39.720 --> 03:49.040
+let's go to the user model, find by ID, let's add then and catch here and catch any error we might
+
+03:49.040 --> 03:54.350
+be getting when fetching that user
+
+03:54.420 --> 04:00.000
+and here I'll also console log the user object I'm getting right before I return it again.
+
+04:00.890 --> 04:06.950
+And with that let me try to reload the admin product, add product page and I now get an error.
+
+04:06.950 --> 04:14.210
+We did retrieve the user here but then I sent duplicate headers by the look of it,
+
+04:14.450 --> 04:17.260
+yeah because I'm calling next too often here in app.js,
+
+04:17.290 --> 04:17.920
+.
+
+04:17.950 --> 04:22.580
+since I added the other code again, I don't need to call next at the bottom of it.
+
+04:22.690 --> 04:26.050
+So let's save that to not call next too often.
+
+04:26.650 --> 04:34.960
+Let's now reload this page here and now I just fetch the user with the ID which is a string here, so
+
+04:35.070 --> 04:37.150
+that is actually valid.
+
+04:37.150 --> 04:39.670
+Now let me try adding this again
+
+04:42.320 --> 04:43.600
+and now this works,
+
+04:43.610 --> 04:47.390
+so it was that error with the double next.
+
+04:47.400 --> 04:53.340
+So now if we have a look at our products here, we see that products now also have a user ID which is just
+
+04:53.340 --> 05:00.330
+a reference pointing at the user who did create that product which is one way of establishing relations
+
+05:00.420 --> 05:06.900
+the way you already know from MySQL of course, this is not an embedded document but here, the argument simply
+
+05:06.900 --> 05:11.400
+is when we're fetching products, we don't really need any user information
+
+05:11.490 --> 05:17.850
+hence we do it just like that. This of course will change once we start storing orders,
+
+05:17.850 --> 05:22.720
+there you could say it does make sense to store information about the user,
+
+05:22.740 --> 05:29.030
+for example the e-mail at least and for the product you want to store the title and the price maybe.
+
+05:29.220 --> 05:33.250
+So there it makes sense to suddenly aggregate this together.
+
+05:33.450 --> 05:37.440
+Speaking of that, why don't we work on cart items and orders
+
+05:37.460 --> 05:37.910
+next.

@@ -1,0 +1,328 @@
+WEBVTT
+
+00:02.180 --> 00:06.960
+Let's finish the post functionality by making sure we can delete posts
+
+00:07.100 --> 00:10.710
+and as always, feel free to do that on your own as a practice.
+
+00:11.180 --> 00:17.510
+Create the appropriate query or mutation and the respective resolver functionality on your own and
+
+00:17.510 --> 00:19.920
+feel free to edit the frontend too.
+
+00:20.150 --> 00:22.700
+After a short pause which you can use to pause the video and
+
+00:22.730 --> 00:24.890
+try it on your own, we'll do it together.
+
+00:25.830 --> 00:27.260
+Were you successful?
+
+00:27.600 --> 00:34.610
+Well again we start in the schema of our backend and I'll add that delete post mutation here and
+
+00:34.640 --> 00:38.840
+I expect to get the ID of the post which should be deleted,
+
+00:38.850 --> 00:43.710
+I will then only return a boolean that indicates whether that succeeded or not.
+
+00:43.770 --> 00:45.300
+This is my mutation,
+
+00:45.300 --> 00:48.170
+more interesting is the resolver
+
+00:48.180 --> 00:53.250
+for that. Let's go to the resolvers file here and there,
+
+00:53.250 --> 01:00.720
+I'll add delete post, I'll retrieve the ID from the incoming data package so to say, from the arguments
+
+01:00.720 --> 01:08.210
+object and I'll write this in the async function syntax again so that I can use async await
+
+01:08.430 --> 01:12.750
+and again I'll start by checking the login status.
+
+01:12.750 --> 01:16.040
+Now obviously you could refactor this into a common function,
+
+01:16.050 --> 01:21.390
+I deliberately have the more verbose setup here to make it really clear that we have this check in
+
+01:21.510 --> 01:24.580
+every of these resolver functions.
+
+01:25.040 --> 01:31.320
+After knowing that the user is signed in, let's fetch the post we want to remove so that we can check
+
+01:31.320 --> 01:35.690
+whether the creator of the post is the user who tries to delete it.
+
+01:36.240 --> 01:43.500
+So we get the post by awaiting for post find by ID with the chosen post ID.
+
+01:43.520 --> 01:48.820
+Now here we can check if we don't have a post and again, this is some logic
+
+01:48.860 --> 01:54.620
+we can copy from before and the same is true for our authorization
+
+01:54.620 --> 02:01.040
+check regarding the quality of the creator and the logged in user. So I'll copy these two if statements
+
+02:01.040 --> 02:07.500
+in here to check if the post exists and then I want to compare the creator with the logged in user.
+
+02:07.520 --> 02:12.140
+Now important, since I don't populate my creator field here,
+
+02:12.140 --> 02:18.270
+the creator here is not an object with _id but creator itself is already the ID
+
+02:18.290 --> 02:20.970
+because that is how it's stored in a post
+
+02:21.020 --> 02:23.900
+and we need to call populate to change that in the result,
+
+02:23.900 --> 02:31.900
+we're not doing that here so we only access creator to directly get the ID of the user who created the post.
+
+02:31.910 --> 02:37.910
+Now we got all the checks in place we need and after this, we want to delete the image that belongs to
+
+02:37.910 --> 02:38.720
+that post.
+
+02:38.810 --> 02:42.310
+Now for that, I have that functionality in app.js
+
+02:42.480 --> 02:47.420
+here,
+
+02:47.460 --> 02:56.640
+now I will copy that and put it into a separate folder, util where I will add a file, js file and in
+
+02:56.640 --> 03:00.660
+there, I will just import path by requiring
+
+03:02.960 --> 03:10.070
+path and I will import the file system by requiring that core node module.
+
+03:10.220 --> 03:17.790
+Now in here, I can export clear image so that we can use it in other files and I want to use it in
+
+03:17.810 --> 03:20.840
+app.js where I already did use it in the past,
+
+03:20.930 --> 03:27.590
+there I don't need the file system import anymore but I will add an import to my own clear file functionality
+
+03:28.100 --> 03:37.480
+by requiring util file and then here, I use destructuring to get that clear image function.
+
+03:37.850 --> 03:44.570
+So this is now using that restructured code where I moved that function into a seperate file and in
+
+03:44.570 --> 03:45.510
+the resolver,
+
+03:45.560 --> 03:48.020
+I can now also import that,
+
+03:48.020 --> 03:52.420
+so here I also want to import clear image by requiring
+
+03:52.700 --> 03:59.140
+and here I need to go up one level, then util folder and then the file file.
+
+03:59.150 --> 04:05.600
+So now I have clear image available and now at the bottom of my resolvers in that delete post resolver
+
+04:05.690 --> 04:10.900
+here, I will call clear image and pass my post image
+
+04:10.920 --> 04:16.730
+url in there because that is the path of the image on my server.
+
+04:16.810 --> 04:26.260
+Now after this was done, I will await the result of post find by id and remove and I'll do that for my
+
+04:26.260 --> 04:27.480
+post with that ID.
+
+04:28.460 --> 04:34.720
+Once this is done, I just need to make sure I remove that post from my user as well,
+
+04:34.790 --> 04:46.200
+so for that I first of all need to get my user by awaiting user find by ID for the user ID stored in
+
+04:46.200 --> 04:55.240
+my request object due to the auth middleware we added earlier and on that user, I can then access
+
+04:55.240 --> 04:58.770
+the posts and pull my ID,
+
+04:58.780 --> 05:02.810
+so the ID of the post which I just deleted and thereafter,
+
+05:02.980 --> 05:09.640
+I will await the result of user save to save that updated user back to the database and then I will
+
+05:09.640 --> 05:15.440
+return true because remember in my schema, I defined that I want to return a boolean.
+
+05:15.490 --> 05:22.180
+I could wrap this all with try catch, this part to also then return false if it fails and that is generally
+
+05:22.180 --> 05:25.210
+something we can do on all these resolvers,
+
+05:25.210 --> 05:30.160
+I will not do it here to keep this code a little bit more simple but in the end, that is something you
+
+05:30.160 --> 05:33.410
+could add, important is that you here return true.
+
+05:34.570 --> 05:35.710
+That is the backend,
+
+05:35.920 --> 05:41.610
+let's now work on the frontend as well and let's make sure we can trigger the deletion of the posts
+
+05:41.650 --> 05:45.040
+there. For that in the feed.js file,
+
+05:45.040 --> 05:51.850
+you want to go to the delete post handler and there again, define your graphql query
+
+05:54.800 --> 05:57.310
+which has the shape you already know and love.
+
+05:59.960 --> 06:05.290
+In that query here, I'll run a mutation,
+
+06:05.540 --> 06:08.700
+the delete post mutation,
+
+06:09.230 --> 06:13.670
+the ID here is injected between double quotation marks, it's
+
+06:13.810 --> 06:17.170
+the post ID I am getting as an argument
+
+06:17.330 --> 06:22.730
+and we have no nested object here so we couldn't even get any nested or detailed data,
+
+06:22.730 --> 06:25.180
+we only get true or false.
+
+06:25.200 --> 06:26.330
+That is my query
+
+06:30.030 --> 06:37.860
+and then here, again I'll send this request localhost8080/graphql, the method as always will
+
+06:37.860 --> 06:39.400
+be a post request,
+
+06:39.480 --> 06:41.150
+we add our token,
+
+06:41.310 --> 06:46.140
+we also set the content type to application
+
+06:46.260 --> 06:55.740
+json and of course we need to add our query expression as a body by using json stringify and
+
+06:55.740 --> 07:01.190
+passing our graphql query in there. We don't handle errors like that as you learned, instead
+
+07:01.290 --> 07:08.190
+we do it on the parsed response because there that is where we would have an errors object if there are any
+
+07:08.400 --> 07:09.410
+errors,
+
+07:09.420 --> 07:16.740
+so I'll copy that code from above and then move that in here to check if there is an errors object which means
+
+07:16.740 --> 07:22.750
+something did go wrong and then deleting the post would fail
+
+07:23.540 --> 07:24.830
+and that is it.
+
+07:24.830 --> 07:27.530
+Now let's save that as well as the backend code
+
+07:27.860 --> 07:32.530
+and let's click on delete here and that is looking good
+
+07:32.880 --> 07:39.970
+and I can carefully delete all my data until there is only one doc left
+
+07:42.510 --> 07:53.570
+and if I now refresh my posts, only one doc is there and in users, that user still has two docs or
+
+07:53.570 --> 08:04.060
+two posts but that is probably related to something I deleted earlier behind the scenes which is also
+
+08:04.070 --> 08:06.050
+the reason why I have two images here.
+
+08:07.980 --> 08:09.960
+To validate that everything does work,
+
+08:09.980 --> 08:12.030
+let's delete that
+
+08:12.320 --> 08:18.690
+and on that user, let's manually delete the two array elements, clear all the posts
+
+08:18.690 --> 08:21.390
+as I mentioned, clear all the images here
+
+08:24.570 --> 08:31.990
+and now reload, we have no posts now. Let's create a duck and let's give it that duck
+
+08:32.020 --> 08:33.640
+image and some content.
+
+08:34.120 --> 08:41.790
+Let's also create another item, a cup and give that the cup image here,
+
+08:45.480 --> 08:50.210
+you can now view the cup, we see it, we also see the duck here.
+
+08:51.020 --> 08:54.440
+Now let me delete the duck,
+
+08:54.440 --> 08:56.150
+the cup is still there,
+
+08:56.660 --> 09:03.440
+only one image, this is looking good. If I inspect my users, only one item, the cup, so that now makes perfect
+
+09:03.440 --> 09:04.400
+sense.
+
+09:04.430 --> 09:11.090
+And now let me also try logging in with a different user who didn't create that and there deleting
+
+09:11.090 --> 09:12.880
+indeed does not work.
+
+09:13.220 --> 09:20.420
+So we have all that in place, let's now finish this all up by making sure we can view and edit our user
+
+09:20.420 --> 09:21.170
+status
+
+09:21.170 --> 09:23.370
+and again this is a great challenge for you.

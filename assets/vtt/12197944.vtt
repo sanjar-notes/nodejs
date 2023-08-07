@@ -1,0 +1,262 @@
+WEBVTT
+
+00:02.380 --> 00:05.890
+Now that we have users in place, let's work on posts
+
+00:05.950 --> 00:11.730
+and for now I will add posts without a real image because the image upload is something I'll manage
+
+00:11.740 --> 00:16.240
+differently, for a post with just title, content,
+
+00:16.240 --> 00:20.140
+some dummy text for the image url and an attached user,
+
+00:20.140 --> 00:24.880
+you can definitely try this on your own though that will be challenging of course but give it a try,
+
+00:24.880 --> 00:28.910
+go as far as you can and then try to solve it together with me,
+
+00:28.930 --> 00:31.750
+I will of course now also do it with you.
+
+00:31.980 --> 00:40.580
+So I will start in my backend, in my schema here and I will add a new mutation, create. There
+
+00:40.580 --> 00:43.490
+I expect to get some data that describes the post,
+
+00:43.670 --> 00:46.980
+we could get it all as separate arguments
+
+00:47.060 --> 00:55.550
+or again we define an input type which I will do here and that will be my post input data and in my post
+
+00:55.640 --> 01:02.990
+input data here, I will require everything I need to, well create a new post and I expect that to be a
+
+01:02.990 --> 01:11.720
+title which is a string, the content which is a string and also the image url. The user is something
+
+01:11.780 --> 01:18.110
+I can retrieve from the token which has to be attached at some point anyways and the image upload is something
+
+01:18.170 --> 01:20.260
+we'll handle differently later.
+
+01:20.510 --> 01:23.550
+So the post input data is in the end what I get here,
+
+01:23.690 --> 01:25.340
+so post input will be of type
+
+01:25.340 --> 01:29.630
+post input data and I will return the created post here,
+
+01:29.630 --> 01:37.990
+remember that we did create the post type earlier already. And now with that, we can actually already
+
+01:38.200 --> 01:42.360
+move on to the resolvers and add a new resolver which I'll name
+
+01:42.370 --> 01:45.080
+create post. In there,
+
+01:45.090 --> 01:52.980
+I can use destructuring to extract by post input argument which I just defined in my schema here
+
+01:55.160 --> 02:01.310
+and I do get the request as the second argument, we'll need that later to get the user data.
+
+02:01.500 --> 02:07.460
+Now for now, let's simply create a dummy post with the dummy data we are able to use right now
+
+02:07.690 --> 02:12.040
+and of course let's also validate the input. For validation
+
+02:12.040 --> 02:18.880
+I'll use the same approach as when we created or logged the users in, I'll create an empty array, an empty
+
+02:18.910 --> 02:22.470
+errors array and then I'll add a couple of if statements.
+
+02:22.600 --> 02:26.900
+Here I'll check if validator is empty, whoops, is empty,
+
+02:26.920 --> 02:32.290
+so if the input is empty and I'll check that for my title.
+
+02:32.500 --> 02:41.320
+If that is the case or if it don't meet a minimum length requirement with isLength for the post input
+
+02:41.590 --> 02:47.590
+title and then I configure this length with the second argument to be a minimum of five characters
+
+02:47.590 --> 02:48.310
+long,
+
+02:48.580 --> 02:56.320
+if we have either of these two cases, then I'll push a new object onto my errors array with a message
+
+02:56.320 --> 02:59.200
+of title is invalid.
+
+02:59.200 --> 03:02.800
+Obviously again, you could be more detailed here.
+
+03:02.800 --> 03:05.190
+So that is my title validation,
+
+03:05.190 --> 03:11.950
+I'll then add another if check where I check the content for exactly the same two things
+
+03:12.310 --> 03:13.750
+and that is it for now.
+
+03:15.620 --> 03:23.870
+Now with that in place, I'll keep my code I have up there where I have a look at my errors
+
+03:23.970 --> 03:32.270
+length and I will copy that down here too to throw an error if we have any validation errors.
+
+03:32.500 --> 03:35.350
+If we make it past this if block here,
+
+03:35.560 --> 03:40.930
+I know my input is valid and we can now create a new post. For that,
+
+03:40.930 --> 03:47.560
+we'll eventually also need a user but for now, I'll ignore the user and instead here up there,
+
+03:47.550 --> 03:56.400
+I'll import my post mongoose model from the models folder and now we can use that to create new posts
+
+03:57.350 --> 03:58.480
+which you of course do, whoops,
+
+03:59.660 --> 04:02.150
+not user, post
+
+04:02.630 --> 04:06.740
+by using our constructor mongoose gives us.
+
+04:06.830 --> 04:08.630
+Now I want to use async await
+
+04:08.660 --> 04:13.250
+again, so I'll tweak that to use this syntax here
+
+04:14.880 --> 04:24.640
+and now down there where I create my, whoops, not user, my new post, I pass in the title which I get from post
+
+04:24.670 --> 04:25.150
+input
+
+04:25.160 --> 04:26.890
+title, I of course
+
+04:26.890 --> 04:33.820
+also add the content here, so post input content, the image url
+
+04:33.830 --> 04:41.840
+post input image url and for now I won't add a creator here because I'm not able to retrieve the
+
+04:41.840 --> 04:44.570
+user yet. So that is my post,
+
+04:44.570 --> 04:53.180
+I can now store the created post in a new constant and I get that by awaiting for post save to finish,
+
+04:54.340 --> 04:54.800
+here
+
+04:54.810 --> 05:02.280
+I'll then also need to add posts to users post, later once I do also retrieve the user,
+
+05:02.290 --> 05:10.100
+for now I can just return my response here so to say by getting all the data from
+
+05:10.100 --> 05:21.290
+the created post doc and then I'll overwrite the ID because I can't return the mongodb object id I need
+
+05:21.290 --> 05:24.740
+to return a string and I will overwrite
+
+05:24.740 --> 05:29.790
+createdAt and updatedAt because these will be stored as date types,
+
+05:29.900 --> 05:31.990
+graphql does not understand that
+
+05:32.030 --> 05:34.140
+so I need to convert that to a string too. 
+
+05:34.280 --> 05:36.860
+So I get that from my created post, there
+
+05:36.890 --> 05:37.960
+createdAt
+
+05:38.000 --> 05:41.360
+and I need to call to ISO string here.
+
+05:41.510 --> 05:43.020
+The same for updatedAt,
+
+05:43.190 --> 05:44.270
+updatedAt
+
+05:44.360 --> 05:52.460
+will be created post updatedAt to ISO string and now with that, this is the data I want to return
+
+05:52.560 --> 05:55.650
+when a new post was added.
+
+05:55.650 --> 05:58.890
+Now for now I'm not checking if the user is authenticated and so on,
+
+05:58.920 --> 06:06.400
+I'll just have this resolver added, this create post resolver for the respective mutation.
+
+06:06.960 --> 06:09.500
+Let's try that out in graphiql
+
+06:09.510 --> 06:10.410
+first of all,
+
+06:10.680 --> 06:16.900
+so here if I reload that so that it loads my latest definition,
+
+06:16.920 --> 06:21.540
+I can add a mutation here and that is now create post. There
+
+06:21.660 --> 06:30.810
+I have my post input which is an object where I have a title, test where I have a content, test and where
+
+06:30.810 --> 06:39.030
+I have an image url, some url and where I then once it is created
+
+06:39.120 --> 06:47.230
+can get back the ID and the title, let's say. Let me click on prettify to make this a bit easier to read
+
+06:47.900 --> 06:53.500
+and now if I hit the play button, I get invalid input which makes sense because title and content are
+
+06:53.500 --> 07:00.550
+too short so let's make them five characters long and now I simply get an error from the database that
+
+07:00.550 --> 07:02.800
+the creator is missing, which makes sense.
+
+07:02.860 --> 07:05.540
+But the general mutation is working,
+
+07:05.560 --> 07:12.520
+let's now make sure we also validate that token which we need to send anyways and that we extract the
+
+07:12.520 --> 07:19.030
+user id and the user therefore so that we can connect posts and users and thereafter, we'll of course
+
+07:19.090 --> 07:21.120
+also connect to our frontend.

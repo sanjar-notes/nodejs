@@ -1,0 +1,259 @@
+WEBVTT
+
+00:02.470 --> 00:05.670
+To ensure that we can add products to the cart,
+
+00:05.710 --> 00:08.940
+we need to work on the post cart method here.
+
+00:08.950 --> 00:13.620
+The post cart method is responsible for adding new products to the cart.
+
+00:13.800 --> 00:18.560
+For this, let's get rid of the existing code there because we'll rewrite it from scratch,
+
+00:18.790 --> 00:23.920
+well almost, I'll keep the code where we get the product ID because I still need to do that.
+
+00:24.940 --> 00:25.390
+Next
+
+00:25.420 --> 00:31.860
+I'll first of all get access to the cart in exactly the same way I did it up there in get cart with request
+
+00:31.870 --> 00:34.310
+user get cart and then my then block,
+
+00:34.340 --> 00:44.910
+so I'll repeat that and then have then and thereafter also catch here. And catch as always I'll just
+
+00:45.060 --> 00:46.870
+log any potential error I get
+
+00:46.960 --> 00:51.250
+and in then here I simply have access to the cart.
+
+00:51.440 --> 00:53.420
+So now we have the cart available.
+
+00:53.930 --> 01:00.050
+Now the third step is that I want to find out if the product I'm trying to add is already part of the
+
+01:00.050 --> 01:03.630
+cart because if it is, then I just need to increase the quantity,
+
+01:03.650 --> 01:07.150
+if it's not I need to add it with a quantity of one.
+
+01:07.460 --> 01:18.070
+So I will return cart get products here with a where condition where I restrict the retrieved products
+
+01:18.080 --> 01:23.240
+to the product with my prod Id, like that.
+
+01:23.260 --> 01:29.680
+So now I only retrieve that single product and in the next then block, I will get an array of
+
+01:29.680 --> 01:30.120
+products
+
+01:30.130 --> 01:36.280
+as you learned but we know that this will only hold one product at most, it might even hold no product
+
+01:36.350 --> 01:42.330
+if a product with this ID is not part of this cart yet. So here
+
+01:45.290 --> 01:51.550
+I'll retrieve my single product as the first element of this array
+
+01:51.800 --> 02:01.630
+but first of all I need to check if products length is greater than zero. I'll right this a bit differently, 
+
+02:01.680 --> 02:06.300
+create a product variable here and assign a value to that variable
+
+02:06.300 --> 02:09.980
+if we do have products, otherwise it will stay undefined.
+
+02:09.990 --> 02:17.910
+So now we do have this check in place, then I'll create a new variable, new quantity and this will be one
+
+02:17.910 --> 02:22.760
+by default and then I'll check if product is anything but undefined,
+
+02:22.770 --> 02:27.930
+so if we actually do have a valid product. If that is the case, I need to increase the quantity,
+
+02:28.110 --> 02:37.260
+so if we do have a product here, I now need to basically get my old quantity for this product and then
+
+02:37.410 --> 02:38.670
+change it.
+
+02:38.670 --> 02:44.430
+We'll do this later because right now we don't have any products in there so let's now only work on
+
+02:44.430 --> 02:46.240
+the new product case.
+
+02:46.290 --> 02:50.910
+So if we got no product here, we know this product is not part of the cart yet,
+
+02:50.910 --> 02:58.850
+so what I'll do at this point here is I will return a call to product find by ID because I need to find
+
+02:58.850 --> 03:00.870
+the general product data for this product
+
+03:00.880 --> 03:07.140
+now, for my prod ID it's not part of the cart but it's of course still in the database in the products
+
+03:07.140 --> 03:15.670
+table and here, I will have a nested then call because it makes things a bit easier here because I will
+
+03:15.670 --> 03:19.490
+execute two very different kinds of code for the case that
+
+03:19.510 --> 03:23.970
+we have an existing product in the cart or that we have to add a new one and therefore find it
+
+03:23.970 --> 03:29.650
+first of all. So here I know this is my product as it's stored in the products table and this is the product
+
+03:29.650 --> 03:34.420
+I want to add to my cart and this can now be done by returning
+
+03:34.600 --> 03:36.380
+and now I need to access my cart again.
+
+03:36.400 --> 03:43.030
+Now my cart is available here in this anonymous function but not in this one. To make it available
+
+03:43.030 --> 03:50.200
+down there too, I'll create a new cart to variable or fetch the cart maybe to not always rename, use the same
+
+03:50.200 --> 03:50.940
+name
+
+03:51.130 --> 03:55.580
+and then here I'll store the cart in fetched cart,
+
+03:55.630 --> 04:02.770
+so now it's not only available here but in this overall function here and therefore down there, I now have
+
+04:02.770 --> 04:05.040
+access to my fetched cart
+
+04:05.050 --> 04:10.120
+and on that fetched cart, I can call add product.
+
+04:10.150 --> 04:15.060
+It's another magic method added by sequelize for many to many relationships,
+
+04:15.100 --> 04:20.890
+I can add a single product here and I will add it to this in-between table with its ID.
+
+04:21.310 --> 04:23.680
+So here I add the product I retrieved,
+
+04:23.680 --> 04:30.720
+I just need to also make sure that I set this extra field I added to my cart item, this is the in-between
+
+04:30.760 --> 04:31.330
+table
+
+04:31.390 --> 04:34.140
+but for every entry, I also want to have quantity
+
+04:34.570 --> 04:40.120
+and if I have more than just two matching IDs, I need to tell sequelize that there is an extra field
+
+04:40.240 --> 04:41.450
+that needs to be set
+
+04:41.770 --> 04:49.590
+and I do this by passing an object to add product as the second argument and there I'll add through,
+
+04:49.930 --> 04:52.150
+you might remember through from app.js,
+
+04:52.180 --> 04:58.880
+there we use that to tell sequelize which model to use as the in between model and therefore as the in-between
+
+04:58.960 --> 05:00.040
+table,
+
+05:00.040 --> 05:04.510
+now I'm telling sequelize, well for that in-between table,
+
+05:04.630 --> 05:07.960
+here's some additional information you need to set the values in there,
+
+05:08.140 --> 05:13.660
+so that's another object and there I'm basically setting the keys or the fields that should be set in
+
+05:13.660 --> 05:15.510
+the in-between table, in this case
+
+05:15.520 --> 05:21.080
+it's the quantity field which should be set to new quantity.
+
+05:21.550 --> 05:26.530
+So this is the case that I add a new product for the first time, new quantity will be one here and I'm
+
+05:26.530 --> 05:28.750
+storing the product with that quantity.
+
+05:29.110 --> 05:30.320
+Let's see if that works,
+
+05:30.340 --> 05:33.160
+if I save this and I go to products,
+
+05:33.320 --> 05:34.170
+got no products so
+
+05:34.180 --> 05:38.450
+let's quickly add one, just with some dummy data to speed this up.
+
+05:38.610 --> 05:42.140
+If I go to products and I click add to cart,
+
+05:42.360 --> 05:45.020
+we're not redirecting which is why we're stuck on this page
+
+05:45.090 --> 05:46.740
+but we got no error here
+
+05:46.740 --> 05:54.870
+by the looks of it and if we refresh or load cart items, we see a new product was added or a new element
+
+05:54.870 --> 06:02.050
+was added to the cart with quantity one pointing at that cart with ID 1 and the product with ID 1,
+
+06:02.070 --> 06:04.920
+so this seems to work.
+
+06:05.070 --> 06:14.100
+Now let's just make sure we also well do see our carts page, so here I'll add a then block where I simply call
+
+06:14.100 --> 06:18.330
+res redirect/cart.
+
+06:18.380 --> 06:20.250
+So let's try this again now
+
+06:23.650 --> 06:27.710
+and now I get an error on that cart page and that is what I mentioned before,
+
+06:27.770 --> 06:29.210
+this will now break.
+
+06:29.210 --> 06:35.440
+So before we handle the case that we add a product to the cart which is already in the cart and therefore
+
+06:35.480 --> 06:37.060
+increase its quantity,
+
+06:37.070 --> 06:40.350
+let's make sure we can see the cart items on this page again.

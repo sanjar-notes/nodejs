@@ -1,0 +1,205 @@
+WEBVTT
+
+00:02.110 --> 00:04.680
+So let's see what else expressjs can do for us
+
+00:04.690 --> 00:09.390
+and let's also start building a more exciting application then. So for this,
+
+00:09.400 --> 00:15.130
+we want to handle different routes, different urls. To do that I'll
+
+00:15.220 --> 00:18.760
+first of all remove our dummy middleware which is not doing anything
+
+00:18.940 --> 00:26.570
+and this second one should only trigger for requests that go to just slash nothing.
+
+00:26.590 --> 00:29.430
+Now how can we filter for such requests?
+
+00:29.650 --> 00:33.670
+Well I mentioned that the use function here has multiple versions,
+
+00:33.760 --> 00:36.340
+you can see that here for overloads,
+
+00:36.370 --> 00:41.190
+so we basically have four different or five different ways of using that function.
+
+00:41.230 --> 00:46.480
+You can see a great explanation in the official docs in the end, on expressjs.com
+
+00:46.550 --> 00:50.650
+there I'm in the API reference for the version we're using here, the latest version
+
+00:50.650 --> 00:54.160
+and there you find app.use where you find the explanation of how to use it.
+
+00:54.160 --> 00:59.030
+Now don't be confused that this is only one definition instead of the five I've promised, the five
+
+00:59.050 --> 01:01.900
+basically just is made up of different combinations,
+
+01:01.930 --> 01:04.230
+so in the end, this is how you can use app.use.
+
+01:04.600 --> 01:10.150
+You got an optional first argument which is some path and that already is what we're looking for,
+
+01:10.150 --> 01:14.160
+this allows us to filter out certain requests,
+
+01:14.320 --> 01:17.730
+however this works a bit different than our if statements did before
+
+01:17.740 --> 01:19.450
+but I'll come back to that.
+
+01:19.600 --> 01:20.820
+Then we have the callback
+
+01:20.820 --> 01:25.570
+so basically the function that should be executed and we can have more than one of that callback, we
+
+01:25.570 --> 01:27.060
+can have as many as we want,
+
+01:27.130 --> 01:29.850
+we can also have multiple path filters here.
+
+01:29.950 --> 01:32.660
+Now you can obviously read more in the docs here
+
+01:32.740 --> 01:37.500
+but let's just use it and learn during the course. So we can add a path at the beginning,
+
+01:37.510 --> 01:39.720
+for example just slash,
+
+01:39.730 --> 01:41.860
+this however is the default by the way
+
+01:42.070 --> 01:45.700
+and now we would handle this for just visiting slash right.
+
+01:45.760 --> 01:49.330
+If I reload, we still see hello from express,
+
+01:49.390 --> 01:54.290
+Now what happens if I for example enter /add-product?
+
+01:54.760 --> 02:01.870
+We still see hello from express and we still see I'm in another middleware, so this middleware gets
+
+02:01.870 --> 02:08.880
+executed for both slash and add product because this does not mean that the full path,
+
+02:08.920 --> 02:15.680
+so the part after the domain has to be a slash but that it has to start with that.
+
+02:15.700 --> 02:19.220
+Now of course every route starts with just a slash
+
+02:19.480 --> 02:21.970
+and then we have different other criteria.
+
+02:22.420 --> 02:27.820
+So what we can do is we can simply duplicate this and add it before this middleware and add
+
+02:27.910 --> 02:29.350
+/add-product.
+
+02:29.350 --> 02:32.430
+Now why before this middleware and not after it?
+
+02:32.650 --> 02:35.390
+Because remember, the request goes through the file
+
+02:35.400 --> 02:41.150
+from top to bottom and if we don't call next, it's not going to the next middleware.
+
+02:41.470 --> 02:44.180
+Well I am not calling next here,
+
+02:44.320 --> 02:48.710
+so in the end if we have /add-product, this middleware will be reached first
+
+02:48.720 --> 02:53.100
+because top to bottom, add product will match this middleware
+
+02:53.350 --> 02:59.470
+and since I don't call next, this middleware will never get a chance of handling that request even though
+
+02:59.620 --> 03:03.940
+the filter here would have well, matched that request too.
+
+03:03.940 --> 03:15.400
+So here if I just add the add product page like this and I save this, you will see that on
+
+03:15.400 --> 03:24.850
+/add-product, we see the add product page and on any other path including random stuff or just slash nothing, you
+
+03:24.850 --> 03:27.130
+see hello from express
+
+03:27.130 --> 03:33.180
+and this is how we can use that middleware approach to control what is getting shown and the order
+
+03:33.190 --> 03:39.340
+here as well as the fact whether we are calling next or not matters a lot. By the way
+
+03:39.460 --> 03:44.830
+if you are sending a response, this is a good indication that you never want to call next too because
+
+03:44.860 --> 03:50.500
+you don't want to execute any other response related code just as before with vanilla nodejs,
+
+03:50.680 --> 03:55.360
+you don't want to send more than one response, this won't work and will result in an error.
+
+03:55.360 --> 03:57.620
+So this is the code we can use here,
+
+03:57.660 --> 04:02.740
+this is the code that allows us to route our requests into different middleware
+
+04:02.740 --> 04:08.140
+and if we have a middleware that should be applied to all requests, we would simply add it on top of
+
+04:08.140 --> 04:09.370
+all the other middlewares
+
+04:09.640 --> 04:15.160
+and then add it like this. If we don't add a filter or a filter that matches all requests it should match,
+
+04:15.450 --> 04:17.730
+then this middleware will always run first
+
+04:17.860 --> 04:23.490
+and if we call the next function, well then of course the request will also be able to continue.
+
+04:23.540 --> 04:31.210
+So if we have this middleware here which allows the request to continue and we have console log, this
+
+04:32.570 --> 04:35.490
+always runs well with this code.
+
+04:35.940 --> 04:40.240
+What we will get is that if I save this, if I reload here
+
+04:40.430 --> 04:44.460
+and I also go to add product here,
+
+04:44.810 --> 04:49.220
+we have this always run twice because well, this always runs,
+
+04:49.250 --> 04:51.230
+that's just how it works.
+
+04:51.230 --> 04:56.630
+So this is how the middleware works and how you can work with it to funnel your request into the right
+
+04:56.630 --> 04:57.340
+place.

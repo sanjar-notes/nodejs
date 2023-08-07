@@ -1,0 +1,58 @@
+WEBVTT
+
+00:02.400 --> 00:08.040
+So in this module, we had a closer look at socket.io and I hope it became clear what you can do with it.
+
+00:08.070 --> 00:15.420
+You can push information from the server to the client through that emit method provided by socket.io
+
+00:15.660 --> 00:21.480
+and I also mentioned that socket.io is not the only way of implementing web sockets because behind the
+
+00:21.480 --> 00:27.240
+scenes, it's that web sockets protocol that allows you to push data from the server to a connected client.
+
+00:27.810 --> 00:35.310
+Socket.io just makes using that web socket protocol, that technology particularly easy and therefore
+
+00:35.310 --> 00:42.600
+it's a very popular package. Definitely dive into the official docs of socket.io to learn all about
+
+00:42.600 --> 00:48.720
+the different features it offers and what you can do with it because it's a very powerful library, it
+
+00:48.710 --> 00:50.520
+gives you a lot of cool features,
+
+00:50.580 --> 00:54.460
+so definitely check out the official docs to learn more about it
+
+00:54.630 --> 00:59.970
+and of course also have a look at the other implementations you might be able to use.
+
+01:00.360 --> 01:07.230
+I just want you to be aware that web sockets are something that build up on http, you establish them
+
+01:07.320 --> 01:11.730
+as you'd see in our application, as a http handshake,
+
+01:11.730 --> 01:19.350
+so you need a running http server either set up with just nodejs or a package like express and you can
+
+01:19.350 --> 01:25.000
+use that server to establish a socket, a web socket connection on top of that.
+
+01:25.230 --> 01:27.620
+So both run simultaneously
+
+01:27.690 --> 01:33.370
+and as you see in our example app, we actually got both going on. We got normal requests
+
+01:33.390 --> 01:37.410
+so to say and we take advantage of socket.io as well.
+
+01:37.620 --> 01:43.010
+So this is an exciting piece of technology that might be interesting for your next application too
+
+01:43.170 --> 01:46.420
+and I hope that this module provided a nice introduction to it.

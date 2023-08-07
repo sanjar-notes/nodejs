@@ -1,0 +1,85 @@
+WEBVTT
+
+00:02.320 --> 00:09.070
+Our program is taking shape, we can't delete products from the cart yet though so we should definitely
+
+00:09.070 --> 00:10.310
+also do that. To do that,
+
+00:10.690 --> 00:14.160
+we still need the product ID
+
+00:14.170 --> 00:15.540
+we want to delete
+
+00:15.670 --> 00:24.460
+but now again, I will first of all get my cart for the user by accessing request user get cart and then
+
+00:24.460 --> 00:29.370
+adding then and catch calls as we did it multiple times already
+
+00:30.560 --> 00:31.940
+and in the then block here,
+
+00:32.120 --> 00:41.510
+I know that I've got access to my cart and in that cart, I now want to find the products for this user
+
+00:41.990 --> 00:44.030
+and to be precise, the products,
+
+00:44.030 --> 00:47.230
+not all products but the product with that product ID.
+
+00:47.480 --> 01:01.990
+So here I will return cart get products and then simply here where ID is equal to prod ID. In the next
+
+01:02.260 --> 01:11.250
+then block we add, I therefore have my products and I have to extract that exact product I'm looking for as
+
+01:11.260 --> 01:13.650
+the first element in the products array
+
+01:14.080 --> 01:21.270
+and now I want to destroy that product but not in the products table of course but only in that in-between
+
+01:21.340 --> 01:27.330
+cart item table that connects my cart with that product. To do that,
+
+01:27.360 --> 01:36.450
+I can simply call product cart item using that magic field sequelize gives me to access the element in
+
+01:36.450 --> 01:38.940
+the in-between table and then destroy
+
+01:39.060 --> 01:41.650
+and that will remove it from that in-between table.
+
+01:41.940 --> 01:48.690
+Now I will return this so that I can add another then block here with the result of this operation
+
+01:48.690 --> 01:49.840
+if I would care
+
+01:50.190 --> 01:58.260
+and then there I'll simply redirect back to the cart, where I should then not see that product anymore.
+
+01:58.260 --> 01:59.190
+Let's give it a try.
+
+01:59.400 --> 02:03.670
+If we reload the cart and I delete that one with quantity three, it's gone.
+
+02:04.410 --> 02:05.950
+Got no errors here
+
+02:06.050 --> 02:12.240
+and if we reload the cart items, we only have one element in there with quantity two and the other one
+
+02:12.390 --> 02:14.210
+is gone indeed.
+
+02:14.220 --> 02:20.160
+So this is how simple we can delete connected items in this in-between table.
+
+02:20.160 --> 02:22.140
+Here are the example of the cart.

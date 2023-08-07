@@ -1,0 +1,310 @@
+WEBVTT
+
+00:02.300 --> 00:04.220
+We're already able to work on the cart,
+
+00:04.250 --> 00:12.280
+now I want to display cart items on cart.ejs. There I simply will add a main section before the end ejs
+
+00:12.280 --> 00:12.900
+include,
+
+00:12.910 --> 00:14.380
+that's important and
+
+00:14.380 --> 00:16.840
+now first of all, what do we need to do here?
+
+00:16.870 --> 00:22.570
+We need to check if we do have products and if we do have them, then we want to display them and I will
+
+00:22.570 --> 00:26.620
+simply display them in a really boring list
+
+00:26.620 --> 00:28.640
+for now, we can add styling later,
+
+00:28.660 --> 00:31.630
+just want to see if that works.
+
+00:31.630 --> 00:36.300
+So let's go real quick to the shop controller where we load the cart and there
+
+00:36.310 --> 00:41.530
+first of all we need to be prepared to fetch all products because we want to return them to the cart.
+
+00:41.530 --> 00:46.510
+However of course not all products we have, just the products we have in the cart. 
+
+00:46.600 --> 00:51.510
+So for this we need to go to the cart model first of all and get delete product and add product,
+
+00:51.580 --> 00:59.970
+now we need a way to get all the products in a cart. So I'll add a new static function, get products here and
+
+00:59.970 --> 01:05.220
+in this function I will access my file and simply return the product IDs.
+
+01:06.430 --> 01:13.170
+I need to get a callback therefore which I can call once I got the products and then I can use this function
+
+01:13.240 --> 01:15.900
+here to read the file
+
+01:18.140 --> 01:23.440
+and in here I know I get my cart, this time doing it correctly with json parse file content,
+
+01:23.500 --> 01:26.170
+this is now the cart
+
+01:26.270 --> 01:31.950
+and actually I'll name this get cart and not get products because I will return the entire cart here
+
+01:31.950 --> 01:33.370
+in my callback, this
+
+01:33.380 --> 01:42.150
+is all I want to do. Now obviously this can fail if we have no carts yet so I will check if we have an error
+
+01:42.190 --> 01:51.450
+and if that is the case, I will call callback null here and otherwise in the else block here, I will
+
+01:51.450 --> 01:55.040
+return a cart with valid values.
+
+01:56.060 --> 02:04.160
+Now we can go to the shop.js controller in get cart and here I call cart get cart. I will have to pass
+
+02:04.160 --> 02:09.430
+a function there, the callback function I just added in the cart model where I will eventually receive
+
+02:09.430 --> 02:13.770
+the cart and I will render my view inside of this function.
+
+02:13.910 --> 02:18.570
+However I don't just need the cart, I need a little bit more information about the products too,
+
+02:18.920 --> 02:25.620
+so I will use my product model then to fetch all products here and I will add my callback here
+
+02:27.140 --> 02:33.770
+and make sure that this is nested in the cart function and we're having a lot of callbacks here but
+
+02:33.770 --> 02:34.730
+it's still readable,
+
+02:34.730 --> 02:41.070
+later we'll also find another way of working with a lot of depending async actions.
+
+02:41.120 --> 02:43.060
+So now I got my cart and I got the products,
+
+02:43.060 --> 02:48.520
+now I just need to filter out the products which are actually in the cart. So I will go through all my
+
+02:48.520 --> 02:49.160
+products,
+
+02:49.160 --> 02:55.390
+so for product of products looping through all the products I have in there and I will check if this
+
+02:55.400 --> 03:01.360
+given product is also stored in a cart and I can check this because in my cart, we got the product ID,
+
+03:01.490 --> 03:07.550
+right if you have a look at cart.json here, we'll store the product IDs.
+
+03:07.720 --> 03:15.270
+So I'll check if carts products, if I do find this product here,
+
+03:15.270 --> 03:23.700
+so if the product I'm looking at in the cart, if the ID of that product equals my product ID here and
+
+03:23.700 --> 03:29.520
+of course this is some code that can be improved if you store large quantities of data but we won't
+
+03:29.520 --> 03:34.000
+store large quantities of data in our file here anyways,
+
+03:34.080 --> 03:35.730
+we'll use a database for that
+
+03:35.880 --> 03:38.520
+and therefore for now this is perfectly fine.
+
+03:38.520 --> 03:46.310
+And if I do find an ID in the cart, then I know well the product is part of that and therefore I will
+
+03:46.340 --> 03:53.080
+create a new constant here, cart products which is an array
+
+03:53.280 --> 03:59.910
+and I will simply add that product to cart products then, so cart products push and I will add the product
+
+03:59.940 --> 04:03.060
+I'm currently looking at in this iteration of this loop.
+
+04:03.210 --> 04:08.310
+So this product I'm looking at, if it's part of the cart I'll add it to cart products.
+
+04:08.340 --> 04:13.500
+This means that after the loop is done, I'll have an array of cart products that contains all the products
+
+04:13.590 --> 04:15.600
+which are indeed part of the cart.
+
+04:15.960 --> 04:20.130
+Now important, just adding the product like this does not suffice
+
+04:20.160 --> 04:28.020
+instead I'll add an object with a product data field which holds the product and also a quantity field because
+
+04:28.020 --> 04:33.390
+the quantity is stored in a cart too but not in that product I'm looping through because these are just
+
+04:33.390 --> 04:34.910
+the products I'm storing in the product.json
+
+04:34.920 --> 04:39.530
+file, obviously there is no quantity in there. In the cart
+
+04:39.540 --> 04:45.390
+however, every product I store there does have a quantity attached to it.
+
+04:45.390 --> 04:46.180
+So in shop.js
+
+04:46.260 --> 04:55.890
+here, I will also store the quantity of the product I'm looking at. Now I'm exracting my cart product
+
+04:55.890 --> 04:56.580
+here,
+
+04:56.820 --> 05:05.810
+so actually I'll store this const, cart product data, I'll store the cart product I'm finding in the cart
+
+05:05.810 --> 05:11.870
+products array in cart product data and I'll check the existence of that then and if that exists I know
+
+05:11.870 --> 05:17.330
+there is some data about this product in the cart, I then store the original complete product data from
+
+05:17.330 --> 05:20.990
+the product model and from the cart product data,
+
+05:20.990 --> 05:28.360
+I'll take the quantity. So now we got quantity and product data in there and we push that object to cart products
+
+05:28.810 --> 05:31.300
+and cart products is now what I want to return,
+
+05:31.510 --> 05:36.470
+so here I'll return a products field which holds cart products,
+
+05:36.610 --> 05:39.980
+this is sent to my view.
+
+05:40.210 --> 05:46.360
+Now if we have no products in the cart, then cart products will simply be an empty array and I can check
+
+05:46.360 --> 05:48.960
+for that in my template.
+
+05:48.980 --> 05:51.740
+So now let's go to the cart.ejs file
+
+05:52.000 --> 06:00.580
+and first of all I'll add an if statement and check if products and now remember, products is simply this key here
+
+06:00.730 --> 06:02.970
+I'm sending into my view,
+
+06:03.730 --> 06:11.190
+so I'll check if products length is greater than zero and then close that
+
+06:11.210 --> 06:16.960
+and I'll also already define an else block here because I want to render something if we got no products in
+
+06:16.960 --> 06:18.270
+a cart too.
+
+06:18.540 --> 06:23.910
+So here in the else block and you need to close that curly brace thereafter, in the else block I'll render
+
+06:23.930 --> 06:27.600
+h1 tag where I say no products in cart,
+
+06:30.340 --> 06:31.130
+like this
+
+06:31.300 --> 06:36.930
+but here of course I want to render the products in the first block of the if statement.
+
+06:36.970 --> 06:42.970
+So here I'll render unordered list for now where I simply loop through all the products, again using ejs
+
+06:45.710 --> 06:50.130
+products for each product
+
+06:53.470 --> 07:07.590
+and that is an anonymous function here like that, then close the forEach loop here by closing the curly
+
+07:07.590 --> 07:13.650
+brace of that anonymous function and then the bracket of this forEach method here.
+
+07:13.890 --> 07:16.280
+Now in here I want to output the product information
+
+07:16.410 --> 07:20.430
+and now it's important to keep in mind that product here,
+
+07:20.520 --> 07:26.300
+maybe we should name it product data, that this
+
+07:29.880 --> 07:36.960
+does actually hold or does actually refer to a product with a product data field and a quantity field
+
+07:37.170 --> 07:40.500
+and the product data field is the product I'm interested in
+
+07:40.590 --> 07:42.330
+but I also need the quantity.
+
+07:42.330 --> 07:48.300
+So maybe even I don't name that product data but just p
+
+07:48.450 --> 07:56.160
+and then in here, I can output p.product data, referring to that nested product data which holds
+
+07:56.160 --> 07:58.140
+the product information like the title,
+
+07:58.380 --> 08:04.570
+so .product data.title would allow me to output the title. And then also maybe in brackets and this is
+
+08:04.590 --> 08:07.580
+no ejs syntax, this is normal hardcoded text here
+
+08:07.680 --> 08:15.540
+but then in there I use ejs again to access p.quantity and remember p simply is that object
+
+08:15.600 --> 08:20.700
+we passed t that cart products array on our backend code.
+
+08:21.270 --> 08:22.890
+So now let's see if that works,
+
+08:22.920 --> 08:30.450
+if I save this and I reload this cart page, we see no products in cart. If I go to products here and
+
+08:30.490 --> 08:34.750
+I click add to cart, we indeed see that on our page.
+
+08:34.830 --> 08:38.850
+If I add this one more time, we see it twice.
+
+08:38.880 --> 08:40.420
+So this is now working,
+
+08:40.530 --> 08:43.020
+the last step is that I want to be able to delete it.

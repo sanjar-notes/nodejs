@@ -1,0 +1,172 @@
+WEBVTT
+
+00:02.180 --> 00:08.770
+I already mentioned at the beginning of this module that for putting dynamic content into our html
+
+00:08.810 --> 00:15.020
+pages, we would use something called templating engines. Templating engines work like this,
+
+00:15.020 --> 00:18.370
+we got a html-ish template
+
+00:18.380 --> 00:25.040
+and with that I mean that you typically write some code, some file that contains a lot of html, your
+
+00:25.120 --> 00:31.170
+html structure and markup, your style and javascript imports, all of that is typically included
+
+00:31.220 --> 00:37.130
+but you have some blanks in there, some placeholders. And then you have your node express content in
+
+00:37.130 --> 00:41.600
+your app, like our dummy array, our products array we're currently using
+
+00:41.960 --> 00:48.770
+and you've got a templating engine which understands a certain syntax for which it scans your html-ish
+
+00:48.770 --> 00:54.670
+template and where it then replaces placeholders or certain snippets depending on the engine you're
+
+00:54.710 --> 01:02.420
+using with real html content but that content, this html content it uses there is generated on
+
+01:02.420 --> 01:05.890
+the fly, on the server by the templating engine
+
+01:05.990 --> 01:08.780
+taking that dynamic content into account.
+
+01:08.780 --> 01:15.620
+So for example you could output anun ordered list with list items for the data you have in your node express
+
+01:15.620 --> 01:22.430
+app with the help of the templating engine and in the end, the result will be dynamically, on the fly
+
+01:22.430 --> 01:28.870
+generated html file which is then sent back to your users. So the users never see the template,
+
+01:28.910 --> 01:30.560
+they never see the placeholders,
+
+01:30.740 --> 01:32.390
+all that happens on the server,
+
+01:32.390 --> 01:38.450
+they just get a normal html page but it's not hardcoded by you as it currently is in our project
+
+01:38.450 --> 01:41.140
+but instead, it's generated on the fly.
+
+01:41.930 --> 01:46.760
+Now we got a couple of different available templating engines and actually, you get even more options
+
+01:46.910 --> 01:48.500
+than I'll show you here,
+
+01:48.680 --> 01:53.270
+at the end of this module, you'll find some useful links to dive deeper into them and learn about more
+
+01:53.270 --> 01:55.810
+alternatives. The three options
+
+01:55.820 --> 01:58.670
+I want to present to you are the three most popular ones,
+
+01:58.730 --> 02:04.430
+we've got ejs, pug formerly named jade and handlebars.
+
+02:04.430 --> 02:09.860
+Now these are free templating engines that use a different syntax and different set of features, different
+
+02:09.860 --> 02:18.440
+philosophies that you can use to well create these templates, inject your dynamic content and get html
+
+02:18.440 --> 02:19.550
+files out of them.
+
+02:19.820 --> 02:23.210
+Here's a brief, a very brief look at how their syntax looks like
+
+02:23.210 --> 02:26.900
+but I will also present all three of them in this module.
+
+02:26.930 --> 02:28.810
+Ejs looks something like this,
+
+02:28.840 --> 02:36.170
+you write normal html markup but then you also add like this smaller than percentage sign
+
+02:36.260 --> 02:40.640
+and then sometimes an equal sign, sometimes not depending on what you're doing, you will see that in this
+
+02:40.640 --> 02:43.850
+module and then the dynamic content you want to output.
+
+02:43.850 --> 02:49.460
+So if we had some name variable being injected into our template and you will learn how that injection
+
+02:49.460 --> 02:55.760
+works, if we got that then the value of our name variable would be output there and we would send back
+
+02:55.790 --> 03:02.990
+an html file with a paragraph tags and the value that was stored in name between them. Pug uses
+
+03:02.990 --> 03:04.310
+a different syntax,
+
+03:04.520 --> 03:10.720
+it doesn't use real html, it replaces this with a minimized version or a minimal version
+
+03:10.880 --> 03:14.570
+and then it also allows you to output dynamic content with this syntax,
+
+03:14.580 --> 03:20.720
+the hashtag curly brace syntax for example. Handlebars in turn uses html again
+
+03:20.790 --> 03:25.190
+but then you have the double curly brace placeholders for the dynamic content,
+
+03:25.320 --> 03:32.580
+so similar to ejs, actually handlebars has a bit less features available you could say or it follows
+
+03:32.580 --> 03:36.900
+a different philosophy but it's closer to ejs, pug is the
+
+03:37.290 --> 03:41.740
+well the outlier here which also uses a different html syntax.
+
+03:42.030 --> 03:47.550
+So a short summary would be ejs, normal html and then actually you got these placeholders
+
+03:47.640 --> 03:52.030
+which allow you to just use plain javascript in them actually,
+
+03:52.050 --> 03:58.080
+so you can also write if statements, for loops. Pug use as a minimal html version
+
+03:58.110 --> 04:05.250
+and a custom template language which is extensible but generally offers only a set of things, of operations
+
+04:05.250 --> 04:08.750
+you can do but if statements and lists would be included,
+
+04:08.790 --> 04:15.780
+iterations would be included. Handlebars uses normal html but also a custom template language with a limited
+
+04:15.780 --> 04:16.820
+set of features,
+
+04:17.040 --> 04:21.700
+again including common things like if statements or lists.
+
+04:21.710 --> 04:25.050
+So these are three popular templating engines,
+
+04:25.050 --> 04:31.020
+now let's briefly dive into them, how we install them and how we use them before we then pick the favorite
+
+04:31.020 --> 04:33.330
+for this course and stick to that favorite
+
+04:33.390 --> 04:37.870
+and again at the end of this module, you'll find more resources on all these engines.

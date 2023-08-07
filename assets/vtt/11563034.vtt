@@ -1,0 +1,274 @@
+WEBVTT
+
+00:02.330 --> 00:07.610
+Now the third kind of error I want to discuss is the logical error and that is often the most difficult
+
+00:07.610 --> 00:10.740
+one to fix because it will not cause an error message,
+
+00:10.790 --> 00:14.720
+your app will just not behave the way you expect it to.
+
+00:14.720 --> 00:21.140
+Let's see here in the routes.js file where we parse our body, we're retrieving the message here and
+
+00:21.670 --> 00:29.960
+that is of course nice but let's say I actually do have the first element being stored in message here
+
+00:29.960 --> 00:34.820
+and keep in mind the second element which we previously had is the actual message the user entered because
+
+00:34.820 --> 00:40.760
+we're splitting that key value pair we're getting automatically and now we're actually storing the wrong
+
+00:40.760 --> 00:41.960
+element.
+
+00:41.960 --> 00:48.230
+So now if I save this and my server restarts due to nodemon, I can enter some test here
+
+00:48.640 --> 00:52.620
+and if I do this and I open my message text file, I actually see message there.
+
+00:52.640 --> 00:55.910
+Now this is a logical error because we got no error message
+
+00:55.970 --> 00:58.910
+but the app is not behaving the way we want it to.
+
+00:58.910 --> 01:04.550
+Now of course we know that we used the wrong index here because I just changed that
+
+01:04.580 --> 01:09.770
+but let's say you worked on that code for the first time and you just use zero here because you forgot
+
+01:10.010 --> 01:11.200
+that this should be one,
+
+01:11.270 --> 01:15.290
+so you didn't change that back on purpose but you really made this mistake.
+
+01:15.590 --> 01:19.190
+Now it's not super obvious to see
+
+01:19.190 --> 01:23.000
+and how can you now work on such errors?
+
+01:23.390 --> 01:25.560
+Well with the help of the nodejs
+
+01:25.580 --> 01:32.600
+debugger which actually has a great integration into visual studio code which I strongly recommend
+
+01:32.600 --> 01:33.330
+using.
+
+01:33.560 --> 01:36.740
+Let me show you how that debugger works then.
+
+01:36.740 --> 01:42.450
+For this, let's quit that process and let's select the app.js file now, that's important
+
+01:42.620 --> 01:50.090
+and now go to debug here in visual studio code in the menu and choose start debugging or use the keyboard
+
+01:50.090 --> 01:52.040
+shortcut you see there.
+
+01:52.070 --> 01:57.740
+Now with that, you have to choose an environment and there you should use nodejs and you will now see
+
+01:57.740 --> 02:03.620
+that extra bar here at the top which allows you to control the debugger, you see the red bar at the bottom
+
+02:03.620 --> 02:09.080
+that indicates that you're in debugging mode and you actually also have a debug console here where you
+
+02:09.110 --> 02:11.960
+now see that the debugger is attached and listening.
+
+02:12.260 --> 02:13.940
+Now what does this mean?
+
+02:14.030 --> 02:19.570
+This means that now you actually can look into your code as it's running
+
+02:19.940 --> 02:23.740
+but to really do that, you need to set so-called breakpoints.
+
+02:23.960 --> 02:25.750
+So let's go to the route.js file
+
+02:25.910 --> 02:31.040
+and let's say we assume it has something to do our error here with the wrong text being stored with
+
+02:31.040 --> 02:36.290
+this code snippet because ultimately, that is where we write it to the file.
+
+02:36.290 --> 02:41.270
+So what you can do is you can set a breakpoint in visual studio code by going to the left of the line
+
+02:41.270 --> 02:45.240
+numbers until you see that red dot and clicking there.
+
+02:45.260 --> 02:51.620
+Now we got a breakpoint there and what will now happen is that with that debugging process running, don't
+
+02:51.620 --> 02:55.650
+quit this, you can quit it by clicking the red square but let's leave it running,
+
+02:55.970 --> 03:03.140
+if you now submit some text here, it should automatically jump back and mark this line like this, highlighted
+
+03:03.140 --> 03:07.810
+yellow and kind of put this yellow arrow around our breakpoint.
+
+03:07.820 --> 03:11.820
+This means that the code execution now stopped here,
+
+03:11.840 --> 03:13.340
+it did not continue,
+
+03:13.340 --> 03:14.710
+it stopped and it stopped
+
+03:14.710 --> 03:22.020
+so that you can look inside of it and actually you can now analyze your code in the moment it's running.
+
+03:22.040 --> 03:26.690
+For example you can hover over your variables to see what's stored inside of them,
+
+03:26.840 --> 03:33.310
+so for example you see that the parsed body is this string which we're splitting in the yellow highlighted line.
+
+03:33.620 --> 03:40.380
+You see what's inside of the body you passed to concat, that it's an array with a buffer of length 12
+
+03:40.380 --> 03:41.470
+for example.
+
+03:41.600 --> 03:47.540
+You can even expand this to look into it a bit more and find more details about the buffer, in case you're
+
+03:47.540 --> 03:49.080
+interested here.
+
+03:49.100 --> 03:53.700
+You also can go to view and then debug here,
+
+03:53.960 --> 04:00.380
+this gives you a special debug mode where you see the key variables you have available in your code
+
+04:00.380 --> 04:01.240
+right now,
+
+04:01.400 --> 04:05.070
+message is undefined because we stopped in that line where we would set it
+
+04:05.150 --> 04:07.770
+but it stops before it executes the line,
+
+04:07.820 --> 04:10.600
+so therefore message is still undefined at this point 
+
+04:10.730 --> 04:16.820
+but parsed body for example does hold the value, well it has which you can also see if you hover over
+
+04:16.820 --> 04:17.480
+it.
+
+04:17.660 --> 04:23.990
+You don't just see local variables which are available in this function but block variables too, this is
+
+04:24.010 --> 04:28.320
+the variable which is always available outside of this function,
+
+04:28.370 --> 04:29.450
+it's this variable
+
+04:29.630 --> 04:34.690
+and you can also look into that therefore and you can generally click around to see some global values
+
+04:34.700 --> 04:37.270
+and the values they currently have stored
+
+04:37.490 --> 04:41.540
+and a couple of these things. You also can define watchers here,
+
+04:41.570 --> 04:47.210
+for example you can click a plus here and then watch message and hit enter
+
+04:47.330 --> 04:50.150
+and now you will always see that here, you also see it up here
+
+04:50.170 --> 04:56.120
+but if you ever close that, you can define some variables you're particularly interested in and watch them
+
+04:56.210 --> 05:00.380
+whilst you go through your code. And you also see your breakpoints down there,
+
+05:00.380 --> 05:02.000
+you see all the breakpoints you set,
+
+05:02.020 --> 05:08.340
+you can uncheck them here to not stop execution the next time they are reached and so on.
+
+05:08.350 --> 05:14.310
+You also see the call stack which looks very cryptic but what in the end just shows how the process went
+
+05:14.310 --> 05:20.590
+through your code and you can click on these different parts to see where actually this code which belongs
+
+05:20.590 --> 05:26.250
+to the code that was executed can be found and not all of that is code you wrote, a lot of that is core
+
+05:26.260 --> 05:27.830
+nodejs code.
+
+05:27.830 --> 05:28.200
+Ok
+
+05:28.240 --> 05:30.870
+so that's the debugger in a nutshell.
+
+05:30.880 --> 05:34.330
+Now to work it and to continue with your code execution,
+
+05:34.330 --> 05:36.860
+you can use that panel here at the top.
+
+05:37.210 --> 05:41.460
+You can resume code execution with the play button but we don't want to do that
+
+05:41.470 --> 05:48.340
+instead we want to step through our code step by step so that we can see when it fails or where it goes
+
+05:48.340 --> 05:49.540
+wrong.
+
+05:49.540 --> 05:56.220
+And you can do that with this button which steps to the next line basically or with this button here 
+
+05:56.290 --> 05:58.690
+which doesn't just step into the next line
+
+05:58.750 --> 06:01.960
+but actually even goes into functions like this one.
+
+06:01.960 --> 06:09.190
+So if you click here and again, now all of a sudden you're in the write file function defined by nodejs
+
+06:09.560 --> 06:18.650
+and you can step out of there with this key. Now you see if you continue here that this wasn't too helpful
+
+06:18.810 --> 06:21.890
+but that we can now navigate like this in our code.
+
+06:21.930 --> 06:23.930
+So now let's make this more helpful
+
+06:24.000 --> 06:28.540
+and for that, let's try this again and use that debugger properly now.
+
+06:28.590 --> 06:30.210
+We'll do this in the next lecture.

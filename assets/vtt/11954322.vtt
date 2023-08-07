@@ -1,0 +1,115 @@
+WEBVTT
+
+00:02.110 --> 00:07.640
+So we learned a lot about how we work with sessions and cookies and how we can use it to store data
+
+00:07.670 --> 00:13.100
+and what potential issues are if we store mongoose model data in there because we don't store the full
+
+00:13.100 --> 00:17.890
+mongoose model but only the data but not the magic methods,
+
+00:17.960 --> 00:21.970
+so we have to recreate that mongoose model, we have to re-fetch the data.
+
+00:22.310 --> 00:29.510
+Now one thing I just noticed is in the views, if I go to my product detail, there this add to cart of course
+
+00:29.570 --> 00:35.030
+also should only be rendered if I am authenticated, so I'll grab that link from product list and
+
+00:35.100 --> 00:42.620
+replace this here to make sure this works correctly because previously, if I clicked on details even
+
+00:42.620 --> 00:46.160
+though I'm not logged in, I did see my button there,
+
+00:46.170 --> 00:55.560
+now if I login and I go to the, whoops, details I see it here, I don't see it
+
+00:55.560 --> 00:57.700
+if I'm logged out.
+
+00:57.780 --> 01:06.490
+Now one other thing you might notice is if you do login like this, you sometimes might end up in a scenario
+
+01:07.360 --> 01:12.220
+where after logging in, the view didn't update accordingly.
+
+01:12.220 --> 01:18.220
+Now I fail to reproduce this at the moment but you might see this, that you login and still some items
+
+01:18.220 --> 01:20.900
+are missing and you need to reload the page to get there.
+
+01:20.920 --> 01:27.010
+The reason for this is that in auth.js when I have post login here, I do set my session and when
+
+01:27.010 --> 01:32.790
+I then redirect, when I send a response, the session middleware goes ahead and creates that session
+
+01:32.830 --> 01:38.120
+and that means it writes it to mongodb because we use the mongodb sessions store and it sets
+
+01:38.130 --> 01:38.920
+the cookie.
+
+01:38.920 --> 01:44.260
+Now the problem we can face here is writing that data to a database like mongodb
+
+01:44.260 --> 01:48.450
+can take a couple of milliseconds or depending on your speed even a bit more
+
+01:48.460 --> 01:49.990
+milliseconds.
+
+01:49.990 --> 01:56.840
+The redirect is fired independent from that though, so you might redirect too early.
+
+01:56.890 --> 02:00.510
+Now to be sure that your session has been set,
+
+02:00.550 --> 02:04.330
+you can use request session here and call the save method,
+
+02:04.360 --> 02:10.240
+you normally don't need to do that but you need to do it in scenarios where you need to be sure that
+
+02:10.240 --> 02:16.720
+your session was created before you continue because here, you can pass in a function that will be
+
+02:16.720 --> 02:17.330
+called
+
+02:17.440 --> 02:21.010
+once you're done saving the session. You'll get an error here
+
+02:21.100 --> 02:28.210
+if an error exists, most of the time that should not be the case and then in here, you can safely redirect
+
+02:28.330 --> 02:31.310
+and you can be sure that your session has been created here.
+
+02:32.150 --> 02:42.170
+So now with that, if I log out and I login again here, now this will only continue once that session has
+
+02:42.170 --> 02:43.200
+really been created.
+
+02:43.220 --> 02:49.070
+Normally you don't need to call that but you need to call it if you need that guarantee which typically
+
+02:49.070 --> 02:55.820
+is the case when you do redirect for example because in such scenarios, the redirect will be fired independent
+
+02:55.820 --> 02:57.300
+from the session being saved
+
+02:57.380 --> 03:02.660
+and therefore the redirect might be finished and the new page might be rendered before your session
+
+03:02.660 --> 03:05.610
+was updated on the server and in the database.
+
+03:05.720 --> 03:09.260
+That's something to keep in mind and that is why I wanted to show you this method too.

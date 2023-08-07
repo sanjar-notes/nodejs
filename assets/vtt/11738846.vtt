@@ -1,0 +1,49 @@
+WEBVTT
+
+00:02.420 --> 00:08.330
+Now before we dive into dynamic routes you need to adjust your project a bit, either because you skipped
+
+00:08.330 --> 00:14.120
+the last module altogether and therefore you should download the entire snapshot I attached to this
+
+00:14.120 --> 00:16.620
+lecture which contains my latest state
+
+00:16.910 --> 00:24.050
+but you should also download that snapshot or the adjustments zip file which contains the files you will
+
+00:24.050 --> 00:27.490
+need to add to your project in case you don't want to use my snapshot
+
+00:27.500 --> 00:33.260
+but if you skip the last module, always go with that snapshot. Now in the adjustments zip file and you
+
+00:33.260 --> 00:39.680
+can ignore that if you download the snapshot, in the adjustments zip file you will find that javascript
+
+00:39.680 --> 00:45.380
+file, the main.js file which you should move into a js folder in the public folder,
+
+00:45.380 --> 00:51.620
+you will also find that main.css file and the product.css file in there and you should also
+
+00:51.620 --> 00:58.030
+replace yours in the css folder with the ones you find attached because I fine tune some styles.
+
+00:58.040 --> 01:05.630
+Additionally, make sure that you also replace all the views you find in that attached zip file and
+
+01:05.630 --> 01:11.720
+you simply replace your existing files or their content with the attached files or the content of the attached
+
+01:11.720 --> 01:12.600
+files.
+
+01:12.680 --> 01:13.700
+And with that added
+
+01:13.750 --> 01:18.390
+and in case you are facing any problems, simply take the snapshot. With all that added,
+
+01:18.530 --> 01:21.500
+let's now start writing our dynamic route code.

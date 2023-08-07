@@ -1,0 +1,187 @@
+WEBVTT
+
+00:02.210 --> 00:09.160
+Now that we learned what the core idea is and how we transfer data and that data is king in a rest API,
+
+00:09.550 --> 00:11.050
+let's have a look at the routing,
+
+00:11.080 --> 00:14.510
+so how do we communicate between client and server?
+
+00:14.920 --> 00:20.020
+So we get client and server and on the server, we got our server side logic, we reach out to databases and so
+
+00:20.020 --> 00:20.660
+on.
+
+00:20.740 --> 00:25.440
+Now we send a request from the client to the server and how do we do that?
+
+00:25.720 --> 00:29.350
+Well in a traditional web app as we built it thus far
+
+00:29.350 --> 00:36.310
+in the course, we did it of course by simply adding a link on our html page for example or we had
+
+00:36.310 --> 00:41.240
+a form with a button and we defined the form action and the method.
+
+00:41.710 --> 00:44.210
+Well it's not that far off for rest
+
+00:44.220 --> 00:46.620
+APIs. We still send the request
+
+00:46.630 --> 00:54.170
+to a combination of http method, also called http verb and a path on the server.
+
+00:54.340 --> 01:01.540
+So what we defined thus far still will be used kind of, we still define such paths, on the server, on the
+
+01:01.540 --> 01:07.930
+server side routing where we wait for incoming requests and we also define certain http methods we want
+
+01:07.930 --> 01:12.930
+to handle for these paths so that not all requests can reach all paths.
+
+01:13.050 --> 01:20.080
+These requests would be sent from the client through, when working in the browser, through asynchronous
+
+01:20.080 --> 01:20.930
+javascript,
+
+01:20.980 --> 01:28.840
+so with the fetch API for example or with Ajax and on mobile apps and so on, we also get special clients.
+
+01:28.840 --> 01:32.890
+The core thing here is we in the end still send normal requests,
+
+01:32.890 --> 01:38.980
+these are totally normal requests that just don't expect any html response and we send a combination
+
+01:38.980 --> 01:44.080
+of http method and path and this is how we communicate with our server.
+
+01:44.320 --> 01:51.670
+Now in the rest world or in the API world, we like to call these things here API andpoints,
+
+01:51.670 --> 01:58.780
+so when you hear me talk about an API endpoint, I'm talking about the combination of a http method like
+
+01:58.780 --> 02:06.800
+post and get and the respective path. These are the endpoints we defined on our rest API
+
+02:07.000 --> 02:13.370
+and we defined a logic that should execute on the server when a request reaches such an endpoint.
+
+02:13.660 --> 02:20.500
+Now talking about http methods, there are more methods than just get and post. I did mention this before
+
+02:20.650 --> 02:27.700
+in the course but when working with the browser only and not with javascript in the browser but just
+
+02:27.700 --> 02:32.240
+with forms and links, then we only have get and post available.
+
+02:32.320 --> 02:37.950
+These are the two methods the browser natively knows or the browser html elements know
+
+02:38.050 --> 02:44.800
+so to say. When using asynchronous requests through javascript or when building mobile apps and so on and
+
+02:44.800 --> 02:50.260
+using their respective http clients, you have access to more http methods
+
+02:50.380 --> 02:57.190
+and we actually already saw that in the asynchronous requests module of this course. Besides get which is
+
+02:57.190 --> 03:03.010
+responsible for getting a resource from the server and post which is responsible for posting a resource
+
+03:03.010 --> 03:09.870
+to the server which means create it on the server or append it to an existing let's say array of resources,
+
+03:10.120 --> 03:16.540
+besides these two methods which we re-used a lot throughout the course, we have access to put which we would
+
+03:16.540 --> 03:22.750
+use if we want to put a resource onto the server, which means we want to create it or overwrite an existing
+
+03:22.750 --> 03:23.380
+resource,
+
+03:23.420 --> 03:27.140
+posts will never overwrite or should never overwrite.
+
+03:27.250 --> 03:32.980
+We also have access to patch which is used for updating parts of an existing resource, so not overwrite
+
+03:32.980 --> 03:36.080
+it entirely necessarily but update parts of it.
+
+03:36.310 --> 03:42.610
+We have access to delete which allows us to delete a resource on the server and also there is a special
+
+03:42.700 --> 03:47.440
+options http method which we will use too in this module
+
+03:47.440 --> 03:52.830
+indirectly though, it is sent automatically by the browser and I will come back to it.
+
+03:53.110 --> 03:59.620
+This basically is a request which the browser will send automatically to find out if the next request
+
+03:59.650 --> 04:00.450
+it tries to do,
+
+04:00.460 --> 04:04.930
+for example delete something, if that is actually allowed and I will come back to that.
+
+04:04.930 --> 04:06.990
+So these are the http methods
+
+04:07.000 --> 04:11.600
+we will work with and the methods we typically work with when building a rest API
+
+04:11.680 --> 04:17.170
+especially the first five ones, the orange ones are important.
+
+04:17.320 --> 04:24.760
+Now let me also highlight that in theory, you can do whatever you want when a request with a certain
+
+04:24.850 --> 04:27.530
+method reaches a certain path.
+
+04:27.550 --> 04:34.900
+So for the rest world, we should use a post request to create or append a resource.
+
+04:34.900 --> 04:42.430
+No one is stopping you from deleting something on a server because ultimately, you only define a method
+
+04:42.580 --> 04:47.040
+path pair on your server side and then you run any code you want
+
+04:47.140 --> 04:53.070
+and what happens in that code is not restricted by the method that was used to execute that code.
+
+04:53.110 --> 05:00.220
+You can restrict it yourself and you want to implement the rest API that follows these ideas here but
+
+05:00.220 --> 05:01.260
+you don't have to
+
+05:01.300 --> 05:03.330
+and that's just important to highlight.
+
+05:03.460 --> 05:10.180
+It's common and it's a good practice, it's a best practice to use these methods in this way because then
+
+05:10.270 --> 05:16.770
+anyone who's using your API clearly knows what to expect to happen on the server for a given method
+
+05:16.900 --> 05:20.760
+but in theory no one is stopping you from doing something else.
+
+05:21.310 --> 05:23.470
+So these are the http methods.

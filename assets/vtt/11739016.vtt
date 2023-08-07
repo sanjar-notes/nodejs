@@ -1,0 +1,172 @@
+WEBVTT
+
+00:02.170 --> 00:05.140
+Time to retrieve a single book when we click on details,
+
+00:05.170 --> 00:10.720
+so essentially I'm talking about the get product action here in my controller.
+
+00:10.720 --> 00:12.220
+We get the product ID here
+
+00:12.550 --> 00:17.470
+and indeed this is the old find by ID method I defined
+
+00:17.470 --> 00:24.980
+but if we were to delete it, we see that sequelize also has a find by ID method.
+
+00:25.000 --> 00:31.750
+So actually if I leave this code exactly as it is right here at least, it will work, one difference is that
+
+00:31.810 --> 00:32.980
+with sequelize,
+
+00:33.010 --> 00:35.890
+we don't get an array of products here
+
+00:36.010 --> 00:40.980
+instead I get a single product so I can just use it like this.
+
+00:40.990 --> 00:46.720
+So with these tiny changes, turning this into a single product and using it as such and leaving this as it
+
+00:46.720 --> 00:55.330
+is actually, I should already be able to view the details and I am, just the images may be a bit oversized
+
+00:55.330 --> 00:56.270
+here,
+
+00:56.360 --> 00:59.450
+that is something we can quickly fix in css. 
+
+00:59.710 --> 01:06.160
+I quickly added the image class to the div wrapping my product in the product detail view here and
+
+01:06.160 --> 01:11.830
+now in the main.css file where I also have my centered class,
+
+01:11.970 --> 01:22.850
+I will add a new image class and restrict the max height to let's say 20rem and then also say that
+
+01:22.940 --> 01:31.550
+any image text in the, nested in an element with the image class should respect that height and that
+
+01:31.560 --> 01:34.970
+should also be just height not max height.
+
+01:35.230 --> 01:37.400
+And with that if I now reload this page here,
+
+01:37.410 --> 01:42.580
+this is looking better and we should have no problems with the image anymore.
+
+01:42.960 --> 01:47.790
+Just a tiny change, the main takeaway of course is we can retrieve the product like this.
+
+01:47.790 --> 01:52.310
+However I also want to show you an alternative way,
+
+01:52.490 --> 01:59.780
+so using this syntax here is perfectly fine but let me also show you how we can use the normal find method
+
+01:59.780 --> 02:03.680
+we also got, find all to be precise.
+
+02:03.920 --> 02:08.570
+We only have one product with that ID of course but I want to show you that where syntax,
+
+02:08.570 --> 02:10.560
+so any object we can pass to find all,
+
+02:10.600 --> 02:12.090
+I'll set the where key
+
+02:12.320 --> 02:15.500
+and there you got a rich query language
+
+02:15.500 --> 02:19.840
+or a rich amount of options you can use to configure this.
+
+02:19.970 --> 02:23.300
+More can of course be found in the official tutorial,
+
+02:23.300 --> 02:28.590
+if you go to querying there, there you'll find all the details about how to configure your queries,
+
+02:28.610 --> 02:32.030
+for example you can also control which attributes are retrieved,
+
+02:32.030 --> 02:34.560
+you don't have to get all attributes all the time,
+
+02:34.640 --> 02:40.700
+if you only need the title, you can define this too and you'll also see how to use where. How to use it in a basic
+
+02:40.700 --> 02:46.490
+form, where you want to simply check that one attribute has one exact value but also how you can use
+
+02:46.790 --> 02:53.660
+operators to have alternative conditions or to check if something is greater than or greater than equal
+
+02:54.350 --> 02:57.400
+or lower than a value and so on.
+
+02:57.410 --> 03:01.140
+So you got a lot of options there and definitely check out these docs,
+
+03:01.280 --> 03:08.750
+here we could say I'm looking for all products where the ID is equal to prod ID and then I will use
+
+03:08.750 --> 03:11.560
+them or catch any errors.
+
+03:11.840 --> 03:15.140
+Now the one important thing here of course is by default
+
+03:15.200 --> 03:21.470
+this gives us an array because even though we know that only one product will have this ID, find all
+
+03:21.590 --> 03:27.730
+per definition always gives you multiple items even if it's an array with only one element.
+
+03:27.770 --> 03:34.590
+So if we use this syntax and we render this, we'll have products and we're interested in the first product,
+
+03:34.640 --> 03:37.330
+in this case also the only product as we know.
+
+03:37.460 --> 03:43.880
+So now I can comment out the other approach and if we save that and we go back to our application and
+
+03:43.880 --> 03:49.220
+we reload that detail page, it looks like it works but actually this keeps on loading
+
+03:49.220 --> 03:52.090
+so something went wrong and indeed
+
+03:52.190 --> 03:53.770
+we got an error here,
+
+03:55.610 --> 03:57.730
+product is not defined. Yeah
+
+03:57.850 --> 04:02.110
+here for the title I should also use products zero of course.
+
+04:02.210 --> 04:08.870
+So now with that if we save that and let it restart therefore, now we can reload this page and it works as
+
+04:08.870 --> 04:15.590
+before but now is using find where, find all with that where query and I simply wanted to show you
+
+04:15.590 --> 04:17.300
+this alternative approach.
+
+04:17.300 --> 04:22.490
+Of course it's perfectly fine and even preferrable in this case to use find by ID,
+
+04:22.700 --> 04:26.480
+so I will actually switch back to that other approach.
+
+04:26.480 --> 04:28.370
+It's good to know how you can query though.

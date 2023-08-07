@@ -1,0 +1,184 @@
+WEBVTT
+
+00:02.150 --> 00:07.850
+As I mentioned in the last lecture, we could protect our routes like this but this is not really a scalable
+
+00:07.850 --> 00:13.790
+way, we would have to add it to every route which should be protected, to every controller action.
+
+00:13.790 --> 00:20.130
+So instead I want to create my own middleware which I can add on every route that should be protected
+
+00:20.510 --> 00:26.430
+and for this, I'll first of all create a brand new folder in my project here.
+
+00:26.480 --> 00:31.640
+So in the root of the project, I'll add a middleware folder, you could name this however you want, it doesn't have
+
+00:31.640 --> 00:34.470
+to be named middleware. In there
+
+00:34.640 --> 00:42.650
+I'll add an isauth.js file and you can also name that file however you want and I will simply export a function
+
+00:42.650 --> 00:43.030
+here,
+
+00:43.040 --> 00:47.940
+a typical middleware function where you get request, response and next
+
+00:47.960 --> 00:50.270
+and then you execute some code.
+
+00:50.540 --> 00:53.100
+So I want to export such a function here.
+
+00:53.210 --> 00:56.660
+Now in that function, I'll simply implement the code
+
+00:56.690 --> 00:58.540
+I showed you in the last lecture,
+
+00:58.640 --> 01:03.430
+so I check if we are not logged in
+
+01:03.580 --> 01:14.540
+and if that is the case, then I will return res redirect login like that, otherwise I'll call next
+
+01:15.290 --> 01:20.750
+because otherwise I want to allow the request to continue to whichever route the request wanted to go
+
+01:20.750 --> 01:21.650
+to.
+
+01:21.680 --> 01:25.960
+Now this is the same logic as before but it's wrapped in a middleware,
+
+01:26.270 --> 01:32.690
+now we can go to the routes folder and there, you can actually add as many handlers for any route you
+
+01:32.690 --> 01:33.220
+want
+
+01:33.320 --> 01:37.030
+and the request will be funneled through them from left to right.
+
+01:37.040 --> 01:47.000
+This means that in here, I can now import my isAuth middleware by requiring it from my middleware folder,
+
+01:47.210 --> 01:48.500
+isAuth like this
+
+01:48.830 --> 01:52.750
+and isAuth can now simply be added as an argument to get
+
+01:52.760 --> 01:57.070
+and you can add as many arguments as you want, as many handlers as you want therefore
+
+01:57.290 --> 02:00.770
+and as I mentioned, they will be parsed from left to right,
+
+02:00.800 --> 02:04.140
+the request will travel through them from left to right.
+
+02:04.280 --> 02:11.150
+So the request which reaches get product goes into that isAuth middleware first and in the isAuth middleware,
+
+02:11.150 --> 02:14.900
+we might be redirecting and we don't call next,
+
+02:14.900 --> 02:19.040
+hence the request would never continue to that controller action
+
+02:19.160 --> 02:23.490
+but if we make it past the if check here in the middleware, we do call next,
+
+02:23.510 --> 02:29.690
+so the next middleware in line will be called and the next middleware in line would be our get add product
+
+02:29.690 --> 02:31.620
+controller action here.
+
+02:31.670 --> 02:34.290
+And this means that we can now add
+
+02:34.370 --> 02:41.560
+this isAuth middleware to all the routes here because these routes actually all require authentication
+
+02:42.800 --> 02:43.830
+and in the shop.js
+
+02:43.850 --> 02:44.260
+file,
+
+02:44.270 --> 02:46.940
+there also are some routes that should be protected,
+
+02:47.040 --> 02:53.610
+so I'll import isAuth here too by requiring it from the middleware folder, like this
+
+02:53.870 --> 03:00.130
+and then there too, I want to protect get cart because we need to be authenticated to have a cart,
+
+03:00.410 --> 03:07.910
+I will protect post cart, I will protect deleting a cart item, posting an order and viewing the orders,
+
+03:08.060 --> 03:13.040
+so all that is protected with the help of isAuth.
+
+03:13.050 --> 03:18.270
+So now this means that if you are not logged in, you actually can't access these routes.
+
+03:18.300 --> 03:20.100
+I am not logged in here,
+
+03:20.550 --> 03:23.640
+now let me show this to you and let me logout
+
+03:23.840 --> 03:31.910
+and now I'll try to access admin add product and you see I end up on the login page and the same
+
+03:31.910 --> 03:40.250
+if I try to access cart, I end up on the login page. I can visit products and the details and so on but
+
+03:40.250 --> 03:42.380
+I can't visit the rest.
+
+03:42.380 --> 03:49.310
+So now we have route protection in place and we don't just hide the menu items here but we really check
+
+03:49.850 --> 03:57.260
+the authentication status with the help of the session on the server side and there, the user has no way
+
+03:57.350 --> 03:58.600
+of manipulating it,
+
+03:58.610 --> 04:04.780
+so now we ensure that some routes, some methods are only available to logged in users.
+
+04:04.910 --> 04:16.980
+And indeed if I do login again, I can of course add a new book here for example with that same image
+
+04:16.980 --> 04:21.030
+we reused a couple of times but it's still new.
+
+04:21.420 --> 04:23.520
+So let's add this, this works.
+
+04:23.520 --> 04:25.420
+So all of that can be done,
+
+04:25.440 --> 04:27.410
+all of that is supported here,
+
+04:27.420 --> 04:29.490
+you see we can edit a product,
+
+04:29.580 --> 04:31.710
+we can also delete a product if we want to,
+
+04:31.710 --> 04:32.510
+this all works
+
+04:32.610 --> 04:35.880
+but we protect it against unauthenticated access.

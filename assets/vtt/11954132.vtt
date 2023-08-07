@@ -1,0 +1,55 @@
+WEBVTT
+
+00:02.110 --> 00:09.200
+In the last module, we had a closer look at NoSQL or especially mongodb and how you can use
+
+00:09.290 --> 00:16.360
+such a NoSQL database in our course mongodb, the most popular NoSQL database in a nodejs
+
+00:16.370 --> 00:17.630
+application.
+
+00:17.690 --> 00:23.350
+Hopefully you saw that it wasn't too difficult and still just as with SQL,
+
+00:23.420 --> 00:30.890
+we can abstract some complexity away from us and focus more on our data than the queries we write and
+
+00:30.920 --> 00:38.090
+here just as we had sequelize for SQL, we got mongoose for mongodb and mongoose is indeed pretty
+
+00:38.090 --> 00:42.250
+similar to sequelize in terms of what it tries to do,
+
+00:42.320 --> 00:46.470
+it tries to enable you to work with the data instead of with the queries.
+
+00:46.550 --> 00:52.250
+So what's in this module? We'll have a look at what mongoose is in detail and how we can add it to our
+
+00:52.250 --> 00:55.760
+project and how we can start using it and then we'll,
+
+00:55.790 --> 00:56.900
+well we will use it,
+
+00:56.930 --> 00:59.520
+we will use it in our nodejs application,
+
+00:59.630 --> 01:05.390
+I will give you a thorough introduction to mongoose, also show you where you can learn more about that
+
+01:05.390 --> 01:07.040
+if you want to dive deeper
+
+01:07.220 --> 01:11.630
+and we will transform our project once again to move from a
+
+01:11.660 --> 01:18.440
+we write all queries on our own approach to we just define how our data should look like and then
+
+01:18.440 --> 01:20.080
+work with it approach.
+
+01:20.240 --> 01:21.530
+So with that, let's dive in.

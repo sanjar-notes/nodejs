@@ -1,0 +1,112 @@
+WEBVTT
+
+00:02.390 --> 00:09.230
+With the product created, time to also retrieve a product when we for example visit our index route.
+
+00:09.230 --> 00:15.480
+So in shop controller here in get index, it would be nice if we could get our products.
+
+00:15.500 --> 00:22.340
+This current approach with fetch all will not work because product is now a sequelize model as we're
+
+00:22.340 --> 00:27.890
+importing it from our model file and the sequelize model simply have no fetch all method
+
+00:28.160 --> 00:34.580
+but sequelize models have plenty of methods for getting data and instead of fetch all, they for example
+
+00:34.690 --> 00:38.940
+have find all to get all the records for this model.
+
+00:39.050 --> 00:45.780
+Now find all as you can imagine also gives us back a promise where we can use the result.
+
+00:45.950 --> 00:48.280
+Now find all by the way
+
+00:48.280 --> 00:54.650
+also can be configured with some options. We can pass our options here and we could define a where condition
+
+00:55.050 --> 00:59.320
+to also restrict the kind of data we retrieve
+
+00:59.540 --> 01:04.780
+and you can read more about the possible options you have there and how to write this in the official
+
+01:04.800 --> 01:12.080
+docs but we'll also see a way of limiting the data we retrieve when we later fetch a single product.
+
+01:12.080 --> 01:15.260
+For now let's get all without any restrictions
+
+01:15.260 --> 01:20.750
+and then here in the then block, we should have our products.
+
+01:20.760 --> 01:29.900
+So here, let's assume we get a products list array to our function that get executed here, that gets executed
+
+01:29.900 --> 01:30.750
+here.
+
+01:30.950 --> 01:36.690
+Here I will log any potential errors we might have and now in the then block,
+
+01:36.740 --> 01:43.100
+I essentially want to render my page of course once we got the products and simply pass the products
+
+01:43.220 --> 01:47.540
+into the prods key of my render function here.
+
+01:47.870 --> 01:53.160
+Let's remove the fetch all call down there and with that, time to save this,
+
+01:53.510 --> 01:56.220
+let's go back to just localhost
+
+01:56.600 --> 01:58.190
+and indeed this is looking good.
+
+01:58.190 --> 02:00.120
+You see it retrieves the data,
+
+02:00.200 --> 02:03.050
+the data still has the same field names as before and
+
+02:03.080 --> 02:06.680
+therefore rendering this automatically works.
+
+02:06.680 --> 02:15.000
+Now we need the same logic on the products page and therefore I will just copy that and go to get products
+
+02:16.540 --> 02:21.010
+added here and of course replace the render function here,
+
+02:21.160 --> 02:27.220
+make sure to pass products to prods though. And of course as I mentioned earlier in this course, you
+
+02:27.220 --> 02:32.910
+could refactor that for the index and the products page to reuse this code instead of copying it,
+
+02:32.920 --> 02:37.460
+I just like the more explicit approach here which makes it really clear what's happening.
+
+02:38.680 --> 02:41.310
+So now we got get products working too
+
+02:41.410 --> 02:43.350
+hopefully, yeah this is looking good,
+
+02:43.360 --> 02:48.010
+both work and we see even a difference because here I have a blank between the dollar sign and the
+
+02:48.010 --> 02:50.290
+text and here I don't have it.
+
+02:50.290 --> 02:53.110
+So this is working and this is a huge step forward,
+
+02:53.170 --> 02:56.940
+now as a next step let me show you how to retrieve a single product
+
+02:56.980 --> 02:58.600
+if we click on details here.

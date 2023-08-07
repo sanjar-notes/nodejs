@@ -1,0 +1,343 @@
+WEBVTT
+
+00:02.130 --> 00:07.830
+I'm back in the project and I actually changed the html code and the styles a little bit, you'll find
+
+00:07.860 --> 00:10.510
+all css files and html files attached
+
+00:10.530 --> 00:17.460
+and just make sure to move the html files into the views folder and the css files into the css folder in the
+
+00:17.460 --> 00:18.470
+public folder.
+
+00:18.480 --> 00:19.420
+I did this to
+
+00:19.440 --> 00:24.870
+well change the styling a little bit and also add a little bit of additional markup which we'll use in
+
+00:24.870 --> 00:29.160
+this module but no worries, I will walk you through all of that markup
+
+00:29.190 --> 00:33.180
+and regarding the styling, it's just a little bit nicer to look at right now
+
+00:33.180 --> 00:39.150
+and I also added some styling which we'll need in this module. So with that, I can of course visit the page
+
+00:39.810 --> 00:41.310
+on localhost 3000
+
+00:41.310 --> 00:43.410
+and this is how it looks like right now,
+
+00:43.580 --> 00:47.850
+a little bit nicer than before in my opinion but of course you can always style this to your needs
+
+00:47.850 --> 00:49.960
+but let's now focus on the data.
+
+00:50.220 --> 00:53.200
+And right now, we don't really work with data in our app
+
+00:53.250 --> 00:53.630
+right in
+
+00:53.640 --> 01:02.670
+admin.js for example, we do get that data for a product here in a host route but we just log
+
+01:02.670 --> 01:03.840
+that to the console,
+
+01:03.840 --> 01:05.100
+we're not storing it,
+
+01:05.190 --> 01:11.100
+we're not working with it and working with it is kind of hard right now because we have no database
+
+01:11.130 --> 01:13.240
+where we could store it permanently
+
+01:13.290 --> 01:20.210
+but one thing we can of course do is we can store it in javascript variables and see how that works
+
+01:20.220 --> 01:27.150
+and if these are then shared across incoming requests from different users and that of course will hold
+
+01:27.150 --> 01:32.790
+some important learnings because you often well don't want to share such data.
+
+01:32.820 --> 01:38.340
+So let's see how that works before we then later in the course move towards a more permanent database
+
+01:38.340 --> 01:39.280
+driven solution.
+
+01:39.450 --> 01:45.720
+So let's say the incoming product title which we output here should be stored in a more permanent place
+
+01:45.750 --> 01:51.480
+and in general, I actually want to also add some fields to the form then later so that we can add
+
+01:51.480 --> 01:55.920
+more for a product than just the title but step by step.
+
+01:55.950 --> 01:58.910
+So let's start storing that title which we get here
+
+01:59.070 --> 02:00.700
+and just to bring that back to memory,
+
+02:00.710 --> 02:02.500
+right now we got this field here
+
+02:02.700 --> 02:08.530
+and if I submit this, well then I get this object with the key title and the value the user entered.
+
+02:08.910 --> 02:10.680
+So how can we store this?
+
+02:10.860 --> 02:16.620
+Well we could add a variable where we store it in and the first thing we could try is we could add a
+
+02:16.620 --> 02:25.530
+variable here in admin.js, let's say we create a new constant here which I'll name products which is
+
+02:25.530 --> 02:31.380
+an array and keep in mind even though it's constant, the array can receive new elements because the array
+
+02:31.380 --> 02:32.930
+itself is still the same object,
+
+02:32.970 --> 02:39.060
+we just add or remove elements to it but that doesn't affect the overall holding object.
+
+02:39.060 --> 02:44.490
+So now I got my products here and I actually want to export my products,
+
+02:44.670 --> 02:50.670
+so what I'll do down there is I will use a different syntax where I export
+
+02:52.230 --> 03:00.360
+my routes and export a router here and exports products and export my products constant. This has one
+
+03:00.360 --> 03:04.020
+important implication, since I changed the way I export my routes,
+
+03:04.020 --> 03:11.750
+I have to go to the app.js file and with that in the app.js file where I import my admin routes here, well
+
+03:11.830 --> 03:19.140
+actually this is the admin data and there, I want to access the routes object because there will be such
+
+03:19.140 --> 03:21.850
+a routes object because I'm creating it here.
+
+03:22.050 --> 03:27.360
+So admin data refers to all the exports you could say and there we now have routes and products and
+
+03:27.360 --> 03:34.670
+therefore when I do import my routes, I have to import them like this, of course admin data is then also
+
+03:34.700 --> 03:36.260
+something I have to change up here
+
+03:36.310 --> 03:37.410
+in the import.
+
+03:37.900 --> 03:43.640
+So now I got this adjusted and now I got my products exported too, products is an empty array.
+
+03:43.770 --> 03:51.220
+Now in here, in router post let's take the products and push a new element into this array, a new object
+
+03:51.220 --> 03:52.000
+let's say
+
+03:52.090 --> 03:57.700
+and that object will have a title which is the title I'm getting, so request body and keep in mind that
+
+03:57.720 --> 03:59.940
+also is an object with the title property
+
+03:59.980 --> 04:03.210
+so I will extract the title with the dot notation,
+
+04:03.310 --> 04:08.350
+I could of course just push the overall request body since that will be an object of the exact same
+
+04:08.350 --> 04:09.020
+structure
+
+04:09.100 --> 04:14.680
+but later I want to add more fields here and therefore, I will create a new object here, also to make
+
+04:14.680 --> 04:18.280
+it a bit clearer to see what's happening here.
+
+04:18.280 --> 04:26.050
+So now we're adding this to products, now in shop.js where we output all our products or where we want
+
+04:26.050 --> 04:31.200
+to do that at some point, we therefore need to get access to the products and for this,
+
+04:31.450 --> 04:39.730
+let's add an import up here, let's import admin data by requiring admin,
+
+04:39.750 --> 04:43.050
+so this admin.js file where we do export its routes,
+
+04:43.050 --> 04:45.290
+something we're not interested in in this file
+
+04:45.330 --> 04:47.520
+but also this products array,
+
+04:47.610 --> 04:55.270
+so now here let's console log admin data products so that should be the array.
+
+04:55.270 --> 04:56.520
+Now save everything
+
+04:56.520 --> 04:58.620
+and now let's simply see what we get.
+
+04:58.890 --> 05:04.940
+If I reload this page, the shop page, I get an empty array which makes sense because initially, this
+
+05:04.960 --> 05:05.790
+is an empty array,
+
+05:05.820 --> 05:06.790
+we export it,
+
+05:06.810 --> 05:08.090
+that makes sense.
+
+05:08.100 --> 05:14.460
+So let's go to add product now and let's add a book here and it clicked add product,
+
+05:14.460 --> 05:18.270
+we're back to the shop page and we see something interesting.
+
+05:18.270 --> 05:24.120
+We see the array with the book inside of it and that console log statement, where is this actually coming
+
+05:24.120 --> 05:27.150
+from? Well that is coming from the shop.js
+
+05:27.190 --> 05:34.000
+file here, we can also make this clearer by adding shop.js here and logging the products, so logging two things
+
+05:34.000 --> 05:37.360
+to make it clearer what is responsible for the output,
+
+05:37.360 --> 05:39.690
+so shop.js is logging the empty array
+
+05:39.880 --> 05:43.680
+and now let's try outputting that book here
+
+05:45.130 --> 05:48.050
+and now we got shop.js with the array with the book in it.
+
+05:48.090 --> 05:50.050
+Now this is interesting to see,
+
+05:50.070 --> 05:54.790
+so we can export something, some object or array, a reference type therefore
+
+05:54.930 --> 05:59.770
+and if we change that in the other file, it also gives us the update here.
+
+05:59.770 --> 06:00.900
+So this is interesting,
+
+06:00.910 --> 06:06.610
+this is one way of sharing data and to be honest we'll later use different ways because this has one
+
+06:06.610 --> 06:08.520
+disadvantage. Here
+
+06:08.560 --> 06:12.040
+if I reload shop, we still got that in there.
+
+06:12.040 --> 06:14.910
+Now let me open up a totally different browser,
+
+06:15.750 --> 06:19.600
+I'm in Firefox here and I also visited localhost 3000.
+
+06:20.130 --> 06:24.100
+So this is a totally different browser and this is kind of like a brand new user,
+
+06:24.120 --> 06:27.810
+it doesn't share any cookies with the other browser, nothing of that kind,
+
+06:27.810 --> 06:30.770
+it used the same IP address but that doesn't matter here.
+
+06:30.780 --> 06:37.250
+It's a brand new request as if it were made from a different machine and you will see, I still log
+
+06:37.250 --> 06:37.940
+this,
+
+06:37.950 --> 06:45.630
+so this is actually data which is inherent to our node server as it is running and therefore, it's shared
+
+06:45.630 --> 06:47.670
+across all users.
+
+06:47.680 --> 06:56.340
+Sometimes this is what you may want but very very rarely to be honest, actually you will probably never
+
+06:56.340 --> 06:57.220
+implement this,
+
+06:57.300 --> 07:03.930
+you always want to fetch data for a specific request and if that happens to be the same data you show
+
+07:03.930 --> 07:06.130
+for all users that send this request,
+
+07:06.200 --> 07:12.990
+this is fine but sharing this data across requests, across users is typically something you don't want
+
+07:12.980 --> 07:19.020
+to do because if you now edit this with user A, user B will see the updated version
+
+07:19.140 --> 07:21.170
+even though you might not want to show that.
+
+07:21.240 --> 07:24.920
+Maybe it's added that normally it wouldn't have been saved to the database yet,
+
+07:25.020 --> 07:27.340
+so you don't want to show that to the other users yet,
+
+07:27.360 --> 07:29.240
+maybe it's some personal data.
+
+07:29.340 --> 07:35.030
+So this is a pattern we can use for now here and it's fine for practicing what we want to practice here
+
+07:35.190 --> 07:42.180
+but later we'll learn about a technique to share data in memory here, in the node app across different
+
+07:42.180 --> 07:48.960
+requests but only for one and the same user and not across users because now we have shared data across
+
+07:48.960 --> 07:51.240
+requests and across users
+
+07:51.240 --> 07:54.590
+and we will later of course also learn how to use a database.
+
+07:54.690 --> 07:56.830
+But for now let's stick to this approach,
+
+07:56.970 --> 08:03.150
+let's use that for some dummy data sharing and let's see how we can get this data into our view now.

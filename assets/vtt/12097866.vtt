@@ -1,0 +1,286 @@
+WEBVTT
+
+00:02.420 --> 00:08.120
+Let's make sure we can create new posts so that this new post button does not only open the modal but
+
+00:08.120 --> 00:10.270
+we can actually add a new post,
+
+00:10.280 --> 00:17.920
+for now without the image upload. So let me go back to my rest API
+
+00:17.960 --> 00:23.440
+and there we already have a create post route of course so we can continue working on that.
+
+00:23.450 --> 00:25.760
+We expect the title and a content there
+
+00:25.850 --> 00:31.520
+and for now this is the only data which I will really need to worry about because well as I just
+
+00:31.520 --> 00:33.170
+said, we'll not worry about the image
+
+00:33.170 --> 00:39.290
+for now. You can pick an image here but ultimately even though it's previewed here, it will not be uploaded.
+
+00:40.010 --> 00:41.270
+But it does not matter,
+
+00:41.270 --> 00:45.000
+we can implement this in a way that at least the title and the content is uploaded.
+
+00:45.020 --> 00:52.520
+For this we already got our route in place, a post route to feed post and there, we then extract our title
+
+00:52.670 --> 00:54.760
+and content and we,
+
+00:54.830 --> 00:58.970
+well for now basically echo back that message.
+
+00:59.270 --> 01:00.460
+Let's try that and
+
+01:00.590 --> 01:04.940
+let's go to our frontend application so to the react code and in there,
+
+01:05.030 --> 01:06.830
+let's simply go to the
+
+01:09.450 --> 01:14.520
+feed.js file and there you should find a finish
+
+01:14.570 --> 01:16.510
+edit handler function.
+
+01:16.750 --> 01:20.710
+This is the function which is responsible for handling the case that we clicked on
+
+01:20.840 --> 01:26.510
+except here once we entered a valid title and content,
+
+01:26.750 --> 01:34.220
+by the way here I also got validation in place, frontend validation which is not the matter of course
+
+01:34.250 --> 01:36.640
+because it's not related to node at all,
+
+01:36.640 --> 01:42.110
+it's just a user experience thing that we use browser side javascript to validate the input right away,
+
+01:42.110 --> 01:44.930
+you can learn more about that in my react course if you want.
+
+01:44.930 --> 01:50.300
+Still worth noting that we have some validation in place here, not validation on the server though.
+
+01:50.310 --> 01:58.540
+So if I now click accept, I want to reach my /feed/postroute, for that
+
+01:58.580 --> 02:01.710
+here we have to edit this url.
+
+02:01.730 --> 02:04.300
+This url here will actually be required later
+
+02:04.340 --> 02:08.300
+when we start editing posts, for now we want to create a new one,
+
+02:08.330 --> 02:09.620
+so here the url
+
+02:09.620 --> 02:18.740
+will be http localhost 8080, so our backend url /feed/post,
+
+02:18.820 --> 02:21.150
+this is the route we set up on the backend.
+
+02:21.650 --> 02:27.290
+Here we send a fetch request to that url and we need to configure that request because it will
+
+02:27.290 --> 02:29.130
+be a post request.
+
+02:29.360 --> 02:34.380
+So the method here can be post
+
+02:34.480 --> 02:37.250
+but actually I'll write this in a more flexible way too
+
+02:37.270 --> 02:40.380
+because when we later edit this, we'll use a different method,
+
+02:40.570 --> 02:46.480
+so here I will create a new variable method which I'll set to post which we then later could override
+
+02:46.510 --> 02:47.440
+in here.
+
+02:47.440 --> 02:53.500
+So here I'll not hardcode posts down there but instead use my method variable.
+
+02:53.590 --> 03:01.090
+I will also need to add a body, the data which I want to set and that has to be json data so I will
+
+03:01.090 --> 03:05.770
+use json stringify to convert a javascript object to json
+
+03:05.920 --> 03:10.650
+and then I pass a javascript object here and this javascript object
+
+03:10.750 --> 03:18.070
+in the end should hold the code which I want to, well send to my backend. In this object
+
+03:18.130 --> 03:26.890
+for now, I simply want to set my title and that can be extracted from post data, an argument
+
+03:26.960 --> 03:30.970
+I receive in this function, so post data will hold the data the user entered,
+
+03:31.160 --> 03:38.750
+post data title and then here also the content to post data content,
+
+03:38.750 --> 03:41.750
+so this is again what we add in the react application.
+
+03:41.750 --> 03:48.570
+Last but not least to send this request in a way that the server understands it, we need to add some headers
+
+03:48.580 --> 03:51.210
+here where we set the right content type,
+
+03:51.440 --> 04:00.020
+so here I'll set content type to application json to inform the server that I do indeed send some json
+
+04:00.020 --> 04:00.770
+data.
+
+04:01.130 --> 04:06.610
+So with that, I'm targeting the right url and I'm sending json data and I'm sending a title and a
+
+04:06.640 --> 04:07.530
+content and
+
+04:07.560 --> 04:09.950
+this should be everything I need on the server.
+
+04:10.280 --> 04:16.670
+So let's save this and it should reload automatically as long as you keep npm start running here and
+
+04:16.670 --> 04:24.970
+therefore, well it reloaded the app here and let's create a new post, the title has to be at least five
+
+04:24.970 --> 04:33.340
+characters long such so as the content, choose a file otherwise you're not allowed to submit this
+
+04:33.360 --> 04:36.280
+even though the file is not getting uploaded right now and click
+
+04:36.520 --> 04:44.290
+accept. Now you will run into an error here which is related to the frontend missing some crucial data
+
+04:44.290 --> 04:46.630
+it needs to update everything correctly.
+
+04:46.900 --> 04:57.380
+However let's go back one step and let's actually console log res data here, still in that finish
+
+04:57.410 --> 05:02.840
+edit handler, just in the then block after fetching and save again.
+
+05:03.260 --> 05:09.830
+The app will reload and you can enter something into that new post model again,
+
+05:10.670 --> 05:14.310
+testing again and hit accept again and you'll get that same error
+
+05:14.420 --> 05:21.870
+but before that error, you'll see a log which actually proves that on the rest API, everything worked correctly.
+
+05:22.070 --> 05:27.890
+You get back that post created successfully message and the post with the data you entered.
+
+05:27.890 --> 05:33.800
+The error is simply stemming from the fact that on the server, we're not doing everything we expect it to
+
+05:33.800 --> 05:40.920
+do because we're not creating or we're not attaching a user, we're not creating a date and so on.
+
+05:40.940 --> 05:46.670
+These are all things we can fix though by going back to our controller on the server and there when
+
+05:46.670 --> 05:50.480
+we create a new post or when we echo back that post,
+
+05:50.480 --> 05:54.140
+first of all it should have an _id not an ID,
+
+05:54.170 --> 06:00.750
+it should also have a creator field which is again a javascript object with a name of your choice
+
+06:00.800 --> 06:04.220
+and later this will not be dummy data anymore but real data,
+
+06:04.220 --> 06:13.810
+so we add this creator and we should add a created add field and that created add field is simply a new date.
+
+06:13.970 --> 06:19.940
+And now with that being echoed back, if we save that server side code and we reload the frontend application,
+
+06:22.410 --> 06:29.870
+we can test this one more time, click accept and now we don't get an error
+
+06:29.870 --> 06:32.680
+instead we see our post there.
+
+06:32.750 --> 06:39.600
+So now we indeed do create our data on the server or at least we fake to do so
+
+06:39.800 --> 06:45.560
+and we return that back to the client where we can now render it. Now editing will not work though
+
+06:45.560 --> 06:50.540
+we can select it for editing at least, deleting will also not work and viewing will neither
+
+06:50.840 --> 06:54.410
+but we got our basic flow set up.
+
+06:54.590 --> 06:58.860
+Now since we're creating a new post here, what is missing on the server though,
+
+06:58.910 --> 07:02.360
+at least two things are missing and what is missing?
+
+07:02.660 --> 07:05.700
+Well validation, server side validation,
+
+07:05.780 --> 07:12.380
+we only got client side validation but that can always be tricked because users can see your browser
+
+07:12.380 --> 07:13.550
+side javascript code,
+
+07:13.580 --> 07:15.110
+they could disable it,
+
+07:15.110 --> 07:17.240
+they could basically find ways around that
+
+07:17.240 --> 07:19.130
+so it's not a safe mechanism,
+
+07:19.130 --> 07:21.540
+it's only meant to improve user experience.
+
+07:21.770 --> 07:23.940
+So we need to validate on the server
+
+07:24.140 --> 07:30.800
+and of course we want to store the data in a real database, so we should add mongodb or SQL solution
+
+07:30.800 --> 07:31.300
+again
+
+07:31.490 --> 07:33.950
+and that is what we'll do over the next lectures.

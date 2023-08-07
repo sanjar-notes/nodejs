@@ -1,0 +1,427 @@
+WEBVTT
+
+00:02.260 --> 00:08.800
+So time to parse the incoming requests and get the data that is part of the request because that data
+
+00:08.800 --> 00:11.220
+should be whatever we entered here.
+
+00:11.620 --> 00:14.200
+Now how do we get access to that?
+
+00:14.200 --> 00:17.240
+Well we get requests url and request method,
+
+00:17.260 --> 00:22.410
+you might think there is something like request data but there isn't.
+
+00:22.780 --> 00:30.670
+Instead the incoming data is basically sent as a stream of data and that is a special construct javascript
+
+00:30.670 --> 00:31.600
+in general knows
+
+00:31.660 --> 00:34.270
+but nodejs uses a lot,
+
+00:34.270 --> 00:36.890
+now what is such a stream of data though?
+
+00:37.300 --> 00:41.240
+There is a connected concept, buffers and we'll have a look at both here.
+
+00:41.260 --> 00:43.920
+So let's take our incoming request as an example,
+
+00:44.020 --> 00:48.800
+there also are other streams like for example when working with files, we can also work with streams
+
+00:48.880 --> 00:51.200
+but let's stick to requests here.
+
+00:51.670 --> 00:55.270
+Our stream here is basically an ongoing process,
+
+00:55.480 --> 00:59.830
+the request is simply read by node in chunks
+
+00:59.830 --> 01:04.830
+you could say, in multiple parts and in the end at some point of time it's done
+
+01:04.840 --> 01:11.230
+and this is done so that we theoretically can start working on this, on the individual chunks without
+
+01:11.230 --> 01:13.980
+having to wait for the full request being read.
+
+01:14.200 --> 01:19.510
+Now for a simple request like the one we're working with, this is not really required,
+
+01:19.510 --> 01:21.940
+we only got one input field data,
+
+01:21.940 --> 01:27.760
+it doesn't take so long to parse that. But consider a file being uploaded,
+
+01:27.760 --> 01:34.240
+this will take considerably longer and therefore streaming that data could make sense because it could
+
+01:34.240 --> 01:37.610
+allow you to start writing this to your disk,
+
+01:37.630 --> 01:43.480
+so to your hard drive where your app runs, your node app runs on your server
+
+01:43.480 --> 01:49.690
+whilst the data is coming in, so that you don't have to parse the entire file which is of course taking
+
+01:49.690 --> 01:54.350
+some time and you have to wait for it being fully uploaded before you can do anything with it.
+
+01:54.520 --> 02:01.300
+But this is how node handles all requests because it doesn't know in advance how complex and big they
+
+02:01.300 --> 02:02.800
+are.
+
+02:02.800 --> 02:04.920
+So you can start working on the data earlier,
+
+02:04.930 --> 02:14.360
+the problem is with your code, you can't arbitrarily try to work with these chunks. Instead to organize
+
+02:14.560 --> 02:15.730
+these incoming chunks,
+
+02:15.970 --> 02:18.350
+you use a so-called buffer,
+
+02:18.350 --> 02:20.570
+a buffer is like a bus stop.
+
+02:20.770 --> 02:24.000
+If you consider buses, they're always driving
+
+02:24.220 --> 02:31.870
+but for users or customers being able to work with them, to climb on the bus and leave the bus, you need
+
+02:31.870 --> 02:39.130
+bus stops where you well you can track the bus basically and that is what a buffer is. A buffer is simply
+
+02:39.130 --> 02:47.320
+a construct which allows you to hold multiple chunks and work with them before they are released
+
+02:47.320 --> 02:53.560
+once you're done and you work with that buffer. Now that's pretty abstract but it's pretty easy to work
+
+02:53.560 --> 02:54.640
+with fortunately
+
+02:54.750 --> 03:01.280
+so let's see how that works in practice. When receiving a posted message before sending the response
+
+03:01.390 --> 03:05.630
+and before writing to the file, we want to get our request data, right
+
+03:05.830 --> 03:12.730
+and we do this by going to our request and registering an event listener.
+
+03:12.730 --> 03:18.560
+We haven't done that thus far but as I mentioned, node uses these heavily. For create server,
+
+03:18.640 --> 03:21.160
+it implicitly creates one for us,
+
+03:21.190 --> 03:29.990
+now we do this on our own by using the on method. Now on allows us to listen to certain events and the event
+
+03:30.010 --> 03:32.850
+I want to listen to here is the data event,
+
+03:32.920 --> 03:39.300
+you see my IDE even gives me some help here and tells me which events I can listen to for a request.
+
+03:39.400 --> 03:46.690
+So here I want to listen for the data event, the data event will be fired whenever a new chunk is ready
+
+03:46.690 --> 03:47.610
+to be read,
+
+03:47.620 --> 03:53.050
+you remember that buffer thing, this is basically helping us with that.
+
+03:53.250 --> 03:59.900
+Now here we have to add a second argument which is that function that should be executed for every data
+
+03:59.900 --> 04:02.140
+event, you remember create server,
+
+04:02.150 --> 04:07.880
+it had a similar concept. There we defined a function that should be executed for every incoming request,
+
+04:07.880 --> 04:12.760
+now we're defining a function to be executed for every incoming data piece.
+
+04:12.800 --> 04:16.420
+So here I'll again using an ES6 arrow function,
+
+04:16.430 --> 04:20.330
+you could also use the function keyword without that arrow then
+
+04:20.630 --> 04:27.510
+and as you can also see on data, this listener receives a chunk of data.
+
+04:27.770 --> 04:35.000
+So here we receive a chunk and this chunk is something we can work with here and now we have to do something
+
+04:35.000 --> 04:38.320
+with this chunk to be able to interact with it.
+
+04:38.440 --> 04:47.020
+For this I will create a new constant here and I'll name it body because I'll try to read the request
+
+04:47.030 --> 04:47.530
+body,
+
+04:47.560 --> 04:50.440
+you can name it however you want but it is the request body
+
+04:50.440 --> 04:52.400
+we're working with. Now
+
+04:52.420 --> 04:55.590
+the body should be an empty array
+
+04:55.870 --> 05:03.760
+and now in that function here in the data event, I'll take my body and push a new element onto it.
+
+05:03.970 --> 05:10.900
+By the way if you're wondering how we can edit a constant value, this only means that we can never
+
+05:10.900 --> 05:15.740
+re-assign a new value, so we can never use body equals something again
+
+05:16.000 --> 05:24.450
+but with push we're changing the object behind that body element, that body object, we're editing that
+
+05:24.460 --> 05:29.260
+data in that object not the value itself, not the object itself.
+
+05:29.260 --> 05:33.290
+It's a bit strange to wrap your head around but this is in the end how it works.
+
+05:33.370 --> 05:41.040
+So we can now push a new element into this array to make it non-empty and we push our chunk here. Now nodejs
+
+05:41.090 --> 05:46.400
+will execute this so often until it's done getting all the data out of our request,
+
+05:46.480 --> 05:52.300
+that can be once, that can be multiple times and we can even log this to see how app, how often it does this
+
+05:52.450 --> 05:53.650
+and what's inside of this
+
+05:53.650 --> 06:01.950
+chunk. Now we need to register another event listener and that is the end listener, this will be fired
+
+06:01.950 --> 06:05.900
+once it's done parsing the incoming requests data or the incoming requests
+
+06:05.910 --> 06:13.350
+in general. Here it will again execute a function we define as a second argument and in this function, we
+
+06:13.350 --> 06:19.260
+can now rely on all the chunks being read in and they're all stored in the body now.
+
+06:20.500 --> 06:22.830
+Now to interact with this
+
+06:23.170 --> 06:29.430
+and don't forget the comma after end, to interact with that, to work with all these chunks,
+
+06:29.500 --> 06:32.010
+we now need to buffer them.
+
+06:32.050 --> 06:34.100
+Remember that bus stop concept,
+
+06:34.120 --> 06:39.580
+we get all these chunks we now need to do is something to be able to work with them, to basically have
+
+06:39.580 --> 06:44.400
+one place where the bus stops and we can interact with it.
+
+06:44.410 --> 06:52.030
+So here I'll now create a new constant, parsedBody and there I will use the buffer object which is available
+
+06:52.030 --> 06:55.760
+globally, made available by nodejs
+
+06:56.080 --> 06:59.080
+and I can concat my body.
+
+06:59.440 --> 07:04.860
+So this will in the end create a new buffer and add all the chunks from inside my body to it.
+
+07:05.350 --> 07:13.070
+And then on this buffer which I got here, parsed body is now a buffer, there I can call toString to convert
+
+07:13.150 --> 07:14.350
+it to a string.
+
+07:14.350 --> 07:20.080
+So this is a utility method offered by nodejs where we do something to our buffered chunks,
+
+07:20.110 --> 07:26.980
+remember the bus is now waiting in the bus stop so to say, the buffer is our bus stop and now we do
+
+07:26.980 --> 07:28.120
+something with it,
+
+07:28.210 --> 07:33.940
+here we convert it to a string and this only works because I know that the incoming data will be text
+
+07:34.150 --> 07:38.200
+because the body of that request will be text.
+
+07:38.320 --> 07:41.050
+If it were a file, we would have to do something different
+
+07:41.080 --> 07:44.930
+but it is no file and I know that it isn't because we're writing the code,
+
+07:45.010 --> 07:46.430
+we know what we will receive,
+
+07:46.450 --> 07:47.410
+right.
+
+07:47.410 --> 07:49.090
+So this is the parsed body
+
+07:49.210 --> 07:52.540
+and this is now finally what we can work with,
+
+07:52.660 --> 07:56.540
+so let's also output the parsed body.
+
+07:56.560 --> 08:03.040
+And this was a lot of talking so let's simply have a look with the server, with control c and restart it and
+
+08:03.040 --> 08:08.210
+then send another request with some message here.
+
+08:08.460 --> 08:12.700
+And now if you have a look at what's being logged, you see two elements.
+
+08:12.780 --> 08:15.000
+The first one is coming from this console log
+
+08:15.120 --> 08:19.100
+and you see that is a chunk, that is a chunk we can't work with
+
+08:19.320 --> 08:26.220
+but now the parsed body receives or yields this line and that is something we can work with and it's
+
+08:26.220 --> 08:32.320
+message equals something because we named our input here message
+
+08:32.340 --> 08:38.460
+and as I said, that form will automatically send the request where it takes all the input data and
+
+08:38.460 --> 08:45.210
+puts it into the request body as key value pairs where the names assigned to the inputs are the keys
+
+08:45.420 --> 08:49.290
+and the values are what the user entered and that is what we have here,
+
+08:49.350 --> 08:54.900
+a key value pair separating the key from the value with an equal sign.
+
+08:54.900 --> 09:03.840
+Now and with that, we can now work with that and finally store the input in our file and we can do that
+
+09:04.530 --> 09:07.230
+here in request on, request on
+
+09:07.230 --> 09:16.010
+end to be precise by creating a new constant, message, taking the parsed body and splitting it on the equal
+
+09:16.010 --> 09:22.140
+sign and then taking the element with the index one which is the second element in the resulting array
+
+09:22.230 --> 09:24.830
+which is the element on the right of the equal sign.
+
+09:25.110 --> 09:30.030
+And now we can move write file sync into the end function,
+
+09:30.030 --> 09:35.810
+we don't want to execute it here because this will actually run before this function is called
+
+09:35.940 --> 09:39.900
+because here we just register a function to be called in the future,
+
+09:39.900 --> 09:41.780
+it's not executed immediately,
+
+09:41.830 --> 09:46.950
+remember node doesn't wait and pause, it will not block the script execution,
+
+09:46.950 --> 09:50.970
+it just registers this as a to-be-executed action
+
+09:51.030 --> 09:52.920
+and then right away continues.
+
+09:52.920 --> 09:58.670
+So if we have something that depends on the incoming data, we have to move it into the event listener
+
+09:58.680 --> 10:02.630
+too so that it's also part of the to-be-executed code
+
+10:02.680 --> 10:05.980
+sometimes in the future and doesn't run too early
+
+10:06.180 --> 10:11.660
+and now we can write message to the message.txt file.
+
+10:11.890 --> 10:14.510
+Let's now restart this file one more time
+
+10:15.750 --> 10:16.500
+and enter
+
+10:20.320 --> 10:22.690
+hello here and hit send
+
+10:23.170 --> 10:28.890
+and now if you look into message text, we see hello, you see the exclamation mark was encoded.
+
+10:29.050 --> 10:31.250
+Now that is something we can worry about later
+
+10:31.330 --> 10:34.760
+but in general, this worked just fine.
+
+10:34.990 --> 10:42.640
+And if you're now totally frightened by how complex nodejs is, this is the raw logic, we'll later
+
+10:42.640 --> 10:46.270
+use expressjs which hides all that raw logic
+
+10:46.270 --> 10:52.510
+but to understand why we use that, you first of all need to understand what is happening and why using
+
+10:52.510 --> 10:58.660
+tools like expressjs which will make all of this much easier are great.
+
+10:58.720 --> 11:01.500
+So with that, we've got our basic logic down,
+
+11:01.630 --> 11:08.500
+let's now dive again into that event listener and writing files thing because there is something really
+
+11:08.500 --> 11:10.510
+important you have to understand.

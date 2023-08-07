@@ -1,0 +1,142 @@
+WEBVTT
+
+00:02.130 --> 00:07.410
+Let's move towards the end of the module by making sure that we can also get the orders and display
+
+00:07.410 --> 00:10.510
+them on our orders page here.
+
+00:10.590 --> 00:18.740
+So for that, we want to work in the shop controller with get orders and there I had a get orders function
+
+00:18.830 --> 00:27.350
+on my user model we could call. If we have a quick look at this function, get orders simply reached
+
+00:27.350 --> 00:32.640
+out to the orders collection and found me all orders for this user.
+
+00:32.720 --> 00:38.760
+Well that shouldn't be too hard right because what we can do of course is in our controller here,
+
+00:39.140 --> 00:43.380
+we know the user ID because we got it here in a request object,
+
+00:43.430 --> 00:48.380
+so in the end what I can do is I can use my order model which we're importing at the top of the file
+
+00:48.830 --> 00:56.390
+and I can find all orders where and let's have a look at the order model real quick, where the user, user
+
+00:56.390 --> 01:02.740
+ID so this nested object here, this nested key is equal to the user id of the logged in user.
+
+01:02.750 --> 01:12.290
+So here we have user.userID, that should be equal to request user _id, that is the check
+
+01:12.290 --> 01:16.270
+I want to make and this will give me all orders that belong to that user.
+
+01:16.730 --> 01:21.540
+Well and then we can just use these orders here in the then method,
+
+01:22.010 --> 01:27.290
+so essentially I can also just reuse my old then method where I already expected the orders and I can
+
+01:27.290 --> 01:32.360
+render the orders page. If we now save that, we just need to make sure the route exists,
+
+01:32.360 --> 01:38.620
+so let's quickly comment that in here and now if I click on orders,
+
+01:38.740 --> 01:42.450
+I get an error because the structure of our data changed a little bit,
+
+01:42.490 --> 01:46.180
+so we need to work on the view to adjust it to our data
+
+01:46.420 --> 01:54.110
+in my orders page here. How did it change? We loop through the orders and each order has an ID, that will still
+
+01:54.110 --> 01:54.760
+work
+
+01:55.100 --> 01:57.240
+but then we have no order items anymore,
+
+01:57.290 --> 02:03.620
+we've got order products now, we can confirm this with our schema or in compass of course, we got order
+
+02:03.620 --> 02:10.220
+products and each product has quantity and then the product data in a product field.
+
+02:10.250 --> 02:16.790
+So inside of here, we have the product and there we have a nested product field,
+
+02:16.790 --> 02:20.600
+so we could also name this just P to avoid confusion,
+
+02:20.600 --> 02:21.550
+this will be p
+
+02:21.640 --> 02:27.220
+and there we have the product field with the title but directly on the top level p object,
+
+02:27.350 --> 02:32.440
+so directly in the object that is stored in that products array, we have the quantity
+
+02:32.480 --> 02:38.690
+so we can still access this directly on p which is the part directly in order products but then the
+
+02:38.690 --> 02:43.580
+product data itself is nested in one additional embedded document product.
+
+02:43.580 --> 02:44.800
+But with these changes
+
+02:44.810 --> 02:48.380
+to our view, if I now reload that view page,
+
+02:48.380 --> 02:49.250
+this looks good,
+
+02:49.250 --> 02:53.480
+now I see all my orders here as we did before.
+
+02:53.570 --> 02:56.330
+Now something is wrong about the first two orders
+
+02:56.450 --> 03:01.610
+and the thing that is wrong is that simply these orders were created at a time where we only store the
+
+03:01.610 --> 03:04.120
+object ID and no special object data,
+
+03:04.220 --> 03:10.580
+so let me quickly delete these two orders here so that we don't have them in our view
+
+03:10.610 --> 03:11.980
+and in our app anymore,
+
+03:12.020 --> 03:14.580
+so now we only have valid orders in here.
+
+03:14.750 --> 03:17.000
+So this does now all work,
+
+03:17.000 --> 03:18.950
+feel free to play around with that,
+
+03:18.950 --> 03:22.760
+try adding totals for the orders or anything like that.
+
+03:22.910 --> 03:25.310
+For now this is the state I want to work with,
+
+03:25.310 --> 03:31.130
+I want to continue with and this is what I wanted to show you with mongoose and mongodb and you
+
+03:31.130 --> 03:37.670
+therefore now saw a lot of different alternatives for working with databases and how to work with the
+
+03:37.670 --> 03:38.600
+data then.

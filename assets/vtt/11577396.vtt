@@ -1,0 +1,439 @@
+WEBVTT
+
+00:02.140 --> 00:07.280
+We're rendering our shop template but we're not rendering any dynamic content,
+
+00:07.380 --> 00:11.400
+that however is the whole idea of this module.
+
+00:11.400 --> 00:13.600
+We get our admin data with the products,
+
+00:13.740 --> 00:22.390
+so let's actually take these products out of admin data products and now we want to pass that into our
+
+00:22.390 --> 00:28.680
+template, inject it into our template so that we can use it in this template file and somehow output it
+
+00:28.690 --> 00:30.840
+there. To do that,
+
+00:31.030 --> 00:37.600
+we can simply pass a second argument to the render method, the render method allows us to pass in data
+
+00:37.660 --> 00:40.450
+that should be added into our view.
+
+00:40.970 --> 00:45.000
+Here we can simply pass products, however not like this
+
+00:45.130 --> 00:51.970
+but as a javascript object where we map it to a key name which we then can use in the template to refer to
+
+00:51.970 --> 00:58.690
+the data we're passing in and we can pass in prods, simply to avoid naming confusion,
+
+00:58.690 --> 01:02.880
+you could use products but then I'll bind my products,
+
+01:02.890 --> 01:06.880
+so this constant to the prods key in this object.
+
+01:06.900 --> 01:08.590
+This is passed into this template
+
+01:08.770 --> 01:12.280
+and now in the template, we will just be able to access prods,
+
+01:12.300 --> 01:16.360
+this is now available, by the way we can also pass more than one field,
+
+01:16.360 --> 01:17.410
+we could pass in
+
+01:17.680 --> 01:23.360
+let's say a doc title which is shop and now we can use that too.
+
+01:23.380 --> 01:25.270
+And let's maybe start with the doc title
+
+01:25.300 --> 01:31.870
+so this additional field we're passing in this object. In shop.pug, let's say the title here should actually
+
+01:31.870 --> 01:38.610
+be that doc title. For this we can use the custom templating syntax pug gives us
+
+01:38.610 --> 01:44.770
+and if you just want to output some text, this is a hashtag followed by two curly braces and between these
+
+01:44.770 --> 01:50.260
+curly braces, you can put any value you are passing into your view,
+
+01:50.260 --> 01:58.530
+so any field you have in this object, like doc title, we can use that and simply refer to doc title here.
+
+01:59.270 --> 02:05.150
+If we now save that and we go back to our page, right now it's still in my shop right,
+
+02:05.400 --> 02:14.280
+if I now reload it's shop and it is shop because this is the title I'm storing in doc title here and doc title
+
+02:14.280 --> 02:16.290
+is what we're outputting here,
+
+02:16.290 --> 02:18.880
+so this flow is important to understand.
+
+02:19.020 --> 02:24.380
+Now of course we can also use that to output our products. For this next to the header,
+
+02:24.390 --> 02:30.840
+so on the same indentation level, this is important because it defines the nesting of the html, we can
+
+02:30.840 --> 02:33.630
+add the main element just as we have it here
+
+02:33.960 --> 02:37.030
+and now I don't want to have this h1 paragraph here
+
+02:37.260 --> 02:44.250
+instead now I want to output my product with this code. So I'll copy it over even though it is html
+
+02:44.250 --> 02:49.950
+code but we'll adjust this and transfer it to pug code.
+
+02:50.130 --> 02:53.810
+So the div here becomes just .grid,
+
+02:53.970 --> 02:56.800
+you don't need div because if you don't have anything,
+
+02:56.820 --> 02:58.410
+it's assumed to be a div,
+
+02:58.740 --> 03:03.630
+the article with this class becomes article.product
+
+03:03.630 --> 03:09.930
+item. However important, if you've got multiple classes, you need to merge them and simply concatenate
+
+03:09.930 --> 03:14.310
+them separated by dots and never forget the indentation,
+
+03:14.310 --> 03:20.760
+the article should be inside of this div with this class so let's indent it one level. Here
+
+03:20.790 --> 03:26.700
+we got an indented header because it's nested in the article and this header also has this class here,
+
+03:26.780 --> 03:32.130
+so let's add it like this and then in the header, we got a h1 tag
+
+03:32.200 --> 03:32.740
+so let's also indent 
+
+03:32.740 --> 03:37.210
+this and here again this has a css class.
+
+03:37.210 --> 03:43.390
+Now it also has some text and you simply separate the text with a whitespace from the element and you never
+
+03:43.390 --> 03:44.610
+need closing tags here,
+
+03:44.620 --> 03:46.230
+that is handled for you by pug.
+
+03:46.420 --> 03:51.040
+So this is really a syntax that is very different to normal html and is really up to you if you like that
+
+03:51.040 --> 03:51.890
+that or not,
+
+03:51.910 --> 03:54.950
+I personally don't work too much with it but if you like it,
+
+03:54.950 --> 03:59.580
+this can of course allow you to write very lean html files.
+
+03:59.710 --> 04:04.360
+We don't need the closing header tag because again this is added automatically, so we can move on
+
+04:04.480 --> 04:08.140
+to the card image which should be next to the card header.
+
+04:08.370 --> 04:16.610
+So let's indent, remove that smaller than sign, add this class here without the class keyword
+
+04:17.260 --> 04:19.250
+and let's add the image inside of there.
+
+04:19.480 --> 04:24.000
+We get an image and again as before with the links here,
+
+04:24.190 --> 04:29.560
+if you have attributes, you wrap them in normal brackets, like this, so
+
+04:29.560 --> 04:34.370
+like the source and also the alt key.
+
+04:35.240 --> 04:37.400
+You can always by the way also use emett here,
+
+04:37.400 --> 04:40.040
+this is the plugin which helps you with auto-creating this,
+
+04:40.040 --> 04:44.960
+if you type the tag or the class name with a dot at the beginning and hit enter, it will auto-complete
+
+04:44.960 --> 04:48.800
+that for you and give you the respective pug representation
+
+04:49.040 --> 04:54.280
+and there we saw that we actually need a comma after source, right before alt.
+
+04:54.680 --> 04:58.190
+So now this will create an image nested in this card image,
+
+04:58.280 --> 05:05.650
+don't need the closing div tag. Now the card content is also a sibling to the card image,
+
+05:05.690 --> 05:11.260
+so let's indent this, remove that and add this dot here
+
+05:13.160 --> 05:16.440
+and let's do the same for the h2 tag, indent it,
+
+05:16.520 --> 05:18.660
+turn it into a pug conform
+
+05:18.950 --> 05:19.890
+setup here,
+
+05:20.150 --> 05:22.070
+we have some text next to it like this,
+
+05:22.250 --> 05:23.530
+for now that's static,
+
+05:23.570 --> 05:25.530
+later this will become dynamic
+
+05:25.910 --> 05:35.600
+and let's also do the same here for the paragraph, add the class here and have some static text and remove
+
+05:35.690 --> 05:36.760
+the closing tag.
+
+05:38.140 --> 05:41.820
+Now we're almost done, only a couple of elements to go.
+
+05:41.890 --> 05:42.900
+We get a div,
+
+05:43.000 --> 05:48.760
+now this should be also next to card content so let's indent it, a div as I mentioned doesn't have a tag
+
+05:48.760 --> 05:49.350
+you need to add,
+
+05:49.360 --> 05:51.150
+you can just have dot something,
+
+05:51.200 --> 05:55.520
+so dot and the class name. If you have no class, of course you would write that div
+
+05:55.540 --> 06:00.590
+otherwise there is nothing. The button is inside of card actions
+
+06:00.600 --> 06:03.380
+and this does have a class again
+
+06:03.610 --> 06:07.810
+and then it does have some text inside of it which we add next to the button element
+
+06:08.020 --> 06:10.540
+and all these closing tags can be removed.
+
+06:10.690 --> 06:15.140
+Now this outputs a grid of product cards
+
+06:15.310 --> 06:17.640
+however only with static content.
+
+06:17.690 --> 06:24.830
+Now to make this less static, we need to iterate through all the products and remember that we do pass
+
+06:24.830 --> 06:33.260
+the product into the view here on the prods key. So to iterate and repeat this article for all the
+
+06:33.260 --> 06:39.910
+products, we can simply add a special syntax provided by pug and you do create such a loop by adding
+
+06:40.100 --> 06:46.310
+each keyword then a value in which you want to store the value for the current iteration,
+
+06:46.430 --> 06:49.040
+so a single product in our case
+
+06:49.040 --> 06:53.210
+and then in and then the array through which you want to loop,
+
+06:53.240 --> 07:00.740
+so this would be prods in our case, again with prods referring to this key in this object we're
+
+07:00.740 --> 07:02.170
+passing to our view.
+
+07:03.600 --> 07:05.570
+So now we're looping through the prods,
+
+07:05.610 --> 07:11.580
+let's all indent this into the loop so that we repeat this entire block for each product
+
+07:11.640 --> 07:17.550
+in this prods array and now we can use the product variable which we're creating on the fly here
+
+07:17.910 --> 07:19.350
+to output the data,
+
+07:19.470 --> 07:24.080
+like the title. Here we could output hashtag
+
+07:24.210 --> 07:32.370
+and then again just product.title because remember, a single product we add to this array here is
+
+07:32.370 --> 07:35.210
+an object with a title key,
+
+07:35.220 --> 07:40.180
+we do create this here in admin.js, we push a new object with a title key,
+
+07:40.180 --> 07:43.790
+this is one single product as we'll have it when we loop through it, 
+
+07:43.920 --> 07:48.980
+so this is what we add here or what we output here. With all these changes in place,
+
+07:48.990 --> 07:55.560
+if we now save this and we reload this page, we don't see anything because we have no products yet
+
+07:55.800 --> 08:05.520
+but if we add a first book here, we do actually see that here and we see that the image does not work anymore, so
+
+08:05.890 --> 08:14.470
+let me quickly add another free to use image, you can of course simply google for any image that you
+
+08:14.470 --> 08:23.480
+can use as a dummy image here for now. Once you got one, take that source whichever it is and simply replace
+
+08:23.480 --> 08:23.940
+it here,
+
+08:24.050 --> 08:27.190
+this is only for practice purposes here
+
+08:28.590 --> 08:33.760
+so now if we repeat this, this looks much better. By the way if you only change something in the template
+
+08:33.900 --> 08:34.950
+as I just did,
+
+08:35.070 --> 08:40.560
+you don't need to restart the server and node one will not do so because the templates are not part of
+
+08:40.560 --> 08:41.870
+your server side code,
+
+08:41.910 --> 08:45.440
+they are basically just templates which are picked up on the fly anyways
+
+08:45.450 --> 08:49.740
+so if you change them for the next request that's coming, they will automatically take that new version
+
+08:49.860 --> 08:51.920
+already.
+
+08:52.010 --> 08:54.590
+So with this, we get a basic introduction to pug,
+
+08:54.620 --> 09:04.270
+it's strange very minimal syntax and how you can output single values like some text or also loop through
+
+09:04.280 --> 09:05.750
+some items.
+
+09:05.750 --> 09:09.290
+Now of course we could have the case that we got no products at all,
+
+09:09.290 --> 09:15.710
+so one thing you also want to do is you want to ensure that you have a conditional check and render
+
+09:15.860 --> 09:19.050
+either content A or content B
+
+09:19.290 --> 09:21.190
+and we can do that too with pug.
+
+09:21.290 --> 09:25.300
+We can add an if statement and check if product.length,
+
+09:25.310 --> 09:31.720
+so if this array of products is greater than zero, if it is greater than zero then we'll output this,
+
+09:31.730 --> 09:38.100
+so let's indent it all into the if statement because then we do have some products to output otherwise
+
+09:38.140 --> 09:40.880
+I will go into the same level as grid here,
+
+09:41.110 --> 09:49.450
+as the if statement and add an else block because otherwise I will output h1 tag where I say no products.
+
+09:50.090 --> 09:54.510
+With this, now if I restart the server to clear my products array
+
+09:55.790 --> 09:58.310
+and I reload this page,
+
+09:58.310 --> 10:02.260
+I actually get an error because of course it's prods here,
+
+10:02.330 --> 10:08.970
+remember we're passing prods as a key not products, so prods is what I should check here. Now if I
+
+10:09.010 --> 10:09.840
+reload,
+
+10:09.890 --> 10:15.590
+I see no products but if I add one, first book like this,
+
+10:15.590 --> 10:17.180
+now we see that instead.
+
+10:17.210 --> 10:23.780
+So now we got the three most important parts, outputting simple text and so on, outputting a list and outputting
+
+10:23.830 --> 10:26.420
+conditional content. This is pug
+
+10:26.630 --> 10:32.020
+in a nutshell and this is how you use templating engines in expressjs in general.
+
+10:32.030 --> 10:37.850
+Now feel free as a practice to play around with that and also work on that add product
+
+10:37.940 --> 10:45.350
+html page and replace all these items or all the content here with pug templates. Keep the html code
+
+10:45.360 --> 10:45.760
+around,
+
+10:45.770 --> 10:49.730
+don't delete these files so that we can easily switch to other templating engines later
+
+10:49.970 --> 10:55.760
+but make sure you add pug templates for the other two pages and that you render them, also feel free to
+
+10:55.760 --> 11:00.320
+inject some dynamic code like the page title. In the next lecture, we'll do that together.

@@ -1,0 +1,286 @@
+WEBVTT
+
+00:01.990 --> 00:09.820
+We get the basic crud operations with mongodb covered, how you can insert, find, update and delete elements
+
+00:09.820 --> 00:10.910
+with mongodb
+
+00:10.990 --> 00:13.720
+and you also learned how to connect to mongodb.
+
+00:13.720 --> 00:20.260
+Now let me show you how you can now work with relations and for that, let's work with some users again.
+
+00:20.560 --> 00:24.840
+Now with sequelize, we didn't have an authentication flow
+
+00:24.910 --> 00:26.820
+and we will not have one here either
+
+00:27.010 --> 00:30.760
+but now I want to create new users at the beginning here.
+
+00:30.970 --> 00:37.570
+And for that, I'll first of all work on my user model of course, I'll keep it real simple but of course
+
+00:37.660 --> 00:40.940
+I'll again a normal javascript class again.
+
+00:40.940 --> 00:48.040
+So let me create a new class, user and add a constructor and in that constructor, I'll get a user name
+
+00:48.700 --> 00:49.770
+and an email 
+
+00:49.810 --> 00:58.630
+let's say and then I'll just store this in a name property and in an email property. And you could add more,
+
+00:58.660 --> 01:05.330
+you could work with this however you want. I'll then add a save method to be able to save that user to
+
+01:05.330 --> 01:06.300
+the database
+
+01:06.370 --> 01:15.040
+and of course I'll also add a static method for finding a user by ID
+
+01:15.870 --> 01:18.960
+and here I'll get the user ID as an argument.
+
+01:18.960 --> 01:20.820
+Now here's your challenge,
+
+01:20.820 --> 01:21.920
+try this on your own,
+
+01:21.930 --> 01:25.050
+pause the video here and try implementing this on your own.
+
+01:25.080 --> 01:32.010
+Try using mongodb and that central mongodb connection we have to save a user with the help
+
+01:32.010 --> 01:34.830
+of the save method and to find it by ID
+
+01:34.950 --> 01:35.530
+Good luck,
+
+01:35.590 --> 01:40.140
+after a short break which gives you the chance to pause to video, we'll solve this together.
+
+01:43.140 --> 01:44.520
+Were you successful?
+
+01:44.820 --> 01:52.030
+Well let's start by first of all importing our mongo database client,
+
+01:52.290 --> 01:58.930
+so I'll name this db again and I'll import it by requiring our database file in the util folder
+
+01:59.010 --> 02:05.740
+and there I'll use or I'll access get db and I'll name this get db up here too.
+
+02:06.180 --> 02:08.370
+Now let's start with the save method
+
+02:08.490 --> 02:15.690
+and there I'll create a new constant, db and I'll call get db to store my database client in that constant.
+
+02:15.720 --> 02:22.220
+Now on that client, on this constant here, we can reach out to a collection and obviously this will now
+
+02:22.220 --> 02:28.820
+not be the products collection but we could name it users collection if we wanted to.
+
+02:28.840 --> 02:36.010
+Now in this collection, I want to insert one new element here and that new element will be this,
+
+02:36.010 --> 02:38.380
+so this javascript object we're in,
+
+02:38.380 --> 02:45.310
+so an object with a name and an email property, this is what I want to store as a user for now.
+
+02:45.310 --> 02:52.430
+Now with that, we can again use the then and catch if we want to or we just return that and let whoever
+
+02:52.580 --> 02:54.680
+calls this listen to that
+
+02:54.740 --> 02:59.330
+if there is need for that. Now we can also work on find by ID already
+
+02:59.660 --> 03:04.430
+and there I again will get access to my database client
+
+03:04.820 --> 03:09.060
+and then I will return db collection users
+
+03:09.120 --> 03:13.630
+and here, I now want to use find again to find a specific user.
+
+03:13.820 --> 03:18.950
+We can narrow the user down by comparing the _id and now the important thing here is of course
+
+03:19.160 --> 03:24.600
+that you need to convert user ID which I expect to be a string here to an object ID.
+
+03:24.860 --> 03:31.550
+So let me import mongodb by requiring mongodb like this
+
+03:31.550 --> 03:36.800
+and now here I'll follow a slightly different approach which I also already showed before and I'll create an objectid
+
+03:36.840 --> 03:42.450
+constant and simply store access to it by accessing it up here
+
+03:42.560 --> 03:45.760
+but I'm not calling it, I'm not creating an object in here,
+
+03:45.880 --> 03:51.190
+I'm just storing the reference to the objectid class in my objectid constant
+
+03:51.530 --> 03:55.160
+and then down there, I can just write new object ID
+
+03:55.250 --> 03:58.530
+thanks to my constant up there and pass user ID to it.
+
+03:58.790 --> 04:04.190
+And this should find me all fitting users and I therefore get back a cursor
+
+04:04.520 --> 04:07.230
+and now I can call next to get the first
+
+04:07.310 --> 04:15.160
+and as we know only element that matters to us, so now I'm returning this here. As a side note, you could
+
+04:15.160 --> 04:19.100
+also use find one if you are sure that you only find one element
+
+04:19.270 --> 04:23.470
+and this will now not give you a cursor but immediately return that one element,
+
+04:23.470 --> 04:26.880
+so then this would be an alternative and I will use that here
+
+04:26.950 --> 04:29.260
+but of course this is something I haven't shown you before,
+
+04:29.260 --> 04:32.500
+so if you used find and next, that's perfectly fine.
+
+04:32.800 --> 04:34.440
+So here I'll use find one
+
+04:34.570 --> 04:41.740
+and now I got two methods in place that should allow me to create new users and to then find that user.
+
+04:41.740 --> 04:46.860
+Now with that user model added, let me go back to the app.js file
+
+04:47.230 --> 04:50.270
+and in there I will import my model.
+
+04:50.380 --> 05:00.870
+So here I'll import user by requiring user from /models/user like that. With user imported,
+
+05:01.060 --> 05:07.690
+first of all we had some code here which I want to comment back in where I want to find a user with this
+
+05:07.690 --> 05:11.230
+ID here and then store it in the request,
+
+05:11.410 --> 05:12.970
+so I will still use that here,
+
+05:12.970 --> 05:16.340
+however I'll change the ID in a second.
+
+05:16.370 --> 05:18.570
+First of all when connecting,
+
+05:18.680 --> 05:25.460
+I also want to add some code to see if a user with a certain ID exists and for that, I will actually
+
+05:25.460 --> 05:31.540
+create that user here in compass. So I'll connect to the shop database and I'll create a new collection
+
+05:31.610 --> 05:33.000
+here, users
+
+05:33.050 --> 05:37.520
+and of course this collection name here should be the collection name you chose in your code.
+
+05:37.940 --> 05:43.190
+I'll create a new collection and then go into that collection
+
+05:43.280 --> 05:49.180
+and now if you have a look at your user model, here I'm storing a name and an email for a new user.
+
+05:49.310 --> 05:54.090
+So if we want to create one behind the scenes in compass, we can insert a new document here
+
+05:54.290 --> 05:59.660
+and here is the automatically generated ID and I can enter a name and you can use any name you want
+
+05:59.660 --> 06:00.230
+here
+
+06:00.500 --> 06:04.980
+and of course an email and insert that document.
+
+06:05.150 --> 06:09.900
+And now it's this ID, this part here between the quotation marks that matters to me,
+
+06:09.920 --> 06:12.490
+I'll take that and I'll use that in app.js.
+
+06:12.530 --> 06:16.720
+So here I could now create that user if it didn't exist
+
+06:16.750 --> 06:20.560
+but of course I now know it exists because I created it behind the scenes,
+
+06:20.560 --> 06:25.010
+later we'll add a real authentication flow where users can sign up by themselves,
+
+06:25.020 --> 06:25.680
+no worry.
+
+06:25.900 --> 06:27.160
+But here in my middleware
+
+06:27.190 --> 06:33.120
+where I find a user by ID, I can now search for that ID and I convert that in the user model,
+
+06:33.160 --> 06:36.420
+remember that is why I can use a string here.
+
+06:36.430 --> 06:36.650
+Ok
+
+06:36.670 --> 06:38.320
+so now I have that in place again,
+
+06:38.380 --> 06:39.920
+I get access to my user
+
+06:40.150 --> 06:46.780
+and now we're at least prepared to set up a connection between our product and our user which we can
+
+06:46.780 --> 06:48.400
+use later.
+
+06:48.400 --> 06:50.250
+So let me save that,
+
+06:50.430 --> 06:51.390
+that should work
+
+06:51.540 --> 06:52.570
+and in the next lecture
+
+06:52.620 --> 06:57.570
+let's use that user object and store a reference to that user in our database.

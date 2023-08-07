@@ -1,0 +1,298 @@
+WEBVTT
+
+1
+00:00:02.200 --> 00:00:04.760
+<v Presenter>Thus far, we have some basic code here,</v>
+
+2
+00:00:04.760 --> 00:00:06.990
+which works with numbers and strings.
+
+3
+00:00:06.990 --> 00:00:09.541
+Now we wanna avoid that strings can pass in.
+
+4
+00:00:09.541 --> 00:00:12.850
+And for this in TypeScript files,
+
+5
+00:00:12.850 --> 00:00:16.490
+we can set types, we can set types on variables,
+
+6
+00:00:16.490 --> 00:00:18.570
+we can set types on parameters,
+
+7
+00:00:18.570 --> 00:00:20.910
+in a bunch of other places as well.
+
+8
+00:00:20.910 --> 00:00:23.800
+And here we can add types to those parameters.
+
+9
+00:00:23.800 --> 00:00:25.950
+To make it clear which kind
+
+10
+00:00:25.950 --> 00:00:29.200
+of value will be accepted here,
+
+11
+00:00:29.200 --> 00:00:31.540
+we add a type to a parameter
+
+12
+00:00:31.540 --> 00:00:33.590
+as well as to a variable by adding
+
+13
+00:00:33.590 --> 00:00:36.880
+a colon after the variable or parameter name.
+
+14
+00:00:36.880 --> 00:00:39.973
+And then after we add the type we wanna use.
+
+15
+00:00:41.050 --> 00:00:43.750
+Now TypeScript knows a bunch of Core Types
+
+16
+00:00:43.750 --> 00:00:46.040
+which are simply built into TypeScript.
+
+17
+00:00:46.040 --> 00:00:49.270
+For example, the number type, integer numbers
+
+18
+00:00:49.270 --> 00:00:51.000
+but also floating point numbers.
+
+19
+00:00:51.000 --> 00:00:52.770
+Also negative numbers of course,
+
+20
+00:00:52.770 --> 00:00:56.210
+these are numbers and for those we have to number type,
+
+21
+00:00:56.210 --> 00:00:58.720
+we have to string type if you want some text
+
+22
+00:00:58.720 --> 00:01:01.260
+with single or double quotes are also
+
+23
+00:01:01.260 --> 00:01:03.860
+with the template literal syntax with the backticks.
+
+24
+00:01:05.000 --> 00:01:07.011
+Sometimes we want true or false
+
+25
+00:01:07.011 --> 00:01:08.630
+and for that we got the Boolean type.
+
+26
+00:01:08.630 --> 00:01:10.480
+The Boolean type accepts just
+
+27
+00:01:10.480 --> 00:01:13.610
+these two values true or false.
+
+28
+00:01:13.610 --> 00:01:16.610
+We also tend to find object types.
+
+29
+00:01:16.610 --> 00:01:21.010
+To accept an object like this, for example, we dared
+
+30
+00:01:21.010 --> 00:01:22.940
+and also have the choice between accepting
+
+31
+00:01:22.940 --> 00:01:24.680
+a general object type,
+
+32
+00:01:24.680 --> 00:01:27.990
+or if we want to specifically describe how the object
+
+33
+00:01:27.990 --> 00:01:30.210
+should look like which properties it should have
+
+34
+00:01:30.210 --> 00:01:33.920
+and which types those properties should then have.
+
+35
+00:01:33.920 --> 00:01:35.730
+We can accept array types,
+
+36
+00:01:35.730 --> 00:01:38.540
+for example, an array of numbers there,
+
+37
+00:01:38.540 --> 00:01:41.290
+we also can define if any content is allowed,
+
+38
+00:01:41.290 --> 00:01:44.540
+or if it for example, must be numbers.
+
+39
+00:01:44.540 --> 00:01:46.850
+And we got a bunch of other types as well.
+
+40
+00:01:46.850 --> 00:01:49.490
+But let's stick to those basic types here.
+
+41
+00:01:49.490 --> 00:01:51.520
+And here, we clearly want a number.
+
+42
+00:01:51.520 --> 00:01:55.637
+So we just add number here, after num1,
+
+43
+00:01:55.637 --> 00:01:57.699
+and after num2, it's the same colon number
+
+44
+00:01:57.699 --> 00:02:01.250
+and now something in interesting happens.
+
+45
+00:02:01.250 --> 00:02:06.150
+My IDE already complains here, it basically tells me that
+
+46
+00:02:06.150 --> 00:02:10.290
+the argument of type one as a string is not assignable
+
+47
+00:02:10.290 --> 00:02:12.340
+to a parameter of type number,
+
+48
+00:02:12.340 --> 00:02:14.850
+because a string is not a number.
+
+49
+00:02:14.850 --> 00:02:19.169
+If I compile this code, I also get this error here,
+
+50
+00:02:19.169 --> 00:02:21.290
+you'll see I get the error,
+
+51
+00:02:21.290 --> 00:02:24.290
+that about the same error as before.
+
+52
+00:02:24.290 --> 00:02:26.910
+Nonetheless, it did compile the code.
+
+53
+00:02:26.910 --> 00:02:29.890
+You can also configure TypeScript to not compile
+
+54
+00:02:29.890 --> 00:02:31.450
+if it has such an error.
+
+55
+00:02:31.450 --> 00:02:33.600
+The default is that it does compile.
+
+56
+00:02:33.600 --> 00:02:34.740
+And here that's good,
+
+57
+00:02:34.740 --> 00:02:37.460
+because that actually gives us another piece
+
+58
+00:02:37.460 --> 00:02:41.750
+of important information. In the compiled JavaScript code,
+
+59
+00:02:41.750 --> 00:02:44.827
+that colon number thing here is gone.
+
+60
+00:02:44.827 --> 00:02:46.918
+Because as I mentioned before,
+
+61
+00:02:46.918 --> 00:02:49.530
+it's a pure TypeScript feature.
+
+62
+00:02:49.530 --> 00:02:51.670
+It doesn't exist in JavaScript.
+
+63
+00:02:51.670 --> 00:02:55.450
+It's only there during development to give us exactly
+
+64
+00:02:55.450 --> 00:02:58.450
+that error, which we see down there.
+
+65
+00:02:58.450 --> 00:03:00.280
+That's why we have this feature.
+
+66
+00:03:00.280 --> 00:03:02.750
+We only need it during development,
+
+67
+00:03:02.750 --> 00:03:05.768
+because it allows us to catch bugs like
+
+68
+00:03:05.768 --> 00:03:08.180
+this and get rid of such lines.
+
+69
+00:03:08.180 --> 00:03:10.390
+Now, that's TypeScript in a nutshell.
+
+70
+00:03:10.390 --> 00:03:15.090
+And this might sound trivial, but that's its core feature.
+
+71
+00:03:15.090 --> 00:03:19.150
+The essence of TypeScript is that you are very clear about
+
+72
+00:03:19.150 --> 00:03:21.640
+the types of data you work with in different parts
+
+73
+00:03:21.640 --> 00:03:22.473
+of your app.
+
+74
+00:03:22.473 --> 00:03:26.743
+And that overall leads to better code and less bugs.
+

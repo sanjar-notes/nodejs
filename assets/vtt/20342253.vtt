@@ -1,0 +1,230 @@
+WEBVTT
+
+1
+00:00:02.150 --> 00:00:03.930
+<v Instructor>So how would the Node equivalent</v>
+
+2
+00:00:03.930 --> 00:00:05.960
+look like for this server?
+
+3
+00:00:05.960 --> 00:00:08.330
+For that, I quit the server.
+
+4
+00:00:08.330 --> 00:00:11.230
+And now in app.js let's see the equivalent.
+
+5
+00:00:11.230 --> 00:00:14.750
+Now to get the proper IDE completion and support
+
+6
+00:00:14.750 --> 00:00:16.280
+I will go back to the extensions
+
+7
+00:00:16.280 --> 00:00:19.670
+and temporarily disable my Deno extension again.
+
+8
+00:00:19.670 --> 00:00:22.270
+You might not need this, at the moment it's clashing
+
+9
+00:00:22.270 --> 00:00:25.150
+with Node development, so I will do this.
+
+10
+00:00:25.150 --> 00:00:27.910
+And, with that done, here in app.js,
+
+11
+00:00:27.910 --> 00:00:32.240
+I first of all will import the http core module.
+
+12
+00:00:32.240 --> 00:00:33.870
+So we're going to write some Node code.
+
+13
+00:00:33.870 --> 00:00:35.493
+Now, this is what we do.
+
+14
+00:00:36.680 --> 00:00:40.840
+Now, with that imported, we create a Node server
+
+15
+00:00:40.840 --> 00:00:42.420
+by calling
+
+16
+00:00:43.690 --> 00:00:45.743
+http.createServer
+
+17
+00:00:46.892 --> 00:00:51.310
+and createServer now does not want an object with a port,
+
+18
+00:00:51.310 --> 00:00:54.800
+it just wants a function that gets the incoming request
+
+19
+00:00:54.800 --> 00:00:57.390
+and that gets a response object
+
+20
+00:00:57.390 --> 00:01:01.040
+which will be executed for every incoming request.
+
+21
+00:01:01.040 --> 00:01:04.640
+So this is how we deal with incoming requests in Node world.
+
+22
+00:01:04.640 --> 00:01:06.920
+We don't have a async iterator there,
+
+23
+00:01:06.920 --> 00:01:11.630
+instead there we really just have this callback function.
+
+24
+00:01:11.630 --> 00:01:14.470
+And there we also don't send back a response
+
+25
+00:01:14.470 --> 00:01:18.270
+by calling some response method on the request,
+
+26
+00:01:18.270 --> 00:01:21.010
+but instead we have this extra response argument
+
+27
+00:01:21.010 --> 00:01:24.560
+which we get and there we can call the end method
+
+28
+00:01:24.560 --> 00:01:27.730
+to complete the response and send it back.
+
+29
+00:01:27.730 --> 00:01:30.910
+And to end we could add our response body,
+
+30
+00:01:30.910 --> 00:01:35.593
+for example, the Hello World (from Node!) text.
+
+31
+00:01:37.590 --> 00:01:40.490
+Now this alone will not spin up the server though,
+
+32
+00:01:40.490 --> 00:01:42.200
+it will just create it.
+
+33
+00:01:42.200 --> 00:01:44.700
+Now to spin it up we need to call listen
+
+34
+00:01:44.700 --> 00:01:48.090
+and to listen we then pass the port number.
+
+35
+00:01:48.090 --> 00:01:50.640
+And that's our Node server.
+
+36
+00:01:50.640 --> 00:01:53.500
+Now we execute app.js with Node
+
+37
+00:01:53.500 --> 00:01:56.160
+and we don't need to specify any permissions
+
+38
+00:01:56.160 --> 00:01:58.760
+because, as I mentioned, Node doesn't have
+
+39
+00:01:58.760 --> 00:02:00.860
+this permissions system.
+
+40
+00:02:00.860 --> 00:02:03.930
+If we do this however, the server starts running
+
+41
+00:02:03.930 --> 00:02:06.320
+and this process is therefore not ending
+
+42
+00:02:06.320 --> 00:02:08.850
+because it keeps on listening for incoming requests.
+
+43
+00:02:08.850 --> 00:02:11.510
+And if I now wizard localhost 3000
+
+44
+00:02:11.510 --> 00:02:13.060
+I see Hello World (from Node!).
+
+45
+00:02:14.010 --> 00:02:16.980
+So that is how we would spin up a server with Node.
+
+46
+00:02:16.980 --> 00:02:20.110
+And it's not too far off from Deno,
+
+47
+00:02:20.110 --> 00:02:22.040
+but of course we see core differences
+
+48
+00:02:22.040 --> 00:02:24.060
+like the import syntax,
+
+49
+00:02:24.060 --> 00:02:27.810
+the fact that here we a locally available module,
+
+50
+00:02:27.810 --> 00:02:30.560
+whereas here we reach out to a server.
+
+51
+00:02:30.560 --> 00:02:34.740
+And we then of course create a server and listen like this,
+
+52
+00:02:34.740 --> 00:02:38.240
+instead of creating it like this and listening automatically
+
+53
+00:02:38.240 --> 00:02:42.080
+and then having this way of processing requests.
+
+54
+00:02:42.080 --> 00:02:44.470
+It's up to you which approach you prefer,
+
+55
+00:02:44.470 --> 00:02:47.330
+they're both relatively short,
+
+56
+00:02:47.330 --> 00:02:49.120
+not too much code I would say,
+
+57
+00:02:49.120 --> 00:02:52.240
+but this is how you would do it in Node and Deno.
+

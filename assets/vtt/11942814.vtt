@@ -1,0 +1,256 @@
+WEBVTT
+
+00:02.170 --> 00:04.360
+So we worked on products and users,
+
+00:04.390 --> 00:08.770
+it's now time to work on the cart and the cart items again and that will now change
+
+00:08.770 --> 00:10.640
+now that we're using mongodb.
+
+00:10.660 --> 00:15.580
+So let me start with the cart model, now what is, what's the overall goal we have here? 
+
+00:15.580 --> 00:23.710
+Well obviously for every user we have, we want to store a cart right and that user will have a cart and
+
+00:23.770 --> 00:27.160
+that cart will then hold the products.
+
+00:27.160 --> 00:29.210
+So actually with mongodb,
+
+00:29.230 --> 00:35.080
+this is a great place for embedded documents because we have a strict one-to-one relation between a
+
+00:35.080 --> 00:39.640
+user and a cart and therefore there is no need to manage this with a reference,
+
+00:39.910 --> 00:47.500
+I could actually get rid of my cart items, my cart model so that I just have product and user
+
+00:47.500 --> 00:49.680
+and for now, also the orders
+
+00:49.890 --> 00:56.290
+and now on the user model, there I also want to store my cart items.
+
+00:56.290 --> 00:57.890
+Now the question is how,
+
+00:58.330 --> 01:08.010
+the answer is we get our shop.js controller and in there we got code to store something in a cart, 
+
+01:08.220 --> 01:13.830
+here for the user we got the cart and then we got the products to see what's in there, update it and then
+
+01:13.830 --> 01:15.360
+save it back.
+
+01:15.420 --> 01:18.210
+Now we can do that with the help of the user model.
+
+01:20.520 --> 01:27.960
+Let's say on a user object, instead of just having save I also add a new method, add to cart, something
+
+01:27.960 --> 01:28.800
+like this.
+
+01:30.040 --> 01:35.580
+Now here add to cart would be a product I want to add to the cart of course,
+
+01:35.590 --> 01:39.840
+essentially what we're doing here in shop.js already, here
+
+01:39.880 --> 01:46.620
+we already fetch or we got everything we need to fetch a product which we could then add to the cart.
+
+01:46.750 --> 01:55.360
+So I expect to get a product here which I can add and then in add to cart, I can have all the logic I need
+
+01:55.600 --> 02:01.000
+to find out if that product is already inside of the cart and therefore if I just want to increase
+
+02:01.000 --> 02:08.720
+the quantity or if it is not and therefore I want to add it for the first time. Now to understand how
+
+02:08.720 --> 02:14.870
+this works you must not forget that add to cart will be called on a user object and we'll create that
+
+02:14.870 --> 02:22.530
+object with data we fetched from the database with the help of find by ID, here we will return a user.
+
+02:22.580 --> 02:27.000
+So therefore we just need to be able to accept more data in a constructor,
+
+02:27.110 --> 02:34.460
+for example the cart so we can also store the cart in our javascript object here which will be based
+
+02:34.460 --> 02:38.480
+on the data stored in the database.
+
+02:38.490 --> 02:45.090
+So now we can assume that we'll have a cart property on our user and now we just need to find out if
+
+02:45.090 --> 02:48.070
+that cart contains a certain product already.
+
+02:48.100 --> 02:55.890
+Now the cart will essentially be an object let's say that looks something like this, an object with some
+
+02:55.980 --> 03:00.310
+items, so an object which has the items array in there.
+
+03:00.320 --> 03:07.070
+So what we could do if we assume that this is the case, we could create a new constant, cart product and
+
+03:07.070 --> 03:17.210
+then use this cart items and find, let's say the index of a product in that cart with the same ID
+
+03:17.210 --> 03:19.370
+as the product we're trying to add again.
+
+03:20.240 --> 03:28.100
+So I'll pass a function to find index which simply is a function javascript will execute for every element
+
+03:28.130 --> 03:29.470
+in the items array
+
+03:29.700 --> 03:34.670
+and then here I want to return true if I found the right product in my items array and this will be the
+
+03:34.670 --> 03:37.570
+case if cp which is the product in the items array,
+
+03:37.640 --> 03:45.260
+if the _id there matches the _id of the product I'm trying to insert. If that is
+
+03:45.260 --> 03:46.200
+the case,
+
+03:46.300 --> 03:51.230
+so if this returns a valid index, so something else than minus one which would be the default otherwise,
+
+03:51.680 --> 03:57.370
+then I know this product already exists in a cart and then I just need to find out what its quantity
+
+03:57.370 --> 03:58.400
+is.
+
+03:58.430 --> 03:59.980
+Now we'll do this a second step,
+
+03:59.990 --> 04:05.150
+first of all we can assume that there will be no products in the cart because we're just starting from
+
+04:05.150 --> 04:05.650
+scratch,
+
+04:05.780 --> 04:10.780
+so let's add the code to add a product without checking whether that product exists yet,
+
+04:10.850 --> 04:17.470
+so we can comment this out for now and instead create a constant, maybe named updated cart
+
+04:18.340 --> 04:27.640
+which is an object where we might have an items property which is an array where I will now include my
+
+04:27.640 --> 04:28.640
+product.
+
+04:28.720 --> 04:31.460
+However not just the product as I'm getting here,
+
+04:31.570 --> 04:39.480
+I also want to add a quantity field, so I'll actually say product quantity and this is how you can
+
+04:39.480 --> 04:46.710
+add a field on the fly in javascript equals one. Now another approach, maybe a bit more elegant than
+
+04:46.710 --> 04:53.160
+that is that in items, you create an object with curly braces because we'll add an object here and then
+
+04:53.160 --> 04:59.940
+you use the javascript spread operator, three dots to pull out all properties of this object so of the
+
+04:59.940 --> 05:05.460
+product object and then with a comma, you can add or overwrite a property,
+
+05:05.490 --> 05:09.400
+so here I'll add the quantity property and set it to one.
+
+05:09.720 --> 05:15.510
+Whatever approach you choose, this will create an object which holds an items property which is an array
+
+05:15.630 --> 05:16.050
+of
+
+05:16.050 --> 05:22.710
+in our case only one object, one product with an additional quantity information. And now I want to update
+
+05:22.740 --> 05:26.740
+the user to store that cart in there,
+
+05:26.940 --> 05:35.920
+so I will get access to my database with get db and I'll reach out to my users collection and I'll
+
+05:35.980 --> 05:41.190
+update one user in there and I'll update the user with this user ID here,
+
+05:41.320 --> 05:45.920
+so what I need to do is I need to accept that ID as an argument.
+
+05:46.070 --> 05:53.770
+So this _id will be equal to ID let's say and then here I can say I want to find the user where
+
+05:53.780 --> 06:02.150
+_id is equal to new and I'll use object ID which I extracted up here because I need that
+
+06:02.150 --> 06:03.360
+for the comparison
+
+06:04.440 --> 06:07.600
+where this is equal to this _id
+
+06:07.750 --> 06:13.850
+and once I found that, I'll describe how to update and I'll use $set where I pass an object which
+
+06:13.850 --> 06:18.290
+holds all the information about which field to update in which way.
+
+06:18.830 --> 06:26.480
+And here I essentially want to keep everything as it is, I dont want to change the user name or anything
+
+06:26.480 --> 06:27.260
+like that,
+
+06:27.290 --> 06:31.250
+I'll just set cart equal to updated cart, that is it.
+
+06:31.400 --> 06:38.460
+So cart which I expect to have in a user in the database will now receive updated cart,
+
+06:38.480 --> 06:43.670
+so this object as a new value which will overwrite the old one and this is important,
+
+06:43.700 --> 06:49.110
+it will not merge this with the old one, it will not merge the elements in the items array, it will simply
+
+06:49.130 --> 06:51.760
+overwrite the old cart with the new cart.
+
+06:52.910 --> 06:59.920
+Now I can return this here, this update one call and what this should do is well, it should update our user to
+
+07:00.010 --> 07:01.420
+add a product to the cart,
+
+07:01.450 --> 07:06.390
+for now it will always overwrite any existing products in the cart, we'll fix this later
+
+07:06.520 --> 07:08.550
+but for now, this should work.
+
+07:08.560 --> 07:10.570
+Now let's wire it up in the next lecture.

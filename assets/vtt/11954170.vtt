@@ -1,0 +1,136 @@
+WEBVTT
+
+00:02.100 --> 00:07.050
+With the user model set up, let's make sure we can use it together with the product model.
+
+00:07.050 --> 00:10.000
+Now obviously every product should be assigned to a user,
+
+00:10.110 --> 00:13.890
+so first of all we need to change our product schema a little bit.
+
+00:13.980 --> 00:20.850
+A product should also have a user ID field let's say, just as we had it before in the last module.
+
+00:20.850 --> 00:25.630
+Now a user ID field is of type and now which type is this?
+
+00:25.830 --> 00:34.860
+Well it will be a reference to a user, so this will actually be of type schema types objectID
+
+00:35.040 --> 00:41.880
+and now we can set something special here, we can add a special ref configuration and ref takes a string
+
+00:41.970 --> 00:49.010
+where we tell mongoose hey which other mongoose model is actually related to the data in that field.
+
+00:49.080 --> 00:55.380
+We know that we will store a user ID here but just because the type is objectid, this is not obvious,
+
+00:55.380 --> 00:59.010
+this could be any object ID of any object.
+
+00:59.010 --> 01:06.580
+So I will add user here and you use the name of your model to which you want to relate this,
+
+01:06.600 --> 01:11.080
+so since our model here is named user, I will name it user here,
+
+01:11.130 --> 01:14.190
+so I refer to my user model here
+
+01:14.640 --> 01:21.720
+and with that I got a relation set up. This also means that in my user model where I do store
+
+01:21.720 --> 01:29.640
+the product ID, I can also add a reference here and refer to product because I know that for every user
+
+01:29.730 --> 01:37.830
+in the cart items, I will store products where I refer to some ID and that ID happens to refer to a product
+
+01:37.830 --> 01:41.540
+stored or defined through the product model.
+
+01:41.760 --> 01:44.510
+So now we got relation set up with ref,
+
+01:44.580 --> 01:50.390
+of course you only need this when using references, when using embedded documents as we do with the cart,
+
+01:50.400 --> 01:56.490
+you don't need to do anything because well you use an embedded document, this already has kind of an
+
+01:56.490 --> 02:01.280
+implicit relation that is managed inside of one document.
+
+02:01.330 --> 02:03.640
+So now with the references set up,
+
+02:03.640 --> 02:10.990
+let me also add a required to true here and now I adjusted my schemas. Now with the schemas adjusted,
+
+02:11.000 --> 02:17.140
+we of course need to adjust our code like in the admin controller when we create a new product. When
+
+02:17.140 --> 02:22.560
+creating a new product, we also want to make sure we store the user id and that is super simple.
+
+02:22.810 --> 02:30.770
+We just add user ID here to the fields we pass in the object to the product constructor and now remember
+
+02:30.770 --> 02:39.640
+that we did save the user in our request, so I can just do request user_id like this and
+
+02:39.640 --> 02:45.490
+this should give me access to the user id and assign it here. Now conveniently in mongoose,
+
+02:45.490 --> 02:48.280
+you can even just store the entire user object,
+
+02:48.280 --> 02:53.350
+so this is really the entire user object not just the ID and mongoose will just pick the ID from that
+
+02:53.350 --> 02:54.080
+object,
+
+02:54.100 --> 02:56.440
+so that's another convenience you got there.
+
+02:56.440 --> 02:57.820
+Let me save my code,
+
+02:58.000 --> 03:04.160
+let's go back and let's add a new product, a nice book.
+
+03:04.290 --> 03:07.370
+Let's use that image url we used before,
+
+03:07.500 --> 03:09.200
+let's give it some price,
+
+03:09.270 --> 03:15.820
+you should not miss that and click add product. Now you see
+
+03:15.830 --> 03:17.330
+that looks good, it was added
+
+03:17.510 --> 03:21.880
+and now let's have a look at compass and see if the user ID was added too.
+
+03:22.120 --> 03:29.360
+So if I refresh there, indeed we see the user id here and just the ID, not the entire user, just the
+
+03:29.360 --> 03:31.740
+ID as we want it.
+
+03:31.760 --> 03:33.220
+So this is pretty awesome,
+
+03:33.230 --> 03:37.450
+this is how we can manage relations through mongoose.
+
+03:37.460 --> 03:39.650
+Now let me show you something cool
+
+03:39.680 --> 03:41.660
+when it comes to fetching these relations.

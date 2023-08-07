@@ -1,0 +1,91 @@
+WEBVTT
+
+00:02.080 --> 00:02.410
+Now.
+
+00:02.410 --> 00:04.730
+What did we learn about objects and arrays?
+
+00:04.750 --> 00:09.760
+There's one common misconception I sometimes see in the Q&amp;A section.
+
+00:10.390 --> 00:16.540
+Please check out that video I linked earlier in this article where I talk about primitive and referenced
+
+00:16.540 --> 00:20.020
+types and JavaScript because that is a crucial concept.
+
+00:20.200 --> 00:26.680
+Objects and arrays are so called reference types and you'll learn all about that and what that is in
+
+00:26.680 --> 00:27.370
+the linked video.
+
+00:27.370 --> 00:29.320
+So I'm not going to re-explain it here.
+
+00:31.050 --> 00:39.810
+They are reference types and therefore when I store an array in a constant hobbies, I can still edit
+
+00:39.810 --> 00:46.980
+disarray without violating the restriction that constants must not change.
+
+00:47.280 --> 00:48.720
+Let me prove that to you.
+
+00:49.900 --> 00:57.460
+If I comment that out and I add a new line here and I use another method to push method which allows
+
+00:57.460 --> 01:00.150
+me to add a new element to the existing array.
+
+01:00.160 --> 01:02.260
+So this will not return a new array.
+
+01:02.290 --> 01:04.150
+It will add it to the existing array.
+
+01:04.450 --> 01:07.390
+And here I will add programming.
+
+01:08.330 --> 01:12.830
+Now if I now console log hobbies after pushing.
+
+01:13.590 --> 01:15.810
+And I run note pledges.
+
+01:16.350 --> 01:17.940
+You see, that is the output.
+
+01:17.940 --> 01:21.870
+And we get no error about editing this constant.
+
+01:22.750 --> 01:32.200
+The reason for that is that reference types only store an address pointing at the place in memory where
+
+01:32.200 --> 01:34.780
+that array is stored and that pointer.
+
+01:34.780 --> 01:38.920
+This address has not changed by us adding a new element.
+
+01:39.160 --> 01:46.210
+So the thing stored in this constant is just this pointer, just this address, and this has not changed.
+
+01:46.210 --> 01:49.570
+Therefore our constant value has not changed.
+
+01:50.930 --> 01:56.300
+The thing it's pointing at has changed, but that totally does not matter here.
+
+01:56.630 --> 02:01.400
+And this is something you have to understand so that you don't wonder what's going on.
+
+02:01.400 --> 02:06.260
+When we do edit in quotation marks a constant value.
+
+02:06.290 --> 02:09.500
+We're not really editing the thing that is stored in a constant.
+
+02:09.530 --> 02:14.570
+We're only editing the thing that constant thing is pointing at.

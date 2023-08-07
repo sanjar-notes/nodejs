@@ -1,0 +1,94 @@
+WEBVTT
+
+00:02.130 --> 00:05.130
+Now that we are able to sign up and sign in,
+
+00:05.220 --> 00:07.370
+we have to work on route protection.
+
+00:07.410 --> 00:12.740
+We already have a setup where we only show the menu options we should be able to interact with
+
+00:12.960 --> 00:22.020
+but even when I logout and therefore my session is gone, even when I do that, I can still manually
+
+00:22.020 --> 00:28.200
+enter admin add product and reach that page and I could even try to create a product here,
+
+00:28.290 --> 00:33.900
+I would fail then because there would be no user object on the backend where I tried to get the logged
+
+00:33.900 --> 00:34.610
+in user
+
+00:34.710 --> 00:36.360
+but this is not the user experience
+
+00:36.360 --> 00:37.280
+we want to offer,
+
+00:37.320 --> 00:41.130
+we don't even want to be able to load this page if we're not logged in
+
+00:41.130 --> 00:44.480
+and for that, we need to protect our routes.
+
+00:44.490 --> 00:46.490
+Now how do we protect routes?
+
+00:46.770 --> 00:52.990
+Well to protect routes, we want to check where the user is authenticated before we render back
+
+00:53.010 --> 00:55.260
+let's say the add product page.
+
+00:55.260 --> 01:02.790
+So in admin in the admin controller, in get add product which loads that page, before we render that
+
+01:02.790 --> 01:08.220
+page, I want to check if in the request session is logged in is set
+
+01:08.550 --> 01:15.450
+and to be precise, I want to check if it's not set because if this is not true, the user is not logged
+
+01:15.450 --> 01:17.180
+in
+
+01:17.390 --> 01:21.490
+and if the user is not logged in, then I want to redirect
+
+01:21.710 --> 01:24.470
+let's say to the login page like this.
+
+01:24.470 --> 01:31.720
+So then since I return here, this code will not execute and I won't load the added product page.
+
+01:31.750 --> 01:33.930
+So now let me try to reload this page,
+
+01:33.940 --> 01:38.690
+keep in mind I'm not logged in and I'm on the login page.
+
+01:38.690 --> 01:39.370
+So this works,
+
+01:39.410 --> 01:43.350
+I am redirected here because session logged in is not set.
+
+01:43.700 --> 01:45.910
+On the other hand if I do login now,
+
+01:46.040 --> 01:52.310
+so if I do enter my valid credentials here and I try to access add product,
+
+01:52.410 --> 01:56.570
+this does work because now I make it past this if check.
+
+01:56.750 --> 02:02.740
+Now this is a code we could add to every route which we want to protect but adding it like this is a
+
+02:02.740 --> 02:04.420
+bit cumbersome,
+
+02:04.450 --> 02:10.800
+so let me show you a better way of protecting our routes or a more scalable way in the next lecture.

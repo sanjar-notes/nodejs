@@ -1,0 +1,202 @@
+WEBVTT
+
+00:02.410 --> 00:04.470
+We don't just have products and users,
+
+00:04.480 --> 00:11.980
+we also have the cart and we haven't worked on the cart for quite some time. Now from a relation or association
+
+00:12.010 --> 00:13.100
+perspective,
+
+00:13.320 --> 00:21.460
+a cart should belong to a user and a cart that in turn simply holds products, many products with a quantity
+
+00:21.610 --> 00:23.500
+associated to them.
+
+00:23.560 --> 00:25.800
+So actually we need more than one model,
+
+00:25.990 --> 00:27.310
+I can already tell you that
+
+00:27.330 --> 00:29.740
+but let's work on the cart model first.
+
+00:29.830 --> 00:35.590
+I delete everything here and start writing it from scratch.
+
+00:35.620 --> 00:40.710
+I'll first of all import sequelize by requiring the sequelize package
+
+00:40.960 --> 00:47.150
+and of course then, I will also import sequelize from my database file,
+
+00:47.200 --> 00:54.730
+so from util database like this and then it's time to create the cart model with sequelize define as
+
+00:54.730 --> 00:56.290
+we did it before,
+
+00:56.290 --> 01:04.470
+name it cart and a cart for me here simply has an ID and that id will be of type
+
+01:04.480 --> 01:14.130
+sequelize string, auto-increment should be true, allow null should be false and the primary key will
+
+01:14.130 --> 01:15.240
+be true
+
+01:15.600 --> 01:17.490
+and then I will export this.
+
+01:17.490 --> 01:24.900
+Now you might be wondering where are the products? Well we have to keep in mind that a cart should belong
+
+01:24.900 --> 01:29.570
+to a single user but may hold multiple products.
+
+01:29.700 --> 01:36.810
+The carts table however should hold the different carts for the different users, so we'll not just need the
+
+01:36.810 --> 01:42.900
+carts table and model, we'll also need a new cart
+
+01:42.930 --> 01:44.260
+item.js
+
+01:44.270 --> 01:47.090
+file and in there,
+
+01:47.390 --> 01:51.660
+I will also again, I'll copy the code from carts, define a new model,
+
+01:51.920 --> 02:00.630
+I'll call it cart item though and export cart item here and I'll name it cart item here
+
+02:00.680 --> 02:09.190
+when I define the model name and this will also have an ID but then also a quantity and that quantity
+
+02:09.880 --> 02:18.150
+will be an integer because each cart item is essentially a combination of a product and the ID of
+
+02:18.150 --> 02:21.840
+the cart in which this product lies and the quantity.
+
+02:21.840 --> 02:26.700
+Now the ID of the cart to which this is related doesn't have to be added by us here because we
+
+02:26.700 --> 02:33.900
+will again create an association and let sequelize manage this, so it's time for some associations then.
+
+02:34.970 --> 02:44.610
+Let's go to the app.js file here and in there, time to add more associations besides product and user.
+
+02:45.860 --> 02:54.710
+For example a user has one cart and for this to work, we need to import the cart,
+
+02:54.800 --> 03:02.020
+so let's scroll up to the imports and let's also import cart here from the cart file.
+
+03:02.270 --> 03:07.370
+We also need the cart item so I'll import cart item from the cart
+
+03:07.610 --> 03:08.130
+item
+
+03:08.130 --> 03:09.290
+file in the models folder,
+
+03:09.290 --> 03:13.440
+so these two new imports have to be added. And with them added
+
+03:13.450 --> 03:20.820
+if we go down again, let's go back defining the relations, a user has one cart and a cart on the other
+
+03:20.830 --> 03:23.330
+hand belongs to a user,
+
+03:23.360 --> 03:26.810
+so this is basically the inverse of this relation and it's optional,
+
+03:26.840 --> 03:27.950
+you don't need to add it, a
+
+03:27.960 --> 03:30.530
+one direction is enough.
+
+03:30.560 --> 03:39.590
+This setup here, either of the two approaches will add a key to the cart, a new field to the cart which
+
+03:39.590 --> 03:42.050
+is the user id to which the cart belongs.
+
+03:42.970 --> 03:55.460
+Next I will add my cart here and say that this cart belongs to many products and on the other hand, a
+
+03:55.510 --> 04:05.410
+product belongs to many carts, it's a many-to-many relationship because one cart can hold multiple products
+
+04:05.740 --> 04:10.080
+and a single product can be part of multiple different carts.
+
+04:10.570 --> 04:15.640
+This only works with an intermediate table that connects them which basically stores a combination
+
+04:15.640 --> 04:17.610
+of product IDs and cart IDs
+
+04:17.890 --> 04:20.450
+and for that, I created my cart item model.
+
+04:20.710 --> 04:23.600
+I add a second argument to belongs to many
+
+04:23.620 --> 04:29.740
+and there we add the through keep telling sequelize where these connection should be stored and that is
+
+04:29.740 --> 04:36.820
+my cart item model, so I'll add that to both belongs to many calls here.
+
+04:36.850 --> 04:45.640
+So now we got this set up here and therefore now we should have all the setup we need. If we now again
+
+04:45.640 --> 04:53.780
+temporarily set force to true to ensure that we do recreate all tables as required and we go back to
+
+04:53.780 --> 05:02.670
+the workbench and refresh all, we actually only see two tables because we have an error here.
+
+05:02.860 --> 05:07.910
+If we scroll up a bit, we see incorrect column specifier for column ID,
+
+05:07.990 --> 05:14.080
+so something went wrong here when sequelize tried to create our tables because it looks like we got some
+
+05:14.080 --> 05:18.510
+error in one of our models.
+
+05:18.620 --> 05:25.760
+And the thing is the ID here in cart item, that should be an integer not a string, same in cart, should
+
+05:25.760 --> 05:28.370
+be an integer not a string.
+
+05:28.370 --> 05:30.010
+Now this is looking much better
+
+05:30.200 --> 05:35.520
+and now if we go back and refresh all, now we see carts and cart items here
+
+05:35.890 --> 05:42.800
+and we can see that in carts, we only got Id created and updated and the user id to which the cart
+
+05:42.800 --> 05:50.420
+belongs. In users we don't care about that, we only have the user information and in cart items, we have
+
+05:50.420 --> 05:56.120
+a combination of the cart ID to which this cart item belongs and the Product ID.
+
+05:56.450 --> 06:01.430
+So now we get everything we need to manage our cart items for the carts we need.

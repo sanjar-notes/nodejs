@@ -1,0 +1,214 @@
+WEBVTT
+
+00:02.290 --> 00:07.590
+So time to add some database logic and I will again use mongodb and mongoose
+
+00:07.630 --> 00:13.510
+and I will use that same mongodb atlas server we configured earlier in the course.
+
+00:13.510 --> 00:18.450
+So go back to that mongodb module if you want to see how that worked
+
+00:18.520 --> 00:22.900
+and if you want to use MySQL or something like this, you can of course also take the knowledge you
+
+00:22.900 --> 00:29.220
+gain in the MySQL related modules of the course and implement your own SQL solution here, to follow
+
+00:29.220 --> 00:30.250
+along smoothly
+
+00:30.250 --> 00:32.520
+you should use mongodb though.
+
+00:32.530 --> 00:34.540
+I will again use the mongoose package,
+
+00:34.630 --> 00:41.590
+so let's install it with npm install --save mongoose and that will be required to connect to
+
+00:41.590 --> 00:48.370
+the database and to then of course also create our mongoose models, store data and so on.
+
+00:49.090 --> 00:51.940
+I'll restart npm start thereafter and now
+
+00:51.940 --> 00:59.710
+first of all let's connect. For this let's open the app.js file and let's import mongoose here by simply
+
+00:59.710 --> 01:01.530
+requiring mongoose.
+
+01:01.750 --> 01:07.300
+Now as you learned in the mongodb and the mongoose modules of this course, we then esstablish a connection
+
+01:07.870 --> 01:14.870
+by using mongoose connect here and now we need a url, a connection url.
+
+01:14.990 --> 01:17.320
+Now as I mentioned, I'll use that same connection
+
+01:17.320 --> 01:19.940
+url I used before in the course
+
+01:20.020 --> 01:21.630
+so that does not change,
+
+01:21.670 --> 01:23.930
+I will just copy that,
+
+01:23.950 --> 01:24.610
+here it is,
+
+01:24.610 --> 01:31.990
+that is my atlas server to which I can connect and this now establishes a connection and then I can add
+
+01:32.050 --> 01:36.980
+then and a catch block, catch in case this connection establishing fails,
+
+01:37.030 --> 01:38.670
+then I want to log the error
+
+01:38.830 --> 01:45.430
+but if we are successful, if we are in the then block here, then I will start my node server and start
+
+01:45.430 --> 01:46.960
+listening to requests.
+
+01:46.960 --> 01:50.460
+If we save that, it now gets restarted and it should succeed,
+
+01:50.530 --> 01:53.170
+you can ignore this deprecation warning here by the way.
+
+01:53.350 --> 01:58.810
+Now we're connected to mongoose or to mongodb through mongoose and now what can we do?
+
+01:59.080 --> 02:03.970
+Well we have to create some models to work with right because that is how we interact with the database
+
+02:04.000 --> 02:05.030
+ultimately.
+
+02:05.110 --> 02:11.680
+So let's create a models folder here in our node rest API and I'll create a post.js file in there to
+
+02:11.680 --> 02:14.630
+define how a post should look like.
+
+02:15.090 --> 02:23.240
+There I will simply import mongoose by requiring mongoose from the mongoose package,
+
+02:23.570 --> 02:30.320
+we can then extract the schema from that mongoose object, that schema constructor and use that to create
+
+02:30.350 --> 02:31.850
+a new post schema,
+
+02:31.850 --> 02:37.670
+you can name that however you want but you use new schema to now define how a post should look like
+
+02:37.670 --> 02:40.370
+in your database and in your application.
+
+02:40.460 --> 02:43.670
+Now you can of course define this in whichever way you want,
+
+02:43.670 --> 02:50.270
+I want to have a title in there which will be of type string and you learned all about that schema declaration
+
+02:50.270 --> 02:54.440
+thing in the mongoose module, so I'll be walking through that a bit faster.
+
+02:54.770 --> 02:59.250
+So type will be string and let's say it's required
+
+02:59.280 --> 03:03.050
+and we then also will have an image url
+
+03:03.060 --> 03:06.870
+or image or however you want to name it and that will also be a string,
+
+03:06.870 --> 03:13.200
+it will be a url pointing at that file and this will also be required.
+
+03:14.520 --> 03:17.340
+Now we'll also have a content of course
+
+03:17.960 --> 03:25.850
+where the type is string as well and which also is required, so thus far not too exciting.
+
+03:25.850 --> 03:31.720
+Now I also will have a creator here and that will later be a link to a user,
+
+03:31.730 --> 03:33.320
+for now I don't have that
+
+03:33.470 --> 03:36.460
+so for now it will just be an object and be required
+
+03:36.890 --> 03:40.430
+but this is only temporary, we'll change this later.
+
+03:40.430 --> 03:42.410
+So this is my current set up.
+
+03:42.590 --> 03:48.410
+Now I will pass an option to the schema constructor which we haven't seen before, we can configure this
+
+03:48.710 --> 03:53.780
+and in that object I'm passing as a second argument to the schema constructor,
+
+03:53.780 --> 03:59.930
+I can add the timestamps key and set this to true and mongoose will then automatically add timestamps
+
+03:59.930 --> 04:05.330
+when a new version is added to the database, when a new object is added to the database.
+
+04:05.480 --> 04:10.820
+So we automatically get a createdAt and updatedAt timestamp out of the box then
+
+04:10.910 --> 04:15.440
+and you can learn more about that feature in the official mongoose docs of course.
+
+04:15.440 --> 04:18.970
+Last but not least, we now need to export this
+
+04:19.160 --> 04:23.810
+and you learned that we don't export the schema but a model based on the schema.
+
+04:24.110 --> 04:29.330
+So I use mongoose and then the model method to create a model based on a schema,
+
+04:29.510 --> 04:31.370
+you can name that model however you want,
+
+04:31.400 --> 04:38.210
+I'll name it post and therefore this will create a post database and I will export my post schema
+
+04:38.210 --> 04:40.180
+here or use my post schema,
+
+04:40.370 --> 04:42.890
+so this is the model defined.
+
+04:42.950 --> 04:47.910
+One important note about my connection string by the way in app.js, there
+
+04:47.960 --> 04:56.730
+I'm connecting to a database and I will connect to my messages database, you can name this however you
+
+04:56.730 --> 04:58.010
+want.
+
+04:58.020 --> 04:59.980
+So now we'll connect to this database
+
+05:00.030 --> 05:06.330
+and thanks to this model, there mongoose will use a posts collection for us when we start using that
+
+05:06.330 --> 05:07.160
+model.
+
+05:07.530 --> 05:12.120
+Well speaking of that, let's start using that model in the next lecture.

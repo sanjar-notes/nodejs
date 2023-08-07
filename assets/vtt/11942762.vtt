@@ -1,0 +1,124 @@
+WEBVTT
+
+00:02.030 --> 00:10.080
+We connected to mongodb and this is nice but it also means that we can't do anything else right now,
+
+00:10.180 --> 00:12.240
+the rest of the app is not working anymore
+
+00:12.310 --> 00:14.060
+and of course it should work.
+
+00:14.080 --> 00:21.370
+So let's get there step by step and let's start by re-adding the admin routes,
+
+00:21.370 --> 00:26.820
+so let's add this middleware again and for this, I also need to import admin routes again
+
+00:27.130 --> 00:34.480
+and if we now have a look into our admin controller, here we do of course use the product model, in the
+
+00:34.480 --> 00:35.880
+product model if
+
+00:35.920 --> 00:42.580
+we have a look into that does rely on sequelize of course because we define the product model with
+
+00:42.580 --> 00:45.140
+the help of sequelize.
+
+00:45.190 --> 00:48.670
+Now that is all something which we won't do anymore
+
+00:48.670 --> 00:51.170
+instead we now want to use mongodb.
+
+00:51.490 --> 00:59.860
+So to get there, I will remove these two imports up there and instead in here, I want to create a new
+
+00:59.860 --> 01:02.740
+class again because I'll create my own model again
+
+01:02.830 --> 01:08.980
+and this is something we did before already in the pure MySQL module. So I'll create a product class
+
+01:08.980 --> 01:10.770
+here, like this
+
+01:10.930 --> 01:16.940
+and of course I will also export this, so module exports will still be my class here.
+
+01:17.290 --> 01:25.690
+Now in that class, I'll have a constructor and in that constructor here, I want to store the title, price,
+
+01:25.750 --> 01:29.170
+image url and description of the product when it gets created.
+
+01:29.410 --> 01:38.560
+So here I will simply get the title, the price, the description and the image url and then in the constructor
+
+01:38.560 --> 01:47.440
+I'll say this title equals title, this price equals price, this description equals description, well and
+
+01:47.440 --> 01:47.830
+so on,
+
+01:47.830 --> 01:48.830
+you know the game,
+
+01:48.910 --> 01:52.820
+so here image url equals image url.
+
+01:53.050 --> 01:59.290
+Now we can create a new product in javascript, a new object which follows this form
+
+01:59.350 --> 02:04.350
+and now to save it in the database, I will also add a save method here,
+
+02:04.420 --> 02:11.230
+so a function which can be executed on this class and in here, I now want to connect to mongodb
+
+02:11.410 --> 02:13.810
+and save my product.
+
+02:13.810 --> 02:16.870
+Now to do that, to be able to connect,
+
+02:17.090 --> 02:20.600
+I'll need to import mongodb or mongo connect,
+
+02:20.620 --> 02:27.840
+so I'll import mongo connect from my utility folder and there from the database file.
+
+02:28.200 --> 02:31.260
+So I will simply import that method,
+
+02:31.260 --> 02:37.860
+the function I created here where you pass a callback to, where we do connect to mongodb inside
+
+02:37.980 --> 02:43.830
+and then we basically execute the callback and return the connected client so that we can interact
+
+02:43.830 --> 02:44.850
+with it.
+
+02:44.850 --> 02:51.620
+However if we would do this, we would have to connect to mongodb for every operation we do
+
+02:51.750 --> 02:53.960
+and we would not even disconnect thereafter,
+
+02:53.970 --> 03:00.150
+so this is not really a good way of connecting to mongodb since we will want to connect and
+
+03:00.150 --> 03:02.780
+interact with it from different places in our app.
+
+03:02.910 --> 03:09.600
+So it would be better if we could manage one connection in our database and then simply return access
+
+03:09.600 --> 03:15.960
+to the client which we set up once from there or to the different place in our app that need access. And
+
+03:15.960 --> 03:23.040
+to do that, I'll tune my set up here a bit. Let's tune it together in the next lecture.

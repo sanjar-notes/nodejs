@@ -1,0 +1,1310 @@
+WEBVTT
+
+1
+00:00:02.120 --> 00:00:04.830
+<v ->So let's now rewrite this with Deno.</v>
+
+2
+00:00:04.830 --> 00:00:07.870
+For that, I enabled my Deno extension again
+
+3
+00:00:07.870 --> 00:00:09.660
+to get a better
+
+4
+00:00:09.660 --> 00:00:10.750
+IDE support.
+
+5
+00:00:10.750 --> 00:00:12.300
+And now in the Deno folder,
+
+6
+00:00:12.300 --> 00:00:14.690
+I'm going to add my app.ts file
+
+7
+00:00:14.690 --> 00:00:17.090
+ts because we're going to use typescript.
+
+8
+00:00:17.090 --> 00:00:18.540
+I'm going to add a routes file,
+
+9
+00:00:18.540 --> 00:00:20.920
+and in there my todos.ts file.
+
+10
+00:00:20.920 --> 00:00:23.530
+So really the same structure as in the Node case,
+
+11
+00:00:23.530 --> 00:00:26.020
+just now with typescript and Deno.
+
+12
+00:00:26.890 --> 00:00:29.410
+Now, one key difference will be that now,
+
+13
+00:00:29.410 --> 00:00:34.250
+we don't need to run npm in it, and we won't need to install
+
+14
+00:00:34.250 --> 00:00:38.280
+any third-party packages or modules because with Deno
+
+15
+00:00:38.280 --> 00:00:41.480
+we use these import syntax as you learned.
+
+16
+00:00:41.480 --> 00:00:44.630
+So we can actually copy the code from the old apt.ss file,
+
+17
+00:00:44.630 --> 00:00:47.940
+which sets up a basic Oak application,
+
+18
+00:00:47.940 --> 00:00:50.493
+and we can copy that into apt.ss here.
+
+19
+00:00:51.750 --> 00:00:54.240
+Note there, I do register a middleware,
+
+20
+00:00:54.240 --> 00:00:56.990
+and that middleware sends back a response,
+
+21
+00:00:56.990 --> 00:00:58.830
+but I'll get rid of that.
+
+22
+00:00:58.830 --> 00:01:01.550
+I'll actually comment out the entire middleware for now.
+
+23
+00:01:01.550 --> 00:01:04.690
+Because, whilst, listening here is fine,
+
+24
+00:01:04.690 --> 00:01:09.140
+and I wanna listen on port 3000 actually, so change this,
+
+25
+00:01:09.140 --> 00:01:13.600
+Whilst that is fine, I of course, want to handle my request
+
+26
+00:01:13.600 --> 00:01:14.733
+in the routes file.
+
+27
+00:01:15.770 --> 00:01:19.860
+Now for that, we can import something from that Oak module.
+
+28
+00:01:19.860 --> 00:01:23.700
+If I copy the import path, the import statement over to
+
+29
+00:01:23.700 --> 00:01:28.630
+todos.ts, we cannot just import application from there,
+
+30
+00:01:28.630 --> 00:01:30.690
+but also a router.
+
+31
+00:01:30.690 --> 00:01:33.950
+So that's quite similar to Express, we can also set up
+
+32
+00:01:33.950 --> 00:01:36.323
+a router with the Oak framework.
+
+33
+00:01:37.400 --> 00:01:41.170
+We can instantiate our router like this,
+
+34
+00:01:41.170 --> 00:01:44.890
+and then on the router, indeed we also have GETs,
+
+35
+00:01:44.890 --> 00:01:47.300
+and PUT and POST message available.
+
+36
+00:01:47.300 --> 00:01:51.210
+So that's very similar to Express, while migrating from
+
+37
+00:01:51.210 --> 00:01:53.550
+Node to Deno isn't too hard.
+
+38
+00:01:53.550 --> 00:01:55.370
+You see it here.
+
+39
+00:01:55.370 --> 00:01:58.660
+So we can just also register GET route, like this,
+
+40
+00:01:58.660 --> 00:02:01.127
+by specifying a path for the get('/').
+
+41
+00:02:02.730 --> 00:02:04.160
+and then the second argument should be
+
+42
+00:02:04.160 --> 00:02:05.710
+your middleware function,
+
+43
+00:02:05.710 --> 00:02:07.960
+and there a key difference is that you don't get
+
+44
+00:02:07.960 --> 00:02:10.200
+request/response and next,
+
+45
+00:02:10.200 --> 00:02:12.570
+but that you get a context object
+
+46
+00:02:12.570 --> 00:02:16.190
+and then, optionally, all your next function.
+
+47
+00:02:16.190 --> 00:02:18.070
+But here we just need to context,
+
+48
+00:02:18.070 --> 00:02:19.980
+because the context will give us access
+
+49
+00:02:19.980 --> 00:02:22.803
+to both the request and to the response.
+
+50
+00:02:25.110 --> 00:02:30.010
+And now we can replicate this '/todos' of course,
+
+51
+00:02:30.010 --> 00:02:31.603
+all the forward posting,
+
+52
+00:02:32.690 --> 00:02:36.640
+but then also with a replicate this two more times
+
+53
+00:02:36.640 --> 00:02:38.010
+for a putting.
+
+54
+00:02:38.010 --> 00:02:40.600
+And you can also specify dynamic segments,
+
+55
+00:02:40.600 --> 00:02:43.590
+just as you do it with Express, with a colon
+
+56
+00:02:43.590 --> 00:02:45.490
+and then any name of your choice.
+
+57
+00:02:45.490 --> 00:02:48.320
+So that works just like it does in Express.
+
+58
+00:02:48.320 --> 00:02:51.553
+So it's really not too hard to get used to that.
+
+59
+00:02:54.030 --> 00:02:55.650
+And in the end, we export it,
+
+60
+00:02:55.650 --> 00:02:58.140
+but now here with typescript and Deno,
+
+61
+00:02:58.140 --> 00:03:01.320
+not with Node's module system,
+
+62
+00:03:01.320 --> 00:03:04.460
+but instead with the ES module system,
+
+63
+00:03:04.460 --> 00:03:07.610
+which you all have learned about in the modern Java Script
+
+64
+00:03:07.610 --> 00:03:10.490
+for the Node JS section in this course.
+
+65
+00:03:10.490 --> 00:03:13.300
+Here we can set up a default export,
+
+66
+00:03:13.300 --> 00:03:15.880
+and export our router like that.
+
+67
+00:03:15.880 --> 00:03:18.800
+And this allows us to go to app.ts,
+
+68
+00:03:18.800 --> 00:03:21.090
+and here we now import our own file
+
+69
+00:03:21.090 --> 00:03:24.450
+all the with import from, but of course now,
+
+70
+00:03:24.450 --> 00:03:29.330
+not from a url but from ./routes/todos.
+
+71
+00:03:29.330 --> 00:03:32.660
+Here, however, always with the file extension.
+
+72
+00:03:32.660 --> 00:03:36.460
+You must not omit it when working with Deno,
+
+73
+00:03:36.460 --> 00:03:39.840
+that is an important difference to Node.
+
+74
+00:03:39.840 --> 00:03:42.940
+And now here we have a default export,
+
+75
+00:03:42.940 --> 00:03:44.290
+so when we import it,
+
+76
+00:03:44.290 --> 00:03:47.910
+we can just name this todosRoutes, if you want to,
+
+77
+00:03:47.910 --> 00:03:49.870
+and now we can register this.
+
+78
+00:03:49.870 --> 00:03:52.640
+However, that's another difference to Express,
+
+79
+00:03:52.640 --> 00:03:56.530
+not just like this, instead todosRoutes now is an object,
+
+80
+00:03:56.530 --> 00:03:58.430
+which has a routes method,
+
+81
+00:03:58.430 --> 00:04:00.170
+which we need to call,
+
+82
+00:04:00.170 --> 00:04:03.320
+and that's the actual middleware we then register.
+
+83
+00:04:03.320 --> 00:04:06.240
+And there is a second middleware we should register,
+
+84
+00:04:06.240 --> 00:04:09.253
+and that's todosRoutes.allowedMethods.
+
+85
+00:04:10.460 --> 00:04:13.610
+You should register both to make sure that Oak
+
+86
+00:04:13.610 --> 00:04:18.140
+properly handles incoming requests to your routes.
+
+87
+00:04:18.140 --> 00:04:21.280
+With that however, this routes should be reached by
+
+88
+00:04:21.280 --> 00:04:25.170
+incoming requests, and besides these tiny differences,
+
+89
+00:04:25.170 --> 00:04:29.050
+which I highlighted, it really doesn't look too different
+
+90
+00:04:29.050 --> 00:04:32.290
+when we compare it to the Node Express code.
+
+91
+00:04:32.290 --> 00:04:33.123
+Does it?
+
+92
+00:04:34.050 --> 00:04:36.080
+Well, let's add some logic here now.
+
+93
+00:04:36.080 --> 00:04:38.700
+We have our todos and that should be an array,
+
+94
+00:04:38.700 --> 00:04:40.480
+but since we used typescripts here
+
+95
+00:04:40.480 --> 00:04:43.110
+we can and we should be more specific
+
+96
+00:04:43.110 --> 00:04:46.580
+regarding the kinds of data that end up in this array.
+
+97
+00:04:46.580 --> 00:04:49.720
+I also do talk about this in the typescript section
+
+98
+00:04:49.720 --> 00:04:50.920
+of this course.
+
+99
+00:04:50.920 --> 00:04:53.390
+So we can assign a type to todos here,
+
+100
+00:04:53.390 --> 00:04:55.720
+and make it clear that in there we want to have an array
+
+101
+00:04:55.720 --> 00:04:58.550
+of specific kinds of objects.
+
+102
+00:04:58.550 --> 00:05:02.190
+And for that I'll define a so called interface here
+
+103
+00:05:02.190 --> 00:05:04.810
+and I could do this in a separate model,
+
+104
+00:05:04.810 --> 00:05:06.260
+file or anything like that,
+
+105
+00:05:06.260 --> 00:05:07.900
+but I'll do it in line here.
+
+106
+00:05:07.900 --> 00:05:09.100
+And I'll name this todo,
+
+107
+00:05:10.060 --> 00:05:12.900
+and a todo will have an id which is a string,
+
+108
+00:05:12.900 --> 00:05:14.920
+and a text which is a string.
+
+109
+00:05:14.920 --> 00:05:17.510
+This is how you define the type
+
+110
+00:05:17.510 --> 00:05:19.600
+of an object in typescript,
+
+111
+00:05:19.600 --> 00:05:21.608
+and how you make it clear how data
+
+112
+00:05:21.608 --> 00:05:24.370
+of type todo should be structured.
+
+113
+00:05:24.370 --> 00:05:26.460
+We can now use this type here to make it clear
+
+114
+00:05:26.460 --> 00:05:29.910
+that this should be an array full of todo elements,
+
+115
+00:05:29.910 --> 00:05:31.340
+full of todo objects.
+
+116
+00:05:31.340 --> 00:05:33.730
+This is typescript syntax for a saying
+
+117
+00:05:33.730 --> 00:05:36.380
+that this should be an array full of todos.
+
+118
+00:05:36.380 --> 00:05:39.580
+So full of objects that each have an id field
+
+119
+00:05:39.580 --> 00:05:42.913
+which holds a string, and a text field that holds a string.
+
+120
+00:05:45.340 --> 00:05:48.540
+Well, and now we wanna send back a response here
+
+121
+00:05:48.540 --> 00:05:50.410
+for the GET request.
+
+122
+00:05:50.410 --> 00:05:54.520
+We do that by calling the response object,
+
+123
+00:05:54.520 --> 00:05:56.750
+or by reaching out to the response object
+
+124
+00:05:56.750 --> 00:05:59.010
+on the response property.
+
+125
+00:05:59.010 --> 00:06:02.300
+And we can simply set the body to something,
+
+126
+00:06:02.300 --> 00:06:05.960
+we can set the body to an object,
+
+127
+00:06:05.960 --> 00:06:09.290
+where we have a todo is field which holds our todos.
+
+128
+00:06:09.290 --> 00:06:13.110
+Now with Express, we always have to call JSON, to attach
+
+129
+00:06:13.110 --> 00:06:16.750
+some JSON data, to tell Express that what we attached
+
+130
+00:06:16.750 --> 00:06:19.980
+should be handled as JSON data and to basically
+
+131
+00:06:19.980 --> 00:06:23.450
+also tell Express to send back a response.
+
+132
+00:06:23.450 --> 00:06:27.140
+With the Oak framework, with the Oak module,
+
+133
+00:06:27.140 --> 00:06:28.410
+it is a bit different.
+
+134
+00:06:28.410 --> 00:06:30.430
+We just set the response body,
+
+135
+00:06:30.430 --> 00:06:33.500
+and if we set it to an object, Oak will assume
+
+136
+00:06:33.500 --> 00:06:35.830
+that this should be added as JSON.
+
+137
+00:06:35.830 --> 00:06:38.950
+So it'll automatically parse it as JSON
+
+138
+00:06:38.950 --> 00:06:41.570
+or transform it to JSON, I should say,
+
+139
+00:06:41.570 --> 00:06:44.280
+and set the appropriate response headers.
+
+140
+00:06:44.280 --> 00:06:47.780
+Oak will also always send back a response,
+
+141
+00:06:47.780 --> 00:06:50.270
+so therefore, here we just have to set a body
+
+142
+00:06:50.270 --> 00:06:53.403
+for that automatically send back response.
+
+143
+00:06:54.740 --> 00:06:58.290
+So that's all we need to do in Oak to send back our todos.
+
+144
+00:06:58.290 --> 00:06:59.470
+Now, before continuing,
+
+145
+00:06:59.470 --> 00:07:02.620
+we can test this by saving all the code,
+
+146
+00:07:02.620 --> 00:07:06.200
+and then we can navigate into the Deno folder,
+
+147
+00:07:06.200 --> 00:07:08.697
+and now Deno run
+
+148
+00:07:08.697 --> 00:07:10.080
+with --allow
+
+149
+00:07:11.450 --> 00:07:12.770
+<v ->net</v>
+
+150
+00:07:12.770 --> 00:07:14.330
+app.ts,
+
+151
+00:07:14.330 --> 00:07:17.920
+this compiles the code and springs up the web server,
+
+152
+00:07:17.920 --> 00:07:20.210
+and if we now go back to Postman,
+
+153
+00:07:20.210 --> 00:07:25.210
+and we try sending a GET request to localhost:3000/todos
+
+154
+00:07:25.450 --> 00:07:29.670
+you see we get a 200 response with an empty array of todos.
+
+155
+00:07:29.670 --> 00:07:33.578
+So that route is reached and that clearly works.
+
+156
+00:07:33.578 --> 00:07:36.310
+Now, what about the other routes?
+
+157
+00:07:36.310 --> 00:07:38.853
+How do we implement this with Oak?
+
+158
+00:07:40.790 --> 00:07:44.963
+Well, for the other routes, let's continue with posting.
+
+159
+00:07:44.963 --> 00:07:46.640
+I want to create a new todo,
+
+160
+00:07:46.640 --> 00:07:48.550
+and that should be of type todo.
+
+161
+00:07:48.550 --> 00:07:51.070
+So here I'm assigning the todo type,
+
+162
+00:07:51.070 --> 00:07:55.200
+so that typescript basically complains when I try to assign
+
+163
+00:07:55.200 --> 00:07:58.510
+anything that does not meet this object type.
+
+164
+00:07:58.510 --> 00:08:00.100
+That's why currently, for example,
+
+165
+00:08:00.100 --> 00:08:03.170
+it's giving me an error here because an empty object
+
+166
+00:08:03.170 --> 00:08:05.713
+it's clearly not following that structure.
+
+167
+00:08:06.760 --> 00:08:09.310
+Now we can add id for, again,
+
+168
+00:08:09.310 --> 00:08:12.530
+I'll just generate a new Date
+
+169
+00:08:12.530 --> 00:08:14.550
+to ISOString here,
+
+170
+00:08:14.550 --> 00:08:16.840
+and set the text to the text we get
+
+171
+00:08:16.840 --> 00:08:19.260
+from the incoming request.
+
+172
+00:08:19.260 --> 00:08:21.900
+And now here is an important feature built into Oak,
+
+173
+00:08:21.900 --> 00:08:24.660
+it'll automatically look at the request,
+
+174
+00:08:24.660 --> 00:08:28.050
+at the request body, and all the request headers,
+
+175
+00:08:28.050 --> 00:08:30.700
+and if the request signals that the request
+
+176
+00:08:30.700 --> 00:08:33.070
+carries JSON data,
+
+177
+00:08:33.070 --> 00:08:36.210
+by setting the appropriate request headers,
+
+178
+00:08:36.210 --> 00:08:39.670
+then Oak will automatically parse that body
+
+179
+00:08:39.670 --> 00:08:42.710
+and gives access to the parsed body
+
+180
+00:08:42.710 --> 00:08:45.580
+on the context request body
+
+181
+00:08:45.580 --> 00:08:47.210
+field here.
+
+182
+00:08:47.210 --> 00:08:50.210
+However, body now is not an object with the
+
+183
+00:08:50.210 --> 00:08:52.750
+parsed body like this, instead,
+
+184
+00:08:52.750 --> 00:08:55.853
+body actually gives me a promise now.
+
+185
+00:08:56.920 --> 00:08:59.870
+So therefore, we can now get our
+
+186
+00:09:01.940 --> 00:09:05.870
+data by reaching out to ctx.request.body
+
+187
+00:09:05.870 --> 00:09:08.650
+and now we can use async await,
+
+188
+00:09:08.650 --> 00:09:12.220
+for that we need to convert this into async function though,
+
+189
+00:09:12.220 --> 00:09:14.197
+then we can use await here and we get the
+
+190
+00:09:14.197 --> 00:09:17.143
+ctx.request.body data at this point.
+
+191
+00:09:18.566 --> 00:09:20.350
+And body is a
+
+192
+00:09:20.350 --> 00:09:22.093
+method we should execute though.
+
+193
+00:09:24.020 --> 00:09:28.330
+And now on data, we actually have a value property
+
+194
+00:09:28.330 --> 00:09:31.290
+and that's then the actual parsed object,
+
+195
+00:09:31.290 --> 00:09:34.460
+so that's what we then find the text property,
+
+196
+00:09:34.460 --> 00:09:37.930
+if we expect to get a text key on the incoming JSON data,
+
+197
+00:09:37.930 --> 00:09:40.770
+which we can read and use.
+
+198
+00:09:40.770 --> 00:09:42.990
+So extracting the body is a little bit different,
+
+199
+00:09:42.990 --> 00:09:46.190
+but generally, the Oak framework does it for us, we then
+
+200
+00:09:46.190 --> 00:09:49.890
+we just have to access the extracted data like that.
+
+201
+00:09:49.890 --> 00:09:52.820
+And once we get that, we can reach out to our todos,
+
+202
+00:09:52.820 --> 00:09:56.160
+and push the new todo onto that array.
+
+203
+00:09:56.160 --> 00:10:00.740
+And then often we can set the response body, of course,
+
+204
+00:10:00.740 --> 00:10:04.610
+for example, to an object where we have a message key of
+
+205
+00:10:04.610 --> 00:10:08.190
+created todo, and where we add the
+
+206
+00:10:08.190 --> 00:10:11.410
+new todo that was created.
+
+207
+00:10:11.410 --> 00:10:13.830
+And if we now save it, quit that server
+
+208
+00:10:13.830 --> 00:10:17.243
+and rerun this server by repeating that command,
+
+209
+00:10:18.160 --> 00:10:21.640
+if we now go to the POST route, send the request,
+
+210
+00:10:21.640 --> 00:10:25.220
+a POST request to localhost:3000/todos
+
+211
+00:10:25.220 --> 00:10:27.267
+with this given body,
+
+212
+00:10:27.267 --> 00:10:30.290
+you see we get back to success message.
+
+213
+00:10:30.290 --> 00:10:32.750
+And if I now GET all todos again,
+
+214
+00:10:32.750 --> 00:10:35.610
+we see the todo here as well.
+
+215
+00:10:35.610 --> 00:10:37.520
+So that works.
+
+216
+00:10:37.520 --> 00:10:41.293
+Now let's work on putting and deleting.
+
+217
+00:10:44.160 --> 00:10:45.530
+Now, let's work on PUT.
+
+218
+00:10:45.530 --> 00:10:49.490
+And here we have to extract data from the params, for that
+
+219
+00:10:49.490 --> 00:10:53.070
+on this context object which holds request and response,
+
+220
+00:10:53.070 --> 00:10:56.370
+we also have a params object, and params, in the end,
+
+221
+00:10:56.370 --> 00:10:58.793
+gives us access to route parameters.
+
+222
+00:10:59.976 --> 00:11:03.540
+Here we can simply access todo id like this,
+
+223
+00:11:03.540 --> 00:11:06.160
+and store it in a concept.
+
+224
+00:11:06.160 --> 00:11:08.440
+This gives us access to the todo id
+
+225
+00:11:08.440 --> 00:11:10.493
+from the incoming request url.
+
+226
+00:11:11.470 --> 00:11:13.750
+Again the key name you choose here, of course,
+
+227
+00:11:13.750 --> 00:11:15.793
+has to match the name we have here.
+
+228
+00:11:17.460 --> 00:11:21.407
+Now, we can find the appropriate todo index,
+
+229
+00:11:21.407 --> 00:11:24.340
+and we can actually copy that updating code
+
+230
+00:11:24.340 --> 00:11:27.060
+from the Node Express port function.
+
+231
+00:11:27.060 --> 00:11:30.693
+We can copy this code, these lines of code here,
+
+232
+00:11:32.160 --> 00:11:37.160
+over into this file, because it's exactly the same logic.
+
+233
+00:11:37.220 --> 00:11:40.610
+The only part that differs is the request body,
+
+234
+00:11:40.610 --> 00:11:44.350
+there we should parse it just as we do it in the POST route,
+
+235
+00:11:44.350 --> 00:11:46.680
+with this line here.
+
+236
+00:11:46.680 --> 00:11:48.570
+And, of course, for that we should turn
+
+237
+00:11:48.570 --> 00:11:50.223
+this into async function.
+
+238
+00:11:52.620 --> 00:11:57.620
+And then we extract the text also like we do it in the post
+
+239
+00:11:57.700 --> 00:12:01.140
+route with data.value.text.
+
+240
+00:12:01.140 --> 00:12:03.790
+With that we update our todo DAO,
+
+241
+00:12:03.790 --> 00:12:06.830
+and then we can send back our response,
+
+242
+00:12:06.830 --> 00:12:09.380
+by setting the body equal to an object
+
+243
+00:12:09.380 --> 00:12:12.720
+where the message could updated todo,
+
+244
+00:12:15.202 --> 00:12:16.150
+like that.
+
+245
+00:12:16.150 --> 00:12:19.540
+And if we now save this and restart the server again,
+
+246
+00:12:19.540 --> 00:12:21.480
+our old todos will be lost,
+
+247
+00:12:21.480 --> 00:12:23.400
+because it's only stored in memory,
+
+248
+00:12:23.400 --> 00:12:25.970
+so let's first of all create a new todo,
+
+249
+00:12:25.970 --> 00:12:28.640
+let's then grab the id of this new todo,
+
+250
+00:12:28.640 --> 00:12:33.230
+and go to the PUT route and plug that id into the url,
+
+251
+00:12:33.230 --> 00:12:36.370
+keep the body as it is and send this request
+
+252
+00:12:36.370 --> 00:12:38.880
+and I get back updated todo here.
+
+253
+00:12:38.880 --> 00:12:41.510
+And if I get all todos, I see that one todo
+
+254
+00:12:41.510 --> 00:12:43.400
+with the updated text indeed.
+
+255
+00:12:43.400 --> 00:12:45.820
+So this also works.
+
+256
+00:12:45.820 --> 00:12:48.090
+Last but not least, for deleting,
+
+257
+00:12:48.090 --> 00:12:51.870
+here we also need the todo id, which we extract
+
+258
+00:12:51.870 --> 00:12:54.930
+just as we're doing it for the PUT route.
+
+259
+00:12:54.930 --> 00:12:57.100
+And then the logic again is the same
+
+260
+00:12:57.100 --> 00:12:58.810
+as in the Node Express case,
+
+261
+00:12:58.810 --> 00:13:01.573
+I'll copy that line where we filter our todos,
+
+262
+00:13:02.840 --> 00:13:05.520
+copy that over into this DELETE route
+
+263
+00:13:05.520 --> 00:13:08.960
+and then just set a response body
+
+264
+00:13:08.960 --> 00:13:10.310
+where I say 'Deleted todo'.
+
+265
+00:13:12.470 --> 00:13:14.950
+Now before we rerun this, there is also on other thing
+
+266
+00:13:14.950 --> 00:13:17.340
+I wanna show you because that can be tricky,
+
+267
+00:13:17.340 --> 00:13:21.230
+and that's another difference between Oak and Node Express.
+
+268
+00:13:21.230 --> 00:13:24.340
+In app.ts if you also want to run other middleware,
+
+269
+00:13:24.340 --> 00:13:26.330
+like this one here, we can, of course,
+
+270
+00:13:26.330 --> 00:13:28.320
+console log
+
+271
+00:13:28.320 --> 00:13:29.730
+middleware,
+
+272
+00:13:29.730 --> 00:13:32.230
+but, of course, just as in Node Express,
+
+273
+00:13:32.230 --> 00:13:36.900
+we need to let Oak know that we want to continue thereafter.
+
+274
+00:13:36.900 --> 00:13:39.980
+Therefore, we get a next function and we can call this
+
+275
+00:13:39.980 --> 00:13:43.520
+next function, but now here is the tricky thing,
+
+276
+00:13:43.520 --> 00:13:46.130
+I mentioned that Oak always automatically
+
+277
+00:13:46.130 --> 00:13:49.760
+sends back a response, it basically does so whenever
+
+278
+00:13:49.760 --> 00:13:53.290
+it's done executing a middleware, any middleware.
+
+279
+00:13:53.290 --> 00:13:56.470
+Not all middlewares, that's a key difference.
+
+280
+00:13:56.470 --> 00:14:01.180
+So when this middleware is done, it'll send back a response,
+
+281
+00:14:01.180 --> 00:14:03.880
+now because we're calling next, you might think that
+
+282
+00:14:03.880 --> 00:14:06.090
+this middleware is only done once
+
+283
+00:14:06.090 --> 00:14:08.930
+these route middlewares also ran.
+
+284
+00:14:08.930 --> 00:14:11.110
+Well, we start running these middlewares,
+
+285
+00:14:11.110 --> 00:14:13.210
+these route middlewares, with next,
+
+286
+00:14:13.210 --> 00:14:15.660
+but with next we don't wait for that.
+
+287
+00:14:15.660 --> 00:14:17.510
+Now in the route middleware, were doing some
+
+288
+00:14:17.510 --> 00:14:19.210
+async stuff view.
+
+289
+00:14:19.210 --> 00:14:21.900
+We got the async keyword because we're parsing
+
+290
+00:14:21.900 --> 00:14:23.940
+request bodies, for example.
+
+291
+00:14:23.940 --> 00:14:28.010
+So our route middlewares, actually, will return promises
+
+292
+00:14:28.010 --> 00:14:32.500
+which only are done once the async stuff in there finish.
+
+293
+00:14:32.500 --> 00:14:36.350
+And next will not wait for that, therefore, at the moment,
+
+294
+00:14:36.350 --> 00:14:38.150
+we would actually have the scenario
+
+295
+00:14:38.150 --> 00:14:41.360
+where we often send back a response too early,
+
+296
+00:14:41.360 --> 00:14:45.980
+before the route has been able to process the request.
+
+297
+00:14:45.980 --> 00:14:48.660
+Therefore, whenever you have any middlewares
+
+298
+00:14:48.660 --> 00:14:51.940
+that do async stuff, you should make all your middlewares
+
+299
+00:14:51.940 --> 00:14:55.020
+async and always await next.
+
+300
+00:14:55.020 --> 00:14:58.980
+So this tells Oak that we don't just want to start
+
+301
+00:14:58.980 --> 00:15:01.640
+the next middlewares in line, but that we also
+
+302
+00:15:01.640 --> 00:15:05.650
+want to wait for them to finish before we send back
+
+303
+00:15:05.650 --> 00:15:08.499
+that automatically generated response.
+
+304
+00:15:08.499 --> 00:15:11.550
+Otherwise, the response bodies set by our
+
+305
+00:15:11.550 --> 00:15:15.570
+async route middlewares, will not be taken into account.
+
+306
+00:15:15.570 --> 00:15:18.880
+That's a gotcha of Oak, and therefore,
+
+307
+00:15:18.880 --> 00:15:20.530
+something you should be aware of.
+
+308
+00:15:21.790 --> 00:15:23.850
+With that change made, however,
+
+309
+00:15:23.850 --> 00:15:27.010
+now to restart, we also have to done the middleware,
+
+310
+00:15:27.010 --> 00:15:28.810
+and we have to delete routes,
+
+311
+00:15:28.810 --> 00:15:30.640
+and now with that,
+
+312
+00:15:30.640 --> 00:15:32.620
+if we go for the routes again,
+
+313
+00:15:32.620 --> 00:15:34.740
+and I create a new todo,
+
+314
+00:15:34.740 --> 00:15:38.403
+I copy that url, and I try updating it,
+
+315
+00:15:39.448 --> 00:15:40.860
+that seems to work.
+
+316
+00:15:40.860 --> 00:15:44.420
+If I get my todos, you see the one updated todo there
+
+317
+00:15:44.420 --> 00:15:48.010
+and if I now delete that todo by sending a delete request
+
+318
+00:15:48.010 --> 00:15:50.450
+to the route with this correct id,
+
+319
+00:15:50.450 --> 00:15:53.129
+if I send this, this also works.
+
+320
+00:15:53.129 --> 00:15:55.450
+We see the todos are gone now,
+
+321
+00:15:55.450 --> 00:15:58.310
+and we see the middleware log all the work.
+
+322
+00:15:58.310 --> 00:16:01.160
+And that's how we can build the same kind of application
+
+323
+00:16:01.160 --> 00:16:03.590
+with Deno and Oak.
+
+324
+00:16:03.590 --> 00:16:06.680
+Now it's time for a final comparison,
+
+325
+00:16:06.680 --> 00:16:10.260
+and also, probably, for a judgment from my side.
+
+326
+00:16:10.260 --> 00:16:13.860
+Whether Deno is better, whether you should switch,
+
+327
+00:16:13.860 --> 00:16:16.363
+of if Node is everything you need.
+

@@ -1,0 +1,130 @@
+WEBVTT
+
+00:02.440 --> 00:06.460
+So now that we added some relational information to our orders,
+
+00:06.460 --> 00:13.420
+we can go back to getting all the orders in our user.js file in the models folder. There I have get
+
+00:13.450 --> 00:20.590
+orders and now I want to reach out to my orders and simply find them all or at least find all for that
+
+00:20.620 --> 00:21.430
+user.
+
+00:21.430 --> 00:24.670
+Now how do I find all orders for that user?
+
+00:25.210 --> 00:30.650
+Well remember, each order has a user object and in that user object, we have the ID of that user,
+
+00:30.730 --> 00:35.170
+so we need to compare that ID to the current user ID.
+
+00:35.170 --> 00:37.830
+Now to do this, we add a filter and now in mongodb,
+
+00:37.840 --> 00:42.350
+you can also check nested properties by defining the path to them,
+
+00:42.370 --> 00:47.500
+the only important thing to know here is that you need to use quotation marks around the path and then
+
+00:47.500 --> 00:50.410
+you can say check user
+
+00:50.620 --> 00:52.220
+and then the ID for the user.
+
+00:52.330 --> 00:58.810
+You do that by specifying user._id and this will look for _id in the user property
+
+00:58.810 --> 01:01.230
+which holds an embedded document
+
+01:01.240 --> 01:08.620
+and then here I can compare it is to a new objectid for this ID and this should give me all orders
+
+01:08.830 --> 01:11.900
+for that user and this will now be more than one,
+
+01:12.070 --> 01:19.150
+so again we can use the toArray shortcut and return that data to return an array of orders for that
+
+01:19.150 --> 01:26.670
+user and our user here for example has two orders because we got two orders for that user ID.
+
+01:27.250 --> 01:29.960
+So now we want to output that order information,
+
+01:29.980 --> 01:33.540
+so let's go to the shop controller, get orders, now
+
+01:33.580 --> 01:36.620
+I named my function get orders here too,
+
+01:36.760 --> 01:39.520
+so calling that here should work.
+
+01:40.620 --> 01:44.470
+We don't need that anymore, that include thing was related to sequelize.
+
+01:44.880 --> 01:48.950
+I then get back my orders and I passed them to the orders view,
+
+01:49.230 --> 01:54.120
+so let's now just inspect that orders view here and there
+
+01:54.150 --> 02:00.150
+I loop through all my orders and for every order, I have an _id, that's important
+
+02:00.450 --> 02:06.090
+and then in the orders, I don't have products, we could name it as such but I named it items here.
+
+02:06.090 --> 02:08.230
+So I'll loop through all the items now,
+
+02:08.460 --> 02:10.690
+there will be product information in there though,
+
+02:10.800 --> 02:16.280
+for example the title and the quantity which is now a top level field in product
+
+02:16.320 --> 02:18.310
+so we access it like this.
+
+02:18.540 --> 02:24.600
+And with that out of the way, let's save that and let's go to the routes folder and there the shop.js
+
+02:24.600 --> 02:29.190
+file and comment in that one orders route you removed earlier.
+
+02:29.820 --> 02:34.940
+And let's now click on orders up there, get db is not defined,
+
+02:35.770 --> 02:39.300
+that should be a typo in get orders in the user model,
+
+02:39.530 --> 02:42.750
+yeah this should be get db with a lower case b.
+
+02:43.240 --> 02:47.270
+So let's reload that page and this looks much better,
+
+02:47.290 --> 02:52.950
+now we got our orders with the ID and with the items we ordered.
+
+02:52.960 --> 02:54.410
+So this is now working,
+
+02:54.430 --> 03:00.970
+now we got that basic shop functionality working again which we had work earlier with sequelize,
+
+03:01.060 --> 03:08.730
+now we're doing it with mongodb. Now obviously just as we used sequelize for SQL
+
+03:08.740 --> 03:16.300
+to make certain things easier, we can do the same with mongodb and there also, we can find an alternative
+
+03:16.330 --> 03:18.460
+that makes our life a bit easier.

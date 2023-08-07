@@ -1,0 +1,160 @@
+WEBVTT
+
+00:02.120 --> 00:05.850
+Now that we wrote our first test, that actually makes sense.
+
+00:05.870 --> 00:07.550
+Let's continue and write the number one.
+
+00:08.450 --> 00:15.470
+Our code here only works correctly if we have a header and authorization header which can be split into
+
+00:15.470 --> 00:17.690
+two pieces because that's what we're doing here.
+
+00:17.720 --> 00:22.220
+The reason for that, of course, is that we expect something like bearer and then our token, right?
+
+00:22.220 --> 00:27.290
+That is how we send our tokens, that is how we send that authorization header and therefore this is
+
+00:27.290 --> 00:28.700
+something we could test for.
+
+00:28.880 --> 00:32.150
+It should flow an error if.
+
+00:33.130 --> 00:38.980
+The authorization header is only one string.
+
+00:40.130 --> 00:44.510
+Now let's pass a function here again where we define our actual testing code.
+
+00:46.120 --> 00:53.010
+And in there now again I will create my own dummy request object where I get my authorization header.
+
+00:53.020 --> 01:00.070
+Now it's not null anymore, but it's only one string, so only let's say x, y, z as a token value.
+
+01:01.000 --> 01:07.270
+And that means that now we can again to find an expectation where we say when the off middleware gets
+
+01:07.270 --> 01:13.180
+called, and just as before, we're not calling it ourselves, we're preparing it to be called by using
+
+01:13.180 --> 01:14.170
+bind here.
+
+01:14.170 --> 01:20.860
+This says to this keyword, then our dummy request object, then an empty object for response, and
+
+01:20.860 --> 01:24.700
+then well, an empty function for the next function.
+
+01:24.700 --> 01:28.000
+And I expect that to flow.
+
+01:28.180 --> 01:33.130
+Now you could check for an exact error message, but if you're not sure, or if you only care about
+
+01:33.130 --> 01:39.460
+whether an error is thrown at all, you can also just check for flow like this without passing any arguments
+
+01:39.460 --> 01:40.030
+to it.
+
+01:40.630 --> 01:43.390
+So now this should indeed fail.
+
+01:43.390 --> 01:49.810
+If I now rerun NPM test here, I mean it should succeed because it's because indeed we get an error
+
+01:49.810 --> 01:50.950
+if we pass this in.
+
+01:51.550 --> 01:58.570
+Because if I check for this not to flow just to demonstrate this now, it will actually throw as an
+
+01:58.570 --> 02:02.290
+error here because it expected it to not throw an error.
+
+02:02.620 --> 02:08.950
+But actually we got an error here, as you can see, because splitting our code essentially failed.
+
+02:09.160 --> 02:15.580
+So we want to make sure that an error does get thrown here, and that is another test.
+
+02:15.910 --> 02:22.210
+Now, of course, the more tests we add, the more difficult this output here becomes to read.
+
+02:22.210 --> 02:23.290
+Right now, it's still easy.
+
+02:23.290 --> 02:27.130
+We know we're only testing the off middleware and there we got to tests.
+
+02:27.400 --> 02:30.220
+But what if we're testing more than just the of middleware?
+
+02:30.220 --> 02:33.940
+What if we later all to start testing our controllers, which we will?
+
+02:34.180 --> 02:39.760
+Well, then we might want to find out which of these statements here refer to the of middleware and
+
+02:39.760 --> 02:43.420
+which statements refer to our controllers or to which controller.
+
+02:43.810 --> 02:52.000
+And for that, Mark actually gives us more than just the IT function for defining and organizing our
+
+02:52.000 --> 02:52.630
+tests.
+
+02:53.140 --> 03:00.610
+Besides it, there is a describe function, a describe function is there to group your tests and you
+
+03:00.610 --> 03:03.550
+can test as many describe function calls as you want.
+
+03:03.550 --> 03:09.520
+So you can have multiple describe function calls inside of each other, describe all the takes a title,
+
+03:09.520 --> 03:15.220
+and that now is not a sentence that reads like an English sentence, but instead like a header for the
+
+03:15.220 --> 03:20.020
+group you're describing, like, for example, of middleware.
+
+03:20.530 --> 03:28.870
+Now this gripe also takes a function as a second argument, and into this function you pass all your
+
+03:28.870 --> 03:32.380
+test cases as these function calls are called.
+
+03:32.380 --> 03:35.260
+So now they're inside of this function of the scribe.
+
+03:35.260 --> 03:39.070
+And as I mentioned, if you need it, you can also have a describe in a describe.
+
+03:39.070 --> 03:43.180
+And then in the function of that describe, you could have your test cases.
+
+03:43.660 --> 03:51.430
+So now we have that organization and if I now run LPM test again, you see that you have this header
+
+03:51.430 --> 03:59.560
+here now which makes it easier to find out to which file or to which area of your code of your app these
+
+03:59.560 --> 04:00.730
+tests belong.
+
+04:00.730 --> 04:02.770
+And that of course can be very useful.
+
+04:02.770 --> 04:08.830
+And therefore from now on we'll use this describe grouping to make our code more readable and easier
+
+04:08.830 --> 04:09.970
+to understand.

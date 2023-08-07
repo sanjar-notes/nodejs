@@ -1,0 +1,49 @@
+WEBVTT
+
+00:02.040 --> 00:09.450
+So time to dive deeper into your rest APIs and build a complete project or a complete back end for a
+
+00:09.450 --> 00:11.700
+project as a rest API.
+
+00:11.850 --> 00:16.860
+And in this project, we'll have a look at things like authentication and other interesting things like
+
+00:16.860 --> 00:18.410
+image upload and so on.
+
+00:18.420 --> 00:20.460
+So what's in this module in detail?
+
+00:20.460 --> 00:28.110
+We'll plan our rest API or I'll show you the project for which we'll need one and we'll then build it
+
+00:28.110 --> 00:29.190
+together, of course.
+
+00:29.190 --> 00:34.740
+So in detail we will implement all the CRUD operations our project needs.
+
+00:34.740 --> 00:39.780
+So creating, reading, updating and deleting items in the database and so on.
+
+00:39.810 --> 00:41.010
+That is what we'll do here.
+
+00:41.010 --> 00:45.090
+We'll define all the rest API endpoints for this and so on.
+
+00:45.150 --> 00:52.230
+We'll add validation on the server side to make sure that only valid data gets stored in our database.
+
+00:52.230 --> 00:59.640
+We'll add image upload so that we still can store images even though we're not rendering views anymore.
+
+00:59.640 --> 01:05.970
+And finally, I'll also dive into authentication, which will be very important and very interesting
+
+01:06.000 --> 01:06.600
+too.
+
+01:06.750 --> 01:07.950
+So let's dive in.

@@ -1,0 +1,157 @@
+WEBVTT
+
+00:02.310 --> 00:09.820
+To check whether a user tries to edit or delete a post which does not belong to him, we should go to
+
+00:09.820 --> 00:11.590
+on the node, rest
+
+00:11.610 --> 00:17.850
+API project, we should go to our feed controller and there, find our update and delete methods of
+
+00:17.850 --> 00:18.480
+course.
+
+00:18.480 --> 00:22.080
+Let's start with updating a post. In there,
+
+00:23.000 --> 00:30.700
+we find a post by ID which is all right of course and we should keep in mind that for a post, the creator
+
+00:30.700 --> 00:35.420
+will be the ID of the user who created that.
+
+00:35.430 --> 00:42.690
+So even if we do have a post here, we want to check whether that creator ID is equal to the ID of the currently
+
+00:42.690 --> 00:47.100
+logged in user so of the ID that belongs to the token we received.
+
+00:47.100 --> 00:56.550
+So here I'll check if post creator is equal to, excuse me, creator toString to convert this to a string, is
+
+00:56.550 --> 00:58.020
+equal to request
+
+00:59.910 --> 01:08.510
+user ID, so to the user ID I got from my token. If that is equal, I'm allowed to continue, if it is not equal
+
+01:08.520 --> 01:10.950
+hence we need a exclamation mark here,
+
+01:11.060 --> 01:15.040
+I'll throw an error. So here I'll create a new error,
+
+01:15.270 --> 01:18.170
+not authorized,
+
+01:18.340 --> 01:24.340
+set the status code to 403 which is a good status code for authorization issues
+
+01:24.550 --> 01:26.400
+and I'll throw that error.
+
+01:26.860 --> 01:30.230
+Now if I save that, let's check that,
+
+01:30.310 --> 01:33.700 
+first of all let's delete a post which we are allowed to delete,
+
+01:33.820 --> 01:34.620
+like that duck.
+
+01:34.630 --> 01:41.170
+If I delete that, now deleting obviously works because we never added any logic to prevent this.
+
+01:41.440 --> 01:43.780
+Now let me logout and create a new user,
+
+01:43.780 --> 01:45.620
+we need a different email address,
+
+01:45.640 --> 01:47.510
+well let's first of all try the same one,
+
+01:47.530 --> 01:53.720
+it should fail so here I'll just use Max and it fails.
+
+01:53.720 --> 02:00.160
+Now let's use an unused e-mail address and it succeeds,
+
+02:00.160 --> 02:03.660
+let's now login with that newly created user,
+
+02:03.670 --> 02:09.340
+now let's try editing because that is where we did add protection, the cup which was not created by that
+
+02:09.340 --> 02:14.100
+user. This failed with a 403 error,
+
+02:14.330 --> 02:22.970
+let's now login with the user who did create it and let's now try editing with this user and this now
+
+02:22.980 --> 02:23.990
+succeeds.
+
+02:24.050 --> 02:26.980
+So now we have this first check in place.
+
+02:26.990 --> 02:31.760
+Let's now also add it to our delete post logic there. There
+
+02:31.780 --> 02:38.560
+I find my post at the beginning and before we continue, here I basically want to implement that same
+
+02:38.560 --> 02:39.510
+check.
+
+02:39.520 --> 02:45.160
+I'll check the creator which is the ID of the user and compare it to the user ID extracted from the
+
+02:45.160 --> 02:48.530
+token and if they're not equal, I will throw an error,
+
+02:48.550 --> 02:54.090
+so now only authorized users should be able to delete the post of course.
+
+02:54.150 --> 02:56.640
+Make sure to do that before you clear the image.
+
+02:56.970 --> 03:02.600
+Now after saving this, let's go back and delete this and it succeeds because this was the right user.
+
+03:02.700 --> 03:06.680
+Let's logout, let's login with this user let's say
+
+03:07.560 --> 03:10.560
+and create a new post, a duck
+
+03:13.330 --> 03:19.810
+with the image and some content and let's logout and login with the other user, the user who did
+
+03:19.810 --> 03:25.750
+not create it and let's delete that there and you see that fails.
+
+03:25.750 --> 03:27.690
+Now I didn't implement an error message there
+
+03:27.700 --> 03:32.230
+and of course you could also tweak the frontend to not even show these buttons if you're not allowed
+
+03:32.230 --> 03:33.070
+to edit
+
+03:33.100 --> 03:37.260
+but my idea here is to show you how you can protect this on the backend
+
+03:37.330 --> 03:39.320
+since of course this is a node course.
+
+03:39.370 --> 03:45.390
+Therefore I deliberately let you do that so that you can see that we can prevent this on the backend
+
+03:45.520 --> 03:47.330
+and indeed we can't delete this now
+
+03:47.410 --> 03:48.400
+with the wrong user.

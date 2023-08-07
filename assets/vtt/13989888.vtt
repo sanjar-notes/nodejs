@@ -1,0 +1,187 @@
+WEBVTT
+
+00:02.150 --> 00:08.720
+That cleaner solution comes in the form of life cycle hooks provided by MOCA.
+
+00:08.990 --> 00:16.250
+We have describe and it and it are our test cases describe allows us to group them instead of describe.
+
+00:16.250 --> 00:23.780
+We have certain extra functions we can call that actually will run before all tests or before each test
+
+00:23.780 --> 00:26.300
+at the same for after and after each.
+
+00:27.040 --> 00:28.120
+And what do they mean with that?
+
+00:28.150 --> 00:34.750
+Well, let's say connecting to the database and creating one dummy user is something we want to do when
+
+00:34.750 --> 00:37.510
+our tests run, not before every test.
+
+00:37.510 --> 00:42.910
+So we don't want to reconnect and recreate a user before every test, but initially when our test runs
+
+00:42.910 --> 00:43.630
+starts.
+
+00:43.810 --> 00:52.180
+So essentially, I want to run this code here, you could say, and I will cut it before every test.
+
+00:52.660 --> 00:58.840
+This can be achieved by adding before, here, before takes a function and if you execute async code
+
+00:58.840 --> 01:01.660
+in there, you should add a done argument here as well.
+
+01:01.870 --> 01:04.000
+And then you paste in your async code.
+
+01:04.940 --> 01:10.520
+And once you're done here and of course, that could be synchronous code to here, it just happens to
+
+01:10.520 --> 01:13.070
+be asynchronous because we interact with the database.
+
+01:13.100 --> 01:18.350
+Once you're done, you call done and then Maka knows you're done with your initialization and it will
+
+01:18.350 --> 01:20.390
+start running your test cases.
+
+01:20.390 --> 01:27.530
+So it runs all your test cases after, before it and before only executes once, not before every test
+
+01:27.530 --> 01:30.050
+case, but before all test cases.
+
+01:30.230 --> 01:37.010
+So now your test cases run and therefore here we don't need that extra then nesting here.
+
+01:38.910 --> 01:40.170
+This is not required.
+
+01:44.310 --> 01:48.680
+And now here in this bottom most test case, we only define our testing logic.
+
+01:48.690 --> 01:50.790
+We don't have the initialization work.
+
+01:51.060 --> 01:53.160
+The same for the cleanup, of course.
+
+01:53.400 --> 01:55.710
+Clearing our users and disconnecting.
+
+01:55.710 --> 01:57.360
+It's not something I want to do here.
+
+01:57.360 --> 01:57.720
+Here.
+
+01:57.720 --> 02:00.330
+I just want to have my expectations on call done.
+
+02:00.780 --> 02:07.320
+So instead, inside of that described block where we had before, where we set up that database connection
+
+02:07.320 --> 02:14.970
+and add our dummy user inside of that described block, we can also add after and the position doesn't
+
+02:14.970 --> 02:15.330
+matter.
+
+02:15.330 --> 02:23.050
+You could define this up there too after we'll simply run after all your test cases now just as before,
+
+02:23.050 --> 02:28.950
+it just gets a function which is also capable of running async code with the done argument, and then
+
+02:28.950 --> 02:31.680
+you execute your synchronous or async code.
+
+02:31.680 --> 02:35.730
+If it's async, you must not forget to call done once you're done.
+
+02:35.730 --> 02:39.390
+And here I do, then delete my users and then disconnect.
+
+02:39.390 --> 02:40.800
+And then I'm done.
+
+02:40.950 --> 02:47.910
+And now we have that cleanup and set setup work in a more centralized place and therefore all our test
+
+02:47.910 --> 02:50.550
+cases can take advantage of that setup.
+
+02:50.550 --> 02:56.970
+Of course, if you have test cases that needs a different setup, you would need to add them in a different
+
+02:56.970 --> 02:58.290
+described function.
+
+02:58.290 --> 03:03.090
+By the way, here, log in is no longer fitting since we're also testing the user status, so I'll just
+
+03:03.090 --> 03:04.680
+have off controller.
+
+03:04.770 --> 03:11.310
+But you could have multiple described blocks if you need different hooks for different test cases here.
+
+03:11.310 --> 03:17.910
+All test cases are fine with using the same setup and therefore they all have the same hooks in their
+
+03:17.910 --> 03:19.170
+described block.
+
+03:19.770 --> 03:26.550
+And now with that, if I run NPM test again, we should have the same functionality as before with our
+
+03:26.550 --> 03:27.780
+test passing.
+
+03:27.780 --> 03:36.060
+But now we have a cleaner setup where we also have our guaranteed setup and clean up hooks and we don't
+
+03:36.060 --> 03:38.970
+need to mix this into our test cases.
+
+03:38.970 --> 03:44.310
+And that of course is a way better setup now besides before and after.
+
+03:44.310 --> 03:47.550
+There also are before each and after each.
+
+03:47.580 --> 03:55.340
+Now the difference is that for each is initialization work that it runs before every test case, before
+
+03:55.350 --> 03:57.300
+runs, before all test case.
+
+03:57.300 --> 03:58.440
+So it's not repeated.
+
+03:58.440 --> 04:04.560
+It only runs once per test run before each is repeated and runs more often per test run.
+
+04:04.560 --> 04:07.680
+It basically runs before every eight function call.
+
+04:07.710 --> 04:13.620
+This therefore is useful if you need to reset something before every test case or if you want to have
+
+04:13.620 --> 04:20.280
+some initialization work that absolutely has to run before every test case and there always is after
+
+04:20.280 --> 04:24.810
+each in case there is some functionality which you need to run after every test case.
+
+04:24.810 --> 04:28.260
+So some cleanup work which needs to be done after every test case.
+
+04:28.260 --> 04:31.770
+So these also are very useful hooks for testing, of course.

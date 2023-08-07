@@ -1,0 +1,193 @@
+WEBVTT
+
+00:02.720 --> 00:05.550
+Now that we're able to create new users,
+
+00:05.570 --> 00:09.320
+how does authentication work in the graphql world?
+
+00:09.320 --> 00:13.370
+Does it work in a similar way to rest APIs,
+
+00:13.370 --> 00:15.350
+do we use sessions again?
+
+00:15.830 --> 00:23.990
+Well remember this slide, a graphql API is also stateless and client independent,
+
+00:23.990 --> 00:30.380
+so generally we still authenticate by using such a token which we then attach to every request that should
+
+00:30.380 --> 00:39.740
+be able to access protected resources and a login action is in the end just a normal query where
+
+00:39.740 --> 00:43.550
+we send some user data and where we want to get back a token,
+
+00:43.550 --> 00:44.560
+right.
+
+00:44.690 --> 00:52.680
+So in the end what we can do here is the following, on our backend code, in our schema,
+
+00:52.750 --> 00:56.830
+I will now define a real query instead of my dummy placeholder
+
+00:57.190 --> 01:01.640
+hello query which I'll name login. Here
+
+01:01.780 --> 01:02.920
+I'll need some data
+
+01:03.280 --> 01:06.040
+and I could again define my own input, like here
+
+01:06.070 --> 01:10.500
+I did for user input data but also to show how to use multiple arguments,
+
+01:10.630 --> 01:17.120
+I will expect an email which is a string and a password which is a string
+
+01:17.340 --> 01:24.540
+and then I will return not a user but some data that contains let's say the user id and the token because
+
+01:24.630 --> 01:26.720
+these are the two pieces of information
+
+01:26.820 --> 01:30.490
+I happen to need here and that makes sense as a response.
+
+01:30.540 --> 01:34.500
+Of course you could also return the overall user object.
+
+01:34.560 --> 01:46.880
+So here I'll define new type, I'll name it auth data and that will be my token which is a string and my
+
+01:46.880 --> 01:53.780
+user ID which will be a string,
+
+01:53.780 --> 02:00.700
+this is the data I will return when someone sends a query to login.
+
+02:00.710 --> 02:08.850
+Now we need a resolver for this of course, so let's head over to resolvers and after create user,
+
+02:08.980 --> 02:11.070
+I'll add my login resolver,
+
+02:11.170 --> 02:18.340
+there again I get my args and I can use destructuring again to retrieve the email and the password argument
+
+02:18.670 --> 02:26.890
+which I both get because I defined both here in my login query.
+
+02:26.940 --> 02:28.670
+Again I want to use async await,
+
+02:28.770 --> 02:36.620
+so I will turn this into an async function with this syntax and in there, in my login resolver, the
+
+02:36.630 --> 02:36.870
+goal 
+
+02:36.880 --> 02:42.700
+now of course is to find a user with the right email address and then confirm the password.
+
+02:42.710 --> 02:52.330
+So first of all, I'll get my user by awaiting for user find one where I look for an e-mail address in the
+
+02:52.330 --> 02:55.960
+database that should match the e-mail I'm getting as an argument.
+
+02:57.400 --> 02:59.890
+If this is not set, if the user is undefined
+
+02:59.890 --> 03:07.180
+now, I know that I've found no user with that e-mail address and therefore I can create a new error where
+
+03:07.180 --> 03:14.500
+I say user not found or whatever you want to set as an error message. I can set a code here just
+
+03:14.500 --> 03:18.770
+as I did it for create user of let's say 404
+
+03:18.790 --> 03:24.220
+because we didn't find the user or 401 because the user could not authenticate, I'll go with
+
+03:24.220 --> 03:34.160
+401 and I'll throw that error. If we have passed this if check, then we know that we have a user with
+
+03:34.160 --> 03:35.340
+that e-mail address,
+
+03:35.360 --> 03:41.600
+now we need to check the password. For that we used the bcrypt package and there, the compare function
+
+03:42.060 --> 03:50.380
+and we pass in the password, send with the request and the stored hashed password.
+
+03:50.400 --> 03:57.790
+Now this is an asynchronous operation which gives us a promise so we can await that and I get back the
+
+03:57.790 --> 03:59.580
+isEqual response.
+
+04:00.910 --> 04:10.240
+Now if it's not equal, then I know the user entered a wrong password, so I can create a new error here
+
+04:10.240 --> 04:19.020
+where I say password is incorrect and I can also set an error code or 401 here
+
+04:19.190 --> 04:26.920
+and then also throw that error of course, otherwise both the email exists and the password is correct
+
+04:27.050 --> 04:34.100
+and now I can generate a token. And for that, I'll again import my json web token package by requiring
+
+04:34.100 --> 04:42.650
+json web token here and then down there in the login resolver, I will generate a token by running
+
+04:42.650 --> 04:50.980
+JWT sign, here you now pass the data you want to encode in the token, that could be your user ID which
+
+04:50.980 --> 04:57.650
+you get from user_id toString to convert it to a string,
+
+04:57.880 --> 05:04.280
+maybe you also want to encode the email by getting that from the user you retrieve from the database
+
+05:04.440 --> 05:13.170
+and the second argument to the sign method then is your super secret secret which you use for signing
+
+05:13.170 --> 05:17.820
+the token which you then also use for verifying it, something we'll do later
+
+05:17.820 --> 05:23.790
+and I'll configure the token with the third argument by setting the expires key in that object you
+
+05:23.790 --> 05:29.750
+pass to the third argument to one hour, so that the token expires after one hour.
+
+05:29.760 --> 05:39.380
+That is exactly what we did in the rest API section too. Now I will return that token in a token key and
+
+05:39.380 --> 05:47.890
+make sure to match that schema you defined here, so token and user ID is returned.
+
+05:48.000 --> 05:55.680
+So in the resolver, we return the token on the token key and the user ID which is again my user _id
+
+05:55.680 --> 05:57.210
+toString.
+
+06:00.900 --> 06:07.350
+And now with that, we have a login query in place where we send like a get request to log the user in, to
+
+06:07.350 --> 06:13.710
+get the token and so on you could say. Now we need to wire that up to the frontend in the next step
+
+06:13.710 --> 06:15.270
+and then of course, test it.
+
+06:15.390 --> 06:18.240
+If you're feeling bold, also try that on your own of course.

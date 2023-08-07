@@ -1,0 +1,238 @@
+WEBVTT
+
+00:02.230 --> 00:05.230
+Now we learned about cors in the last lecture,
+
+00:05.230 --> 00:08.740
+now let me show you how it affects our post requests.
+
+00:09.070 --> 00:18.260
+So I'll use my post button to also add an event listener there, click like this
+
+00:19.090 --> 00:27.440
+and in there I'll also use the fetch method to send a fetch request to the same url as before but it ends
+
+00:27.440 --> 00:31.600
+with /posts because I'm targeting this
+
+00:31.640 --> 00:34.530
+url here which is just post, not posts.
+
+00:36.000 --> 00:41.840
+So if you name this differently, you should of course use your path. Here since it will be a post request,
+
+00:41.850 --> 00:47.060
+I need to pass a javascript object as a second argument which allows me to set some options.
+
+00:47.280 --> 00:54.270
+Specifically I want to set the method to post here to send a post request and then I will copy that
+
+00:54.270 --> 01:02.100
+code from up there for handling the response so that I can, well extract the data or log a potential
+
+01:02.100 --> 01:06.690
+error. If I now clear that and I hit create post,
+
+01:06.870 --> 01:12.720
+I get post created successfully but if we inspect the post object, we see that the title and content are
+
+01:12.720 --> 01:13.750
+missing.
+
+01:13.770 --> 01:17.350
+Now that makes a lot of sense because we didn't send that data.
+
+01:17.610 --> 01:24.090
+Instead on the post request in the client, we also want to set a body object and that object will hold
+
+01:24.090 --> 01:24.740
+the title, a
+
+01:28.330 --> 01:34.560
+codepen post and content created via codepen,
+
+01:34.570 --> 01:37.030
+whatever you want. If I clear that and
+
+01:37.040 --> 01:42.990
+now I click that button again, hmm I still don't see that here.
+
+01:43.290 --> 01:50.820
+Now on the server side, nothing goes wrong here but actually on the server side, if I would go to my
+
+01:50.820 --> 01:59.310
+controller and I would log title and content here or use the node debugger to see their values, if we
+
+01:59.310 --> 02:03.390
+log that and I click create post, then we see that
+
+02:03.420 --> 02:05.420
+undefined gets logged here.
+
+02:05.520 --> 02:08.480
+So we are not able to extract that data
+
+02:08.880 --> 02:14.110
+and the reason for that can be found if we go to the network tab and have a look at this post request
+
+02:14.110 --> 02:17.770
+that was sent, there in the request headers,
+
+02:17.880 --> 02:26.140
+we see that the content type was text plain and that is the problem. It should be application json
+
+02:26.320 --> 02:33.190
+but we also see that the request payload was not json data which in the end is just text but in
+
+02:33.190 --> 02:34.510
+a special format
+
+02:34.720 --> 02:41.140
+but that it was a javascript object which just can't be sent or which can't be handled.
+
+02:41.140 --> 02:43.270
+So there are two things we need to do.
+
+02:43.270 --> 02:51.100
+First of all on the body, I will call json stringify which is a method provided by default by javascript,
+
+02:51.130 --> 02:56.570
+it will take a javascript object and convert it to json. We can see that immediately if I click create
+
+02:56.590 --> 02:59.230
+post again and we inspect that request,
+
+02:59.230 --> 03:07.000
+the payload now is indeed text in the json format but we need to tell the server that our content
+
+03:07.010 --> 03:09.680
+type is of type application json
+
+03:09.790 --> 03:17.500
+and therefore besides setting the body, on the client I'll also add headers or one header, the content type
+
+03:17.500 --> 03:22.830
+header, content-type which is application/json.
+
+03:22.890 --> 03:27.090
+And now with that, if I click create post again,
+
+03:27.090 --> 03:33.860
+now in the created post we see title or title and content because now that data is sent and extracted
+
+03:33.870 --> 03:40.980
+correctly because we send it in the right format and we inform the server about the content type.
+
+03:40.980 --> 03:48.330
+Now this also allows me to demonstrate what happens if I would comment out this header here, the access
+
+03:48.330 --> 03:52.030
+control allow headers header on the server side.
+
+03:52.110 --> 03:59.700
+If I save after commenting this out and I try to create a post again, I fail because I'm not allowed to
+
+03:59.700 --> 04:01.580
+set content-type,
+
+04:01.950 --> 04:06.300
+I do allow this by adding this header on the server side.
+
+04:06.330 --> 04:09.600
+So this is how you communicate between client and server,
+
+04:09.660 --> 04:14.290
+of course the client code differs depending on the client you're using.
+
+04:14.310 --> 04:17.020
+This is javascript code using the fetch API,
+
+04:17.160 --> 04:20.700
+there are different ways of sending asynchronous requests,
+
+04:20.700 --> 04:26.700
+for example you can send Ajax requests through libraries like axios and if you are building a mobile
+
+04:26.700 --> 04:33.570
+app, you might have a totally different object or helper methods for sending such requests in Android,
+
+04:33.720 --> 04:35.700
+in swift and so on.
+
+04:35.700 --> 04:41.960
+So this client code differs, this is the javascript code using the fetch API, the server side code does not
+
+04:41.960 --> 04:42.800
+really differ.
+
+04:42.960 --> 04:48.440
+You want to make sure your clients can communicate and that everything works just fine there.
+
+04:48.450 --> 04:53.410
+Now before I conclude this though, one more word about the post request we're sending with this click.
+
+04:53.760 --> 04:57.370
+You might see that I actually have two requests being sent,
+
+04:57.420 --> 05:03.090
+the second one is our post request, what is the first request?
+
+05:03.090 --> 05:07.990
+If you have a look at it and we see the response is just post, ok,
+
+05:08.100 --> 05:13.670
+the headers are interesting though. We can see that in the general part,
+
+05:13.920 --> 05:19.970
+the method here is options and that is this last method I showed on the slide earlier.
+
+05:20.120 --> 05:23.390
+I mentioned it would be sent automatically by the browser and also
+
+05:23.400 --> 05:28.130
+for example by many mobile app clients. What is the idea behind options?
+
+05:28.180 --> 05:36.580
+The browser simply goes ahead and checks whether the request you plan to send which is a post request,
+
+05:36.580 --> 05:40.910
+that is why here in the request headers which are generated automatically by the browser,
+
+05:41.020 --> 05:46.690
+it checks for the post request, it checks if that will be allowed
+
+05:46.780 --> 05:48.690
+otherwise it will throw an error.
+
+05:48.700 --> 05:54.060
+This is simply a mechanism the browser and many other clients use and there is not too much you need
+
+05:54.100 --> 05:56.380
+you to do to make this work,
+
+05:56.380 --> 05:58.300
+it just works out of the box,
+
+05:58.390 --> 06:00.910
+you just want to make sure that you set the right cors
+
+06:00.910 --> 06:08.260
+headers here. You can add options to the allowed methods but as you see, it was able to make this request
+
+06:08.260 --> 06:09.010
+before,
+
+06:09.010 --> 06:11.210
+this is not really something you need to do
+
+06:11.230 --> 06:16.000
+but you can do it but the important thing is that you are not confused by that extra request.
+
+06:16.000 --> 06:21.550
+It's simply a mechanism the browser uses to see if the next request which it wants to view, the post request
+
+06:21.730 --> 06:29.320
+will succeed if it is allowed. And this is all I want to tell you about cors and client server communication
+
+06:29.320 --> 06:29.820
+for now.

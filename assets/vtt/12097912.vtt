@@ -1,0 +1,115 @@
+WEBVTT
+
+00:02.520 --> 00:06.920
+So how does authentication work in a rest API then?
+
+00:07.230 --> 00:12.390
+Well we obviously still have our client and server and the client still sends authentication data
+
+00:12.390 --> 00:13.040
+to the server,
+
+00:13.080 --> 00:19.410
+so the email and the password let's say. In the past, we then would have checked that data on the server
+
+00:19.500 --> 00:23.000
+and if it is valid, we would have established a session.
+
+00:23.460 --> 00:28.440
+Now we don't use a session anymore because restful APIs are stateless,
+
+00:28.560 --> 00:30.820
+they don't care about the client,
+
+00:30.900 --> 00:37.300
+you learned about that strict decoupling of server and client and every request should be treated standalone,
+
+00:37.380 --> 00:43.460
+that means every request should have all the data it needs to authenticate itself. With a session,
+
+00:43.500 --> 00:49.680
+the server needs to store data about the client, the server then stores that a client is authenticated
+
+00:49.920 --> 00:57.270
+and that's just not how rest APIs work. The server will not store anything about any client,
+
+00:57.270 --> 01:04.580
+so we don't store sessions on a rest API and therefore this approach will not be used anymore.
+
+01:04.680 --> 01:10.260
+Obviously we will still validate the input on the server, we'll still check for the validity of the e-mail
+
+01:10.260 --> 01:11.610
+password combination
+
+01:11.850 --> 01:19.230
+but then instead, we return a so-called token to the client. That token will be generated on the server
+
+01:19.500 --> 01:23.780
+and will hold some information which can only be validated by the server
+
+01:24.000 --> 01:26.550
+and this token will then be stored in the client,
+
+01:26.550 --> 01:29.470
+so there in storage in the browser,
+
+01:29.490 --> 01:32.510
+there are specific storage mechanisms for this
+
+01:32.790 --> 01:39.410
+and the client can then attach this token to every subsequent request it sends to the server.
+
+01:39.420 --> 01:46.180
+So this stored token is then attached to every request that targets a resource on the server which requires
+
+01:46.200 --> 01:53.740
+authentication. That token can only be validated by the server which created the token
+
+01:53.940 --> 02:00.160
+and if you change that token on the frontend or you try to create it to fake that you are authenticated,
+
+02:00.390 --> 02:06.450
+that will be detected because the server used a certain algorithm for generating the token which you
+
+02:06.450 --> 02:10.370
+can't fake because you don't know it or you don't know the private key
+
+02:10.400 --> 02:17.070
+used by that server for generating the token to be precise. That token contains json data or
+
+02:17.070 --> 02:22.890
+javascript data in the end plus a signature which as I mentioned is generated on the server with a
+
+02:22.890 --> 02:26.520
+special private key which is only stored on the server
+
+02:26.520 --> 02:34.380
+and this gives us a so-called json web token. This json web token is then returned to the client and
+
+02:34.380 --> 02:35.180
+the signature
+
+02:35.250 --> 02:38.570
+as I explained can only be verified by the server,
+
+02:38.610 --> 02:42.710
+so you can't edit or create the token on the client.
+
+02:42.840 --> 02:49.120
+Well you can but then the server will detect this and will treat the token as invalid.
+
+02:49.710 --> 02:54.260
+This is how we generate the token or how we do authentication in rest
+
+02:54.270 --> 02:55.040
+APIs.
+
+02:55.290 --> 03:00.800
+We have the token which can be checked by the server but which does not to be stored on the server
+
+03:00.930 --> 03:06.870
+and this gives us an elegant way of authenticating requests in a rest API world.
+
+03:06.870 --> 03:08.010
+Now let's implement this.

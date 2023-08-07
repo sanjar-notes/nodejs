@@ -1,0 +1,70 @@
+WEBVTT
+
+00:02.000 --> 00:09.260
+Welcome to this optional that's important optional module where I want to introduce you to the JavaScript
+
+00:09.260 --> 00:10.100
+basics.
+
+00:10.100 --> 00:13.130
+And this module is really just a quick refresher.
+
+00:13.910 --> 00:19.700
+I do expect you to have some basic knowledge about how JavaScript works, what you use it for at its
+
+00:19.700 --> 00:20.900
+base syntax.
+
+00:20.900 --> 00:23.630
+This module does not replace that.
+
+00:23.630 --> 00:29.510
+You can't really use that module with zero JavaScript knowledge, or at least it will be very, very
+
+00:29.510 --> 00:30.560
+challenging.
+
+00:30.680 --> 00:37.130
+But if you only get some very basic knowledge or it's been quite some time since you worked with JavaScript,
+
+00:37.130 --> 00:40.340
+then this module will be a great refresher.
+
+00:41.630 --> 00:48.260
+Please skip this module if you already know JavaScript though, because then this module is not for
+
+00:48.260 --> 00:48.700
+you.
+
+00:48.710 --> 00:51.330
+So you don't have to be an expert to skip this.
+
+00:51.350 --> 00:58.700
+If you know JavaScript and you also know some of its next gen features like the rest and spread operator
+
+00:58.700 --> 01:00.830
+or object structuring.
+
+01:00.830 --> 01:04.160
+So a bunch of nice things that we can do in JavaScript.
+
+01:04.160 --> 01:10.010
+Definitely skip this module and maybe come back later if there is some feature you don't recognize or
+
+01:10.010 --> 01:11.960
+you're not sure what it's all about.
+
+01:12.830 --> 01:16.400
+If you don't have that knowledge though, this module is for you.
+
+01:16.400 --> 01:23.330
+And also have a look at the next lecture where I provide links to helpful resources in case you're brand
+
+01:23.360 --> 01:30.170
+new to JavaScript, because there are some free resources that allow you to get started with JavaScript,
+
+01:30.200 --> 01:35.060
+after which you can come back to this module and to the rest of the course where you will need that
+
+01:35.060 --> 01:36.290
+basic knowledge.

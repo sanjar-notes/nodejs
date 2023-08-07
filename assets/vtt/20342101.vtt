@@ -1,0 +1,490 @@
+WEBVTT
+
+1
+00:00:02.280 --> 00:00:04.480
+<v Instructor>So, what is TypeScript</v>
+
+2
+00:00:04.480 --> 00:00:07.260
+and why would we use it?
+
+3
+00:00:07.260 --> 00:00:10.810
+TypeScript is a superset to JavaScript.
+
+4
+00:00:10.810 --> 00:00:13.920
+That simply means that it extends JavaScript.
+
+5
+00:00:13.920 --> 00:00:16.400
+It builds up on JavaScript.
+
+6
+00:00:16.400 --> 00:00:21.110
+And unlike JavaScript, TypeScript does not run
+
+7
+00:00:21.110 --> 00:00:22.220
+in the browser.
+
+8
+00:00:22.220 --> 00:00:26.930
+Instead, TypeScript has to be compiled to JavaScript
+
+9
+00:00:26.930 --> 00:00:28.760
+so that it runs again.
+
+10
+00:00:28.760 --> 00:00:31.350
+Now, why would we then work with it?
+
+11
+00:00:31.350 --> 00:00:34.510
+Because TypeScript gives us, as a developer,
+
+12
+00:00:34.510 --> 00:00:36.490
+a better development experience
+
+13
+00:00:36.490 --> 00:00:40.160
+because it adds certain feature to the code
+
+14
+00:00:40.160 --> 00:00:42.410
+which only exist during development,
+
+15
+00:00:42.410 --> 00:00:45.560
+but which still help us write better code
+
+16
+00:00:45.560 --> 00:00:48.740
+and avoid unwanted errors.
+
+17
+00:00:48.740 --> 00:00:50.580
+And here's an example.
+
+18
+00:00:50.580 --> 00:00:53.060
+This is a function, this is some code
+
+19
+00:00:53.060 --> 00:00:55.730
+where TypeScript can help you.
+
+20
+00:00:55.730 --> 00:00:58.040
+Now, what could be wrong about this?
+
+21
+00:00:58.040 --> 00:01:00.490
+Let's simply try it on our own.
+
+22
+00:01:00.490 --> 00:01:03.420
+For this, you can simply open up your developer tools
+
+23
+00:01:03.420 --> 00:01:04.840
+in Chrome, for example,
+
+24
+00:01:04.840 --> 00:01:07.400
+and there go to the JavaScript console.
+
+25
+00:01:07.400 --> 00:01:10.730
+In there, you can also write some basic JavaScript code
+
+26
+00:01:10.730 --> 00:01:13.070
+which will then be executed here in the browser.
+
+27
+00:01:13.070 --> 00:01:15.850
+And, for this simple example, that's all we need.
+
+28
+00:01:15.850 --> 00:01:19.400
+So, in there, let's define a function now.
+
+29
+00:01:19.400 --> 00:01:21.560
+A function which is named add
+
+30
+00:01:21.560 --> 00:01:26.410
+and which takes two parameters, num1 and num2.
+
+31
+00:01:26.410 --> 00:01:28.060
+Then, let's add curly braces,
+
+32
+00:01:28.060 --> 00:01:31.000
+and now place your cursor between these braces
+
+33
+00:01:31.000 --> 00:01:33.550
+and hit Shift + Enter.
+
+34
+00:01:33.550 --> 00:01:35.513
+This will then simply add a new line.
+
+35
+00:01:36.440 --> 00:01:39.360
+Now, inside of that function, we can return the result,
+
+36
+00:01:39.360 --> 00:01:42.490
+num1 plus num2, just like this.
+
+37
+00:01:42.490 --> 00:01:46.400
+So, that's a very trivial function for adding two numbers.
+
+38
+00:01:46.400 --> 00:01:49.150
+If you now hit Enter without Shift,
+
+39
+00:01:49.150 --> 00:01:51.930
+this code will be committed, it will be saved,
+
+40
+00:01:51.930 --> 00:01:56.060
+and now this add function exists here in the console.
+
+41
+00:01:56.060 --> 00:01:58.850
+Hence, we can now call add with one and five
+
+42
+00:01:58.850 --> 00:02:00.400
+and get back six.
+
+43
+00:02:00.400 --> 00:02:02.070
+Seems to work.
+
+44
+00:02:02.070 --> 00:02:06.900
+What if you would pass in one and five as strings though?
+
+45
+00:02:06.900 --> 00:02:10.010
+Then, you get back the string 15.
+
+46
+00:02:10.010 --> 00:02:15.010
+So, one and five are then concatenated to one longer string
+
+47
+00:02:15.520 --> 00:02:18.150
+instead of being converted to numbers,
+
+48
+00:02:18.150 --> 00:02:20.650
+and then added as numbers.
+
+49
+00:02:20.650 --> 00:02:23.440
+Now, the reason for this is that this is simply
+
+50
+00:02:23.440 --> 00:02:25.130
+how JavaScript works.
+
+51
+00:02:25.130 --> 00:02:29.030
+If you have an operation with a plus and at least one
+
+52
+00:02:29.030 --> 00:02:31.130
+of the two operands is a string,
+
+53
+00:02:31.130 --> 00:02:35.260
+then both will be combined as strings, essentially.
+
+54
+00:02:35.260 --> 00:02:36.710
+That's how JavaScript works.
+
+55
+00:02:36.710 --> 00:02:39.360
+And this, of course, can be a problem here.
+
+56
+00:02:39.360 --> 00:02:43.280
+Now, you might think that this is a unrealistic scenario
+
+57
+00:02:43.280 --> 00:02:46.520
+because why would you call the function with two strings?
+
+58
+00:02:46.520 --> 00:02:50.500
+Well, imagine that you have two inputs in your page.
+
+59
+00:02:50.500 --> 00:02:53.680
+Two inputs where you fetch some user input.
+
+60
+00:02:53.680 --> 00:02:57.380
+Now, you should know that whatever data you extract
+
+61
+00:02:57.380 --> 00:03:02.380
+from such inputs is always extracted as text in JavaScript.
+
+62
+00:03:02.810 --> 00:03:06.250
+So, even if the user entered a number in an input
+
+63
+00:03:06.250 --> 00:03:10.200
+on your page, if you extract that data with JavaScript,
+
+64
+00:03:10.200 --> 00:03:12.420
+it'll be a string.
+
+65
+00:03:12.420 --> 00:03:14.520
+Now, you can always convert this to a number, of course,
+
+66
+00:03:14.520 --> 00:03:18.270
+but if you forget this, and you pass the unconverted value
+
+67
+00:03:18.270 --> 00:03:22.283
+to this function, you might get this unintended result.
+
+68
+00:03:23.300 --> 00:03:25.550
+Now, that's where TypeScript can help us.
+
+69
+00:03:25.550 --> 00:03:30.200
+To avoid such a unwanted behavior which occurs at runtime,
+
+70
+00:03:30.200 --> 00:03:34.670
+so when our code executes, we can use TypeScript.
+
+71
+00:03:34.670 --> 00:03:37.640
+Now, of course, we could also avoid this behavior
+
+72
+00:03:37.640 --> 00:03:39.770
+at runtime with JavaScript.
+
+73
+00:03:39.770 --> 00:03:41.810
+We could add an if check, for example,
+
+74
+00:03:41.810 --> 00:03:44.950
+to see whether the values we received are strings
+
+75
+00:03:44.950 --> 00:03:45.850
+or numbers.
+
+76
+00:03:45.850 --> 00:03:48.580
+That is something we can check with JavaScript,
+
+77
+00:03:48.580 --> 00:03:51.453
+and this would allow us to avoid such mistakes,
+
+78
+00:03:51.453 --> 00:03:54.670
+but, of course, that means you have to write extra code
+
+79
+00:03:54.670 --> 00:03:58.100
+at runtime to make sure that your code works
+
+80
+00:03:58.100 --> 00:04:01.210
+when you actually could avoid this during development
+
+81
+00:04:01.210 --> 00:04:03.980
+if you had strict type checks.
+
+82
+00:04:03.980 --> 00:04:07.150
+So, if you simply could tell JavaScript,
+
+83
+00:04:07.150 --> 00:04:11.240
+so to say in advance which types of data you want,
+
+84
+00:04:11.240 --> 00:04:15.080
+and then JavaScript and your IDE could warn you
+
+85
+00:04:15.080 --> 00:04:17.410
+when you have some code in your program
+
+86
+00:04:17.410 --> 00:04:20.190
+where wrong types are fed in.
+
+87
+00:04:20.190 --> 00:04:22.460
+And that's where TypeScript helps us.
+
+88
+00:04:22.460 --> 00:04:25.060
+It adds strict typing.
+
+89
+00:04:25.060 --> 00:04:28.350
+In general, TypeScript adds a bunch of features
+
+90
+00:04:28.350 --> 00:04:29.790
+to JavaScript.
+
+91
+00:04:29.790 --> 00:04:33.250
+It adds the types, and that's the most important addition.
+
+92
+00:04:33.250 --> 00:04:36.720
+That's where TypeScript's name comes from.
+
+93
+00:04:36.720 --> 00:04:38.550
+But it also unlocks certain
+
+94
+00:04:38.550 --> 00:04:41.150
+next-generation JavaScript features,
+
+95
+00:04:41.150 --> 00:04:43.220
+which we then can use in our code
+
+96
+00:04:43.220 --> 00:04:46.630
+without any extra tools like Babel.
+
+97
+00:04:46.630 --> 00:04:50.280
+It also adds some non next-gen features,
+
+98
+00:04:50.280 --> 00:04:53.790
+so some features which don't exist in JavaScript at all,
+
+99
+00:04:53.790 --> 00:04:56.300
+which help us write cleaner code.
+
+100
+00:04:56.300 --> 00:04:58.560
+Now, all these features are stripped away
+
+101
+00:04:58.560 --> 00:05:00.670
+once it's compiled, but during development,
+
+102
+00:05:00.670 --> 00:05:04.350
+those features can help us write cleaner code.
+
+103
+00:05:04.350 --> 00:05:07.720
+It adds meta-programming features like Decorators.
+
+104
+00:05:07.720 --> 00:05:10.430
+It has rich configuration options
+
+105
+00:05:10.430 --> 00:05:13.230
+that allow us as a developer to fine-tune
+
+106
+00:05:13.230 --> 00:05:15.100
+how code should be compiled.
+
+107
+00:05:15.100 --> 00:05:18.930
+And it, in general, simply gives us a lot of modern tooling
+
+108
+00:05:18.930 --> 00:05:22.300
+and integrates greatly into modern tooling
+
+109
+00:05:22.300 --> 00:05:25.330
+to give us a great development experience.
+
+110
+00:05:25.330 --> 00:05:28.750
+Now, in this basics refresher here,
+
+111
+00:05:28.750 --> 00:05:33.240
+I'm not going to dive into all these areas in great detail.
+
+112
+00:05:33.240 --> 00:05:34.410
+For that, you can check out
+
+113
+00:05:34.410 --> 00:05:36.870
+my Understanding TypeScript course.
+
+114
+00:05:36.870 --> 00:05:40.130
+This course dives into TypeScript in great detail
+
+115
+00:05:40.130 --> 00:05:43.560
+and walks you through all the core features.
+
+116
+00:05:43.560 --> 00:05:44.770
+So, that's my recommendation
+
+117
+00:05:44.770 --> 00:05:47.410
+if you wanna learn all about TypeScript.
+
+118
+00:05:47.410 --> 00:05:50.500
+Here, we're going to dive into some core basics.
+
+119
+00:05:50.500 --> 00:05:52.810
+And, for that, let's actually come back
+
+120
+00:05:52.810 --> 00:05:55.210
+to this example I just showed you
+
+121
+00:05:55.210 --> 00:05:57.780
+now in the context of, at least,
+
+122
+00:05:57.780 --> 00:06:00.593
+a little bit more realistic webpage.
+

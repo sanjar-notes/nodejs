@@ -1,0 +1,31 @@
+WEBVTT
+
+00:02.160 --> 00:08.730
+A lot of exciting things were covered in the last modules. Rest APIs, async await and we'll continue
+
+00:08.730 --> 00:09.540
+on that road,
+
+00:09.630 --> 00:16.800
+we'll dive into a very exciting technology that you can use in node applications, web sockets. Web sockets
+
+00:16.950 --> 00:24.210
+are a nice way, a protocol essentially which allows us to build real time web services.
+
+00:24.210 --> 00:27.290
+Now what exactly does that mean and how does that work?
+
+00:27.300 --> 00:29.640
+That is what we'll cover in this module.
+
+00:29.640 --> 00:36.060
+You'll learn why you would want to use real time web services and what that actually is and we'll see
+
+00:36.060 --> 00:43.590
+how we add real time communication to our node app or to any node app of course. We'll use a certain library
+
+00:43.590 --> 00:49.950
+for that, socket.io and I will teach you everything you need to know about why to use that, how it works,
+
+00:50.100 --> 00:53.240
+what you can do with that and how you use it in your project.

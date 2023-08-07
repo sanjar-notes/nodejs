@@ -1,0 +1,541 @@
+WEBVTT
+
+00:02.240 --> 00:08.630
+We're making very good progress, we're able to create posts, view posts, view a single post, upload files,
+
+00:08.780 --> 00:10.080
+validate content,
+
+00:10.130 --> 00:11.450
+all great.
+
+00:11.450 --> 00:12.910
+Now what is missing?
+
+00:12.920 --> 00:15.030
+We want to be able to edit posts,
+
+00:15.080 --> 00:20.690
+we want to be able to delete posts and authentication and users and connecting posts to users,
+
+00:20.690 --> 00:22.840
+this is all missing, now
+
+00:22.880 --> 00:29.890
+let's continue with editing and deleting posts before we dive into the authentication and user related things.
+
+00:29.930 --> 00:37.640
+So for that, let's go to our feed routes in our node rest API project and there, I'll add a new route,
+
+00:37.640 --> 00:40.750
+I want to be able to edit posts now and for that
+
+00:40.760 --> 00:45.170
+I will use a new http method which we haven't used before.
+
+00:45.170 --> 00:51.020
+Editing a post essentially is like replacing it, replacing the old post with a new one, we'll keep the
+
+00:51.020 --> 00:58.130
+old ID but that is it. Since we'll replace a resource, I'll use the put method here and the put method is
+
+00:58.130 --> 01:03.470
+one you learned about in the last module but which we haven't used before because with normal browser
+
+01:03.470 --> 01:04.020
+forms,
+
+01:04.070 --> 01:09.070
+you're not able to send it, through asynchronous requests triggered by javascript
+
+01:09.080 --> 01:17.320
+you are however. Now we need a url here and the url will be /post and then also the ID of
+
+01:17.330 --> 01:19.870
+the post encoded in the url,
+
+01:19.930 --> 01:21.920
+so colon post ID.
+
+01:22.370 --> 01:26.900
+Now we also need a controller action to handle that,
+
+01:26.920 --> 01:31.510
+the important thing about put requests and the same is true for patch requests
+
+01:31.510 --> 01:36.940
+by the way is that they also have a request body, just like post requests
+
+01:37.030 --> 01:39.710
+but you can also have parameters in the
+
+01:39.760 --> 01:40.470
+url,
+
+01:40.570 --> 01:43.670
+well that would have been the case for post requests too by the way
+
+01:43.960 --> 01:50.050
+but the important thing is we have a body for these request, we can add a request body and that will hold
+
+01:50.050 --> 01:57.010
+the actual post data that I want to well use and that I want to use to replace my existing post,
+
+01:57.220 --> 02:05.890
+so let's work on the controller now. In the feed controller at the bottom, I'll add a new action and I'll
+
+02:05.890 --> 02:08.470
+name it update host,
+
+02:08.480 --> 02:10.580
+the name is up to you but this is what we'll do,
+
+02:10.580 --> 02:12.670
+we'll update the post in there,
+
+02:12.680 --> 02:17.360
+this is the function and in here, in this function,
+
+02:17.580 --> 02:17.910
+I can
+
+02:17.910 --> 02:24.510
+first of all retrieve my post ID from my request params because we just added it there, right. In my
+
+02:24.570 --> 02:25.180
+route,
+
+02:25.350 --> 02:29.730
+host ID is a parameter which of course I can extract.
+
+02:29.730 --> 02:39.810
+Now when updating a post I also will extract my title, so request body title, I will extract my content,
+
+02:40.380 --> 02:45.750
+request body content and I want to extract my file, my image
+
+02:45.750 --> 02:49.420
+url, however for that url
+
+02:49.470 --> 02:54.510
+we have two options when updating. The first option is and that will be my default,
+
+02:54.720 --> 03:00.680
+that image url is part of the incoming request and it's just some text in the request body.
+
+03:00.960 --> 03:04.250
+That would be the case if no new file was added,
+
+03:04.290 --> 03:10.770
+if no new file was picked, then my frontend code has all the logic to take the existing url and
+
+03:10.770 --> 03:14.100
+keep that but we might have picked a file
+
+03:14.220 --> 03:22.660
+and in this case request file will be set and I can now set image url equal to request file path,
+
+03:22.690 --> 03:28.820
+this is the alternative. After all of this, at least one of the two should be set,
+
+03:28.960 --> 03:35.980
+so if image url is not set at this point because we were not able to extract it from there and we
+
+03:35.980 --> 03:40.260
+did not make it into this if statement, then we should throw an error
+
+03:40.270 --> 03:51.910
+so here I will prepare a new error, no file picked, I'll set my status code to 422 and I will throw
+
+03:52.600 --> 03:54.870
+that error here.
+
+03:54.970 --> 03:57.010
+So that's my first little piece of validation,
+
+03:57.040 --> 03:59.350
+we'll add more validation of course,
+
+04:00.660 --> 04:06.260
+normally we should have an image url however. Now I have one little mistake here by the way,
+
+04:06.400 --> 04:09.570
+this should be image here, what I retrieve from the frontend
+
+04:09.700 --> 04:12.790
+and we need to tweak our frontend a little bit too.
+
+04:12.950 --> 04:14.440
+There in feed.js,
+
+04:14.510 --> 04:17.770
+in source pages feed, feed.js,
+
+04:18.040 --> 04:26.830
+when we load all posts, so in load posts, that is when we basically load to post data from the server including
+
+04:27.040 --> 04:29.220
+our image url.
+
+04:29.320 --> 04:34.390
+Now we then store the post here in the frontend so that the rest of the react application,
+
+04:34.390 --> 04:40.330
+the rest of the code I prepared can handle that, we need to tweak this line a little bit.
+
+04:40.360 --> 04:48.220
+There you should access res data posts but we have to map this, which is a default javascript method into
+
+04:48.220 --> 04:52.720
+a different kind of array or every element has to be changed a little bit.
+
+04:52.900 --> 04:58.300
+Map takes a function that executes on every element in the array and it gets the element which in our
+
+04:58.300 --> 05:01.920
+case is a post as an argument and then we return, 
+
+05:02.050 --> 05:09.190
+well the updated version of that object, so I return a new object here where I will use the spread operator
+
+05:09.190 --> 05:17.650
+to get all the properties of my post object and then I'll add an image path key here which is
+
+05:17.680 --> 05:18.490
+post.imageurl
+
+05:18.520 --> 05:19.320
+.
+
+05:19.390 --> 05:20.260
+Now image url
+
+05:20.270 --> 05:24.280
+here is referring to the property I am storing on my server side,
+
+05:24.340 --> 05:28.480
+there we are restoring a path to an image in the image url key,
+
+05:28.480 --> 05:31.440
+you could have name this differently, if you named it differently here,
+
+05:31.570 --> 05:34.000
+you would have to name it differently here.
+
+05:34.030 --> 05:40.660
+Now I'm storing the original path here because when I'm viewing a single post for example, I do extract
+
+05:40.660 --> 05:44.500
+that image url and I append my url to the domain.
+
+05:44.500 --> 05:48.110
+Now the path should be well just a path without a domain
+
+05:48.220 --> 05:52.460
+because I'm keeping that here and this will get reused later when we edit
+
+05:52.470 --> 05:54.240
+this through this edit modal,
+
+05:54.280 --> 06:01.570
+behind the scenes this path will be stored and if I don't choose a new file here, this path will be submitted
+
+06:01.990 --> 06:09.640
+with my edited post and there, the path will be stored in a property named image,
+
+06:09.670 --> 06:15.040
+you can see that in the components, the feed edit component under feed, feed edit,
+
+06:15.150 --> 06:19.150
+there you could see all the internals, if you know a little bit of react
+
+06:19.180 --> 06:25.660
+you can see the internals and see that I'm extracting my image path and I'm storing it in an image key
+
+06:25.660 --> 06:26.510
+ultimately.
+
+06:26.650 --> 06:31.420
+I don't want to dive too deep into react but this is what I'm doing on the frontend and this was one
+
+06:31.420 --> 06:37.600
+adjustment that was required and on the server side, we can now extract our image here from the body and
+
+06:37.600 --> 06:46.040
+either this is set or we selected a new file in which case a file will be found.
+
+06:46.050 --> 06:50.960
+So now we can continue working on update post and we can continue working by
+
+06:50.970 --> 06:56.180
+first of all adding more validation which we do in our routes of course.
+
+06:56.190 --> 07:02.540
+Well there I will copy that array from my post route and I will add it here,
+
+07:02.580 --> 07:08.460
+so for my put route I also want to validate the title, by the way we should switch that back to 5 characters
+
+07:08.460 --> 07:11.560
+of length for both posting and putting.
+
+07:11.720 --> 07:13.700
+So I will validate these two things,
+
+07:13.800 --> 07:20.400
+I'll not validate my image because that is done directly in the controller action and I don't need to do
+
+07:20.400 --> 07:22.450
+any other validations for now.
+
+07:22.740 --> 07:28.230
+So with that added, let's go back to the controller and let's copy the validation logic from the post
+
+07:28.230 --> 07:34.180
+route where I gather all my errors and then I check for errors not being empty
+
+07:34.290 --> 07:36.400
+and then I would throw an error.
+
+07:36.420 --> 07:43.110
+So before I extract anything else, I'll check these things in update post, whether I have any errors and
+
+07:43.110 --> 07:45.400
+if I have, I'll throw an error.
+
+07:45.420 --> 07:50.010
+If I don't have errors, I continue, check the file and if we make it down here,
+
+07:50.010 --> 07:53.720
+so after all these if statements, then I know I have valid data
+
+07:53.820 --> 07:59.290
+and now we can update it in the database. To update it in the database,
+
+07:59.310 --> 08:09.580
+I will find my post by ID for the post ID which I extracted from the url, then I can do something or
+
+08:09.580 --> 08:16.270
+we might have an error, if we have an error, I'll reuse that error handling logic you find in other places,
+
+08:16.330 --> 08:17.590
+in other actions,
+
+08:17.880 --> 08:23.170
+so I'll add my status code in the next, the error. If I am successful,
+
+08:23.170 --> 08:26.030
+I know we have no database error,
+
+08:26.110 --> 08:28.640
+I still need to check if post is undefined
+
+08:28.660 --> 08:34.810
+which means we didn't find a post, in which case I will also throw an error just as we did it for getting
+
+08:34.810 --> 08:35.920
+a single post,
+
+08:35.980 --> 08:39.900
+I can copy that logic and again if you are copying a lot of code,
+
+08:39.970 --> 08:42.070
+you might of course also refactor that,
+
+08:42.070 --> 08:44.000
+I like the more verbose approach
+
+08:44.110 --> 08:48.550
+to make sure we all understand each step we take in each action creator
+
+08:49.020 --> 08:55.390
+and if we make it past this if check inside of the then block, then we found a post and then I want to
+
+08:55.450 --> 08:57.670
+update the post of course.
+
+08:57.670 --> 09:04.690
+So here I'll set my post title equal to the title I extracted, I'll set my post image url
+
+09:04.690 --> 09:10.810
+equal to the image url I extracted and I'll set my post content equal to the content
+
+09:10.840 --> 09:11.760
+I extracted
+
+09:12.310 --> 09:20.550
+and then I can return post save here to save that updated post back to the database,
+
+09:20.550 --> 09:23.500
+overriding the old post but keeping the old ID
+
+09:24.030 --> 09:27.890
+and then here we get the result of that save operation
+
+09:28.030 --> 09:32.480
+and here I want to return a response with a status code of 200.
+
+09:32.490 --> 09:40.510
+We didn't create a new resource so it's not 201, with some json code or some json data where I say
+
+09:41.130 --> 09:49.830
+post updated maybe and where I return that updated post which is stored in the result in the end.
+
+09:49.880 --> 09:52.840
+So this is now the updating logic here,
+
+09:52.840 --> 09:57.010
+there is one more thing we can add and that is some logic to delete the image.
+
+09:57.020 --> 10:00.690
+For that I'll add a little helper function down there,
+
+10:00.740 --> 10:09.140
+clear image which is a function that accepts a file path as an argument and then I will use the file
+
+10:09.140 --> 10:11.240
+system package nodejs offers,
+
+10:11.240 --> 10:16.480
+so I'll import it at the top by requiring fs
+
+10:16.700 --> 10:22.000
+and with that imported in that clear image function here, I'll
+
+10:22.000 --> 10:29.430
+first of all construct my file path for which I'll also import the path package by the way so
+
+10:29.430 --> 10:38.760
+let's import that at the top too and now the file path can be constructed by joining dir name, then going
+
+10:38.790 --> 10:43.860
+up one folder because we're running this inside of the controllers folder which is not where we will find
+
+10:43.860 --> 10:44.310
+images,
+
+10:44.310 --> 10:51.030
+so we should go up one folder to be in the root folder and then we look for whatever file path we got
+
+10:51.030 --> 10:51.500
+here.
+
+10:51.570 --> 10:56.020
+So images and then the image name would be the case in our application
+
+10:57.730 --> 11:05.140
+and I can then use the unlink function to delete that file by passing the file path to it and we can
+
+11:05.140 --> 11:08.140
+also log any error message
+
+11:08.320 --> 11:14.660
+and I want to trigger that clear image function when ever I uploaded a new image.
+
+11:14.680 --> 11:25.660
+So inside of my update post action creator, right before I save my updated post maybe, I'll check if my
+
+11:25.750 --> 11:28.210
+image url which is the path to the image,
+
+11:28.300 --> 11:31.310
+if that is not equal to post image url.
+
+11:31.360 --> 11:34.170
+So to the image url I stored in my post before,
+
+11:34.180 --> 11:39.790
+if they're not equal it obviously changed, so I uploaded a new file and that is where I will execute
+
+11:39.790 --> 11:42.860
+clear image and pass the old image
+
+11:42.880 --> 11:45.930
+url, so the old path as an argument.
+
+11:45.940 --> 11:50.180
+Now with that, we got all in place here in the controller,
+
+11:50.260 --> 11:55.690
+now we can go to the route and there we still need to register that controller action on the put route,
+
+11:55.710 --> 12:01.120
+so on the feed controller I access update post here, that's one important step
+
+12:01.240 --> 12:08.960
+and on the frontend so in the react code, we also need to do something. There in source feed, feed.js
+
+12:08.980 --> 12:11.390
+in the
+
+12:14.770 --> 12:19.030
+finish edit handler function there, we need to adjust our code now.
+
+12:19.030 --> 12:24.510
+There we set up our form data which is correct for updating as well
+
+12:24.730 --> 12:29.800
+but if we are in edit mode which will be the case if we make it inside this if statement due to the
+
+12:29.800 --> 12:36.720
+logic I configured on the frontend, we want to send a request to localhost 8080
+
+12:37.300 --> 12:40.440
+/feed/post/ and
+
+12:40.440 --> 12:48.770
+now we need the post ID which we get from this state edit post._id,
+
+12:48.990 --> 12:54.390
+that is where it will be stored in my react app and I'll set the method to put because we created a
+
+12:54.390 --> 12:55.580
+put route.
+
+12:55.890 --> 13:01.350
+Now with that, we can save all that and try that out and hopefully not get an error.
+
+13:01.380 --> 13:06.670
+Let's edit the second doc here and add a couple of exclamation marks in both title and content.
+
+13:06.750 --> 13:08.770
+Let's not choose a new file,
+
+13:10.110 --> 13:12.300
+it's looking good, I see my exclamation marks there,
+
+13:12.420 --> 13:14.840
+I see them in the content as well.
+
+13:14.860 --> 13:20.870
+Here I get a confirmation message that should looks good and on the backend, I still only have one image,
+
+13:20.910 --> 13:23.950
+well that makes sense because I didn't replace it anyways.
+
+13:24.330 --> 13:27.520
+Let's now replace it by editing that same doc again,
+
+13:27.540 --> 13:31.350
+let's not change title and content but choose a different file,
+
+13:31.350 --> 13:36.610
+maybe that coffee mug, click accept, post updated is looking good,
+
+13:37.340 --> 13:43.420
+it's not a doc any more so the title is not correct but on the backend, we only have the coffee mug now,
+
+13:43.860 --> 13:46.150
+so updating seems to work
+
+13:46.220 --> 13:49.370
+and of course we can confirm this by viewing that image as well,
+
+13:49.370 --> 13:52.190
+there we also see all the updated data.
+
+13:52.460 --> 13:54.320
+So that is working
+
+13:54.560 --> 14:00.600
+and with that, only deleting is missing before we can finally start working on authentication.

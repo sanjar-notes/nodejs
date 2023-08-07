@@ -1,0 +1,169 @@
+WEBVTT
+
+00:03.310 --> 00:07.760
+I'm still getting the error that my products don't seem to have a length
+
+00:07.870 --> 00:12.270
+even though I'm fairly confident that this code should retrieve my products
+
+00:12.280 --> 00:14.190
+but what is wrong with that code?
+
+00:15.570 --> 00:18.610
+Well I am returning data here
+
+00:18.930 --> 00:20.270
+in both cases
+
+00:20.370 --> 00:24.450
+but keep in mind that this is asynchronous code.
+
+00:24.450 --> 00:29.570
+So my fetch all method here executes this line, executes this line
+
+00:29.610 --> 00:36.070
+and as you learned, it simply registers this callback in its event emitter registry to put it like this
+
+00:36.240 --> 00:42.640
+but then it just finishes with this function and this function itself does not return anything.
+
+00:42.700 --> 00:49.350
+These return statements here belong to this inner function here, not to this outer function,
+
+00:49.410 --> 00:52.260
+so fetch all does not return anything,
+
+00:52.260 --> 00:59.640
+it returns undefined therefore and hence in my view, in the shop.ejs file, if I try to access the length
+
+00:59.970 --> 01:04.160
+on my products, I try to access length on undefined
+
+01:04.260 --> 01:06.760
+and I get an error.
+
+01:06.860 --> 01:08.010
+So this is the issue
+
+01:08.090 --> 01:11.140
+and how can I fix this then?
+
+01:11.160 --> 01:12.690
+There are multiple ways of fixing this,
+
+01:12.690 --> 01:17.200
+for now I will simply accept an argument in fetch all and that's a callback
+
+01:17.310 --> 01:22.920
+and that actually allows me to pass a function into fetch all which fetch all will execute
+
+01:22.920 --> 01:29.780
+once it is done, so that the thing calling fetch all can pass a function
+
+01:29.910 --> 01:34.020
+it is then aware of being called which holds the data I want to return.
+
+01:34.050 --> 01:35.070
+Sounds complex? 
+
+01:35.070 --> 01:36.430
+Let me show you how it works.
+
+01:36.480 --> 01:38.880
+So I will receive a function here,
+
+01:38.910 --> 01:45.630
+this argument will hold a function and therefore instead of returning an array, here I will have a callback
+
+01:45.900 --> 01:47.500
+where I pass an empty array,
+
+01:47.520 --> 01:51.990
+so I execute this argument as a function to which I pass an empty array
+
+01:52.380 --> 01:57.030
+and I will do the same down there, just not with an empty array but here I will have a callback where I
+
+01:57.030 --> 01:59.750
+pass my parsed json data.
+
+02:00.180 --> 02:08.610
+So I do call this callback and this allows me to go to my controller where I do call fetch all and there,
+
+02:08.610 --> 02:18.640
+I now simply have to pass in a function where I know that I eventually will get my products, like this
+
+02:19.300 --> 02:24.230
+and therefore I don't need to store it here because this fetch all function will not return anything.
+
+02:24.430 --> 02:32.350
+Instead here I simply create my own callback process and I render in that function I pass to fetch all
+
+02:32.530 --> 02:39.490
+once I know that fetching all products is done and I receive the products here because that is exactly
+
+02:39.490 --> 02:41.660
+the argument I passed to the callback
+
+02:41.680 --> 02:48.730
+in fetch all because the callback argument here will refer to this anonymous function I'm passing into
+
+02:48.730 --> 02:49.750
+fetch all.
+
+02:50.230 --> 02:51.890
+It's the same logic
+
+02:52.000 --> 02:53.500
+read file uses here,
+
+02:53.630 --> 02:57.550
+just that we didn't defined read file on our own but read file
+
+02:57.570 --> 02:59.100
+also takes a callback
+
+02:59.350 --> 03:03.700
+and here we pass in the function read file should execute for us once it's done.
+
+03:03.730 --> 03:04.640
+We do the same
+
+03:04.690 --> 03:06.070
+just that we write both sides
+
+03:06.070 --> 03:09.980
+now. We have fetch all and fetch all takes a function
+
+03:10.000 --> 03:14.000
+it should execute once it's done and once it's done, we get the products,
+
+03:14.020 --> 03:16.570
+thanks to our own implementation of fetch all
+
+03:16.670 --> 03:19.920
+and we then render our response with those products.
+
+03:20.290 --> 03:26.080
+And with that if we save that and now we reload this page, we do see the products here and we do of course
+
+03:26.080 --> 03:31.180
+see all the products we had in the past as well as any new products we add
+
+03:31.390 --> 03:33.450
+and there is a little styling page I see.
+
+03:33.550 --> 03:35.020
+But this is how this works
+
+03:35.080 --> 03:41.830
+and now it's still not a database but it's better than this in array storage and it already shows us why we
+
+03:41.830 --> 03:43.590
+might want to use such a model.
+
+03:43.600 --> 03:50.500
+It's not super complex code but it clearly is code that belongs to this data, to this model and therefore
+
+03:50.590 --> 03:53.480
+it's outsourced into its own separate file.

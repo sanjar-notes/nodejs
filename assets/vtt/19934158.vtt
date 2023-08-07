@@ -1,0 +1,52 @@
+WEBVTT
+
+00:02.090 --> 00:08.900
+Now, Max, from the future here in the last lecture we added async await and I explained all about
+
+00:08.900 --> 00:09.150
+it.
+
+00:09.170 --> 00:11.630
+Now what I explained here is all correct.
+
+00:11.630 --> 00:15.320
+But there is one important addition I want to make here.
+
+00:15.590 --> 00:23.600
+Starting with version 14.3, which when I recorded this video was just released, starting with that
+
+00:23.600 --> 00:25.340
+version of Node.js.
+
+00:25.370 --> 00:31.380
+You can actually use the a wait keyword also outside of asynchronous function.
+
+00:31.400 --> 00:34.370
+This is a feature called Top Level Await.
+
+00:34.400 --> 00:40.640
+You would be able to await a promise which you have here in the top level of your script.
+
+00:40.640 --> 00:45.890
+So which is not inside of a function you can now also use await here.
+
+00:45.920 --> 00:48.200
+Previously this was not really possible.
+
+00:48.200 --> 00:51.170
+You always needed a async function around await.
+
+00:51.200 --> 00:56.960
+Now you can use a weight on the top level if you are using it instead of a function.
+
+00:56.960 --> 01:02.060
+As we are doing it here though, you still should add async, so that hasn't changed.
+
+01:02.060 --> 01:07.340
+It's just this extra addition that you could now also use await on the top level.
+
+01:07.370 --> 01:13.430
+And I just found this important to mention because it is part of Node.js and it is related to a single
+
+01:13.430 --> 01:16.040
+weight or to just a weight then I guess.

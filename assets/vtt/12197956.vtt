@@ -1,0 +1,178 @@
+WEBVTT
+
+00:02.360 --> 00:09.710
+Let's make sure we can now also get all posts and for that I'll start on the backend in my schema again. Getting
+
+00:09.710 --> 00:11.790
+that of course is a normal query,
+
+00:12.040 --> 00:17.730
+so next to login I'll add a query and I'll name it posts, you can name it however you want.
+
+00:17.870 --> 00:20.360
+I don't need any arguments here,
+
+00:20.390 --> 00:27.160
+I instead can directly define my return type and that will actually not be that array of posts
+
+00:27.170 --> 00:29.080
+as you might have expected
+
+00:29.360 --> 00:35.870
+but actually I'll create a new type for that because remember that in the rest API, we also did not just
+
+00:35.870 --> 00:42.860
+return an array of posts but for pagination, also a number that specified our total amount of posts
+
+00:43.070 --> 00:44.450
+in the database.
+
+00:44.810 --> 00:47.540
+So I will create a new type and I'll name it
+
+00:47.540 --> 00:56.780
+post data which now has a posts key and that will be my array of posts and I'll also have a total posts
+
+00:56.780 --> 01:01.480
+field here which will be an integer. Now
+
+01:01.490 --> 01:07.420
+post data is what my query here should return
+
+01:07.600 --> 01:11.180
+and now we need a resolver for that.
+
+01:11.230 --> 01:15.770
+So let's head over to resolvers and there I'll add posts,
+
+01:15.910 --> 01:16.690
+I'll write this
+
+01:16.720 --> 01:25.000
+as an async function like this, I will actually not care about the first argument for now, 
+
+01:25.000 --> 01:25.790
+my args
+
+01:25.930 --> 01:31.360
+but I will need the request to find out whether the user is authenticated. That is actually the first
+
+01:31.360 --> 01:34.300
+thing I'll check and I'll copy the check from create
+
+01:34.300 --> 01:38.710
+post, this if statement here and I'll add it here.
+
+01:40.490 --> 01:46.760
+Now if the request is not authenticated, if the user is not authenticated, I'll throw an error, otherwise
+
+01:46.880 --> 01:49.320
+I'll later add some pagination logic
+
+01:49.400 --> 01:57.260
+but for now I want to find the total number of posts and then all posts. So total posts can be found
+
+01:57.620 --> 01:58.740
+by awaiting
+
+01:58.970 --> 02:10.800
+post find, this gives me all posts and then count documents. The posts themselves can be found by using
+
+02:10.800 --> 02:14.280
+await on post find like this and again later
+
+02:14.280 --> 02:22.270
+I will also add skip and limit, for now I'll only add sort and I will sort by createdAt in descending order,
+
+02:22.290 --> 02:28.980
+I will also populate my creator to fetch the full user data with the name and so on because I'll need
+
+02:29.040 --> 02:32.260
+all that on the frontend.
+
+02:32.340 --> 02:35.810
+So here I get my posts,
+
+02:35.880 --> 02:38.850
+now we can already return some data.
+
+02:38.850 --> 02:42.210
+I'll return an object and that object has to look like
+
+02:42.220 --> 02:49.010
+I defined it in my schema, so it has to be an object with a post key and a total posts key.
+
+02:50.430 --> 02:57.960
+So in that object, I'll add posts and that will be the posts I've fetched here and total posts which
+
+02:57.960 --> 03:00.650
+will be total posts. Now
+
+03:00.710 --> 03:06.570
+posts will not be returned like this because in there would be fields like _id or createdAt
+
+03:06.570 --> 03:11.130
+which hold data formats that are not understood by graphql,
+
+03:11.130 --> 03:15.250
+so instead I will add map here and you learned about map
+
+03:15.270 --> 03:21.460
+for example in the javascript refresher which allows me to transform every element in that array.
+
+03:21.870 --> 03:29.530
+So here I will return a new object for every post which will generally be the same, so I will pull out
+
+03:29.530 --> 03:33.130
+the existing elements on the posts document
+
+03:33.340 --> 03:40.600
+but then I will override the ID with p_id toString to return a string and for createdAt
+
+03:40.600 --> 03:41.280
+.
+
+03:41.290 --> 03:50.370
+I will use p createdAt to ISO string and the same for updatedAt where I will use p updatedAt to
+
+03:50.410 --> 03:51.370
+ISO string
+
+03:51.520 --> 03:57.580
+and this is now how I will transform my posts, every single post in the posts array and therefore, the
+
+03:57.580 --> 03:59.170
+overall array.
+
+03:59.240 --> 04:04.660
+This is the backend, this is the schema and the resolver setup for getting posts,
+
+04:04.660 --> 04:07.320
+now let's test this on graphiql
+
+04:07.520 --> 04:13.910
+here. Let me reload that page and there I will run a new query
+
+04:14.770 --> 04:16.720
+which will be called posts
+
+04:18.150 --> 04:23.280
+and let's say there I'm interested in both the posts and total posts.
+
+04:24.300 --> 04:27.410
+Posts is an array of complex objects,
+
+04:27.450 --> 04:30.610
+so there I also need to specify what I want to get out of there,
+
+04:30.710 --> 04:35.800
+let's say I'm interested in the ID, the title and the content.
+
+04:36.030 --> 04:41.640
+And now I hit control enter and I get not authenticated which is correct because I am not sending a
+
+04:41.640 --> 04:49.170
+token here. So that is the next step, we'll send these requests from the frontend, add our token and then of
+
+04:49.170 --> 04:51.150
+course also render our posts.

@@ -1,0 +1,232 @@
+WEBVTT
+
+00:02.440 --> 00:09.490
+So let's make sure we can serve that image and in the future also accept image uploads. Now for serving
+
+00:09.490 --> 00:10.190
+that image,
+
+00:10.330 --> 00:16.320
+we have to make sure we serve that images folder statically, at least is the approach I want to use,
+
+00:16.320 --> 00:23.020
+you learned all about that in my file uploads and downloads module and the general logic there still
+
+00:23.020 --> 00:23.640
+applies,
+
+00:23.680 --> 00:26.920
+so check that out to learn more about that. In app.js,
+
+00:26.940 --> 00:36.340
+I want to set up static serving of my images folder. For that up there after I register my body
+
+00:36.340 --> 00:47.450
+parser, I'll use another middleware and I will do that for any request that goes to /images, here
+
+00:47.780 --> 00:54.290
+I'll use a middleware built into express, the static middleware which I use by calling the static function
+
+00:54.950 --> 01:00.310
+and now I want to serve my images folder. For that
+
+01:00.400 --> 01:08.620
+let's import the path package, the core path package node provides and then here we can use path join to
+
+01:08.620 --> 01:15.580
+construct an absolute path to that images folder. By using the special dirname variable which is available
+
+01:15.580 --> 01:16.990
+globally in nodejs
+
+01:17.030 --> 01:23.740
+and gives us access to the directory path to that file, to the app.js file
+
+01:23.980 --> 01:29.900
+and in that same location as this app.js file, we find the images folder,
+
+01:30.070 --> 01:37.520
+so we can pass images as a second argument and path join will construct an absolute path to this images
+
+01:37.690 --> 01:44.970
+folder and that is the folder we'll serve statically for requests going to /images.
+
+01:44.970 --> 01:50.260
+With that we should be able to use our image in the frontend code or to see it.
+
+01:50.470 --> 01:56.470
+If we save that server side code, to view the image on the frontend however, we'll need to be able to click
+
+01:56.600 --> 02:02.560
+view here because the image will only be included on the detail page and that however will not work
+
+02:02.800 --> 02:07.540
+because we need a route to serve a single post which we don't have yet,
+
+02:07.540 --> 02:09.490
+so we'll have to postpone this.
+
+02:09.520 --> 02:12.370
+It will actually be what I work on next
+
+02:12.370 --> 02:19.570
+but before we do that, I want to set up proper error handling. In the feed controller, right now when I
+
+02:19.570 --> 02:21.090
+catch an error here
+
+02:21.310 --> 02:29.210
+I log it and there when I validate the input, I return an error response manually.
+
+02:29.440 --> 02:35.890
+You can do that and you could also return your own error response down there but you learned that you
+
+02:35.890 --> 02:39.830
+can set up a general error handling function in expressjs
+
+02:39.880 --> 02:42.690
+and I want to use that function.
+
+02:42.710 --> 02:45.750
+Now how do I use it though?
+
+02:45.790 --> 02:51.210
+Let's maybe start with validation. Instead of returning a function manually here,
+
+02:51.280 --> 02:53.830
+I will create a new error object
+
+02:56.350 --> 03:04.950
+with new error and the message I set up here is the message I'll pass to my error object.
+
+03:04.950 --> 03:09.940
+I'll then also add my own custom property which you can name however you want and I'll name it
+
+03:09.940 --> 03:21.890
+status code and set this to 422. Now I will throw that error and I can remove that return statement.
+
+03:21.940 --> 03:24.790
+Now what does throwing an error do here?
+
+03:24.790 --> 03:30.190
+It will automatically since I'm not doing this in an asynchronous code snippet or anything like that,
+
+03:30.580 --> 03:34.710
+it will automatically exit the function execution here
+
+03:34.900 --> 03:41.530
+and instead try to reach the next error handling function or error handling middleware provided in the
+
+03:41.770 --> 03:44.320
+express application.
+
+03:44.380 --> 03:49.780
+We also got another possible error and that is in here if something goes wrong with storing the post,
+
+03:50.440 --> 03:52.350
+there I don't want to log the error
+
+03:52.420 --> 03:58.320
+instead here I will check if my error has a status code field which it will not have
+
+03:58.390 --> 04:04.060
+but theoretically if I had more complex code where I throw my own errors, there might be some error that
+
+04:04.060 --> 04:04.690
+has it.
+
+04:04.900 --> 04:10.790
+So I check if that exists and if it does not exist, hence the exclamation mark here,
+
+04:10.840 --> 04:17.550
+if it does not exist, I will add it and I will set my status code to 500 then because it's some server
+
+04:17.550 --> 04:19.280
+side error.
+
+04:19.300 --> 04:22.600
+Now you learned that since I'm inside of a promise chain,
+
+04:22.600 --> 04:28.080
+so inside of an async code snippet, throwing an error will not do the trick,
+
+04:28.090 --> 04:31.090
+this will not reach the next error handling middleware.
+
+04:31.090 --> 04:35.380
+Instead you have to use the next function here and pass the error to it
+
+04:35.380 --> 04:40.510
+and this will now go and reach the next error handling express middleware.
+
+04:40.510 --> 04:45.850
+Now the last step is that we register that middleware and we do so in app.js.
+
+04:45.850 --> 04:54.520
+There let's go all the way to the bottom after all my routes here and let's use a new middleware which
+
+04:54.520 --> 05:01.600
+has this error handling definition of getting an error as the first argument and then request response
+
+05:01.910 --> 05:08.840
+and next. This will be executed whenever an error is thrown or forwarded with next
+
+05:08.850 --> 05:14.400
+and here I want to log it so that we as a developer can see what's wrong in an easier way
+
+05:14.880 --> 05:18.000
+and then I'll extract my status code here,
+
+05:19.670 --> 05:27.770
+from error status code, so from that error object, I'll extract my message from error.message.
+
+05:27.780 --> 05:32.870
+This property exists by default and it holds the message you pass to the constructor of the error
+
+05:32.910 --> 05:33.900
+object
+
+05:34.380 --> 05:40.400
+and now I can return an error or a response with the status code of the status
+
+05:40.410 --> 05:46.320
+I extracted and we can set this to a default value of 500 with this syntax by the way,
+
+05:46.320 --> 05:52.560
+so in case this should be undefined, it will now take 500.
+
+05:52.620 --> 06:01.500
+So we return this status code and we use json data of course where I have a message of the message
+
+06:01.530 --> 06:02.830
+I extracted.
+
+06:03.090 --> 06:09.210
+And now I have this general error handling functionality which should work which I can quickly validate
+
+06:09.510 --> 06:16.530
+by going to my feed routes and changing that validation logic again to seven for the title as a minimal length
+
+06:16.590 --> 06:20.710
+and now let's try to enter a title that is not long enough
+
+06:23.580 --> 06:27.180
+and let's see if we now still see an error.
+
+06:27.630 --> 06:32.020
+We do, we still get that error being thrown with the right status code,
+
+06:32.100 --> 06:38.460
+so this works even though I'm now using my custom error handling function which is a bit of a more elegant
+
+06:38.460 --> 06:41.140
+way of handling errors now.
+
+06:41.330 --> 06:42.270
+So this is working,
+
+06:42.270 --> 06:49.350
+let's now move on to creating the route for getting a single post so that we can finally also see if
+
+06:49.350 --> 06:50.550
+we can see our image.

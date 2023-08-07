@@ -1,0 +1,28 @@
+WEBVTT
+
+00:02.230 --> 00:09.070
+Enough about databases for now but let's stick to storing data and let me dive into some mechanisms
+
+00:09.070 --> 00:13.270
+of storing data in memory or even on the client side,
+
+00:13.270 --> 00:18.730
+so in the browser. And for that in this module, we'll have a look at the sessions and cookies,
+
+00:18.880 --> 00:24.820
+two important constructs or technologies in web development in general which you can of course also
+
+00:24.820 --> 00:30.140
+use in nodejs. Now in this module, we'll have a look at what exactly cookies are
+
+00:30.160 --> 00:36.400
+and of course what exactly sessions are and then how you can use both and how you typically use them
+
+00:36.430 --> 00:37.360
+together.
+
+00:37.360 --> 00:42.430
+So let's dive in and let's understand what these things are and how we can add them to our project and
+
+00:42.490 --> 00:43.690
+why we would add them.

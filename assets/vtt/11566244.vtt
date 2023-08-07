@@ -1,0 +1,85 @@
+WEBVTT
+
+00:02.110 --> 00:07.260
+You've now got an introduction to nodejs and how it works and how you can use it to write basic
+
+00:07.260 --> 00:08.790
+nodejs programs
+
+00:08.880 --> 00:12.550
+but what you also already saw is that with nodejs
+
+00:12.590 --> 00:21.040
+alone, you have to write a lot of code to deal with basic things like extracting the body of an incoming
+
+00:21.120 --> 00:22.080
+request.
+
+00:22.080 --> 00:23.540
+Now typically you don't want to do that,
+
+00:23.550 --> 00:26.120
+you want to focus on your business logic,
+
+00:26.280 --> 00:29.460
+the code that makes up your specific application,
+
+00:29.580 --> 00:36.600
+you don't want to work or you don't want to care about standard tasks like handling incoming requests
+
+00:36.630 --> 00:37.810
+or routing,
+
+00:37.810 --> 00:43.530
+so executing different code for different paths, different urls, you don't want to do that
+
+00:43.560 --> 00:46.860
+and therefore we'll now have a look at expressjs.
+
+00:46.890 --> 00:55.080
+This is a framework you can install as a third party package into your node project and as such,
+
+00:55.290 --> 01:01.860
+it basically helps you outsource some of that nitty-gritty work, some of these details you don't want to
+
+01:01.860 --> 01:02.680
+care about,
+
+01:02.790 --> 01:10.470
+it gives you a rule set in which you work and a lot of utility functions that help you write cleaner
+
+01:10.470 --> 01:13.400
+code and focus on your core business.
+
+01:13.410 --> 01:18.210
+So what's inside this module then? We'll have a brief look at what expressjs is,
+
+01:18.240 --> 01:22.610
+I gave you a short introduction already now but let's take a closer look.
+
+01:22.610 --> 01:30.090
+I'll then have a look at one important concept that pretty much defines expressjs or that expressjs
+
+01:30.090 --> 01:32.600
+is built around, middleware
+
+01:32.730 --> 01:38.190
+and what this is of course. We'll then have a look at how we can work with requests and responses with
+
+01:38.190 --> 01:44.940
+the help of express in a way easier way than we did thus far and we'll also have a look at routing and
+
+01:44.940 --> 01:51.630
+see how we can execute different code for different incoming requests and paths or urls without
+
+01:51.630 --> 01:54.400
+having to write a bunch of if statements.
+
+01:54.450 --> 02:02.910
+And last but not least, I'll also show you how we can return html pages, so files we prepared to our client
+
+02:03.120 --> 02:10.340
+instead of writing html code in nodejs as we did us far which wasn't really that great.
+
+02:10.380 --> 02:13.040
+So let's dive into all of that in this module.

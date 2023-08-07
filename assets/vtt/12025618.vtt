@@ -1,0 +1,181 @@
+WEBVTT
+
+00:02.390 --> 00:04.800
+Now that we learned how to add validators,
+
+00:04.800 --> 00:08.060
+it's time to add more validators for our sign up,
+
+00:08.100 --> 00:13.430
+for example I want to make sure that the password is also at least six characters long.
+
+00:13.560 --> 00:15.920
+Now for that we add another middleware,
+
+00:15.990 --> 00:17.890
+another check function call
+
+00:18.030 --> 00:22.540
+and what you can also do is you can wrap these into an array. That is optional,
+
+00:22.560 --> 00:23.850
+that is not required
+
+00:23.850 --> 00:29.490
+but of course it keeps your checks kind of grouped together and maybe makes it clearer to read that
+
+00:29.550 --> 00:32.250
+this block is all about validation.
+
+00:32.460 --> 00:35.450
+Now instead of check, you can also use a different function
+
+00:35.610 --> 00:41.780
+besides check which as I mentioned checks the body, the parameters, the query parameters and so on,
+
+00:41.790 --> 00:51.270
+you can also add just body, just param, just query, just cookie or just header to check just a certain
+
+00:51.270 --> 00:53.910
+set of features of the incoming request,
+
+00:54.000 --> 00:57.040
+so I could use body instead of check to make sure
+
+00:57.180 --> 01:02.020
+well you can look for a specific field but it has to be included in the request body.
+
+01:02.040 --> 01:07.100
+So for this email, we would extract that e-mail from the cookies, the headers, anywhere,
+
+01:07.320 --> 01:09.340
+doesn't matter because we'll be in the body
+
+01:09.390 --> 01:11.200
+but it would look for it anywhere.
+
+01:11.490 --> 01:14.630
+Now for the password I want to show you an alternative
+
+01:14.760 --> 01:19.890
+and typically you would use the same approach for both of course and I could say well please check the
+
+01:19.890 --> 01:22.860
+password value in the body of the request,
+
+01:22.890 --> 01:27.310
+so if there happens to be a password value in the headers, I don't care about that.
+
+01:27.780 --> 01:30.970
+So now I'm checking for password in the body
+
+01:31.080 --> 01:37.890
+and now again you can add your validators. You could say isLength, that is a built-in validator which
+
+01:37.890 --> 01:43.530
+you have to configure with some options in the form of a javascript object where you can set a min key
+
+01:43.530 --> 01:47.520
+to let's say 5 and you could also set a max length if you wanted to.
+
+01:47.520 --> 01:55.050
+So now we have the min length and we can also enter a different validator like isAlphanumeric to only
+
+01:55.050 --> 01:59.780
+allow numbers and normal characters, so we could add that too
+
+02:00.030 --> 02:06.090
+and if you don't add with message here by the way, then this means it will use the default invalid value
+
+02:06.090 --> 02:07.140
+message.
+
+02:07.140 --> 02:14.070
+Now maybe you want to use a default message for all validators but you don't want to repeat with message
+
+02:14.190 --> 02:15.820
+after every validator
+
+02:15.960 --> 02:27.690
+where you then enter like please enter a password with only numbers and text and at least 5 characters.
+
+02:27.690 --> 02:29.040
+This could be the error message
+
+02:29.130 --> 02:35.790
+but of course if we now repeat with message after every validator, this is a bit stupid
+
+02:35.790 --> 02:37.960
+right, it's a bit redundant,
+
+02:38.160 --> 02:44.010
+so for such a case where you have wanted the same error message for all your validators but it should
+
+02:44.010 --> 02:47.530
+not be the default invalid value error message,
+
+02:47.580 --> 02:54.450
+you can just grab that error message, remove with message here and simply add it as a second argument
+
+02:54.630 --> 03:02.850
+to the body or to the check function and now this will be used as a default error message for all your validators.
+
+03:02.850 --> 03:04.220
+So now this would be a check
+
+03:04.230 --> 03:09.780
+we could add, checking for the password being at least 5 characters long and only alphanumeric,
+
+03:09.780 --> 03:15.210
+in production you want to use more secure requirements, a longer password and you of course want to allow
+
+03:15.210 --> 03:16.370
+special characters
+
+03:16.410 --> 03:19.570
+but here just for demonstration purposes, this is fine.
+
+03:19.890 --> 03:24.240
+And now if I save that I can enter a valid email address
+
+03:24.450 --> 03:28.110
+but this password is too short, it's only one character, right.
+
+03:28.140 --> 03:31.870
+So if I hit sign up, I get well
+
+03:31.940 --> 03:32.450
+good job
+
+03:32.440 --> 03:38.190
+I mean that's the forbidden email but if I now enter this, I get please enter a password with only numbers
+
+03:38.190 --> 03:40.650
+and text and at least 5 characters.
+
+03:40.650 --> 03:48.900
+If I do enter some new account email and then here a password that is long enough and that is only text
+
+03:48.900 --> 03:53.230
+and characters, well I happen to use the email already
+
+03:53.250 --> 03:55.180
+but other than that it succeeded.
+
+03:56.080 --> 04:03.890
+If I enter something totally else, this simply worked and if I enter a valid email address, so this one doesn't
+
+04:03.890 --> 04:08.680
+exist yet but I enter a password that is long enough but has a special character,
+
+04:08.720 --> 04:12.080
+I fail because I only allow alphanumeric characters.
+
+04:12.080 --> 04:17.810
+So this is another example for adding validation and how to add multiple checks for one and the same
+
+04:17.810 --> 04:18.800
+request,
+
+04:18.860 --> 04:23.750
+now in the next lecture, let's see how we can compare our passwords for equality.

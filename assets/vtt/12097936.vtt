@@ -1,0 +1,112 @@
+WEBVTT
+
+00:02.420 --> 00:08.870
+Now talking about deleting, there's one more thing we should do in case we do succeed. We should clear
+
+00:08.930 --> 00:11.830
+the relation of posts and users.
+
+00:11.840 --> 00:15.880
+If we refresh the post collection, we only have one item there
+
+00:16.190 --> 00:21.040
+but if I have a look at my users there now, the first user has a couple of posts
+
+00:21.080 --> 00:26.290
+and the second user has so too because right now we have no logic to clear posts
+
+00:26.330 --> 00:31.460
+when I delete them, to clear relations and we should of course do that.
+
+00:31.700 --> 00:38.470
+Now how can we get rid of a relation? Well we delete the post anyways, so there's nothing we need to do
+
+00:38.470 --> 00:38.960
+there
+
+00:38.980 --> 00:46.600
+but on the user, we need to pull our reference. To do that we should find the user after we deleted a post
+
+00:46.600 --> 00:52.360
+let's say, so here I'll find a user by ID and I can use my request
+
+00:52.360 --> 00:53.510
+user ID here
+
+00:54.910 --> 00:57.440
+and I will return that user object in there.
+
+00:57.570 --> 00:59.920
+Well let's grab that code and add another
+
+00:59.920 --> 01:05.810
+then block where I will have that user mongoose model fetched from my database.
+
+01:06.310 --> 01:08.090
+Now in there,
+
+01:08.210 --> 01:15.500
+I will use my user model and there, the posts array and then there is a pull method mongoose gives me, 
+
+01:16.160 --> 01:19.960
+there I need to pass the ID of the post I want to remove.
+
+01:20.150 --> 01:26.780
+Now I deleted the post already here but the post ID is still available of course, so I can pass post
+
+01:26.780 --> 01:28.210
+ID here.
+
+01:28.250 --> 01:35.540
+Now I can call save here to save that updated user and return that, grab the response one more time and
+
+01:35.570 --> 01:36.470
+add another
+
+01:36.500 --> 01:40.010
+then block with the result of that operation
+
+01:40.100 --> 01:43.470
+and here, I'm done with clearing the relation.
+
+01:43.620 --> 01:45.040
+Now to see that in action,
+
+01:45.120 --> 01:50.830
+let me actually get rid of all users manually by using mongodb compass,
+
+01:50.850 --> 02:00.200
+also get rid of all posts and logout here and let's create a brand new user because we cleared all
+
+02:00.200 --> 02:00.710
+users,
+
+02:03.720 --> 02:05.520
+like this.
+
+02:05.640 --> 02:17.570
+Let's login with that user and let's create a new post, a duck, use that duck image, it ducks around for sure and
+
+02:18.090 --> 02:19.310
+click accept
+
+02:19.660 --> 02:25.450
+and before we do anything, let's go back to mongoose, to mongodb compass I mean, there we can see that
+
+02:25.720 --> 02:29.320
+this post has this creator and this user
+
+02:29.320 --> 02:34.140
+more importantly has this post in his posts array.
+
+02:34.500 --> 02:38.230
+Now I'm logged in with the right user, let's click delete.
+
+02:38.400 --> 02:45.790
+This worked and now if I refresh posts, we got no posts in there because I deleted the only post we had
+
+02:46.250 --> 02:49.630
+and in users, this array is now also empty,
+
+02:49.730 --> 02:52.160
+so now we're clearing this as well.

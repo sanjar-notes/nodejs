@@ -1,0 +1,406 @@
+WEBVTT
+
+1
+00:00:02.250 --> 00:00:05.660
+<v ->So I'm gonna brand new empty project here,</v>
+
+2
+00:00:05.660 --> 00:00:06.900
+an empty folder,
+
+3
+00:00:06.900 --> 00:00:09.060
+open up in Visual Studio code,
+
+4
+00:00:09.060 --> 00:00:10.800
+the IDE I'm using here.
+
+5
+00:00:10.800 --> 00:00:11.633
+And in there,
+
+6
+00:00:11.633 --> 00:00:14.380
+we're going to write some first Deno code.
+
+7
+00:00:14.380 --> 00:00:17.280
+Now, here's one important disclaimer,
+
+8
+00:00:17.280 --> 00:00:19.870
+one important prerequisite,
+
+9
+00:00:19.870 --> 00:00:24.020
+you should not dive into this module right away.
+
+10
+00:00:24.020 --> 00:00:28.340
+I do expect that you went through the node course first,
+
+11
+00:00:28.340 --> 00:00:30.710
+maybe not through all sections there,
+
+12
+00:00:30.710 --> 00:00:33.410
+but definitely through all the basic sections,
+
+13
+00:00:33.410 --> 00:00:36.010
+so that you know why we use node,
+
+14
+00:00:36.010 --> 00:00:38.040
+how we write node code,
+
+15
+00:00:38.040 --> 00:00:40.530
+how we can spin up a node web server,
+
+16
+00:00:40.530 --> 00:00:43.660
+so that you know about the Express framework.
+
+17
+00:00:43.660 --> 00:00:47.050
+All that knowledge is required for this module,
+
+18
+00:00:47.050 --> 00:00:51.990
+because I'm teaching Deno for people that already know node,
+
+19
+00:00:51.990 --> 00:00:53.370
+at least a bit.
+
+20
+00:00:53.370 --> 00:00:54.900
+That's important.
+
+21
+00:00:54.900 --> 00:00:57.540
+In addition, I mentioned that with Deno
+
+22
+00:00:57.540 --> 00:01:01.160
+you will be able to execute TypeScript code
+
+23
+00:01:01.160 --> 00:01:02.930
+Therefore, it will help a lot.
+
+24
+00:01:02.930 --> 00:01:04.060
+If you went through that
+
+25
+00:01:04.060 --> 00:01:07.120
+TypeScript module in this course, first,
+
+26
+00:01:07.120 --> 00:01:08.960
+that's just another node.
+
+27
+00:01:08.960 --> 00:01:13.280
+Also check out the modern JavaScript with node module first
+
+28
+00:01:13.280 --> 00:01:15.290
+before you go through this module.
+
+29
+00:01:15.290 --> 00:01:17.560
+With that all out of the way, though,
+
+30
+00:01:17.560 --> 00:01:19.570
+you should have an easy time following along.
+
+31
+00:01:19.570 --> 00:01:22.879
+And therefore let's write our first Deno code.
+
+32
+00:01:22.879 --> 00:01:24.480
+Now, as I mentioned,
+
+33
+00:01:24.480 --> 00:01:26.990
+it's up to us whenever you want to write this code
+
+34
+00:01:26.990 --> 00:01:29.400
+with JavaScript or with TypeScript.
+
+35
+00:01:29.400 --> 00:01:31.900
+But since steno does support TypeScript,
+
+36
+00:01:31.900 --> 00:01:34.610
+and since this is a core difference to note
+
+37
+00:01:34.610 --> 00:01:37.570
+that Deno has this built in TypeScript compiler,
+
+38
+00:01:37.570 --> 00:01:40.630
+and we don't need to compile the code ahead of time.
+
+39
+00:01:40.630 --> 00:01:42.080
+Since that is all the case,
+
+40
+00:01:42.080 --> 00:01:44.370
+let's write some TypeScript code.
+
+41
+00:01:44.370 --> 00:01:46.810
+And hence here I'm adding an app.ts file.
+
+42
+00:01:46.810 --> 00:01:48.420
+The name is fully up to you, though,
+
+43
+00:01:48.420 --> 00:01:49.920
+I'm just using .ts
+
+44
+00:01:49.920 --> 00:01:53.050
+because I will write some TypeScript code in there.
+
+45
+00:01:53.050 --> 00:01:56.070
+And here, our first basic Deno code
+
+46
+00:01:56.070 --> 00:01:58.440
+could be code that we can almost run
+
+47
+00:01:58.440 --> 00:02:01.314
+like this with node js As well,
+
+48
+00:02:01.314 --> 00:02:03.860
+I'm going to define a message variable,
+
+49
+00:02:03.860 --> 00:02:05.720
+which will be of type string.
+
+50
+00:02:05.720 --> 00:02:08.780
+So this is how I assign a type with TypeScript,
+
+51
+00:02:08.780 --> 00:02:10.090
+I'm making it clear that
+
+52
+00:02:10.090 --> 00:02:12.680
+this should contain a string eventually,
+
+53
+00:02:12.680 --> 00:02:15.913
+then I'm assigning such a string value.
+
+54
+00:02:15.913 --> 00:02:18.680
+And then I console log it.
+
+55
+00:02:18.680 --> 00:02:20.490
+Now it's needless to say that
+
+56
+00:02:20.490 --> 00:02:24.086
+we could have merged these two lines of code into one line.
+
+57
+00:02:24.086 --> 00:02:26.250
+But I want to show you
+
+58
+00:02:26.250 --> 00:02:28.760
+that we can use TypeScript features here.
+
+59
+00:02:28.760 --> 00:02:31.440
+That's why I'm going for two lines.
+
+60
+00:02:31.440 --> 00:02:33.350
+Now, this is no fancy app.
+
+61
+00:02:33.350 --> 00:02:34.800
+This is no web server.
+
+62
+00:02:34.800 --> 00:02:36.160
+But this is some code,
+
+63
+00:02:36.160 --> 00:02:39.690
+which we will be able to execute with Deno.
+
+64
+00:02:39.690 --> 00:02:41.630
+So with that saved,
+
+65
+00:02:41.630 --> 00:02:43.760
+we can now open up the terminal.
+
+66
+00:02:43.760 --> 00:02:46.890
+And here I'm using the one integrated into the IDE.
+
+67
+00:02:46.890 --> 00:02:50.080
+And we can execute our app.ts file with Deno,
+
+68
+00:02:50.080 --> 00:02:53.370
+however, not with just Deno and then the file name,
+
+69
+00:02:53.370 --> 00:02:57.060
+but instead with Deno, run app.ts.
+
+70
+00:02:57.060 --> 00:02:58.670
+So that's a difference to note
+
+71
+00:02:58.670 --> 00:03:01.280
+with node with just execute a file with node
+
+72
+00:03:01.280 --> 00:03:03.290
+and then a file name, with Deno,
+
+73
+00:03:03.290 --> 00:03:06.390
+it's Deno run, and then the file name.
+
+74
+00:03:06.390 --> 00:03:08.030
+Other than that it's quite similar though,
+
+75
+00:03:08.030 --> 00:03:10.608
+this will now execute this file with Deno.
+
+76
+00:03:10.608 --> 00:03:12.360
+And you see, first of all,
+
+77
+00:03:12.360 --> 00:03:14.060
+it compiles to code
+
+78
+00:03:14.060 --> 00:03:16.350
+from TypeScript to JavaScript, you could say.
+
+79
+00:03:16.350 --> 00:03:17.510
+And then the
+
+80
+00:03:17.510 --> 00:03:19.380
+we ate JavaScript engine
+
+81
+00:03:19.380 --> 00:03:21.580
+that is wrapped by Deno goes ahead,
+
+82
+00:03:21.580 --> 00:03:23.400
+executes the JavaScript code,
+
+83
+00:03:23.400 --> 00:03:26.230
+and therefore prints Hi there.
+
+84
+00:03:26.230 --> 00:03:27.920
+So this works.
+
+85
+00:03:27.920 --> 00:03:29.580
+If I run this again, by the way,
+
+86
+00:03:29.580 --> 00:03:32.710
+you will notice that the compilation step is skipped,
+
+87
+00:03:32.710 --> 00:03:35.200
+because it caches the compiled code.
+
+88
+00:03:35.200 --> 00:03:37.430
+And if you didn't change the code at all,
+
+89
+00:03:37.430 --> 00:03:40.350
+it will just reuse that already compiled code
+
+90
+00:03:40.350 --> 00:03:42.520
+to run the script again.
+
+91
+00:03:42.520 --> 00:03:45.910
+So this is now a very simple first app,
+
+92
+00:03:45.910 --> 00:03:48.260
+if we want to call it an app,
+
+93
+00:03:48.260 --> 00:03:50.980
+which we can execute with Deno.
+
+94
+00:03:50.980 --> 00:03:54.540
+Arguably not too fancy, but a nice start.
+
+95
+00:03:54.540 --> 00:03:59.116
+Now before we start writing some web server code with Deno
+
+96
+00:03:59.116 --> 00:04:01.860
+let's see what else we can do.
+
+97
+00:04:01.860 --> 00:04:04.860
+Let's see what is baked into Deno.
+
+98
+00:04:04.860 --> 00:04:06.639
+Because for node,
+
+99
+00:04:06.639 --> 00:04:09.810
+if we dive into the node API docs,
+
+100
+00:04:09.810 --> 00:04:13.660
+we have all those core modules that are built into node.
+
+101
+00:04:13.660 --> 00:04:16.293
+Now let's see if there is an equivalent for Deno.
+

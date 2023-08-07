@@ -1,0 +1,253 @@
+WEBVTT
+
+00:02.170 --> 00:06.910
+So let's now make sure that when we edit a product, we don't break our app as we're currently doing
+
+00:06.910 --> 00:07.210
+it
+
+00:07.210 --> 00:11.040
+if we enter something wrong but that we instead simply validate the input.
+
+00:11.200 --> 00:18.190
+Well we are validating it already because I do have all my validators added on the edit product route
+
+00:18.210 --> 00:24.430
+in the routes folder but in the controller action that belongs to that, we should also repeat the code
+
+00:24.580 --> 00:25.910
+from adding a product,
+
+00:25.930 --> 00:31.630
+so all that code where I fetch the errors and then check for the existence of errors, we should grab
+
+00:31.630 --> 00:35.560
+that and add it to post edit product as well
+
+00:35.770 --> 00:38.110
+and there before we start doing anything,
+
+00:38.140 --> 00:47.110
+so before we find a product, before we do that, I will actually use my validation errors if we got any
+
+00:47.590 --> 00:54.020
+and then re-render the page with the title of edit product, editing set to true because we are still
+
+00:54.020 --> 00:55.030
+in editing mode
+
+00:56.220 --> 01:02.810
+but has error also set to true and the product data populated like this, with the values the user entered.
+
+01:02.900 --> 01:07.960
+And with that if we save that, that's all we have to do because we're reusing the same view we use before,
+
+01:07.980 --> 01:11.260
+so we already got everything we need for outputting the errors
+
+01:11.520 --> 01:17.780
+and now if I do leave out that price field, I get title is not defined.
+
+01:18.040 --> 01:18.400
+Yeah
+
+01:18.400 --> 01:24.900
+here when I try to set the data which I return, here in this post edit product actions, it's all named
+
+01:24.990 --> 01:27.520
+updated title, updated price,
+
+01:27.630 --> 01:28.730
+so we should be using that.
+
+01:28.740 --> 01:39.010
+So let's use updated title here, updated price, updated image url and down there, it's updated desc,
+
+01:39.040 --> 01:40.730
+so this was a little mistake on my side,
+
+01:40.750 --> 01:44.170
+these values which I extracted were named differently.
+
+01:44.170 --> 01:50.300
+Now after renaming that if I try to submit this again, now I simply get invalid value, again
+
+01:50.350 --> 01:56.460
+you could override that default message in the way I showed it earlier in this module.
+
+01:56.530 --> 01:59.830
+We also see that our image url was lost,
+
+02:02.490 --> 02:07.290
+yeah but simply because I assign this incorrectly, I assign the price to the image url and the
+
+02:07.300 --> 02:09.250
+other way around.
+
+02:09.420 --> 02:11.320
+We should of course do it this way
+
+02:11.640 --> 02:16.130
+and now if I update this, now all the data is kept and I still get this error.
+
+02:16.470 --> 02:18.650
+So now we get this validation in place too,
+
+02:18.660 --> 02:25.110
+now one thing we can do of course we can again set that red border by repeating that same way we did
+
+02:25.230 --> 02:32.640
+in the login or in the sign up pages. We get our class here, we conditionally add a css class and
+
+02:32.640 --> 02:34.580
+we do the same in edit product,
+
+02:34.770 --> 02:36.420
+so there for this input
+
+02:40.330 --> 02:48.340
+I do add my class when there is an error for the title input, the same of course for the image url
+
+02:48.430 --> 02:54.320
+and all the other inputs, so that does not change. Here for the image url,
+
+02:54.400 --> 03:01.090
+I do get this css class here if we do have an error on the image url.
+
+03:01.330 --> 03:04.030
+Let's do the same for the price of course
+
+03:04.030 --> 03:04.840
+real quick,
+
+03:04.930 --> 03:07.190
+split up what we get thus far
+
+03:09.520 --> 03:15.840
+and then let's here check the price to see whether we add this invalid css class. And for the text area, it's
+
+03:15.840 --> 03:17.140
+exactly the same,
+
+03:17.160 --> 03:23.490
+we just need to do one little change to our css code because here I'm checking for description and
+
+03:23.490 --> 03:31.110
+so the invalid class might be added to that text area. Thus far in my css code, in the forms css
+
+03:31.110 --> 03:31.750
+file,
+
+03:31.920 --> 03:36.800
+I only add or change the text color if invalid was added to the input,
+
+03:37.020 --> 03:41.800
+now we should simply group another selector or add another selector to that group here
+
+03:42.060 --> 03:47.480
+and simply check whether invalid is added either to an input or to a text area
+
+03:47.580 --> 03:53.880
+and in both cases give it a red colored border. And with that in place, we now just have to make sure
+
+03:54.300 --> 04:00.910
+that we pass these validation errors which we are checking in edit product now, that we passed that
+
+04:00.930 --> 04:02.430
+with our responses.
+
+04:02.490 --> 04:09.660
+So in the admin controller starting with get add product, there validation errors should be an empty
+
+04:09.660 --> 04:16.860
+array because we got no validation errors in this place, for post add product however, here we should have
+
+04:16.860 --> 04:20.530
+validation errors which is equal to errors array,
+
+04:20.640 --> 04:26.450
+so these errors which we did fetch. For get edit product,
+
+04:26.590 --> 04:32.650
+there again I will pass validation errors as an empty array because we have no errors here when we just
+
+04:33.010 --> 04:34.350
+get the page
+
+04:34.600 --> 04:41.230
+but for post edit product when we do return our error page basically, then I want to set validation
+
+04:41.230 --> 04:44.650
+errors back to errors array like this.
+
+04:44.650 --> 04:46.510
+And now we do pass that data
+
+04:46.660 --> 04:57.510
+so if I now hit update here, you see this is red, only interesting pieces, the title is red as well.
+
+04:57.780 --> 05:04.920
+Well that makes sense because here I still have something in my validation set up in the routes folder,
+
+05:05.580 --> 05:07.060
+here alphanumeric,
+
+05:07.080 --> 05:12.930
+we did remove that if you remember because it should be isString otherwise the whitespace, the blank is
+
+05:12.930 --> 05:14.190
+not allowed.
+
+05:14.190 --> 05:21.530
+So if I change that and I hit update now, I actually fail and I do fail
+
+05:22.330 --> 05:26.350
+because the cast to object id failed for that value.
+
+05:26.380 --> 05:28.520
+Now what's wrong here?
+
+05:29.450 --> 05:36.510
+Well keep in mind for editing, we need that hidden input where I do have my product ID right
+
+05:36.640 --> 05:41.050
+and I do load that product ID when I first render this page
+
+05:41.440 --> 05:50.280
+but if I re-rendered it due to a validation error, so due to this render function in my if check here,
+
+05:50.590 --> 05:55.020
+well then I only set title, image url, price and description.
+
+05:55.240 --> 06:03.010
+I also need to set _id though, otherwise it will render the page
+
+06:03.030 --> 06:08.320
+but if I try to submit it that ID will be missing and I need that ID because I extract it here.
+
+06:09.860 --> 06:16.100
+So what I should do is I should simply pass _id here and set this equal to prod ID which
+
+06:16.100 --> 06:19.420
+I am extracting when this is submitted the first time.
+
+06:19.470 --> 06:21.440
+So now I'm passing _id
+
+06:21.890 --> 06:32.470
+and this means that if I now go to admin products, edit this and let's say I change the price,
+
+06:32.530 --> 06:33.280
+this works
+
+06:33.310 --> 06:36.450
+but now let's also do something that breaks validation,
+
+06:36.760 --> 06:41.800
+so now this was reloaded due to our failing validation.
+
+06:41.930 --> 06:49.540
+And now if I edit this, it will still work because now we also did store and re-render that product ID
+
+06:49.840 --> 06:55.260
+and that is how we can add validation and provide a relatively good user experience.

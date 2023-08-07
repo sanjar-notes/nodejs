@@ -1,0 +1,244 @@
+WEBVTT
+
+00:02.130 --> 00:05.850
+So let's convert all these html files to pug templates now
+
+00:05.960 --> 00:12.700
+and for this, I'll start with add product and create an add-product.pug file in the views folder.
+
+00:12.720 --> 00:18.090
+Now again I will create a html5 skeleton with the help of emmet here by typing html, selecting
+
+00:18.090 --> 00:18.340
+that
+
+00:18.360 --> 00:21.390
+html5 template here and hitting tab,
+
+00:21.600 --> 00:24.050
+so this already gives us a nice start.
+
+00:24.060 --> 00:33.120
+Now I'll set the title to add product and now I want to convert this form to pug and of course the header
+
+00:33.300 --> 00:37.840
+too. Now the header is something we already got in the shop so we can just copy that here,
+
+00:38.120 --> 00:41.820
+move it over to add product in the body like this,
+
+00:41.820 --> 00:46.820
+just make sure that you move the active class from the first anchor tag to the second one
+
+00:46.830 --> 00:52.950
+because now this is the active route and of course I also want to add my main section with the form
+
+00:52.980 --> 01:02.390
+now. I'll again reverse engineer it by copying the main html code, going in there and next to the header,
+
+01:02.590 --> 01:03.660
+I want to add it.
+
+01:03.700 --> 01:10.390
+Main is now just main, the form then is nested in that so let's indent it, the form has this class so
+
+01:10.390 --> 01:15.570
+let's chain this and the form also has attributes
+
+01:15.620 --> 01:19.980
+so let's add them here as a comma separated list in brackets.
+
+01:21.040 --> 01:26.090
+Now we can indent the div here because that is of course nested in the form,
+
+01:26.100 --> 01:31.390
+the div has this class and you learned that a div can also be omitted then so you can just have dot and the
+
+01:31.390 --> 01:38.870
+class to render a div. And then in there we have the label, the label here has an attribute,
+
+01:38.890 --> 01:45.260
+so let's add this and it has some text which is separated with a whitespace as you learned.
+
+01:45.260 --> 01:52.200
+Now we also have an input here, input of type text so let's add these brackets
+
+01:52.280 --> 02:01.580
+set here to render some attributes separated with commas and the id can actually be rendered separately
+
+02:02.450 --> 02:04.200
+with a hashtag in front of it,
+
+02:04.280 --> 02:06.470
+again using its css selector,
+
+02:06.470 --> 02:08.190
+something you already solve for the class,
+
+02:08.210 --> 02:12.580
+this also is the css selector for this class, pug uses these selectors,
+
+02:12.590 --> 02:14.840
+so now you have #title.
+
+02:14.870 --> 02:19.760
+Now let's remove the closing tag of the div and let's also add the button, it's indented because it's
+
+02:19.760 --> 02:20.780
+part of the form so
+
+02:20.780 --> 02:23.380
+let's make sure it's in the form,
+
+02:23.420 --> 02:25.640
+let's give that the button class
+
+02:25.640 --> 02:34.750
+don't forget this and let's add the attribute list to make this a submit button, like that and then a
+
+02:34.770 --> 02:37.490
+whitespace to separate the add product text.
+
+02:39.200 --> 02:42.600
+Let's remove the closing tags and that should be it.
+
+02:42.600 --> 02:45.280
+Now let's also render some dynamic content here,
+
+02:45.420 --> 02:49.670
+for example add product here, this title. I'll again
+
+02:49.800 --> 02:54.150
+output this dynamically, page title for example,
+
+02:54.150 --> 02:59.300
+now we have to make sure that we pass this key into this template and we do render this template in
+
+02:59.340 --> 03:03.380
+admin.js. So here where I do send this file,
+
+03:03.420 --> 03:04.920
+I don't send this file
+
+03:04.920 --> 03:09.080
+instead I now render, I render my admin file here,
+
+03:09.090 --> 03:15.750
+the admin excuse me not the admin, the add-product.pug file, this is automatically picked then and I pass in an
+
+03:15.750 --> 03:18.050
+object which holds the key value pairs
+
+03:18.050 --> 03:23.670
+I want to be able to access in the template and there, I got my page title key,
+
+03:23.790 --> 03:24.510
+so that key
+
+03:24.510 --> 03:26.110
+I'm trying to access here,
+
+03:26.190 --> 03:37.150
+I got that and I will assign a title of add product, just like that. With that if we reload,
+
+03:37.210 --> 03:41.430
+this is gone because the server restarted due to our server side changes.
+
+03:41.690 --> 03:46.970
+Now if I click add product, this is the html code by the looks of it,
+
+03:47.060 --> 03:51.260
+I forgot to add the imports,
+
+03:51.700 --> 03:58.240
+yeah I need to of course also import my stylesheets, so let's copy the links from shop.pug and
+
+03:58.250 --> 04:00.410
+add them here in the header.
+
+04:00.530 --> 04:01.550
+Let's also check the add
+
+04:01.550 --> 04:03.270
+product html file,
+
+04:03.560 --> 04:05.870
+I also need to import the forms.css
+
+04:05.910 --> 04:07.540
+file as you can see.
+
+04:07.670 --> 04:08.970
+So let's duplicate this here,
+
+04:08.960 --> 04:16.400
+this line and also add this import. Now no server restart is required because we just changed the template
+
+04:16.520 --> 04:18.630
+and therefore nodemon doesn't restart
+
+04:18.750 --> 04:21.290
+and now the reload, this looks much better
+
+04:21.820 --> 04:23.230
+and let's give this a try,
+
+04:23.240 --> 04:25.010
+it also still works.
+
+04:25.010 --> 04:25.550
+So that's it,
+
+04:25.550 --> 04:28.580
+now let's also work on the 404 page. For this
+
+04:28.610 --> 04:36.360
+I'll add a 404.pug file here and I will again create a normal html5 skeleton,
+
+04:36.440 --> 04:43.330
+I will say page not found here and I will already copy the, what do you need,
+
+04:43.340 --> 04:44.660
+the main css file,
+
+04:44.660 --> 04:52.000
+I will copy that import here from the add-product.pug file, this link, let's copy it over to the 404.pug
+
+04:52.070 --> 04:58.630
+file so that we got that. And then in the 404.html file, I get the header and I got Page Not Found,
+
+04:58.820 --> 05:01.190
+well we got the header already in add product so
+
+05:01.190 --> 05:03.170
+let's copy the header here,
+
+05:03.410 --> 05:11.130
+move that 404.pug into the body by indenting there and next to the header inside the body,
+
+05:11.180 --> 05:14.150
+I'll add a h1 tag where I say page not found.
+
+05:14.480 --> 05:15.940
+And with that we should have it,
+
+05:15.980 --> 05:20.420
+now let's just make sure that this gets rendered and for that, we have to go to the app.js file
+
+05:20.570 --> 05:25.620
+because that is where we have our catch all middleware and there instead of sending a file,
+
+05:25.640 --> 05:33.130
+I will now also render the 404 file and as before, it will automatically look in the views folder
+
+05:33.170 --> 05:41.870
+due to our setup and it will look for .pug files. So with that, if I now enter any random path which doesn't
+
+05:41.870 --> 05:44.970
+exist, we indeed get page not found.
+
+05:45.110 --> 05:49.450
+So this is now working and this is now using pug as a templating engine.
+
+05:49.580 --> 05:53.630
+Now there are a couple of other nice things that pug can do that I want to show you.

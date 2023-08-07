@@ -1,0 +1,67 @@
+WEBVTT
+
+00:02.150 --> 00:07.800
+We're able to parse incoming request bodies with the help of the body parser package which is pretty
+
+00:07.800 --> 00:08.550
+neat
+
+00:08.550 --> 00:14.640
+but right now as I mentioned, this middleware always executes, not just for post requests but also for get
+
+00:14.640 --> 00:17.210
+requests, what can we do regarding that?
+
+00:17.640 --> 00:25.440
+Well instead of app use, we can also use app get. This is basically app use, it has the same syntax
+
+00:25.470 --> 00:26.480
+as app use,
+
+00:26.490 --> 00:32.670
+we can use a path or don't use a path but it only will fire for incoming get requests,
+
+00:32.670 --> 00:38.080
+so this is another form of filtering besides filtering for the path, app get allows us to filter
+
+00:38.080 --> 00:39.750
+for get requests
+
+00:39.750 --> 00:46.800
+and on the same page, we also got app post to filter for incoming post requests and just by changing this
+
+00:46.800 --> 00:53.660
+word, this middleware will now only trigger for incoming post requests with this path and not for get
+
+00:53.670 --> 00:54.650
+requests.
+
+00:54.660 --> 01:03.500
+So if I save this and I go to /product, you see I get hello from express,
+
+01:03.640 --> 01:08.930
+so I don't end up here even though I entered /product but it was a get request
+
+01:09.460 --> 01:18.300
+but if I send a post request through that form I have on add product, if I do this here, book too, you
+
+01:18.470 --> 01:20.320
+see we get this output,
+
+01:20.340 --> 01:23.850
+so we clearly made it into this middleware due to our filtering.
+
+01:23.850 --> 01:30.710
+So this is another way of using that middleware function, instead of use which will work with all http
+
+01:30.750 --> 01:31.410
+methods,
+
+01:31.560 --> 01:34.870
+we can also use get or post to filter for these.
+
+01:34.980 --> 01:41.790
+And additionally you also have delete, patch and put which are other http works which we'll use later
+
+01:41.790 --> 01:46.350
+in the course because we can't really use them from a normal html document.

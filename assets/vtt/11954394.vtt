@@ -1,0 +1,100 @@
+WEBVTT
+
+00:02.130 --> 00:03.770
+So were you successful?
+
+00:03.900 --> 00:09.720
+We added our flash message here when we used an email which we did not find,
+
+00:09.840 --> 00:15.870
+now obviously if we have a password that does not match, here where we also redirect to login, I also want
+
+00:15.870 --> 00:19.570
+to flash my invalid email or password message onto the session.
+
+00:19.680 --> 00:24.760
+So this is another great place because if we now save this, on the login screen
+
+00:24.780 --> 00:33.210
+I might have a valid email but an invalid password and I get this error message, with valid credentials,
+
+00:33.210 --> 00:34.700
+it of course works fine though.
+
+00:36.280 --> 00:42.490
+Now we can also do something when signing up because when signing up, I'm checking whether an email address
+
+00:42.520 --> 00:43.930
+already exists,
+
+00:43.930 --> 00:48.260
+well before redirecting here I can also output something there,
+
+00:48.290 --> 00:52.350
+email exists already,
+
+00:52.350 --> 00:56.270
+please pick a different one,
+
+00:56.690 --> 01:04.060
+something like that. If we now save that and I enter the e-mail address which indeed does already exist,
+
+01:05.600 --> 01:08.710
+well then I'm redirected without having any effect
+
+01:08.990 --> 01:12.350
+and that makes sense because we flashed a message but I'm not outputting it,
+
+01:12.380 --> 01:18.080
+so we need to go to the login page and copy that code for outputting an error message and then go to
+
+01:18.080 --> 01:21.060
+sign up and there above the form,
+
+01:21.080 --> 01:23.540
+let's also output the error message here
+
+01:23.660 --> 01:28.020
+but of course for this to work, we also need to extract it when loading the sign up page.
+
+01:28.160 --> 01:34.280
+So that code which I'm using in get login to render my error message, I need that in get sign up
+
+01:34.280 --> 01:34.800
+too
+
+01:34.970 --> 01:41.300
+and then there I also need to pass this error message variable to the view which holds that message I'm
+
+01:41.300 --> 01:42.090
+extracting
+
+01:42.140 --> 01:45.810
+otherwise we can't display it even though we flash it into the session.
+
+01:45.830 --> 01:52.010
+So now with that, let's try this again, let's reuse a password, an email that already exists
+
+01:52.080 --> 01:57.720
+and now I get this error, if I do create a valid user with a valid email,
+
+01:57.750 --> 01:58.730
+this works however.
+
+01:58.740 --> 02:01.860
+So now if we quickly check our users collection,
+
+02:01.860 --> 02:04.070
+we see that was added.
+
+02:04.080 --> 02:05.220
+So these are some messages
+
+02:05.250 --> 02:08.260
+I can flash onto the screen, you could add more,
+
+02:08.280 --> 02:13.710
+for example after logging out you could also output some confirmation for that but this should do it
+
+02:13.710 --> 02:18.620
+for now. It was a nice practice and improves the user experience a little bit.

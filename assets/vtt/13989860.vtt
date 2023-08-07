@@ -1,0 +1,325 @@
+WEBVTT
+
+00:02.500 --> 00:04.550
+To solve that issue that we had.
+
+00:04.600 --> 00:08.440
+We have an external dependency with some method.
+
+00:08.470 --> 00:17.470
+Well, to solve that, we can use marks or steps, which means we essentially replace this verified
+
+00:17.470 --> 00:19.750
+method with a simpler method.
+
+00:20.350 --> 00:22.720
+Now, how can we do that?
+
+00:23.020 --> 00:28.900
+Well, first of all, let's import JWT here by requiring JSON Web token.
+
+00:29.380 --> 00:39.100
+And what we can do now is in here, we can, of course, call, JWT, verify and set as equal to a new
+
+00:39.100 --> 00:39.960
+function.
+
+00:41.240 --> 00:48.710
+That simply returns an object where we have the user ID field, which is a C, for example.
+
+00:49.220 --> 00:55.160
+So what we're doing now is we're overwriting the actual verify method that this package has.
+
+00:55.310 --> 01:03.110
+We're overwriting it and the way module imports work in Node.js, if we overwrite it here, this will
+
+01:03.110 --> 01:07.460
+be the case in the middleware when it runs too, because we have one global package, so to say, which
+
+01:07.460 --> 01:08.250
+is used here.
+
+01:08.270 --> 01:10.460
+So we overwrite this with our own function.
+
+01:10.850 --> 01:17.530
+Now, if I run NPM test, our own function gets executed and that will return a user ID in that object
+
+01:17.540 --> 01:20.710
+it gives us, and therefore it will, first of all, not throw an error.
+
+01:20.720 --> 01:24.050
+And it also gives us a way of pulling out our user ID.
+
+01:24.320 --> 01:27.680
+And so now if I run my tests, this will still fail.
+
+01:27.680 --> 01:33.840
+But now it fails because we expect it to have a property user ID, but actually we don't.
+
+01:33.860 --> 01:37.400
+We only have an object with a get method because we only have this object.
+
+01:37.400 --> 01:42.920
+We don't have a user ID and now we can look into our code and see, oh yeah, maybe we should add this
+
+01:42.920 --> 01:47.270
+code again to make sure we do store that user ID in the request object.
+
+01:47.360 --> 01:55.100
+And now if we re execute NPM test we have for passing tests and that is because we actually replaced
+
+01:55.100 --> 02:00.860
+the built in verify method and that is a common way of handling such cases.
+
+02:00.950 --> 02:06.440
+However, instead of manually overwriting it like this, there is a more elegant way because this has
+
+02:06.440 --> 02:07.730
+a huge downside.
+
+02:08.670 --> 02:11.550
+Which downside does this approach have?
+
+02:11.760 --> 02:19.140
+It becomes evident if I cut this test you just wrote and I put it in front of the test we had before
+
+02:19.170 --> 02:21.770
+that this is the test where it should throw an error.
+
+02:21.780 --> 02:29.280
+If we have an invalid token, please note that before all tests passed so we did get an error for an
+
+02:29.280 --> 02:30.900
+invalid token here.
+
+02:30.900 --> 02:35.370
+However, we're then overwriting verify to basically never throw an error.
+
+02:35.700 --> 02:42.210
+So now after I switch the order of tests, I actually have a problem with my last test because this
+
+02:42.210 --> 02:44.220
+does not throw an error anymore.
+
+02:44.220 --> 02:45.060
+Why?
+
+02:45.150 --> 02:50.130
+Because in this test I globale replaced the verify method here.
+
+02:51.260 --> 02:53.900
+That, of course, is not ideal.
+
+02:53.930 --> 02:56.090
+It's good for this test to succeed.
+
+02:56.090 --> 03:02.300
+But it means, of course, that if I have any other test that needs the original Verify method, it
+
+03:02.300 --> 03:05.420
+now has no chance of getting that because we replaced it here.
+
+03:05.540 --> 03:12.380
+And therefore, instead of manually stopping or marking functionalities and replacing them, it's good
+
+03:12.380 --> 03:18.470
+to use packages that also allow you to restore the original setup.
+
+03:19.190 --> 03:26.050
+For that, we'll install that extra package, which I mentioned earlier already with NPM, install dash
+
+03:26.080 --> 03:30.100
+dash save death and its name is Sinon.
+
+03:30.110 --> 03:36.890
+Sign in is a package that allows us to create a so called step, which is a replacement for the original
+
+03:36.890 --> 03:40.370
+function, where we can easily restore the original function.
+
+03:40.370 --> 03:48.050
+Though to use that, we simply import Sinon by requiring well, sign in here at the top of our testing
+
+03:48.050 --> 03:54.230
+file where we need it, and then in the place where I want to replace verify instead of manually replacing
+
+03:54.230 --> 04:03.620
+it like this, I call Sinon step and I pass in the object where I have the method I want to replace
+
+04:03.620 --> 04:04.970
+that is JWT.
+
+04:04.970 --> 04:11.030
+And of course the official sign and docs are the place to learn all about this package and all the different
+
+04:11.030 --> 04:12.080
+ways of using it.
+
+04:12.260 --> 04:18.650
+So here for setup I pass on the object which has the method I want to replace and then as a string the
+
+04:18.650 --> 04:19.550
+method name.
+
+04:20.410 --> 04:20.740
+Right.
+
+04:20.920 --> 04:22.180
+So I have two arguments here.
+
+04:22.210 --> 04:24.910
+JWT is the object that has the method.
+
+04:24.940 --> 04:26.800
+Verify is the actual method.
+
+04:27.130 --> 04:31.990
+Now sign and will replace that and by default it replaces it with an empty function.
+
+04:31.990 --> 04:33.580
+That doesn't do anything special.
+
+04:33.580 --> 04:35.610
+Though that's not entirely true.
+
+04:35.620 --> 04:41.380
+It actually will do things like registering function calls and so on, so that you can also test for
+
+04:41.380 --> 04:45.520
+things like Has this function be called no matter what it executes?
+
+04:46.820 --> 04:50.690
+So now as a next step with that being stepped.
+
+04:51.800 --> 04:59.780
+We can actually reach out to JWT Verify, which now is a startup and there we can call returns.
+
+05:01.230 --> 05:04.340
+And this is now a method that was added by CNN.
+
+05:04.350 --> 05:11.100
+So now verify is in the end, an object you could say that cannot be executed, but that also can be
+
+05:11.100 --> 05:15.090
+configured and returns allows us to configure what this function should return.
+
+05:15.090 --> 05:20.880
+And here it should return a JavaScript object with a user ID key, which could be a, b, c.
+
+05:22.550 --> 05:26.780
+Now whenever we call JWT, Verify will actually call that stuff.
+
+05:26.780 --> 05:36.440
+And the great thing is after checking our expectation here, we can now call JWT, Verify, Restore
+
+05:36.950 --> 05:39.890
+and this will now restore the original function.
+
+05:40.670 --> 05:45.380
+That's the big difference to our own setup, where we replaced this on our own.
+
+05:45.380 --> 05:53.090
+Because now if I run NPM test again, all tests pass again because I actually restore the original function
+
+05:53.090 --> 05:56.270
+after this test where I needed a different behavior.
+
+05:56.980 --> 06:05.690
+Now, just for completeness sake, of course, we can now also test if request has a property.
+
+06:07.360 --> 06:09.700
+User ID with a certain value.
+
+06:09.700 --> 06:14.530
+That's an optional second argument you can pass to that property, to that property method.
+
+06:14.530 --> 06:17.380
+So we want to make sure that the value is ABC.
+
+06:17.410 --> 06:21.250
+Of course, that's kind of a redundant test because we define the value here.
+
+06:21.250 --> 06:27.670
+So of course it is that value, but it could rule out that we, for example, manipulated this here
+
+06:27.670 --> 06:33.820
+and added user ID here in front of this to concatenate a string, because now this would fail and we
+
+06:33.820 --> 06:39.370
+would detect bugs like that and it would only succeed if I get rid of that and really store or store
+
+06:39.400 --> 06:42.220
+the raw user ID now everything passes.
+
+06:42.220 --> 06:43.540
+So that is something.
+
+06:43.540 --> 06:50.320
+And as I mentioned, this stub also registers things like function calls.
+
+06:50.800 --> 06:53.470
+So if you want to find out if this has been called at all.
+
+06:53.470 --> 07:01.030
+So if the verify method has been called, you can call expect JWT Verify called.
+
+07:01.960 --> 07:05.530
+To be true, for example.
+
+07:06.170 --> 07:07.550
+Now if you run this.
+
+07:08.260 --> 07:13.810
+It succeeds because the Verify method has been called in our off middleware.
+
+07:14.200 --> 07:23.350
+And if we now, for example, comment this out and we set decoded token to just an object where we have
+
+07:23.350 --> 07:30.280
+a user ID, well then our, our tests would normally still succeed, but we do actually get an error
+
+07:30.280 --> 07:32.580
+here because we expect that false to be true.
+
+07:32.590 --> 07:35.380
+Well, we expect that because now.
+
+07:36.520 --> 07:41.560
+This check here whether verify has been called gives us false, but we expect it to be true.
+
+07:41.560 --> 07:43.290
+But indeed it has never been called.
+
+07:43.300 --> 07:45.790
+So now we could fix such an error here.
+
+07:45.820 --> 07:50.860
+Of course that was a made up example, but it is easy to imagine scenarios where you have code, where
+
+07:50.860 --> 07:56.620
+you change something and suddenly you have an extra if check which has a tiny bug and some method that
+
+07:56.620 --> 08:00.880
+should be called doesn't get called anymore because you don't make it into that if check.
+
+08:00.880 --> 08:06.790
+Well, this allows you so this here allows you to detect such cases.
+
+08:07.030 --> 08:13.780
+So this is how you use steps you can replace built in methods with empty methods in case you don't care
+
+08:13.780 --> 08:18.850
+about the return value and what they do, or you define what they should return and you can then find
+
+08:18.850 --> 08:20.380
+out whether they have been called.
+
+08:20.380 --> 08:22.630
+You can use that return value you set up.
+
+08:22.630 --> 08:30.460
+So you have a very powerful way of replacing some external methods and still restore everything once
+
+08:30.460 --> 08:36.700
+you're done so that our tests that might need the original functionality still work correctly.

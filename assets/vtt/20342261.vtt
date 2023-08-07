@@ -1,0 +1,746 @@
+WEBVTT
+
+1
+00:00:02.800 --> 00:00:04.830
+<v Instructor>Now, throughout this course you learned</v>
+
+2
+00:00:04.830 --> 00:00:08.710
+how you can process requests with Node.js.
+
+3
+00:00:08.710 --> 00:00:11.560
+And you saw that it isn't too much fun
+
+4
+00:00:11.560 --> 00:00:16.500
+if you do this all on your own without any extra framework.
+
+5
+00:00:16.500 --> 00:00:18.170
+The code that you have to write
+
+6
+00:00:18.170 --> 00:00:20.680
+could look something like this, for example.
+
+7
+00:00:20.680 --> 00:00:22.200
+Now this is Node code.
+
+8
+00:00:22.200 --> 00:00:25.330
+But in Deno, or Denos world,
+
+9
+00:00:25.330 --> 00:00:27.760
+it would be pretty much the same.
+
+10
+00:00:27.760 --> 00:00:31.000
+Out of the box, if you just used the core APIs,
+
+11
+00:00:31.000 --> 00:00:33.570
+but also if you used the standard library
+
+12
+00:00:33.570 --> 00:00:36.200
+you would have to do all the requests,
+
+13
+00:00:36.200 --> 00:00:39.700
+processing and the response, body handling and so on.
+
+14
+00:00:39.700 --> 00:00:41.640
+You would have to do all of that on your own.
+
+15
+00:00:41.640 --> 00:00:45.190
+You would have to pass incoming request bodies.
+
+16
+00:00:45.190 --> 00:00:48.840
+And whilst it's nice to see what happens under the hood,
+
+17
+00:00:48.840 --> 00:00:51.440
+I will not repeat it here because it's really not
+
+18
+00:00:51.440 --> 00:00:55.270
+that different from what you learned about Node there.
+
+19
+00:00:55.270 --> 00:00:59.880
+Instead, the main takeaway, just as in Nodes case,
+
+20
+00:00:59.880 --> 00:01:03.870
+is that we typically don't want to do this on our own.
+
+21
+00:01:03.870 --> 00:01:08.120
+Instead, we want to do this with help of some frameworks
+
+22
+00:01:08.120 --> 00:01:11.000
+which take care of the heavy lifting,
+
+23
+00:01:11.000 --> 00:01:15.030
+which take care of the request body processing,
+
+24
+00:01:15.030 --> 00:01:18.760
+and which allow us as a developer to focus on
+
+25
+00:01:18.760 --> 00:01:20.750
+our core business logic.
+
+26
+00:01:20.750 --> 00:01:22.380
+And that, by the way, will be true
+
+27
+00:01:22.380 --> 00:01:26.480
+no matter which kind of web application we plan on building.
+
+28
+00:01:26.480 --> 00:01:29.210
+We can, of course, build two main kinds of web apps,
+
+29
+00:01:29.210 --> 00:01:32.020
+and that would be APIs and server-side rendered
+
+30
+00:01:32.020 --> 00:01:34.090
+views based web apps.
+
+31
+00:01:34.090 --> 00:01:38.130
+So, for example, REST API or GraphQL API apps
+
+32
+00:01:38.130 --> 00:01:40.170
+where you have those endpoints
+
+33
+00:01:40.170 --> 00:01:42.310
+where you then have a standalone frontend
+
+34
+00:01:42.310 --> 00:01:44.530
+that communicates with the API.
+
+35
+00:01:44.530 --> 00:01:46.940
+Or the other use case that you have
+
+36
+00:01:46.940 --> 00:01:50.740
+server-side rendered views with templating engines
+
+37
+00:01:50.740 --> 00:01:54.280
+and you generate HTML on the server and send that back.
+
+38
+00:01:54.280 --> 00:01:56.960
+And therefore you have one frontend, backend unit.
+
+39
+00:01:56.960 --> 00:01:59.250
+This is what you learned about in this course.
+
+40
+00:01:59.250 --> 00:02:01.890
+You had a look at teamplating engines in that course.
+
+41
+00:02:01.890 --> 00:02:03.800
+We also learned about REST APIs.
+
+42
+00:02:03.800 --> 00:02:07.200
+And you can use Deno for all kinds of apps.
+
+43
+00:02:07.200 --> 00:02:10.760
+Just like you can use Node for all kinds of apps.
+
+44
+00:02:10.760 --> 00:02:14.600
+You can also render server-side templates with Deno,
+
+45
+00:02:14.600 --> 00:02:17.680
+and then you can also build APIs with Deno.
+
+46
+00:02:17.680 --> 00:02:20.400
+In this module I will focus on APIs.
+
+47
+00:02:20.400 --> 00:02:24.150
+Simply that's a bit easier and allows me to focus more
+
+48
+00:02:24.150 --> 00:02:28.300
+on Deno and not on overhead-like templating engines.
+
+49
+00:02:28.300 --> 00:02:30.810
+But in the end, you can build everything with Deno.
+
+50
+00:02:30.810 --> 00:02:33.030
+That's really important.
+
+51
+00:02:33.030 --> 00:02:35.150
+No matter what you're building though,
+
+52
+00:02:35.150 --> 00:02:38.830
+as I mentioned, you don't wanna do all that request passing
+
+53
+00:02:38.830 --> 00:02:40.600
+and so on, on your own.
+
+54
+00:02:40.600 --> 00:02:44.630
+So let's now see which frameworks we have with Deno
+
+55
+00:02:44.630 --> 00:02:47.230
+and how they would work.
+
+56
+00:02:47.230 --> 00:02:51.640
+In Node.js, we have the Express framework.
+
+57
+00:02:51.640 --> 00:02:53.720
+We learned about Express in this course,
+
+58
+00:02:53.720 --> 00:02:58.180
+and Express is a great and very popular Node framework
+
+59
+00:02:58.180 --> 00:03:00.640
+that takes care of the heavy lifting
+
+60
+00:03:00.640 --> 00:03:03.200
+and allows us, as developer, to focus on
+
+61
+00:03:03.200 --> 00:03:04.853
+our core business logic.
+
+62
+00:03:05.770 --> 00:03:10.770
+In Deno, or Denos case, we have the Oak framework.
+
+63
+00:03:11.850 --> 00:03:15.990
+Just like Express, it's a middleware focused Deno framework.
+
+64
+00:03:15.990 --> 00:03:20.220
+So learning Oak will be easy if you already know Express
+
+65
+00:03:20.220 --> 00:03:22.560
+for building web applications.
+
+66
+00:03:22.560 --> 00:03:25.810
+Now, it's actually not directly inspired by Express,
+
+67
+00:03:25.810 --> 00:03:29.170
+but by Koa, which is another framework that exists
+
+68
+00:03:29.170 --> 00:03:33.510
+for Node.js which I haven't covered in this course though.
+
+69
+00:03:33.510 --> 00:03:37.470
+Now if you search for Koa, you'll find koajs.com.
+
+70
+00:03:37.470 --> 00:03:40.520
+And there you'll learn that it's a next generation
+
+71
+00:03:40.520 --> 00:03:43.270
+web framework for Node.js.
+
+72
+00:03:43.270 --> 00:03:46.380
+In the end you could say that Koa basically has the idea
+
+73
+00:03:46.380 --> 00:03:49.270
+of being a better Express.
+
+74
+00:03:49.270 --> 00:03:51.790
+If you have a look at some code examples here,
+
+75
+00:03:51.790 --> 00:03:54.570
+you'll see that it's also middleware based.
+
+76
+00:03:54.570 --> 00:03:57.380
+It's not too far away from express,
+
+77
+00:03:57.380 --> 00:04:00.560
+but it does some things differently.
+
+78
+00:04:00.560 --> 00:04:03.010
+You can check out Koa for Node.js
+
+79
+00:04:03.010 --> 00:04:05.470
+if you wanna learn all about it.
+
+80
+00:04:05.470 --> 00:04:08.840
+But in general, Express still is the most popular framework
+
+81
+00:04:08.840 --> 00:04:12.200
+and Koa was inspired by Express.
+
+82
+00:04:12.200 --> 00:04:17.200
+Now, Oak, on the other hand is a Deno third party module.
+
+83
+00:04:18.020 --> 00:04:20.740
+And you'll find it under third party modules
+
+84
+00:04:20.740 --> 00:04:22.690
+on the Deno page.
+
+85
+00:04:22.690 --> 00:04:25.260
+And here you find a lot of modules
+
+86
+00:04:25.260 --> 00:04:27.760
+that can help you with a lot of things.
+
+87
+00:04:27.760 --> 00:04:32.760
+But if you search for Oak, you'll find that Oak module.
+
+88
+00:04:33.680 --> 00:04:36.140
+And that's, again, just this Koa,
+
+89
+00:04:36.140 --> 00:04:40.020
+and therefore indirectly Express inspired framework
+
+90
+00:04:40.020 --> 00:04:41.960
+for Deno now.
+
+91
+00:04:41.960 --> 00:04:45.610
+You also just make that clear if you search for Express,
+
+92
+00:04:45.610 --> 00:04:50.610
+find certain frameworks that are basically Express for Deno.
+
+93
+00:04:51.300 --> 00:04:55.010
+Those frameworks might be powerful in the future,
+
+94
+00:04:55.010 --> 00:04:57.580
+but at the moment a lot of features are missing
+
+95
+00:04:57.580 --> 00:05:01.350
+in those frameworks which is why I'm not covering them here.
+
+96
+00:05:01.350 --> 00:05:04.770
+That's why we will stick to Oak for now.
+
+97
+00:05:04.770 --> 00:05:08.060
+Just as with Node and so on, there simply are
+
+98
+00:05:08.060 --> 00:05:10.050
+different frameworks available,
+
+99
+00:05:10.050 --> 00:05:12.580
+different libraries available which you can look into
+
+100
+00:05:12.580 --> 00:05:14.500
+to solve different problems.
+
+101
+00:05:14.500 --> 00:05:16.950
+The main problem which they tried to solve
+
+102
+00:05:16.950 --> 00:05:18.550
+is always the same though.
+
+103
+00:05:18.550 --> 00:05:21.420
+They want to make it easier for you to write your code
+
+104
+00:05:21.420 --> 00:05:23.560
+and they want to take annoying work,
+
+105
+00:05:23.560 --> 00:05:26.920
+like passing request bodies away from you.
+
+106
+00:05:26.920 --> 00:05:29.310
+So if we dive into that Oak module,
+
+107
+00:05:29.310 --> 00:05:32.400
+we get some documentation there on how we use it.
+
+108
+00:05:32.400 --> 00:05:35.410
+And we can follow this basic code here,
+
+109
+00:05:35.410 --> 00:05:38.480
+we can implement this basic code snippet here
+
+110
+00:05:38.480 --> 00:05:42.530
+to handle incoming requests, and send back responses
+
+111
+00:05:42.530 --> 00:05:45.000
+with the Oak module.
+
+112
+00:05:45.000 --> 00:05:48.390
+Now, the most important difference to note
+
+113
+00:05:48.390 --> 00:05:53.390
+at this point here, is that we have no package.json file
+
+114
+00:05:53.880 --> 00:05:56.910
+and that we don't have a tool like NPM
+
+115
+00:05:56.910 --> 00:05:59.290
+for managing dependencies.
+
+116
+00:05:59.290 --> 00:06:03.680
+With Express, we had core modules, which we had to import.
+
+117
+00:06:03.680 --> 00:06:06.620
+But which were installed together with Node.
+
+118
+00:06:06.620 --> 00:06:10.010
+And we had third party modules, like Express,
+
+119
+00:06:10.010 --> 00:06:13.290
+which we had to install with NPM Install.
+
+120
+00:06:13.290 --> 00:06:15.540
+Right, that's what we did over and over
+
+121
+00:06:15.540 --> 00:06:16.800
+throughout this course.
+
+122
+00:06:16.800 --> 00:06:20.870
+We had to manage dependencies for our project.
+
+123
+00:06:20.870 --> 00:06:23.770
+With Deno, this concept does not exist.
+
+124
+00:06:23.770 --> 00:06:28.620
+Because there, with Deno, you have these URL imports.
+
+125
+00:06:28.620 --> 00:06:31.250
+So you never install anything locally,
+
+126
+00:06:31.250 --> 00:06:35.280
+you never manage local dependencies like this with Deno.
+
+127
+00:06:35.280 --> 00:06:39.470
+Instead with Deno you really just reach out
+
+128
+00:06:39.470 --> 00:06:42.680
+to a web server, to a file on that server,
+
+129
+00:06:42.680 --> 00:06:45.430
+and you can install it from there.
+
+130
+00:06:45.430 --> 00:06:47.600
+Now, you can still manage some versions
+
+131
+00:06:47.600 --> 00:06:51.460
+by including them in the URL from which you're importing,
+
+132
+00:06:51.460 --> 00:06:54.610
+but you don't have a dedicated package management file
+
+133
+00:06:54.610 --> 00:06:56.870
+as you do have it in Node projects.
+
+134
+00:06:56.870 --> 00:06:59.830
+And it's up to you whether you prefer this approach
+
+135
+00:06:59.830 --> 00:07:02.990
+or whether you prefer the Node approach.
+
+136
+00:07:02.990 --> 00:07:06.690
+Either way, I'm going to copy this code here
+
+137
+00:07:06.690 --> 00:07:09.620
+and replace my app.ts code with it.
+
+138
+00:07:09.620 --> 00:07:11.820
+I'm also going back to my extensions
+
+139
+00:07:11.820 --> 00:07:14.290
+and I'll enable the Deno extension again
+
+140
+00:07:15.410 --> 00:07:18.700
+to ensure that I got good IDE support.
+
+141
+00:07:18.700 --> 00:07:21.590
+And now what I'm doing here with this code snippet
+
+142
+00:07:21.590 --> 00:07:25.510
+is I'm importing the Application constructor function
+
+143
+00:07:25.510 --> 00:07:29.530
+or clause, as it seems, from this URL.
+
+144
+00:07:29.530 --> 00:07:33.370
+So from this third party module file.
+
+145
+00:07:33.370 --> 00:07:36.690
+And then we create a new app by instantiating it.
+
+146
+00:07:36.690 --> 00:07:39.850
+We register some middleware with the use method,
+
+147
+00:07:39.850 --> 00:07:41.560
+that's quite similar to Express.
+
+148
+00:07:41.560 --> 00:07:44.310
+The middleware function looks a bit different though.
+
+149
+00:07:44.310 --> 00:07:48.450
+Instead of getting request, response, and next here,
+
+150
+00:07:48.450 --> 00:07:51.760
+we get a context, but also a next function.
+
+151
+00:07:51.760 --> 00:07:53.620
+I can already tell you that.
+
+152
+00:07:53.620 --> 00:07:57.170
+But we get the context, and the context holds a reference
+
+153
+00:07:57.170 --> 00:08:02.010
+to a request object, but also to a response object.
+
+154
+00:08:02.010 --> 00:08:04.710
+So request and response is basically summarized
+
+155
+00:08:04.710 --> 00:08:07.150
+in one context object.
+
+156
+00:08:07.150 --> 00:08:10.270
+We can use the response object to, for example,
+
+157
+00:08:10.270 --> 00:08:12.090
+set the body of the response,
+
+158
+00:08:12.090 --> 00:08:15.530
+which then will be sent back automatically.
+
+159
+00:08:15.530 --> 00:08:19.890
+And we need to listen, overall, to start up that server here
+
+160
+00:08:19.890 --> 00:08:22.833
+with some top level await, as you can see.
+
+161
+00:08:24.990 --> 00:08:28.610
+With that, if we now run this file with Deno run,
+
+162
+00:08:28.610 --> 00:08:33.080
+we again need to give it network permissions with allow net.
+
+163
+00:08:33.080 --> 00:08:35.210
+And now this will spin up a server.
+
+164
+00:08:35.210 --> 00:08:38.150
+First of all, of course, it compiles the file
+
+165
+00:08:38.150 --> 00:08:42.140
+and it will download this package and all the dependencies.
+
+166
+00:08:42.140 --> 00:08:43.730
+For me it doesn't do this again,
+
+167
+00:08:43.730 --> 00:08:45.430
+because I did it before already,
+
+168
+00:08:45.430 --> 00:08:49.690
+so the package was already cached as I mentioned earlier.
+
+169
+00:08:49.690 --> 00:08:53.870
+And now, with that, if I visit localhost 8000,
+
+170
+00:08:53.870 --> 00:08:55.520
+I see Hello World.
+
+171
+00:08:55.520 --> 00:08:59.523
+Localhost 8000 because that's the port being specified here.
+
+172
+00:09:00.380 --> 00:09:03.950
+So, this is now a new Deno app,
+
+173
+00:09:03.950 --> 00:09:08.410
+now using the Oak framework for handling requests
+
+174
+00:09:08.410 --> 00:09:10.820
+and sending back responses.
+
+175
+00:09:10.820 --> 00:09:14.690
+And the idea, again, really just is that we can focus
+
+176
+00:09:14.690 --> 00:09:19.560
+on our core work, on our core business logic.
+
+177
+00:09:19.560 --> 00:09:21.370
+Now, with that out of the way,
+
+178
+00:09:21.370 --> 00:09:26.370
+let's build a very simple REST API with the Oak framework.
+
+179
+00:09:27.210 --> 00:09:29.110
+And let's then, of course, also...
+
+180
+00:09:29.110 --> 00:09:31.420
+Just so that we always have the comparison,
+
+181
+00:09:31.420 --> 00:09:33.600
+compare that to Node.
+
+182
+00:09:33.600 --> 00:09:36.200
+And actually I'll start with the Node API.
+
+183
+00:09:36.200 --> 00:09:38.630
+So if we build that simple API together,
+
+184
+00:09:38.630 --> 00:09:40.633
+and will then port it to Denos,
+
+185
+00:09:40.633 --> 00:09:43.210
+so that we really have the best possible way
+
+186
+00:09:43.210 --> 00:09:46.043
+of seeing the differences and of comparing it.
+

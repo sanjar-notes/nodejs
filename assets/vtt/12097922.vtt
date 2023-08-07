@@ -1,0 +1,361 @@
+WEBVTT
+
+00:02.410 --> 00:06.460
+Now that we're generating a token and we're passing it to the client,
+
+00:06.550 --> 00:12.190
+we need to make sure that the client can pass back the token to the backend, to the rest API
+
+00:12.400 --> 00:20.770
+and we then check for the A, existence and B, validity of the token before we allow the request to continue.
+
+00:20.770 --> 00:25.980
+So for example on our feed routes, on all these routes, none of these routes should be public,
+
+00:26.080 --> 00:33.010
+so if no token is attached to the incoming request, we should simply block access here and this is what
+
+00:33.010 --> 00:36.330
+I'll work on now. For that I'll add a new middleware and
+
+00:36.440 --> 00:39.800
+I'll create a new middleware folder for this,
+
+00:39.820 --> 00:45.110
+you could place it anywhere though and I'll name it isAuth.js,
+
+00:45.190 --> 00:48.730
+that is the name of my file. In there,
+
+00:48.940 --> 00:55.510
+I will import my json web token package because we'll need that package to validate incoming tokens,
+
+00:56.470 --> 01:03.280
+then I'll export one function in that file and that will be a normal middleware function with request, response,
+
+01:03.400 --> 01:06.810
+next so that I can use it as a middleware
+
+01:07.360 --> 01:11.940
+and now I first of all need to extract the token from an incoming request.
+
+01:11.950 --> 01:15.880
+Now currently we are not attaching the token to any requests,
+
+01:15.880 --> 01:20.040
+how could we attach it? If we go back to our frontend let's say in feed.js
+
+01:20.070 --> 01:23.680
+for loading posts we want to attach the token,
+
+01:23.740 --> 01:25.190
+how could we do that and
+
+01:25.210 --> 01:32.730
+there are a couple of options. You could add a query parameter, something like token equals and then enter
+
+01:32.740 --> 01:37.990
+your token value there and then append other query parameters, that would be a valid option,
+
+01:37.990 --> 01:40.220
+nothing wrong with that.
+
+01:40.450 --> 01:46.660
+You could include it in the request body but that is not ideal because for example get requests have
+
+01:46.660 --> 01:47.350
+no body,
+
+01:47.380 --> 01:49.220
+so that is not a solution
+
+01:49.360 --> 01:58.940
+you should use unless you never have authenticated get requests. A great solution is however that you
+
+01:58.940 --> 02:00.860
+use a header.
+
+02:00.860 --> 02:01.780
+It keeps your urls
+
+02:01.780 --> 02:03.400
+beautiful,
+
+02:03.530 --> 02:07.260
+of course that might not be the most important argument but still, it keeps your
+
+02:07.280 --> 02:12.180
+urls beautiful and a header makes a lot of sense for meta information like
+
+02:12.200 --> 02:14.000
+well the token which it is in the end.
+
+02:14.430 --> 02:19.520
+So let's add a second argument in the load posts function in the feed.js
+
+02:19.630 --> 02:21.330
+file in the frontend,
+
+02:21.430 --> 02:24.260
+a second argument there to the fetch method
+
+02:24.470 --> 02:30.050
+and here I will add some headers to this request. Now I will not add the content type because I'm not
+
+02:30.050 --> 02:36.250
+sending any data here but I will add the authorization header.
+
+02:36.260 --> 02:41.570
+Theoretically you can add any header you want but this is an official header, a header you officially
+
+02:41.570 --> 02:45.650
+use for passing authentication information to the backend
+
+02:45.680 --> 02:52.310
+and please remember that on the backend in the app.js file where we added our course headers,
+
+02:52.310 --> 02:53.530
+I did enable
+
+02:53.540 --> 02:58.680
+the authorization header, you need to have that enabled for this to work.
+
+02:58.680 --> 03:04.430
+So now I'm setting my authorization header there and I'm setting it to a value which is not just the token
+
+03:04.640 --> 03:12.430
+but actually bearer whitespace and then this props token allows you to get the token in the react app.
+
+03:12.950 --> 03:14.440
+Why bearer?
+
+03:14.660 --> 03:21.500
+Well this is just a convention to kind of identify that the type of token you have and the bearer token is simply
+
+03:21.740 --> 03:25.730
+an authentication token, you typically use bearer for json
+
+03:25.730 --> 03:26.780
+web tokens.
+
+03:26.780 --> 03:27.710
+It's not a must,
+
+03:27.710 --> 03:34.170
+you could actually work without that but it's a common convention and therefore I want to keep that convention.
+
+03:34.400 --> 03:40.000
+So this is how I could add my token to that get posts request on the frontend,
+
+03:40.160 --> 03:46.410
+now on the backend to extract it in my isAuth middleware, I will create a new variable
+
+03:46.460 --> 03:51.010
+or a constant token and then access my request and with the get method,
+
+03:51.080 --> 03:54.870
+I can get some header value.
+
+03:54.950 --> 04:03.560
+The header is the authorization header of course and there, I will get this bearer whitespace token.
+
+04:03.560 --> 04:09.620
+Now I'm only interested in the token of course, so I will split on the whitespace which comes after bearer
+
+04:09.770 --> 04:12.540
+and I'll get the second value which is the token then,
+
+04:12.860 --> 04:14.570
+so this is the token,
+
+04:14.580 --> 04:22.490
+now I will try to decode that. So I will actually use a try catch block because it could fail and I will
+
+04:22.490 --> 04:33.860
+create a new variable here, decoded token and decoded token will then be JWT and there, you have a verify
+
+04:33.860 --> 04:34.460
+method,
+
+04:34.460 --> 04:39.150
+this will both decode and verify your token.
+
+04:39.170 --> 04:44.050
+You also have a decode token but this will only decode it and not check if it's valid,
+
+04:44.150 --> 04:51.170
+so definitely use verify here and then you pass in that token which you extracted from the header and then
+
+04:51.290 --> 04:56.730
+that secret and that has to be the same secret you used for signing the token of course,
+
+04:56.900 --> 05:01.340
+so the same secret you used in your auth controller, this one
+
+05:01.340 --> 05:03.790
+otherwise you'll not get a matching result.
+
+05:03.920 --> 05:08.940
+So this is the secret which we will use for validating the token.
+
+05:08.970 --> 05:10.310
+Now this could fail,
+
+05:10.470 --> 05:12.230
+so here I'll have a catch block
+
+05:13.650 --> 05:21.420
+and there, I want to add a status code to my error of 500 and then I will throw the error here.
+
+05:22.590 --> 05:31.820
+Since I'm in a middleware, now the expressjs error handler would take over, otherwise we know that
+
+05:31.820 --> 05:38.060
+decoding worked and I'll check if it is undefined which would be the case if it didn't fail technically
+
+05:38.330 --> 05:41.780
+but it was unable to verify the token.
+
+05:41.780 --> 05:51.450
+In this case I'll create a new error, not authenticated,
+
+05:53.050 --> 05:58.730
+add a status code of 401 and throw this error.
+
+05:59.060 --> 06:06.440
+If we make it past this if check, we know that we have a valid token however and that we were able to decode
+
+06:06.440 --> 06:07.020
+it,
+
+06:07.040 --> 06:12.860
+so now I'll just extract some information from the token, the user id and I will store it in the request
+
+06:12.980 --> 06:18.500
+so that I can use it in other places where this request will go, like in my routes and there I'll just
+
+06:18.500 --> 06:23.530
+access the decoded token which now simply well is basically the part on the right
+
+06:23.530 --> 06:26.580
+here, we can now access that data since we decoded it.
+
+06:26.930 --> 06:32.210
+So there I can now access my user ID field which I stored in the token,
+
+06:32.240 --> 06:34.310
+this will be useful for later,
+
+06:34.340 --> 06:40.390
+authorizing access to for example deleting posts because now I know the user ID stored in the token
+
+06:40.610 --> 06:42.800
+and that should match the user id of the post
+
+06:42.800 --> 06:48.250
+we tried to delete later and then I can forward this request. So we'll either have an error
+
+06:48.350 --> 06:52.760
+if we have no token attached or everything will be fine.
+
+06:52.760 --> 07:01.540
+Now we can add that middleware to our routes and I will add it to my get posts route. So here get posts
+
+07:01.540 --> 07:03.450
+should use that middleware, therefore I
+
+07:03.460 --> 07:11.150
+first of all need to import it by requiring it from the middleware folder, isAuth
+
+07:11.380 --> 07:16.190
+and I will add it like this here.
+
+07:16.250 --> 07:20.090
+Now I only can get posts if I do add a token.
+
+07:20.090 --> 07:26.780
+First of all, let me show you how this fails, if I remove this header,
+
+07:27.080 --> 07:32.990
+so this extra configuration on my get posts request in the frontend. If I remove that and I reload
+
+07:32.990 --> 07:38.390
+the page, I get failed to fetch posts and in the console log, I also see that here
+
+07:41.380 --> 07:44.200
+because it fails to read split of undefined,
+
+07:44.320 --> 07:49.510
+we get a technical error because in my middleware, it can't get anything from that header because the
+
+07:49.510 --> 07:51.260
+header is not defined.
+
+07:51.310 --> 07:56.700
+Therefore we could add an extra check here and first of all get the header, auth
+
+07:56.740 --> 08:04.900
+header would then be request get authorization
+
+08:05.080 --> 08:08.740
+and if this is undefined,
+
+08:08.850 --> 08:13.150
+so if we can't find the header, then I will already create an error here,
+
+08:14.990 --> 08:21.120
+not authenticated because we don't even append the token so we certainly are not authenticated.
+
+08:21.500 --> 08:26.370
+I can set my status code of 401 which is better than 500
+
+08:26.390 --> 08:30.420
+and I can throw that error and then down there,
+
+08:30.770 --> 08:32.740
+we know that we do have the auth headers and
+
+08:32.740 --> 08:36.430
+we know we can split it, so that's an improved way of handling that.
+
+08:36.440 --> 08:39.380
+Now if we reload on the frontend, we still get that error
+
+08:39.380 --> 08:43.550
+but technically we now have a 401 error which is better.
+
+08:43.580 --> 08:50.810
+Now I can add that code back where I add the token but let's try adding some rubbish here which is not
+
+08:50.810 --> 08:52.540
+a valid token,
+
+08:52.550 --> 09:01.210
+now if that reloads it still fails and it fails because now the json web token package has a problem
+
+09:01.210 --> 09:03.840
+with the format of our token.
+
+09:04.060 --> 09:12.910
+So now let me revert this and add the valid token and now as this reloads, now our posts load because now we
+
+09:12.970 --> 09:14.690
+are validating this and
+
+09:14.800 --> 09:16.870
+we have a valid token indeed.
+
+09:17.210 --> 09:25.210
+So this is now how we can validate on the server side, how we can check whether the token is valid and
+
+09:25.270 --> 09:26.690
+then grant access
+
+09:26.800 --> 09:32.440
+and now we just have to do that for all our routes before we then also make sure that only users who
+
+09:32.440 --> 09:36.430
+created something can delete it because right now of course,
+
+09:36.670 --> 09:40.650
+well I can delete everything as you can see.

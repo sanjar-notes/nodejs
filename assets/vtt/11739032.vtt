@@ -1,0 +1,208 @@
+WEBVTT
+
+00:02.300 --> 00:04.520
+So we need a user
+
+00:04.520 --> 00:08.390
+and as I mentioned, for now we have no authentication process,
+
+00:08.390 --> 00:13.690
+so for the moment I will create a user manually. First of all,
+
+00:14.030 --> 00:19.630
+I will remove this force through call because I don't always want to overwrite my tables
+
+00:19.640 --> 00:22.290
+otherwise all our products and so on will always be gone,
+
+00:22.340 --> 00:23.620
+so I'll go back to sync
+
+00:23.690 --> 00:27.930
+now that the relations are set up and once all the tables were created,
+
+00:27.950 --> 00:34.880
+so in this then call here, I actually now also want to create my user and therefore here,
+
+00:35.150 --> 00:41.360
+I will use my user model and first of all check if I find a user with the ID one
+
+00:41.450 --> 00:46.400
+and this is of course just some dummy code to see if I do have one user because I only need one for
+
+00:46.400 --> 00:48.440
+now as we have no authentication
+
+00:48.550 --> 00:53.170
+and if I do have it, I'll not create a new one, if I don't have it I will.
+
+00:53.600 --> 01:01.190
+So here I have user find by id one and I will return this and therefore also take app listen out of this
+
+01:01.340 --> 01:08.000
+then block and then add a new then block where I will get my retrieved user. Here
+
+01:08.000 --> 01:13.970
+I'll then check if I don't have a user, so if this is null because if I don't have a user, I want to create
+
+01:13.970 --> 01:23.270
+a new one by calling user create and there I'll pass in a javascript object where I set the name to Max
+
+01:23.630 --> 01:28.910
+and the email to some dummy e-mail, you can enter any values you want here,
+
+01:28.910 --> 01:37.620
+just make sure you populate all the fields you defined in your user model. This also returns a promise so
+
+01:37.630 --> 01:38.880
+I'll return this too
+
+01:39.070 --> 01:42.970
+but also we might never execute this because we already got a user.
+
+01:43.150 --> 01:45.990
+So for this case I'll return user
+
+01:46.330 --> 01:54.550
+but now we're inconsistent because now this anonymous function either returns a promise or just an object,
+
+01:54.910 --> 02:00.050
+we should always return the same so that we can chain then here successfully
+
+02:00.640 --> 02:06.100
+and therefore I will actually call promise resolve here which is essentially a promise that will immediately
+
+02:06.100 --> 02:07.700
+resolve to user.
+
+02:07.730 --> 02:13.570
+Technically you can omit this though because if you return a value in a then block, it is automatically
+
+02:13.570 --> 02:15.150
+wrapped into a new promise,
+
+02:15.160 --> 02:19.060
+just wanted to highlight that you should make sure that the values are equal
+
+02:19.150 --> 02:20.590
+but here it's managed for us
+
+02:21.040 --> 02:27.000
+and therefore here I now definitely know that I got a user, we can console log the user here
+
+02:27.490 --> 02:39.250
+and I also start listening to my server here. So here's my user creation result that I get back and
+
+02:39.270 --> 02:46.830
+if I go back to my workbench database and I refresh the users table, we see the user here too.
+
+02:46.920 --> 02:55.340
+And if I do restart my server with npm start, that still works and it doesn't create a new user here because
+
+02:55.340 --> 02:57.890
+we already have one. So this code is working as it should,
+
+02:58.040 --> 03:06.530
+I'll comment out this and with this change made, we now always have a user available. As a next step, I'll
+
+03:06.540 --> 03:13.440
+will register a new middleware because I want to store that user in my request so that I can use it
+
+03:13.440 --> 03:16.510
+from anywhere in my app conveniently.
+
+03:16.740 --> 03:23.460
+So maybe here I'll add a new middleware, I'll simply add a function with request response in next as
+
+03:23.460 --> 03:25.510
+you learned it before in this course
+
+03:27.060 --> 03:34.320
+and in here, I want to reach out to my database and retrieve my user with user find by id one.
+
+03:34.320 --> 03:38.120
+Now you might be wondering if this can ever return a user and
+
+03:38.220 --> 03:40.810
+if we only create it down there. Now
+
+03:40.960 --> 03:45.770
+keep in mind, app use here only registers a middleware
+
+03:45.930 --> 03:53.540
+so for an incoming request, we will then execute this function. Npm start runs this code for the first
+
+03:53.540 --> 04:00.140
+time and npm start is what runs sequelize here not incoming requests, incoming requests are only funneled
+
+04:00.140 --> 04:03.020
+through our middleware. So npm start runs
+
+04:03.060 --> 04:08.480
+this, this code which sets up our database but never this anonymous function,
+
+04:08.540 --> 04:12.890
+it just registers it as middleware for incoming requests.
+
+04:13.130 --> 04:18.830
+So this code will only run for incoming requests which on the other hand can only reach this if we did successfully
+
+04:18.830 --> 04:21.120
+start our server here with app listen
+
+04:21.260 --> 04:25.710
+and that in turn is only true if we are done with our initialization code here,
+
+04:25.910 --> 04:38.500
+so we are guaranteed to find a user here. So we can find a user by id here
+
+04:38.540 --> 04:42.500
+and what do we want to do with my user in the then block then?
+
+04:42.680 --> 04:45.800
+Well I want to store it in a request.
+
+04:45.920 --> 04:51.410
+So here I will set request user equal to user and we can do that,
+
+04:51.440 --> 04:55.010
+we can simply add a new field to our request object,
+
+04:55.010 --> 05:01.850
+we should just make sure we don't overwrite an existing one, like body. But user is undefined by default,
+
+05:01.850 --> 05:05.610
+now I'm storing the user I retrieved from the database in there.
+
+05:05.630 --> 05:12.260
+Also keep in mind the user we're retrieving from the database here is not just a javascript object with
+
+05:12.260 --> 05:18.330
+the values stored in a database, it's a sequelize object with the value stored in the database and
+
+05:18.500 --> 05:23.040
+with all these utility methods sequelize added, like destroy.
+
+05:23.300 --> 05:28.220
+So we're storing this sequelize object here in the request and not just a javascript object with the
+
+05:28.220 --> 05:31.120
+field values, it is that we got the extended version here
+
+05:31.220 --> 05:36.950
+and therefore whenever we call request user in the future in our app, we can also execute methods like
+
+05:36.950 --> 05:38.870
+destroy.
+
+05:38.880 --> 05:46.200
+So with that, all I need to do is I need to call next here of course so that we can continue with the
+
+05:46.200 --> 05:49.880
+next step if we get our user and stored it.
+
+05:49.920 --> 05:56.880
+Now with that, we've got the user set up and retrieved, let's now make sure that we can also use it to create
+
+05:56.880 --> 05:59.480
+new products that are associated to that user.

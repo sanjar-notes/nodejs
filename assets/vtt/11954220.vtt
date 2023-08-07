@@ -1,0 +1,109 @@
+WEBVTT
+
+00:02.200 --> 00:08.850
+If you download the attached project snapshot which is my latest snapshot, you will see some differences
+
+00:08.850 --> 00:09.130
+there,
+
+00:09.130 --> 00:10.780
+so you should download it
+
+00:10.840 --> 00:12.150
+and what did I change
+
+00:12.160 --> 00:16.600
+and of course you can also go ahead and just implement these changes in your project.
+
+00:16.810 --> 00:26.350
+Well I commented out my links to the add product and admin products pages in my navigation.ejs file
+
+00:26.590 --> 00:30.150
+and I added a new unordered list after the first one
+
+00:30.250 --> 00:34.450
+and there I added a new list item which is named login.
+
+00:34.690 --> 00:36.900
+And then I also worked on the styles a bit
+
+00:37.030 --> 00:43.150
+and most importantly in the styles, I had changed my main header nav to be of type display flex, header
+
+00:43.150 --> 00:47.420
+width of 100% and justify content space between
+
+00:47.440 --> 00:51.230
+but again you find these files attached to this video.
+
+00:51.250 --> 00:57.670
+Now this leads to a setup where two navigation items are missing but the login button was added and
+
+00:57.670 --> 00:58.900
+it's on the right
+
+00:58.910 --> 01:01.340
+here due to that space between thing.
+
+01:01.720 --> 01:02.720
+Now why did I add this?
+
+01:02.740 --> 01:05.280
+Because I want to have some dummy login page.
+
+01:05.290 --> 01:11.820
+We'll have a complete module on authentication where we dive deeper into all that is related to authenticating
+
+01:11.920 --> 01:18.010
+but here authentication is a great example for data you would want to store for a specific user and
+
+01:18.010 --> 01:21.790
+that is one of the typical use cases for using cookies and sessions
+
+01:21.790 --> 01:27.000
+hence I want to use some dummy authentication in this module already.
+
+01:27.070 --> 01:28.580
+So what can we do with that?
+
+01:28.810 --> 01:35.490
+Well with that login button, we navigate if we have a look at navigation.ejs, we navigate to 
+
+01:35.500 --> 01:36.130
+/login
+
+01:36.150 --> 01:38.810
+and that is a route which does not exist yet,
+
+01:39.010 --> 01:44.690
+we got no routes for logging in or signing up or anything like that.
+
+01:44.740 --> 01:46.010
+So I want to add this
+
+01:46.140 --> 01:50.620
+and if you don't want to practice this, again if that's not interesting to you, you can simply skip the
+
+01:50.620 --> 01:51.460
+next video,
+
+01:51.460 --> 01:58.870
+you can skip it and download the finished adjustments, the finished code after that next video so that you
+
+01:58.870 --> 02:00.310
+can continue with that.
+
+02:00.310 --> 02:03.120
+So in the next video, we'll implement that login screen,
+
+02:03.130 --> 02:04.530
+it's a great practice for you,
+
+02:04.540 --> 02:09.760
+you can also try it on your own before diving into my lecture where we do it together.
+
+02:09.850 --> 02:13.180
+And if you want to continue with cookies, immediately you skip the next lecture,
+
+02:13.210 --> 02:15.700
+you download the finished code and continue with that.

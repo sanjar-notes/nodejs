@@ -1,0 +1,58 @@
+WEBVTT
+
+00:02.120 --> 00:04.760
+So how does sending mails work?
+
+00:05.030 --> 00:09.680
+Well we obviously get our node server with our code and we get our user and we want to send an email
+
+00:09.680 --> 00:11.010
+to that user.
+
+00:11.030 --> 00:19.400
+Now it's super important to understand and a common misconception that node and expressjs, these are
+
+00:19.510 --> 00:26.210
+language or frameworks runtimes that we use for writing our server side logic but with nodejs,
+
+00:26.420 --> 00:32.870
+you can't trivially create a mailing server. Handling mails
+
+00:32.870 --> 00:36.360
+is totally different to handling incoming requests and responses,
+
+00:36.380 --> 00:41.690
+it's a totally different technology, something totally different happens behind the scenes.
+
+00:41.690 --> 00:48.980
+Therefore in reality, you will very likely never implement your own mail server because that is a very
+
+00:48.980 --> 00:50.210
+complex task,
+
+00:50.330 --> 00:56.840
+creating a mail server that is capable of handling thousands or one hundred thousands of e-mails
+
+00:56.840 --> 01:02.290
+at the same time, sending them and so on, security, all that stuff is highly complex,
+
+01:02.300 --> 01:08.180
+so in reality you typically use third party mail servers for that and that is exactly what we will
+
+01:08.180 --> 01:09.310
+do in this module too
+
+01:09.350 --> 01:14.650
+but I will show you how to interact with such a service to send that e-mail through that service.
+
+01:14.780 --> 01:21.440
+And by the way all major web applications you might be interacting with including Udemy don't have
+
+01:21.440 --> 01:28.850
+their own mail servers, they are using third party providers like AWS or whatever it is for sending
+
+01:28.850 --> 01:29.420
+e-mails,
+
+01:29.510 --> 01:31.790
+so that is exactly what we will do in this module too.

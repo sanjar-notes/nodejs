@@ -1,0 +1,52 @@
+WEBVTT
+
+00:02.100 --> 00:07.020
+By the way if you're wondering why there is no name being displayed,
+
+00:07.170 --> 00:16.490
+I have it back on my backend code here in get posts, we should add populate creator to not just fetch the
+
+00:16.530 --> 00:21.130
+creator ID but the full object for that creator and on create post,
+
+00:21.160 --> 00:27.010
+well there we have the issue that the post I am sending through socket.io is just a post object where
+
+00:27.070 --> 00:33.780
+I did add my creator ID but not all the creator data.
+
+00:33.790 --> 00:37.950
+Now how can we fix that or how can we add more data?
+
+00:38.170 --> 00:46.610
+Well we can send the entire post _doc data, so all the data about the post but set the creator
+
+00:46.690 --> 00:52.970
+equal to an object where we do have the _id, that will be our request
+
+00:52.970 --> 00:53.780
+user ID
+
+00:57.210 --> 01:04.860
+but where I also then add my name field which will be user.name and user.name can be used because of
+
+01:04.860 --> 01:08.360
+fetching the user here and that will be an object which also has a name.
+
+01:08.640 --> 01:16.040
+So that's just a little tweak we want to add here to send all the data with a created post that we
+
+01:16.040 --> 01:17.210
+need on the frontend.
+
+01:17.360 --> 01:23.050
+If we now save that and we reload, we get the data up because of that change in get posts and if I now
+
+01:23.050 --> 01:33.480
+add a new post, another duck, choose a duck, add some content and click acccept, we also see the name there.
+
+01:33.510 --> 01:38.460
+Now both users are named Max but still keep in mind, the left user we logged in with is a different
+
+01:38.460 --> 01:42.510
+user than on the right and still we get the updates here due to socket.io.

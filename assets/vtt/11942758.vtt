@@ -1,0 +1,268 @@
+WEBVTT
+
+00:02.070 --> 00:04.120
+So with the mongodb server up and running,
+
+00:04.140 --> 00:10.200
+let's add the mongodb driver which simply is a package we can use to connect to mongodb. For
+
+00:10.290 --> 00:17.430
+SQL or MySQL, we used MySQL too and also sequelize. Now in my case here or with mongodb,
+
+00:17.430 --> 00:23.670
+we'd run npm install --save and then it's just mongodb and this installs the official
+
+00:23.710 --> 00:26.280
+mongodb driver which we can use to connect to mongodb.
+
+00:26.280 --> 00:28.830
+Now with that installed,
+
+00:28.830 --> 00:35.280
+we can start using it and we can start using it in the first file that gets executed when we bring up
+
+00:35.340 --> 00:39.170
+our server which would be the app.js file of course.
+
+00:39.360 --> 00:46.890
+There we basically already do some database set up with sequelize and we can get rid of all of that.
+
+00:46.890 --> 00:50.540
+We did create a default user here but we did this in the MySQL world,
+
+00:50.550 --> 00:51.720
+so we'll start from scratch
+
+00:51.720 --> 00:55.830
+basically, we can get rid of all the associations and so on we set up here
+
+00:55.830 --> 00:57.400
+so let's get rid of that.
+
+00:57.690 --> 01:00.280
+Therefore we don't need these imports anymore,
+
+01:00.480 --> 01:04.920
+let's get rid of all of them including sequelize from the util database folder
+
+01:05.340 --> 01:06.530
+and with that all removed,
+
+01:06.580 --> 01:13.040
+also here where I used my user model to find the user by ID, I'll at least comment this out for now
+
+01:13.290 --> 01:16.080
+so that we really have a lean app.js file
+
+01:16.320 --> 01:22.500
+and now I'll go to my util folder and there, the database folder and I still want to connect to a database
+
+01:22.500 --> 01:25.920
+here but that will no longer be sequelize of course.
+
+01:25.920 --> 01:28.230
+So let me clear all of that here too
+
+01:28.260 --> 01:36.720
+and let's now set up some code that will connect us to mongodb. Now for that, I'll first of all import
+
+01:36.730 --> 01:38.080
+mongodb here,
+
+01:38.080 --> 01:45.400
+so I'll set mongodb equal to requiring mongodb, this gives us access to the mongodb package. In
+
+01:45.400 --> 01:51.430
+there, we can extract a Mongo Client constructor by simply accessing mongodb,
+
+01:51.430 --> 01:52.590
+the thing we're importing
+
+01:52.690 --> 01:55.400
+and then Mongo Client, with a capital M and C,
+
+01:55.540 --> 01:58.420
+the constant here can be named whatever you want of course.
+
+01:58.930 --> 02:03.340
+So now with that, we can use that client to connect to our mongodb database
+
+02:03.480 --> 02:08.900
+and we do connect by running Mongodb Client and Mongo Client connect, like this,
+
+02:08.900 --> 02:13.390
+so this is all we need to do to create a connection to mongodb.
+
+02:13.420 --> 02:20.520
+Now connect here simply takes a url to connect and that url is exactly that
+
+02:20.530 --> 02:28.000
+url you're have in the connect modal here on the mongodb Atlas cluster page, so you can copy that
+
+02:28.420 --> 02:30.160
+and paste it into here.
+
+02:30.160 --> 02:34.360
+Now one important thing, you need to make sure you are using the right user and in my case that should
+
+02:34.360 --> 02:40.990
+be Maximillian, the user you created in your mongodb cluster under security users and the fitting
+
+02:40.990 --> 02:47.340
+password for this user, so I'll quickly insert my password here too.
+
+02:47.880 --> 02:52.670
+With that we got all set update that we need to establish such a connection.
+
+02:52.680 --> 03:00.930
+Now the connect method here actually returns a promise, which either fails or throws an error if the connection
+
+03:00.930 --> 03:01.860
+fails
+
+03:01.860 --> 03:10.230
+and in such a case here, I of course want to output my error here so that we can diagnose it or we
+
+03:10.230 --> 03:12.410
+have a successful connection,
+
+03:12.570 --> 03:22.950
+so here I can say console log connected. And with that, we have a file which when we execute, it would connect to
+
+03:22.950 --> 03:24.240
+mongodb.
+
+03:24.240 --> 03:27.830
+Now of course you want to execute this together with app.js,
+
+03:27.840 --> 03:30.050
+so here we are we bring up our server
+
+03:30.150 --> 03:34.460
+or actually we're not doing this right now but where we will soon do this again, here
+
+03:34.470 --> 03:39.220
+I also want to connect to my database. So to do that,
+
+03:39.360 --> 03:41.860
+how can we achieve this?
+
+03:42.000 --> 03:51.370
+Well what we can do here is we can wrap our connection code here into a method and I'll simply create
+
+03:51.400 --> 04:00.370
+a method by using const here and I'll name it mongo connect, this will be an arrow function and inside of that
+
+04:00.400 --> 04:01.740
+arrow function here,
+
+04:01.900 --> 04:06.400
+I will then execute my mongo client connect code like this.
+
+04:06.430 --> 04:17.870
+I also expect to get a callback here and I will call that callback and pass result into it here inside
+
+04:17.870 --> 04:19.150
+of my then block
+
+04:19.190 --> 04:24.590
+once we did connect here because the result I can already tell you this will be the client,
+
+04:24.590 --> 04:31.610
+so basically a client object which gives us access to the database. And then here all I need to do is
+
+04:31.670 --> 04:36.440
+I need to export mongo connect, this function here.
+
+04:36.440 --> 04:40.920
+Now with that exported, we can go back to app.js and import that here,
+
+04:40.940 --> 04:48.490
+so here I'll also name that mongo connect but that name is totally up to you and I'll import from the util
+
+04:48.490 --> 04:51.270
+folder and there, the database file. There
+
+04:51.280 --> 04:58.440
+I will import my mongo connect constant which will be a function because I'm exporting a function here.
+
+04:58.750 --> 05:00.830
+So in app.js at the bottom,
+
+05:01.000 --> 05:03.350
+I will execute mongo connect
+
+05:03.550 --> 05:10.500
+and remember here, we have to pass a callback so a function that will get executed once we connect it
+
+05:10.540 --> 05:13.890
+and here I will get access to the client object.
+
+05:13.990 --> 05:20.680
+So in here, I will run app listen and bring up my node server because I want to do that once I know
+
+05:20.680 --> 05:25.150
+that I connect it to the database and I will also console log
+
+05:25.150 --> 05:29.350
+my client here so that we can have a look into that. With all of that,
+
+05:29.440 --> 05:32.190
+let's run npm start and bring up our server
+
+05:32.920 --> 05:35.560
+and the problem I now have is simply that
+
+05:35.560 --> 05:44.770
+when I bring up my server, we do actually register all our routes here and in the routes files, we dive
+
+05:44.770 --> 05:51.790
+into our controllers and in our controllers, we are using that sequelize object which simply does not
+
+05:51.820 --> 05:59.630
+exist anymore because we're importing the models here and in our models, we require sequelize
+
+05:59.650 --> 06:04.170
+and well that simply does all not work as before anymore.
+
+06:04.450 --> 06:12.900
+So in order to make this work, for now to simply see how we connect, I will comment out my routes here
+
+06:13.360 --> 06:16.330
+and therefore also comment them out down there.
+
+06:16.390 --> 06:22.390
+So now we got no working routes for the moment but this means that we can now at least connect and indeed
+
+06:22.570 --> 06:24.110
+with the automatic restart,
+
+06:24.130 --> 06:25.720
+this does not look like an error
+
+06:25.720 --> 06:31.510
+instead we see connected here and then we see this Mongo Client object which we got with some details
+
+06:31.510 --> 06:36.760
+about the connection and this is in the end the object which we'll be able to interact with, to work
+
+06:36.760 --> 06:37.360
+with,
+
+06:37.360 --> 06:41.420
+to well create data in our database for example.
+
+06:41.470 --> 06:47.590
+So now we are connected but of course our setup is broken now because it still relies on sequelize
+
+06:47.650 --> 06:49.010
+which we're not using anymore,
+
+06:49.030 --> 06:50.910
+we're not even using SQL anymore.
+
+06:51.070 --> 06:54.780
+So let's now implement mongodb in our app step by step
+
+06:54.910 --> 06:59.320
+and whilst we do this, you will learn how to insert data, find data and so on.

@@ -1,0 +1,133 @@
+WEBVTT
+
+00:02.530 --> 00:06.770
+So we added authorization to our download option here.
+
+00:06.850 --> 00:08.810
+Now that's not all we can improve,
+
+00:08.920 --> 00:15.570
+we can also improve the way we are serving that file because right now, I'm simply reading that file
+
+00:15.580 --> 00:18.250
+and once I read it, I return it.
+
+00:18.250 --> 00:21.120
+Now for small files this is probably fine
+
+00:21.250 --> 00:23.800
+but you should be aware of one important fact,
+
+00:23.800 --> 00:30.100
+if you read a file like this, node will first of all access that file, read the entire content into memory
+
+00:30.220 --> 00:32.470
+and then return it with the response.
+
+00:32.470 --> 00:38.530
+This means that for bigger files, this will take very long before a response is sent and your memory
+
+00:38.650 --> 00:44.140
+on the server might actually overflow at some point for many incoming requests because it has to read
+
+00:44.170 --> 00:47.460
+all the data into memory which of course is limited.
+
+00:47.500 --> 00:54.850
+So reading file data into memory to serve it as a response is not really a good practice, for tiny files
+
+00:54.850 --> 00:58.240
+it might be ok but for bigger files, it certainly is not,
+
+00:58.240 --> 01:02.910
+instead you should be streaming your response data and that is what I will do now.
+
+01:02.980 --> 01:10.980
+So I'll comment out this code where I read my file and instead here, I will now start streaming it.
+
+01:11.130 --> 01:18.400
+For that I'll create a new constant, I'll name it file and I will use the file system and create a read stream
+
+01:18.400 --> 01:20.390
+because I want to read some data in.
+
+01:20.860 --> 01:27.160
+Now I want to read in data at a specific path and the path hasn't changed, it's the invoice path,
+
+01:27.580 --> 01:33.310
+so now I have to read read stream and node will be able to use that to read in the file step by step
+
+01:33.430 --> 01:34.710
+in different chunks.
+
+01:36.300 --> 01:39.680
+I will then take my response code here where I set the headers,
+
+01:39.690 --> 01:42.840
+I still do that on the response object
+
+01:42.840 --> 01:49.770
+and then here, I will use that file read stream and call the pipe method to forward the data that is
+
+01:49.770 --> 01:57.160
+read in with that stream to my response because the response object is a writable stream actually
+
+01:57.420 --> 02:03.540
+and you can use readable streams to pipe their output into a writable stream,
+
+02:03.570 --> 02:07.520
+not every object is a writable stream but the response happens to be one.
+
+02:07.650 --> 02:13.230
+So we can pipe our readable stream, the file stream into the response and that means that the response will
+
+02:13.230 --> 02:19.110
+be streamed to the browser and will contain the data and the data will basically be downloaded by the
+
+02:19.110 --> 02:19.650
+browser
+
+02:19.680 --> 02:22.200
+step by step and for large files,
+
+02:22.290 --> 02:29.250
+this is a huge advantage because node never has to pre-load all the data into memory but just streams
+
+02:29.250 --> 02:31.220
+it to the client on the fly
+
+02:31.350 --> 02:34.650
+and the most it has to store is one chunk of data.
+
+02:34.650 --> 02:36.900
+Again we're back to the streams and the buffers,
+
+02:36.990 --> 02:39.170
+the chunks are what we work with, the buffers
+
+02:39.180 --> 02:41.490
+basically gives us access to these chunks
+
+02:41.490 --> 02:47.370
+and here we don't wait for all the chunks to come together and concatenate them into one object,
+
+02:47.370 --> 02:53.850
+instead we forward them to the browser which then is also able to concatenate the incoming data pieces
+
+02:54.090 --> 02:56.220
+into the final file.
+
+02:56.220 --> 02:57.780
+So with this setup here,
+
+03:01.060 --> 03:01.960
+let's try this again,
+
+03:01.960 --> 03:08.050
+click on orders, click on the invoice and again we see the invoice as before but now this is actually
+
+03:08.050 --> 03:14.920
+streamed data created with that create read stream thing which is the recommended way of getting your
+
+03:14.920 --> 03:17.820
+file data especially for bigger files.

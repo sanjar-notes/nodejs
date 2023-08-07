@@ -1,0 +1,103 @@
+WEBVTT
+
+00:02.470 --> 00:07.700
+If we have a look at our application here, what could we do in real time?
+
+00:08.110 --> 00:13.420
+Well what would be interesting is that if we create a new post with user a, that we can instantly see
+
+00:13.420 --> 00:20.140
+it with user b too. And for that, we need to add some code in our client
+
+00:20.140 --> 00:27.350
+and then also on our backend. Now let's actually start with the client,
+
+00:27.660 --> 00:36.510
+let's say we want to react to a new post being created and we then want to render it in the client instantly.
+
+00:36.550 --> 00:44.200
+For this in my react app after this componentDidMount function, before load posts let's say, I'll add a new
+
+00:44.200 --> 00:46.660
+function, add post with this
+
+00:46.680 --> 00:50.680
+syntax, I expect to get the data about the post as an argument,
+
+00:50.810 --> 00:52.820
+so I'm using a normal arrow function here
+
+00:53.110 --> 00:57.960
+and in here, I want to render that post to the screen.
+
+00:58.240 --> 01:03.400
+Now for that, since this is not a react course, I prepared some code which you find attached to this
+
+01:03.400 --> 01:04.090
+video,
+
+01:04.310 --> 01:11.260
+just copy it here. In this code snippet, we're using some react functionality, set state to basically
+
+01:11.260 --> 01:18.860
+update our existing data we used in this react application with this new post we received here
+
+01:18.910 --> 01:24.700
+and I will also take care about pagination to insert this post in the right place.
+
+01:24.730 --> 01:26.260
+That is the end what I'm doing here, the
+
+01:26.260 --> 01:28.060
+important thing is that
+
+01:28.150 --> 01:33.910
+I'm using some react functionality here so that we don't have to reload the browser page,
+
+01:33.910 --> 01:36.250
+I simply change the existing dom.
+
+01:36.250 --> 01:39.580
+This is what react will do for me with this code snippet
+
+01:39.580 --> 01:44.680
+and as mentioned before if you want to learn more about react, dive into some dedicated react resources
+
+01:44.680 --> 01:46.000
+of course.
+
+01:46.000 --> 01:49.000
+Now we got add post but we're never calling it.
+
+01:49.120 --> 01:57.310
+My idea is that I want to call it whenever we do create a new post on some other client,
+
+01:57.310 --> 02:00.680
+now how do we do that? Well
+
+02:00.700 --> 02:04.370
+for that, let's go back to the node code.
+
+02:04.550 --> 02:10.020
+We have to go to the place that runs or to the code that runs when new post is created
+
+02:10.130 --> 02:14.480
+and that would be in the feed controller to create post function of course.
+
+02:15.010 --> 02:16.820
+There we want to use socket.io,
+
+02:16.840 --> 02:24.300
+the existing connection we have set up to basically inform all connected clients about the new
+
+02:24.300 --> 02:26.170
+post, that is the idea.
+
+02:26.170 --> 02:31.570
+Now for that however, we need to share that connection which we currently set up in app.js.
+
+02:31.600 --> 02:36.130
+How do we get that connection out of app.js into feed.js now?
+
+02:36.190 --> 02:40.400
+Let's do that and continue with the set up in the next lectures.

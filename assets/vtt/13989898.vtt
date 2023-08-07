@@ -1,0 +1,535 @@
+WEBVTT
+
+00:02.110 --> 00:05.170
+Now in the last lectures, you'll learn a lot of useful things.
+
+00:05.170 --> 00:10.060
+You'll learn about these hooks, which are super important for setting up and for clean up work.
+
+00:10.480 --> 00:17.050
+You also learn that for a code that interacts with the database, it could be fine to really use a database.
+
+00:17.050 --> 00:20.140
+It just should be a dedicated testing database.
+
+00:20.170 --> 00:24.430
+Now, of course, it's all fine to use stubs, as we did here.
+
+00:24.430 --> 00:30.580
+In case you don't really need or want that database access in case you want to speed up your tests,
+
+00:30.580 --> 00:32.620
+you can setup functionalities.
+
+00:32.620 --> 00:34.990
+And of course, we could have done that down there too.
+
+00:34.990 --> 00:37.870
+But I want to show both and both is fine.
+
+00:37.900 --> 00:42.430
+Now, obviously, as always in the Internet, you'll find people arguing strongly for either of the
+
+00:42.430 --> 00:43.270
+two directions.
+
+00:43.270 --> 00:48.940
+But in practice you find good arguments for both alternatives, and therefore you should go with the
+
+00:48.940 --> 00:55.210
+one you prefer and you can even change it on a per test basis, depending on a test needs to be faster
+
+00:55.210 --> 01:02.100
+or really doesn't care about the database access or if checking that database code might be useful too.
+
+01:02.110 --> 01:08.410
+Like for our status here where we implicitly also check that our default status assignment works because
+
+01:08.410 --> 01:11.440
+we're checking for that default status to find here in the model.
+
+01:12.100 --> 01:19.420
+Now with that, let me wrap this module up by also testing some functionality from the feed controller.
+
+01:19.420 --> 01:25.240
+And here the interesting part, of course, is that here we actually have code that relies on the user
+
+01:25.240 --> 01:28.750
+being authenticated, like for creating a post here.
+
+01:28.750 --> 01:35.350
+When we create a post, we actually do access the user ID, which should be part of the request object.
+
+01:35.380 --> 01:38.380
+Now why is the user ID part of the request object?
+
+01:38.380 --> 01:41.650
+Because of the of middleware right here we add that.
+
+01:41.650 --> 01:47.710
+So how can we now test this since we now have a controller that actually requires on the off middleware
+
+01:47.710 --> 01:48.580
+doing its job?
+
+01:48.580 --> 01:55.180
+How can we make this work if we only want to test the controller and not the full flow?
+
+01:57.010 --> 02:03.310
+It's super easy to make this work because whilst it could look difficult at first, it's important that
+
+02:03.310 --> 02:09.880
+you configure your tests, you pass in a request response object and the next function.
+
+02:09.880 --> 02:16.810
+And if you have code that tries to get something out of the request object like the user ID of course
+
+02:16.810 --> 02:21.070
+in the real app that is set by the middleware and we are actually testing this middleware.
+
+02:21.070 --> 02:26.890
+But for the controller, we can just fake that and we can pass in a request object that simply has a
+
+02:26.890 --> 02:29.260
+user ID and we're done, that's all.
+
+02:29.620 --> 02:37.510
+So let's now write a test for create post and let's interact with the database here and then also make
+
+02:37.510 --> 02:45.910
+sure we do create a post successfully here and for example, validate that this post then really was
+
+02:45.910 --> 02:50.170
+added to our users posts array for this.
+
+02:50.170 --> 02:58.330
+I'll add a new file here in the test folder and I'll name it Feed Controller JJ's and I'll have a look
+
+02:58.330 --> 03:03.880
+at the off controller and actually I will copy the entire content from there and they added in the feed
+
+03:03.880 --> 03:06.490
+controller and now of course change some things.
+
+03:06.490 --> 03:11.890
+I need access to Mongoose and so on though because here again I want to connect to a testing database.
+
+03:12.430 --> 03:20.140
+So in here I will not need the user model though, but the the post mode model.
+
+03:20.140 --> 03:27.550
+So let's get that from models post and of course not the off controller but the feed controller which
+
+03:27.550 --> 03:30.670
+I get from controllers feed.
+
+03:31.990 --> 03:35.730
+Now I'll therefore describe this as the feet controller.
+
+03:35.740 --> 03:37.060
+Doesn't hurt, I guess.
+
+03:37.660 --> 03:42.250
+And now time for the initialization work we're connecting to the testing database.
+
+03:42.250 --> 03:46.240
+Could also be a different one here for the post if we want to, but I want to use the same one.
+
+03:47.310 --> 03:50.940
+I will actually set up my dummy user because I need a user.
+
+03:50.970 --> 03:54.090
+A user created a post and that should be my dummy user.
+
+03:54.450 --> 03:59.460
+And we could set up some dummy posts, especially when we're testing different controller actions like
+
+03:59.460 --> 04:00.480
+getting posts and so on.
+
+04:00.480 --> 04:04.920
+But for creating a post, of course I don't need one, so my dummy user is all I need.
+
+04:04.920 --> 04:08.310
+So the test set up here is fine for me.
+
+04:09.380 --> 04:11.210
+I don't eat before each and after each.
+
+04:11.570 --> 04:15.940
+But I only need one test case here, so I'll actually get rid of the other one.
+
+04:15.950 --> 04:22.070
+I'll keep the after hook here though, and clean my users so that our tests are not affected by it.
+
+04:22.100 --> 04:24.340
+Our test files are not affected by it.
+
+04:24.350 --> 04:25.430
+It does test file.
+
+04:25.460 --> 04:28.520
+Your really works stand alone on its own.
+
+04:28.940 --> 04:33.140
+So now let's work on that single test there.
+
+04:33.350 --> 04:40.610
+I want to test whether a post is created successfully and then add it to the post array of my user,
+
+04:40.610 --> 04:42.050
+the user who created it.
+
+04:44.570 --> 04:48.830
+So it should add a created post.
+
+04:49.720 --> 04:52.510
+To the posts over.
+
+04:54.200 --> 04:56.000
+Off the creator.
+
+04:56.330 --> 04:57.350
+Something like this.
+
+04:58.490 --> 05:00.560
+Now, I'll not stop here.
+
+05:00.950 --> 05:04.940
+Instead, I really want to interact with the database, so no need to use.
+
+05:04.940 --> 05:06.860
+Sign in here and stop anything.
+
+05:07.550 --> 05:08.210
+And.
+
+05:09.790 --> 05:11.560
+We have a look at that feed controller.
+
+05:11.770 --> 05:15.460
+We now see that we need a couple of things on the request object.
+
+05:15.610 --> 05:22.990
+On the request object, for example, we need a file object that in turn needs a path which is the path
+
+05:22.990 --> 05:28.390
+to the image, doesn't have to be a real path, just needs to be there so that we can extract it can
+
+05:28.390 --> 05:29.860
+be a dummy string, though.
+
+05:30.070 --> 05:38.140
+We need a title, we need a content because we're setting this on our post and we need that user ID.
+
+05:39.000 --> 05:45.240
+So back in the off controller should be in the feed controller file here where I configure my request.
+
+05:46.020 --> 05:49.320
+As we saw, we're retrieving title and content from the body.
+
+05:49.440 --> 05:53.370
+Then we have a file object which has a path key and we have a user ID.
+
+05:53.370 --> 05:57.780
+So in the feed controller in the bottom body here we have title, which could be.
+
+05:58.630 --> 06:01.450
+Test post with the content.
+
+06:01.830 --> 06:06.190
+A test post really doesn't matter, of course, unless you're testing it.
+
+06:07.640 --> 06:14.420
+We need a file object which needs a path key which can be ABC doesn't matter and we need the user ID,
+
+06:14.450 --> 06:16.100
+which can be z set.
+
+06:16.250 --> 06:20.060
+We just need these fields because we're using them in the controller.
+
+06:20.660 --> 06:27.770
+This will then save a valid post to the database and we'll then extract a user with the user ID.
+
+06:27.860 --> 06:31.310
+And now here we already have the first trap we could run into.
+
+06:31.340 --> 06:36.920
+The user ID does actually matter because the creator we assign here does not matter.
+
+06:36.920 --> 06:44.060
+But to really work later and to be connected to the user object in the database, we need a real user
+
+06:44.060 --> 06:44.600
+ID.
+
+06:45.290 --> 06:46.760
+Thankfully we got one.
+
+06:46.760 --> 06:52.760
+We're creating a user with our own hardcoded ID here, so let's use that instead of x, y, z and pass
+
+06:52.760 --> 06:53.420
+that in.
+
+06:54.140 --> 06:58.610
+So now the feed controller should be able to save a post and then make the connection to a user and
+
+06:58.610 --> 07:01.220
+add that post to that user object.
+
+07:03.930 --> 07:06.090
+Now to check whether that really worked.
+
+07:06.510 --> 07:08.330
+I need to get access to.
+
+07:09.100 --> 07:12.880
+Our user object outside of this controller function.
+
+07:13.480 --> 07:15.310
+And for this we can just.
+
+07:17.390 --> 07:25.460
+Store are the result of user safe here in a safe user constant and actually return that here.
+
+07:27.130 --> 07:30.760
+In that controller will not change the behavior of the controller.
+
+07:30.760 --> 07:34.750
+We still send the response status code and everything that still works fine.
+
+07:34.750 --> 07:38.800
+But now our test has a look of validating that created user.
+
+07:39.790 --> 07:46.670
+And now in the feed controller here, we're not calling off controller log in or anything like that.
+
+07:46.690 --> 07:50.940
+Instead we're calling feed controller, create post.
+
+07:50.950 --> 07:53.090
+We pass in our request object.
+
+07:53.110 --> 07:56.710
+Now for the response object, we need to make sure that we don't get an error.
+
+07:56.710 --> 08:02.410
+So we need to provide a status method and adjacent method even if we don't care about what they do.
+
+08:02.410 --> 08:03.640
+But we need them.
+
+08:03.970 --> 08:11.660
+So I pass in a dummy response object here to which is an object which needs these two methods so that
+
+08:11.660 --> 08:13.870
+they can be called without throwing error.
+
+08:13.870 --> 08:20.530
+So status is a function that does nothing and Jason is a function that does nothing here.
+
+08:20.530 --> 08:22.210
+Why are they not doing anything?
+
+08:22.210 --> 08:24.010
+Because for this test I don't care.
+
+08:24.010 --> 08:28.060
+So I pass in this and I pass in this dummy next function here.
+
+08:31.120 --> 08:33.820
+Now this is an async function.
+
+08:33.820 --> 08:39.790
+We have the async keyword here and therefore it returns a promise automatically and hence in the then
+
+08:39.790 --> 08:40.630
+block here.
+
+08:42.170 --> 08:44.990
+I want you to define my expectations.
+
+08:45.720 --> 08:51.000
+Now I know that we get something back here because I'm returning that saved user.
+
+08:51.030 --> 08:55.710
+Now, by the way, if you're not liking this pattern of changing the controller just so that we can
+
+08:55.710 --> 08:56.460
+test this.
+
+08:56.490 --> 09:02.070
+Of course, the alternative would be to simply test some other controller action that actually needs
+
+09:02.070 --> 09:09.000
+that user object with its post and then simply call create post and then that other controller action
+
+09:09.000 --> 09:14.460
+to and execute two controller actions in the same test and only test something on the result of the
+
+09:14.460 --> 09:15.330
+second action.
+
+09:15.330 --> 09:19.020
+But here, I'll just beat this up and merge this into one controller action.
+
+09:19.290 --> 09:25.590
+So here I get my saved user and I expect that saved user.
+
+09:26.560 --> 09:32.350
+To have a property of posts that should be set.
+
+09:35.700 --> 09:40.440
+And I expect saved user posts.
+
+09:41.420 --> 09:42.080
+Do you?
+
+09:43.290 --> 09:43.950
+Have.
+
+09:44.890 --> 09:45.910
+A length.
+
+09:47.380 --> 09:48.250
+Of one.
+
+09:50.010 --> 09:53.270
+Because there should be one new post added to it.
+
+09:53.920 --> 09:55.660
+And thereafter we called none.
+
+09:56.960 --> 09:58.700
+Now let's give this a try.
+
+09:58.730 --> 10:00.650
+Let's run NPM test here.
+
+10:01.100 --> 10:04.400
+This will now take a while because of course, we have a couple of different tests.
+
+10:09.580 --> 10:14.140
+Now, of course, I get an error here because I have an issue in my testing file.
+
+10:14.440 --> 10:15.700
+I'm importing the post model.
+
+10:15.700 --> 10:16.890
+But this of course, was incorrect.
+
+10:16.900 --> 10:18.910
+I'm actually not using the post model here.
+
+10:18.910 --> 10:20.590
+I need a defeat controller.
+
+10:20.590 --> 10:24.970
+But regarding the models, we still need to use user controller of course, because I'm creating a user.
+
+10:25.030 --> 10:26.770
+So that's my mistake here.
+
+10:26.770 --> 10:32.980
+Let's quit that process and rerun NPM test thereafter so that now we don't have an error here in the
+
+10:32.980 --> 10:33.970
+testing file.
+
+10:38.050 --> 10:39.220
+And now here, I'm getting an error.
+
+10:39.250 --> 10:46.150
+Target cannot be null or undefined, and that is stemming from our validation here in the feed controller,
+
+10:46.150 --> 10:46.720
+as you can see.
+
+10:46.720 --> 10:48.580
+And we only have one test case in there.
+
+10:48.580 --> 10:49.960
+So it's this test case.
+
+10:49.960 --> 10:57.970
+So saved user seems to be null or undefined, even though I'm trying to return it here where I store
+
+10:58.000 --> 10:59.110
+my saved user.
+
+10:59.790 --> 11:03.180
+And that actually still is an issue with my testing set up.
+
+11:03.510 --> 11:07.360
+I do define my response object with status and JSON functions.
+
+11:07.380 --> 11:13.080
+Now the tiny problem I have, if we watch closely, of course we're calling the Jason method here,
+
+11:13.080 --> 11:17.490
+not on the response object but on the result of the status method call.
+
+11:18.090 --> 11:24.110
+So for that to work back in a feed controller, we need to make sure that in this function here for
+
+11:24.110 --> 11:30.030
+a status which we call first, we return this so that we return the number reference at the entire object,
+
+11:30.030 --> 11:33.510
+which then has switched and has this JSON function here.
+
+11:34.320 --> 11:37.200
+So now with this adjustment, let's run NPM test again.
+
+11:37.200 --> 11:38.700
+Let's see if we now succeed.
+
+11:40.140 --> 11:40.980
+And this looks better.
+
+11:40.980 --> 11:43.860
+It's now passing your cue for the feed controller.
+
+11:43.860 --> 11:48.840
+And if I would check for a length of zero here, for example, then it actually should fail.
+
+11:48.840 --> 11:50.400
+So if I now let this run.
+
+11:57.840 --> 11:59.880
+Now you see it failed.
+
+11:59.880 --> 12:01.770
+And if we scroll up, we see it failed.
+
+12:01.800 --> 12:09.240
+It expected a ray with a length of one to have a length of zero, but got one so correctly it failed
+
+12:09.240 --> 12:10.480
+and it doesn't fail.
+
+12:10.500 --> 12:12.240
+If I check for the correct length.
+
+12:12.900 --> 12:15.690
+Now, this is another example for testing here.
+
+12:15.690 --> 12:17.700
+The feed controller clearly as you can see.
+
+12:18.030 --> 12:21.840
+And now with that, we wrote quite some nice tests here.
+
+12:21.840 --> 12:27.060
+I hopefully gave you a good introduction to how testing works and how you generally have to think about
+
+12:27.060 --> 12:27.310
+it.
+
+12:27.330 --> 12:33.720
+Now let me wrap this up, because I know that at this point it still can feel entirely overwhelming
+
+12:33.720 --> 12:35.160
+and it doesn't have to be.

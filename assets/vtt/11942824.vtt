@@ -1,0 +1,247 @@
+WEBVTT
+
+00:02.120 --> 00:06.640
+So I'm now able to store some data in the cart, at least in a very basic way
+
+00:06.830 --> 00:10.580
+but obviously we don't just want to overwrite the existing cart all the time,
+
+00:10.610 --> 00:16.220
+we want to be able to store multiple products in there and increase the quantity in case we already
+
+00:16.220 --> 00:17.520
+do have a product in there.
+
+00:17.540 --> 00:21.400
+So we need to finteune our code a little bit and we already started,
+
+00:21.440 --> 00:26.870
+so I'll comment this back in where I do check whether a certain item already does exist.
+
+00:26.870 --> 00:31.010
+Now I just need to tweak that code a little bit, here
+
+00:31.100 --> 00:39.600
+I need to look for Product ID because that is where I store my product IDs in the items in the cart.
+
+00:39.760 --> 00:44.260
+So I'm looking for product ID because I'm storing the ID in productid down there
+
+00:44.680 --> 00:50.410
+and now if that is something else than minus one, we know that this product already exists in the
+
+00:50.410 --> 00:56.480
+cart. So I can add a new quantity field again and set this to one by default
+
+00:56.770 --> 01:03.270
+but if cart product is greater than zero or greater equal than zero,
+
+01:03.370 --> 01:08.920
+so if it's anything else but negative basically, then this means this product already exists.
+
+01:08.920 --> 01:19.240
+So then new quantity is cart product, that is actually the index so let's maybe name it cart product index,
+
+01:19.240 --> 01:30.020
+so this is then actually equal to this cart items for that given index we just identified and there
+
+01:30.020 --> 01:32.630
+we'll have a quantity plus one.
+
+01:32.630 --> 01:38.430
+So this is the new quantity if that item already exists, so if it already is part of our cart,
+
+01:38.600 --> 01:45.920
+if not we'll go with the default of one and therefore here, I will always update to new quantity.
+
+01:45.940 --> 01:52.210
+However I also don't want to update by always overwriting items with a new array with exactly one object,
+
+01:52.600 --> 01:55.830
+instead I want to add a new object to that array
+
+01:56.020 --> 02:02.550
+if the product does not exist in there or if it does exist in there, I want to update that one product,
+
+02:02.560 --> 02:03.710
+so how do we do that?
+
+02:05.030 --> 02:11.380
+Well one of the simplest ways and you could use other approaches where you leverage some functions mongodb has
+
+02:12.350 --> 02:20.360
+but one of the clearest approaches you can use is that you get the updated cart items, that you create
+
+02:20.360 --> 02:28.280
+such a constant and then, you access your cart items and you create a new array where you copy in all
+
+02:28.280 --> 02:31.870
+the existing elements with the spread operator with the three dots.
+
+02:32.120 --> 02:37.300
+So this gives me a new array with all the items that are in the cart and they are now stored here
+
+02:37.580 --> 02:43.460
+and I can now edit this array without touching the old array due to the way javascript works with reference
+
+02:43.460 --> 02:45.120
+and primitive types.
+
+02:45.140 --> 02:53.950
+So now I can edit my updated cart items and now I just need to differentiate, do we already have that item in
+
+02:53.950 --> 02:55.090
+the cart or not.
+
+02:55.090 --> 02:57.870
+So I'll actually move that up here before my if check
+
+02:58.090 --> 03:05.770
+and then here if I make it into this if statement, I know that we have this product already. In that case,
+
+03:05.890 --> 03:10.650
+I can access updated cart items for the cart product index I found,
+
+03:10.650 --> 03:14.830
+so now I have access to that item I'm interested in,
+
+03:14.830 --> 03:24.000
+I know that it already existed so I can set its quantity equal to the new quantity like this. Now else
+
+03:24.870 --> 03:27.930
+if the item did not exist before,
+
+03:28.740 --> 03:33.070
+I'll take my updated cart items and simply add a new one with push.
+
+03:33.270 --> 03:39.300
+I'll add a new cart item and I'll add a new cart item which looks exactly as described down there, so
+
+03:39.300 --> 03:41.780
+I'll just grab that code and add it here.
+
+03:42.090 --> 03:49.380
+So now I either update the quantity of an existing cart item or I add a new one and then down there for
+
+03:49.380 --> 03:55.560
+updated cart, I can always set my items equal to the updated cart items because that will always
+
+03:55.560 --> 04:01.860
+be an array with all the old elements because I copy it first and then with the update added,
+
+04:01.890 --> 04:07.950
+so either with the quantity increased for the existing element or with a new element added to the cart.
+
+04:08.160 --> 04:15.450
+So then I can safely have my updated cart down there and save that to the database with all the updated
+
+04:15.510 --> 04:16.640
+items in there.
+
+04:17.070 --> 04:25.830
+So if I save that now, I'll first of all add a second product real quick so that we, whoops,
+
+04:26.200 --> 04:30.000
+so that we have some alternatives here
+
+04:30.540 --> 04:37.880
+and then I'll go to products and I'll add this first one with $12 to the cart.
+
+04:38.300 --> 04:42.160
+Now if we update this in compass and we look into the cart there,
+
+04:42.710 --> 04:46.370
+we see this was added again even though it already existed.
+
+04:46.370 --> 04:52.280
+So our logic is not too convincing, if I press this one more time,
+
+04:52.370 --> 04:55.260
+we now see it in there three times I'd imagine,
+
+04:55.640 --> 04:56.150
+yeah,
+
+04:56.510 --> 05:00.010
+three times the same object so clearly our logic fails.
+
+05:01.400 --> 05:04.680
+Let's see what's wrong and I found the issue,
+
+05:04.710 --> 05:06.980
+it was this comparison up here.
+
+05:07.050 --> 05:09.970
+The problem we have here is the product I'm getting here,
+
+05:10.080 --> 05:10.400
+right,
+
+05:10.410 --> 05:15.550
+the product I'm getting as an argument is a product I just retrieved from the database.
+
+05:15.570 --> 05:23.130
+Now the _id we have in there actually is treated as a string in javascript but is not exactly
+
+05:23.130 --> 05:24.350
+of type string,
+
+05:24.480 --> 05:29.940
+since I'm using three equal signs in my check here however, I am telling javascript that this should only
+
+05:29.940 --> 05:34.550
+return true if these two do not only match by value but also by type
+
+05:34.590 --> 05:36.210
+and technically this is no string
+
+05:36.210 --> 05:37.940
+even though we can use it as such.
+
+05:38.190 --> 05:45.360
+So one solution is to use two equal signs or to use toString on both here,
+
+05:45.570 --> 05:51.900
+so here and here to make sure we only work with strings here in both cases.
+
+05:51.900 --> 06:00.470
+And with this adjustment made, I can edit my object here by double clicking into some field and then
+
+06:00.980 --> 06:06.470
+we can mark the latter two objects here in the array for deletion by clicking on the cross on the
+
+06:06.470 --> 06:08.880
+left, click update thereafter,
+
+06:09.020 --> 06:14.540
+now this is updated, we only have one item in there with quantity one but now if I go back and I click
+
+06:14.600 --> 06:18.570
+add to cart and I do update this in compass,
+
+06:18.610 --> 06:26.370
+I should still only have one object but now with quantity two. If I do add my other element here though by
+
+06:26.370 --> 06:35.770
+clicking on add to cart here and I do update, now I should have two elements in the cart, one with quantity
+
+06:35.770 --> 06:39.510
+two, one with quantity one. If I click add to cart
+
+06:39.520 --> 06:43.860
+again and I update this again, it should still be two objects,
+
+06:43.870 --> 06:46.480
+now both with quantity two and so on.
+
+06:46.480 --> 06:47.710
+So now this is working,
+
+06:47.710 --> 06:50.030
+now I am updating the cart,
+
+06:50.290 --> 06:55.570
+this is now an add to cart functionality, a basic one implemented on our own.
+
+06:55.570 --> 06:58.630
+Now of course we want to be able to also display the cart items.

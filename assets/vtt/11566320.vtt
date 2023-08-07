@@ -1,0 +1,121 @@
+WEBVTT
+
+00:02.360 --> 00:09.140
+That's it for this module. It was quite a lot, a lot about middleware I guess but it is the crucial basis
+
+00:09.140 --> 00:12.720
+for the rest of the course where we will of course continue with nodejs
+
+00:12.730 --> 00:20.050
+but by using expressjs, a powerful framework and that is what expressjs is. It's a nodejs
+
+00:20.040 --> 00:20.800
+framework,
+
+00:20.840 --> 00:22.690
+so you still use nodejs,
+
+00:22.730 --> 00:29.810
+we for example still use the path core module in this module but you build up on it and get a bunch of
+
+00:29.810 --> 00:36.770
+utility functions and a clear set of rules on how you should structure your app and it's all about middleware
+
+00:36.890 --> 00:43.310
+and understanding that flow of requests through all the middleware functions. Expressjs is very
+
+00:43.310 --> 00:45.630
+popular because it's highly extensible
+
+00:45.770 --> 00:53.120
+and as you already saw with the body parser in this module, you can easily plug some packages, a lot of
+
+00:53.120 --> 00:59.300
+packages actually into an express app because they just expose such middleware functions and you can
+
+00:59.300 --> 01:02.910
+therefore easily add them and the request gets funneled through them.
+
+01:03.230 --> 01:09.020
+Now that concept of middleware is really important, middleware functions are these functions that took the
+
+01:09.020 --> 01:15.800
+request object, a response object that helped you with sending a response and that next argument which turns
+
+01:15.800 --> 01:21.890
+out to be a function you should call to forward a request to the next middleware in line and in line
+
+01:21.890 --> 01:25.970
+means from top to bottom in your root file.
+
+01:26.210 --> 01:32.000
+This is a crucial point you have to understand, that you should always call next unless you are sending
+
+01:32.000 --> 01:37.220
+a response in which case you should never call next and that you can therefore cleverly structure
+
+01:37.220 --> 01:44.450
+your middleware to transform a request, read something from it and send different responses depending
+
+01:44.450 --> 01:46.900
+on the route you're accessing,
+
+01:46.940 --> 01:53.290
+so depending on the path and method you're sending. You learned that you can filter request by path and
+
+01:53.300 --> 01:59.140
+method easily with app use by adding a path or app get, app post
+
+01:59.500 --> 02:06.230
+and that if you filter by method, like if you had app get, that the paths would then be matched exactly
+
+02:06.470 --> 02:12.610
+otherwise with app use, the path you passed would only be matched with the beginning of the
+
+02:12.630 --> 02:16.060
+url, the part after localhost.
+
+02:16.220 --> 02:23.270
+You also can use the express router package instead of app use, app get because this allows you to elegantly
+
+02:23.270 --> 02:29.810
+split your routes across multiple files since the router you export there can be added as a middleware
+
+02:29.810 --> 02:33.670
+function into app use in your root file.
+
+02:33.680 --> 02:40.340
+Last but not least, we also served some files and it's important to know that you're not limited to serving
+
+02:40.340 --> 02:42.500
+dummy text or anything like that,
+
+02:42.680 --> 02:50.510
+you can send files for example as we did it with html files and if a request is directly made for a file
+
+02:50.600 --> 02:53.750
+like a css or javascript file but also images
+
+02:53.780 --> 03:00.530
+even though we didn't see that in this module, you can enable static serving for such files with the
+
+03:00.530 --> 03:06.620
+help of express static which is a crucial part of any web application you're building because you typically
+
+03:06.740 --> 03:15.320
+have such files that are dependencies of your html files for example and this is the core basic
+
+03:15.680 --> 03:17.610
+knowledge you should have about expressjs,
+
+03:17.670 --> 03:24.170
+this is what we'll now build up on and this is where we will now dive deeper into to learn how to
+
+03:24.170 --> 03:32.000
+render dynamic content, how to access databases, enable authentication, manage data on the server and
+
+03:32.000 --> 03:33.170
+so much more.
+
+03:33.320 --> 03:34.160
+So let's continue.

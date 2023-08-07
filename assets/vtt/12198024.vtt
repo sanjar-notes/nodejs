@@ -1,0 +1,49 @@
+WEBVTT
+
+00:02.250 --> 00:08.790
+Now I did mention on the slide that you also want to exchange testing keys for production keys and in our case,
+
+00:08.850 --> 00:13.780
+that would be that stripe key we're using here through environment variables which we do set in the
+
+00:13.790 --> 00:16.650
+nodemon and in the package.json file.
+
+00:16.650 --> 00:24.000
+Now obviously that always depends on which kind of APIs or third party services you are using. Maybe
+
+00:24.000 --> 00:27.840
+in your app, you use no service at all and therefore this is not an issue for you,
+
+00:28.050 --> 00:33.900
+with stripe what you want to do is you want to click on that to switch to public or to production ready
+
+00:34.310 --> 00:35.420
+data.
+
+00:35.480 --> 00:41.040
+Now you need to activate your account here to be able to do that as you see and to activate your account,
+
+00:41.190 --> 00:45.970
+you have to fill out some information including some payment information.
+
+00:46.410 --> 00:48.530
+And therefore I will not do that here
+
+00:48.570 --> 00:54.570
+but if you were to deploy this into production, you need to fill that all out and once you fill that out,
+
+00:54.780 --> 01:01.740
+you will be able to switch that toggle here here at the top and see your live data, your production ready
+
+01:01.740 --> 01:05.110
+keys and you should use these keys in your code.
+
+01:05.190 --> 01:10.230
+So wherever you are using the test keys right now, you would have to replace them with the production
+
+01:10.230 --> 01:13.970
+ready keys and that is just a stripe example, other APIs
+
+01:13.980 --> 01:16.630
+you might be using might have a similar behavior.

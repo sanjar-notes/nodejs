@@ -1,0 +1,379 @@
+WEBVTT
+
+00:02.310 --> 00:09.450
+Time to work on the last two pieces, the orders and again feel free to pause the video and try implementing
+
+00:09.450 --> 00:10.230
+this on your own,
+
+00:10.260 --> 00:16.290
+it's always a great practice even if you can't get the full result or full equivalence to my solution
+
+00:16.320 --> 00:21.480
+or if you get stuck at one point, you can still then go back and watch the solution together with me
+
+00:21.480 --> 00:25.740
+but you will still have a lot of practice by trying parts of that on your own.
+
+00:25.980 --> 00:32.060
+So here's your chance to pause the video and we'll do it together thereafter.
+
+00:32.100 --> 00:39.120
+So let's dive into that together and let's work on our orders now, creating orders and getting the orders,
+
+00:39.120 --> 00:40.500
+that is what we want to do
+
+00:40.660 --> 00:44.280
+and let's first of all look into our controller for that, the shop controller.
+
+00:44.280 --> 00:45.050
+There we have
+
+00:45.040 --> 00:46.240
+post order,
+
+00:46.260 --> 00:47.530
+now what are we doing there?
+
+00:47.760 --> 00:53.790
+Well here first of all we got an unused variable which we can get rid of, there we call add order on
+
+00:53.790 --> 00:56.220
+the user and that's essentially it, 
+
+00:56.220 --> 01:03.540
+so let's look into the user model and let's see what add order did. Add order simply took our cart,
+
+01:03.570 --> 01:10.320
+so the products in our carts to be precise and created an order object which contains the product data
+
+01:10.620 --> 01:12.710
+but also some data about the user
+
+01:12.900 --> 01:18.390
+and then we inserted this into an order collection.
+
+01:18.430 --> 01:23.210
+Now since we worked with a collection there, we'll need a new model that's for sure
+
+01:23.710 --> 01:30.700
+and the then is a result we just cleared the cart. So we get multiple steps we need to do here,
+
+01:30.940 --> 01:37.360
+first I'll add an order.js file in the models folder because I'll need an order model to store
+
+01:37.360 --> 01:39.960
+data in an orders collection.
+
+01:40.000 --> 01:45.390
+First of all let's import mongoose here by requiring mongoose like that,
+
+01:46.590 --> 01:51.950
+let's create the schema constant where we access mongoose schema like this
+
+01:51.990 --> 01:56.950
+and let's then define our order schema and how that should look like
+
+01:57.030 --> 02:01.010
+and of course here you can really also go with the schema that works for you
+
+02:01.020 --> 02:02.360
+or that you want to use.
+
+02:02.490 --> 02:09.600
+Now I will try to recreate the schema we used before where an order had the items and the user data
+
+02:09.660 --> 02:19.000
+and that was it and the items were our products which in the past was all the product data and the quantity.
+
+02:19.120 --> 02:26.720
+So here in my schema, I will have my products let's say, I named it items in the past, here I'll name it
+
+02:26.750 --> 02:35.270
+products. Products will be an array of documents and every document will let's say have the product data
+
+02:36.110 --> 02:48.230
+which will be of type object because this will be a full other document you could say that is required
+
+02:48.680 --> 02:53.130
+and besides the product data, I'll have to quantity for that product,
+
+02:54.380 --> 02:58.220
+could also name this just product here by the way if you wanted to.
+
+02:58.220 --> 03:07.870
+So here the quantity and that will be a type of number and this should also be required. Ok so this is how
+
+03:07.920 --> 03:09.550
+my products will look like,
+
+03:09.700 --> 03:13.580
+now I also will have a user and there I want to have a name
+
+03:13.600 --> 03:22.040
+let's say where the type is a string and this is required and what else did we store about the user
+
+03:22.040 --> 03:23.200
+in the past,
+
+03:23.570 --> 03:35.840
+well just the ID so also have my user ID here which is of type schema types objectid and which is also
+
+03:36.020 --> 03:36.940
+required
+
+03:37.250 --> 03:44.880
+and this will also refer to the user model. Now type object by the way is a bit of a shortcut,
+
+03:44.930 --> 03:48.860
+of course we could define the full nested product with all the properties there,
+
+03:48.860 --> 03:50.090
+feel free to do that,
+
+03:50.120 --> 03:52.970
+I'll just say well this is any object.
+
+03:53.450 --> 03:55.500
+So this is my order schema,
+
+03:55.690 --> 04:03.320
+now I'll export a model based on that schema with mongoose model, name that order and hence the collection
+
+04:03.320 --> 04:04.850
+will be named orders
+
+04:04.940 --> 04:07.140
+and then I got my order schema there.
+
+04:07.520 --> 04:07.820
+Ok so
+
+04:07.870 --> 04:13.540
+now I got my order model and that is new, we didn't use that before in the last module, we could have
+
+04:13.640 --> 04:16.860
+but now we well we implemented it differently there.
+
+04:16.870 --> 04:23.600
+Now since we use a model based package again for interacting with the data, we have to be more strict about
+
+04:23.600 --> 04:24.050
+that
+
+04:24.110 --> 04:30.110
+and that is a good thing generally and therefore we have an order model again. Now with the order model
+
+04:30.200 --> 04:30.620
+added
+
+04:30.620 --> 04:34.670
+the question is how do we interact between the order model and the user
+
+04:34.670 --> 04:42.690
+now? We had add order in the past and add order essentially just grabbed user data, products, created
+
+04:42.680 --> 04:44.270
+an order and stored it,
+
+04:44.300 --> 04:49.440
+now I still want to do that but I'll do it in a controller now. In post order,
+
+04:49.520 --> 04:59.360
+I'll work a bit differently, I will first of all import my order model at the top from models order
+
+04:59.420 --> 05:00.160
+like this,
+
+05:00.170 --> 05:01.670
+so this import was added
+
+05:02.760 --> 05:13.500
+and then down there in post order, I will create a new order object by using that order model constructor.
+
+05:13.520 --> 05:18.890
+Now that order object needs to be initialized and it needs to be initialized in the way we defined it here,
+
+05:18.890 --> 05:23.480
+so it needs to get products and it needs to get some user data.
+
+05:23.500 --> 05:25.390
+Now the user data is a bit simpler,
+
+05:25.390 --> 05:27.220
+we got our request user,
+
+05:27.370 --> 05:33.640
+so here we have the name which is request user name because remember, request user is a full user object
+
+05:33.640 --> 05:34.720
+fetched from the database
+
+05:34.750 --> 05:41.310
+so there will be a name property and we also want to store the ID of that user in the order,
+
+05:41.410 --> 05:45.610
+we also have like the user ID,
+
+05:45.700 --> 05:47.560
+so we should store that as well,
+
+05:47.560 --> 05:53.940
+so we'll add user ID here and that will simply be, well we can just use the entire request user object
+
+05:53.950 --> 05:57.840
+and as I mentioned mongoose will pick the ID from there.
+
+05:57.840 --> 05:58.040
+Ok
+
+05:58.050 --> 05:59.620
+so this is the easier part,
+
+05:59.620 --> 06:04.310
+now we also need to add the products for these users cart.
+
+06:04.350 --> 06:11.100
+However it's not that difficult because we already implemented something similar. For getting the cart,
+
+06:11.130 --> 06:16.260
+we use this approach for fetching all the products that are in the users cart.
+
+06:16.260 --> 06:22.860
+So in the end we can just copy this here, all the way up to the part where I extract the products and
+
+06:22.860 --> 06:26.070
+reuse that in post order at the beginning here,
+
+06:28.160 --> 06:32.550
+just make sure to close that then function here
+
+06:32.620 --> 06:35.740
+and here we now got the products that are in the users cart.
+
+06:35.920 --> 06:39.880
+Now important is just products is not entirely correct,
+
+06:39.880 --> 06:46.180
+you should remember that here we have an array of elements were we have the quantity and then the real
+
+06:46.180 --> 06:49.870
+product data was nested in a product ID field
+
+06:49.870 --> 06:51.740
+but we can work with that of course.
+
+06:51.880 --> 07:01.480
+We can now create our order inside of this then block and here, we can now add products which should be
+
+07:01.660 --> 07:06.170
+an array of products and that should be an array of products which is a bit transformed,
+
+07:06.220 --> 07:13.120
+so not the structure of products we get back here but after some transformations, to be precise products
+
+07:13.120 --> 07:19.130
+for us need to have a product field with the product data and a quantity field, that is almost what we have
+
+07:19.240 --> 07:25.630
+but we have the product data in a product ID field here, not in a product field but that is easy to fix.
+
+07:25.870 --> 07:28.610
+I will simply not just extract items like this,
+
+07:28.720 --> 07:37.870
+I will also map the items so that I store the changed items in my products array and a mapped item should
+
+07:37.870 --> 07:44.530
+still have its quantity so I'll keep that, the i simply refers to the item since this function goes
+
+07:44.530 --> 07:50.920
+through all items in that array, so we'll have the quantity. And then we'll have a product field and the product
+
+07:50.920 --> 07:57.760
+field should have all the product data so that we'll store everything that I had in i product ID before
+
+07:58.030 --> 08:00.310
+because that was the old structure we had in there,
+
+08:00.430 --> 08:03.060
+now we have this structure,
+
+08:03.060 --> 08:09.430
+we have an array of products which just have a quantity and then the product detail data which is exactly
+
+08:09.430 --> 08:12.240
+the structure we expect to get in the order model
+
+08:13.130 --> 08:17.280
+and now we can simply store these products in the order.
+
+08:17.630 --> 08:20.230
+And with that we got everything we need
+
+08:20.280 --> 08:28.700
+almost, now we just need to call save on that order, so order save now saves that order to the database.
+
+08:30.410 --> 08:33.790
+And then we can chain then on that
+
+08:33.830 --> 08:38.440
+once we return order save so that we can also redirect and so on.
+
+08:38.480 --> 08:45.650
+Let's see if that works by going to our shop routes again and commenting the create order route back
+
+08:45.650 --> 08:49.280
+in and now back in our project,
+
+08:49.280 --> 08:54.860
+let me first of all add a second product so that we get something to play around with and see that this
+
+08:54.860 --> 08:59.030
+does not get added, this is just a dummy product obviously.
+
+08:59.160 --> 09:01.410
+So now in our cart we got no products,
+
+09:01.430 --> 09:08.310
+let's add a nice book to our cart, 
+
+09:08.480 --> 09:11.310
+maybe also from the details page
+
+09:11.430 --> 09:13.950
+and let's not add the other product and let's click
+
+09:13.980 --> 09:14.890
+order now.
+
+09:14.900 --> 09:17.150
+Now we don't find the page we want to redirect to,
+
+09:17.240 --> 09:21.800
+that's fine and the cart also was not cleared because we haven't added that logic yet
+
+09:22.100 --> 09:27.510
+but let's have a look into compass and let's see, if we refresh the entire setup,
+
+09:27.590 --> 09:33.730
+we got the orders collection and in there I got an order with some user data, that looks pretty good,
+
+09:33.740 --> 09:35.630
+let's quickly confirm the user ID,
+
+09:35.630 --> 09:37.920
+it ends with 8A8,
+
+09:37.940 --> 09:42.180
+that looks good and let's have a look at the products there too
+
+09:42.380 --> 09:46.000
+and there I got a quantity of two and I got my product ID.
+
+09:46.220 --> 09:52.340
+Well the product ID, is that what I wanted though? I wanted all the product data right,
+
+09:52.340 --> 09:54.260
+let's fix that in the next lecture.

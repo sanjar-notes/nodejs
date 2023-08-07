@@ -1,0 +1,181 @@
+WEBVTT
+
+00:02.300 --> 00:06.100
+So let's dive into the most important question, what is nodejs?
+
+00:06.110 --> 00:10.600
+Nodejs is a javascript runtime
+
+00:10.610 --> 00:12.230
+and now what does this mean?
+
+00:12.500 --> 00:20.960
+You know javascript, it's a programming language you typically use in the browser to manipulate your dom,
+
+00:21.110 --> 00:24.620
+to manipulate the page which was loaded in the browser,
+
+00:24.650 --> 00:31.520
+for example to open a popup, a modal or add any kinds of effects because Javascript is a language that
+
+00:31.520 --> 00:37.370
+runs in the browser that allows you to interact with the page after it was loaded and it therefore is a
+
+00:37.370 --> 00:42.620
+crucial part when it comes to building interactive user interfaces in the browser,
+
+00:42.620 --> 00:48.410
+so whatever your users see. However javascript is not limited to that.
+
+00:48.620 --> 00:56.930
+Nodejs is a different version of javascript you could say, it is basically built on javascript, it adds
+
+00:56.930 --> 01:02.300
+some features to it, is not capable of doing some other things you can do with javascript in the browser,
+
+01:02.450 --> 01:06.490
+so it basically takes javascript and puts it into a different environment.
+
+01:06.560 --> 01:10.280
+It allows you to run javascript code on the server
+
+01:10.280 --> 01:14.770
+you could say, in theory not just on the server but on any machine though.
+
+01:14.960 --> 01:21.860
+So it basically allows you to run javascript not just in the browser but anywhere else like a normal
+
+01:21.890 --> 01:28.460
+programming language, like normal programs on your computer or some computer in the Internet effectively
+
+01:28.460 --> 01:34.760
+making it a great choice for building web applications that run on servers which are just computers
+
+01:34.850 --> 01:36.850
+running somewhere in the Internet.
+
+01:37.010 --> 01:44.600
+So in detail, this means that we can use nodejs to run javascript outside of the browser,
+
+01:44.660 --> 01:46.340
+that is the core takeaway,
+
+01:46.340 --> 01:47.660
+now how does this work
+
+01:47.670 --> 01:57.500
+technically? Well nodejs uses v8 and v8 simply is the name of the javascript engine built by Google
+
+01:57.800 --> 02:00.880
+that runs javascript in the browser,
+
+02:00.920 --> 02:06.860
+so back to the browser we now are. V8 is simply the name the creators gave their engine
+
+02:06.920 --> 02:09.010
+and what does an engine mean?
+
+02:09.170 --> 02:15.650
+Well it simply means that engine takes javascript code, the code running in your browser then or in node's
+
+02:15.650 --> 02:17.380
+case which builds up on v8,
+
+02:17.420 --> 02:23.790
+also the nodejs javascript code, it takes that javascript code and compiles it to machine code
+
+02:23.930 --> 02:28.590
+and this is what your browser does too, what v8 does in your browser.
+
+02:28.610 --> 02:35.390
+It does take your javascript code and compile it to machine code because that is the code that runs ultimately
+
+02:35.660 --> 02:36.670
+on your computer
+
+02:36.740 --> 02:39.170
+and that can be handled efficiently.
+
+02:39.510 --> 02:45.920
+Now this is done by v8, v8 itself is written in C++ but that doesn't really matter too
+
+02:45.920 --> 02:46.670
+much for you,
+
+02:46.700 --> 02:50.440
+you don't need to write any C++ code to use javascript or nodejs
+
+02:50.510 --> 02:52.190
+but nodejs
+
+02:52.250 --> 03:00.110
+basically takes that v8 codebase which is written in C++ and adds certain features like for example
+
+03:00.110 --> 03:05.450
+working with your local file system, opening files, reading files, deleting files,
+
+03:05.570 --> 03:08.750
+these are all things which are not possible in the browser,
+
+03:08.780 --> 03:14.050
+you can't access your local filesystem in the browser for security reasons, so this is not supported.
+
+03:14.270 --> 03:18.590
+Nodejs adds these features to v8's engine you could say
+
+03:18.710 --> 03:20.730
+so that you can suddenly do that. Now
+
+03:20.750 --> 03:25.210
+nodejs does not run in the browser so these restrictions still apply,
+
+03:25.220 --> 03:27.120
+there you use vanilla
+
+03:27.140 --> 03:30.940
+v8, so v8 only without the nodejs extensions
+
+03:31.190 --> 03:37.820
+but if you then install nodejs, you can use it to basically use that extended v8 version
+
+03:37.970 --> 03:45.560
+to run javascript scripts on your computer which then suddenly can access these new features because they
+
+03:45.560 --> 03:51.620
+don't run in the browser but are directly executed through that nodejs runtime you could say.
+
+03:51.680 --> 03:58.340
+So this is how that works together and what nodejs does. It allows you to run javascript on your computer
+
+03:58.550 --> 04:05.300
+and it adds useful functionalities to the javascript engine so that you can do more useful stuff there
+
+04:05.380 --> 04:08.660
+than you can do with browser side javascript.
+
+04:08.660 --> 04:10.750
+Now one important note maybe on this point
+
+04:10.760 --> 04:16.520
+also is that of course some features are also taken away. In the browser you use javascript to interact
+
+04:16.520 --> 04:18.240
+with the document object model,
+
+04:18.260 --> 04:21.060
+so with the html elements on your page,
+
+04:21.170 --> 04:27.260
+if you just execute a javascript file directly, you of course have no attached page and therefore these
+
+04:27.260 --> 04:30.770
+features are missing. But this is a lot of theory,
+
+04:30.830 --> 04:37.550
+why don't we just have a look at this and see how we can install and use nodejs and what it actually
+
+04:37.550 --> 04:38.450
+does for us.
+
+04:38.450 --> 04:40.100
+Let's do that in the next lecture.

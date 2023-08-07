@@ -1,0 +1,190 @@
+WEBVTT
+
+00:02.810 --> 00:04.820
+So we learn about SQL and NoSQL,
+
+00:04.820 --> 00:09.530
+let's now compare them and let's start with horizontal and vertical scaling because as I mentioned at
+
+00:09.530 --> 00:15.260
+the end of the last lecture, we often need to scale our database to keep up with our growing application
+
+00:15.380 --> 00:18.490
+with more and more users. Horizontal and vertical scaling
+
+00:18.500 --> 00:21.640
+are the two approaches we can use to scale our database.
+
+00:21.680 --> 00:27.540
+Now what do they mean? Well in horizontal scaling, we simply add more servers.
+
+00:27.620 --> 00:31.750
+and the advantage here of course is that we can do this infinitely.
+
+00:31.820 --> 00:38.420
+We can always buy new servers, be that on a cloud provider or in our own data center and connect
+
+00:38.420 --> 00:42.650
+them to our database and split our data across all these servers,
+
+00:42.650 --> 00:47.630
+of course this means that we also need some process that runs queries on all of them and merges them together
+
+00:47.630 --> 00:48.580
+intelligently,
+
+00:48.590 --> 00:54.050
+so this is generally something which is not that easy to do but this is of course a good way of scaling.
+
+00:54.800 --> 01:03.020
+Vertical scaling simply means that we make our existing server stronger by adding more CPU or memory
+
+01:03.020 --> 01:05.890
+or with something like that, especially with cloud providers,
+
+01:05.890 --> 01:09.800
+this is typically very easy, you simply choose another option from the dropdown,
+
+01:09.830 --> 01:11.960
+you pay more and you're done,
+
+01:11.960 --> 01:18.260
+the problem here is that you have some limit, you can't fit infinitely much CPU power into a single
+
+01:18.260 --> 01:20.150
+machine.
+
+01:20.170 --> 01:22.720
+So these are the two ways we can scale,
+
+01:22.720 --> 01:24.790
+how let's compare a SQL and NoSQL
+
+01:24.790 --> 01:33.310
+regarding that and in general. Now in general in SQL we use schemas, we also have relations,
+
+01:33.310 --> 01:39.250
+these are two core characteristics and data is typically distributed across many many tables which
+
+01:39.250 --> 01:41.850
+are then connected through relations.
+
+01:41.860 --> 01:48.580
+Now regarding the scaling, it's important that horizontal scaling often is very difficult or even impossible
+
+01:48.790 --> 01:50.810
+due to the way SQL works,
+
+01:50.830 --> 01:57.030
+you can of course add more servers but running them all on one shared data cloud
+
+01:57.040 --> 02:01.160
+so to say, one shared database is pretty difficult.
+
+02:01.210 --> 02:03.400
+Vertical scaling is easily possible,
+
+02:03.400 --> 02:09.500
+you can simply make your server stronger but adding more servers can be very hard or even impossible,
+
+02:09.500 --> 02:11.960
+so definitely not trivial.
+
+02:12.100 --> 02:18.790
+So this is a problem possibly if we have multiple or thousands of read and write queries per second,
+
+02:18.850 --> 02:26.920
+then maybe our SQL database especially if we do very complex joins between related tables can reach
+
+02:27.070 --> 02:30.770
+limits or can not be the best choice.
+
+02:30.880 --> 02:39.250
+NoSQL is schemaless and has only a few relations if at all, the data is typically not distributed
+
+02:39.250 --> 02:45.800
+across multiple collections but instead we work with merged or nested documents in an existing document,
+
+02:45.800 --> 02:51.610
+though we of course also have a couple of collections for the different features of our application typically.
+
+02:52.240 --> 02:55.410
+With NoSQL, horizontal scaling is easier,
+
+02:55.570 --> 03:01.000
+still something where you have to know what you do but there are cloud providers which do that for us
+
+03:01.180 --> 03:07.090
+so we don't have to know the ins and outs of that and in general, due to the way it works with less connections
+
+03:07.090 --> 03:13.630
+and so on, this is possible. And therefore we also get great performance for mass read and write requests and
+
+03:13.630 --> 03:19.190
+NoSQL can be very performant in an application with high throughput.
+
+03:19.240 --> 03:25.420
+Now this makes SQL look very bad but the full truth is that it always depends on the kind of data
+
+03:25.420 --> 03:26.740
+you are storing,
+
+03:26.770 --> 03:31.810
+if you are storing where the relations are really important and where you want to have a split up across
+
+03:31.810 --> 03:36.310
+tables and where you want to have strong schemas, SQL can be perfect,
+
+03:36.310 --> 03:41.610
+also not every part of your data is accessed multiple times per second.
+
+03:41.620 --> 03:45.130
+You can have parts of your application where you manage general data,
+
+03:45.130 --> 03:50.600
+let's say user data which does not change that often and therefore, SQL might be very good
+
+03:50.600 --> 03:59.260
+there. Other parts of the application, let's say orders or shopping carts that do change frequently could
+
+03:59.260 --> 04:05.170
+be stored with NoSQL and there, the relations might also not be that important because you can always put
+
+04:05.230 --> 04:10.420
+all the information that belongs to a shopping cart or to an order in one single document
+
+04:10.510 --> 04:15.310
+and even if you do for example store some user data there, you might not need to touch that document
+
+04:15.400 --> 04:21.360
+just because the user change his photo because you probably didn't store that along with the order anyways.
+
+04:21.550 --> 04:23.870
+Now in this course, we will build both,
+
+04:23.890 --> 04:26.430
+we will use both because I want to teach you both
+
+04:26.590 --> 04:32.190
+and it's not so much about this course application but you should know how to use SQL with nodejs
+
+04:32.320 --> 04:37.900
+because maybe you need to add in your application or you're working on a project where you don't decide which
+
+04:37.900 --> 04:40.460
+database to use but you simply have to use it.
+
+04:40.480 --> 04:46.010
+So we will use SQL first but then I will also show you how to use NoSQL of mongodb,
+
+04:46.120 --> 04:52.300
+so we'll basically implement the course project or the current state of the course project with both
+
+04:52.510 --> 04:55.910
+databases and you will see how to interact with both of them.
+
+04:55.960 --> 05:01.630
+And let's start with SQL in this module, let's install a MySQL database and learn how to interact
+
+05:01.630 --> 05:04.170
+with it from inside our nodejs code.

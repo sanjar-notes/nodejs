@@ -1,0 +1,268 @@
+WEBVTT
+
+00:02.430 --> 00:07.330
+Now that we have a way of sharing our io connections across multiple files,
+
+00:07.350 --> 00:17.050
+let's go ahead and in feed.js, in our controller on the backend, there I want to use that io or that
+
+00:17.080 --> 00:19.120
+socket.js file.
+
+00:19.210 --> 00:25.050
+So here maybe above my other imports, I'll add a new import and I'll name that io,
+
+00:25.150 --> 00:32.500
+the name is up to you though and I will require dots going up one level and then /socket,
+
+00:32.510 --> 00:34.230
+so this file we just created,
+
+00:34.250 --> 00:36.650
+I will require that object therefore
+
+00:36.890 --> 00:43.150
+and there I can now call get io to get my existing io object which I do initialize first
+
+00:43.160 --> 00:44.140
+in app.js, right,
+
+00:44.180 --> 00:45.290
+we initialize it here
+
+00:45.380 --> 00:48.310
+so this will be initialized by the time we use it here.
+
+00:48.890 --> 00:54.740
+So now this is how I import it here in feed.js.
+
+00:54.840 --> 01:00.490
+Now inside of create post, I now want to use that
+
+01:00.790 --> 01:07.260
+and of course in create posts I want to use it once I'm done creating the post essentially.
+
+01:07.270 --> 01:12.520
+So right before I sent my response back and that response will go back to the user who created
+
+01:12.520 --> 01:16.310
+the post, we'll not change this, we have to send back a response
+
+01:16.540 --> 01:24.310
+but now I want to inform all other users and for that, I can use io and there I can call get io to
+
+01:24.310 --> 01:28.940
+get my established io object or connection we set up in app.js
+
+01:28.980 --> 01:32.180
+and now there are a couple of helpful methods
+
+01:32.190 --> 01:36.850
+the io, the socket.io package gives you and one of them is emit.
+
+01:37.050 --> 01:43.450
+There also would be broadcast, the difference is that emit will now send a message to all connected users,
+
+01:43.630 --> 01:50.350
+broadcast sends it to all users except for the one from which this request was sent.
+
+01:50.350 --> 01:56.950
+Now I'll actually go with all users with emit, then you define an event name and that name is totally up to you,
+
+01:56.960 --> 01:58.780
+I'll name it posts
+
+02:01.430 --> 02:04.700
+and I'll define the data I want to send. This is also up to you,
+
+02:04.700 --> 02:10.740
+typically it's a javascript object and here I'll send an object with any data you want. I'll define an
+
+02:10.740 --> 02:13.520
+action key to inform the clients
+
+02:13.580 --> 02:20.780
+what happened, the channel you could say is posts but the action now is create and that is just one way
+
+02:20.780 --> 02:22.550
+of implementing this of course
+
+02:22.700 --> 02:29.290
+and then the post that was created will be stored in let's say a post key and that is the post which we
+
+02:29.290 --> 02:30.080
+do save here.
+
+02:30.110 --> 02:38.400
+So I'm sending this post object in this data package on this posts channel you could say. Now with that, we're
+
+02:38.420 --> 02:44.540
+sending this to all connected clients. In the next step we'll have to adjust our client side code
+
+02:44.780 --> 02:47.650
+to also react to such incoming events
+
+02:47.840 --> 02:53.630
+and for that I'll go back to my client side code and here in componentDidMount in the feed.js
+
+02:53.750 --> 03:00.620
+file, I want to set up the code to listen to incoming data from socket.io because in my app, the events
+
+03:00.620 --> 03:06.230
+I broadcast or I emit on the server happened to be related to post which I manage in the feed.js
+
+03:06.260 --> 03:07.280
+file in the end,
+
+03:07.280 --> 03:09.350
+so here is where I'm interested in,
+
+03:09.350 --> 03:11.110
+well changes to that.
+
+03:11.270 --> 03:17.420
+So in componentDidMount ofter opening my socket, I will actually store something which is returned
+
+03:17.420 --> 03:19.950
+by open socket and that is my socket,
+
+03:20.030 --> 03:22.660
+so the socket, the connection which was opened,
+
+03:22.670 --> 03:25.010
+I'll store that in a constant named socket,
+
+03:25.040 --> 03:26.250
+the name is up to you
+
+03:26.530 --> 03:32.040
+and now on that socket, we can use the on method to listen to certain events
+
+03:32.100 --> 03:35.740
+and now here we want to use that same event name we used on the backend.
+
+03:35.870 --> 03:42.020
+So there I used posts, if you use something different you now have to change that in your frontend too,
+
+03:42.170 --> 03:48.590
+so I use posts and in the frontend I therefore listen to the posts event and there we will get some
+
+03:48.590 --> 03:49.270
+data.
+
+03:49.460 --> 03:57.200
+Now I know that due to the set up I chose here, my object which I send on the backend will have an action
+
+03:57.200 --> 04:03.340
+key that defines what happened to posts but that's just the pattern I established here,
+
+04:03.470 --> 04:06.120
+that is not enforced by socket.io.
+
+04:06.230 --> 04:08.080
+You can send any data you want here,
+
+04:08.120 --> 04:10.050
+you don't have to have an action key,
+
+04:10.280 --> 04:16.220
+I want that though because I'll actually send different events or different kinds of operations on posts
+
+04:16.430 --> 04:19.040
+through the same channel eventually.
+
+04:19.040 --> 04:25.790
+So here I'll have my data object and I can check data action and see if that is equal to create which
+
+04:25.790 --> 04:29.610
+in my case it will be for that event I'm emitting on the backend
+
+04:29.660 --> 04:32.390
+and then I want to call this add post,
+
+04:32.390 --> 04:40.850
+so this function we created before and I'll pass data post because again, I'm creating this whole set
+
+04:40.850 --> 04:41.200
+up
+
+04:41.360 --> 04:48.530
+and I know that on the backend, that data package I'm sending through socket.io will have a post key with
+
+04:48.530 --> 04:50.140
+the post that was created.
+
+04:50.390 --> 04:54.980
+So that is the post which I will send to add post which will be rendered by that code then.
+
+04:54.980 --> 05:02.860
+And that is it for now, let's save that and also save all your backend code and go back to the
+
+05:03.100 --> 05:04.070
+application
+
+05:04.300 --> 05:11.230
+and now to see that in action, I'll actually fake to have a second client. So I will actually open a different
+
+05:11.230 --> 05:17.690
+browser, Firefox and this is essentially the same as if it would run on a different PC now,
+
+05:17.710 --> 05:25.420
+so these two browsers are now like two different machines and you can tell by the fact that I'm
+
+05:25.420 --> 05:31.380
+not logged in here on Firefox, get a little display back here but we can ignore that for
+
+05:31.380 --> 05:32.040
+now.
+
+05:32.370 --> 05:38.730
+So let's use let's say the test2 user, create a different user if you don't have one
+
+05:38.790 --> 05:46.110
+and now I'm logged in on Firefox on the left and on Chrome on the right. Now on Chrome, this is a test user
+
+05:46.110 --> 05:50.730
+and on the left, it's a test2@test.com user named Max.
+
+05:50.740 --> 05:59.310
+Now let me create a new post here, I'll name that a duck and choose that duck image here and click accept
+
+06:00.350 --> 06:04.980
+and you see it'll show up on the left too, you'll also see it show up on the right
+
+06:05.000 --> 06:15.050
+two times simply because there, I also get informed about this created post through my socket because I'm
+
+06:15.290 --> 06:20.450
+not filtering to not send this to the client who sent the request and since I also have some code for
+
+06:20.450 --> 06:31.510
+rendering the post in my finish edit handler in the feed.js file, if you scroll down a little bit, here
+
+06:31.660 --> 06:36.460
+the post will show up there as well. To prevent this from happening,
+
+06:36.490 --> 06:41.330
+I can remove this else/if case. If I now save this, all the pages will automatically reload
+
+06:41.380 --> 06:44.260
+and now let's try this again, a cup,
+
+06:44.290 --> 06:45.330
+let's choose that cup
+
+06:45.360 --> 06:51.460
+image, accept and you see it show up on the left side
+
+06:51.480 --> 06:54.110
+too and that is the interesting thing.
+
+06:54.200 --> 06:58.740
+I never reloaded the page on left and still we see the new post show up there,
+
+06:58.790 --> 07:05.990
+that is simply due to socket.io where we have an established connection on both clients now and therefore
+
+07:06.020 --> 07:11.750
+it also updates on the left or add this item on the left due to the code we added on our frontend.

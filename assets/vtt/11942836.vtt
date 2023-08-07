@@ -1,0 +1,163 @@
+WEBVTT
+
+00:02.200 --> 00:08.300
+We're coming closer to the end of this module, only the order part is missing and I want to include that
+
+00:08.330 --> 00:14.600
+too because this will show you another way of creating relation. With the cart, we had like the middle
+
+00:14.600 --> 00:15.110
+way,
+
+00:15.320 --> 00:21.500
+the cart is an embedded document but the items on the cart then are a combination of references and
+
+00:21.500 --> 00:22.780
+extra metadata.
+
+00:23.030 --> 00:26.330
+Now for the orders, this will change.
+
+00:26.330 --> 00:28.590
+So let's work on the orders now
+
+00:28.820 --> 00:36.920
+and for that I'll go to my shop.js file where we post the order. Again I want to store orders on users,
+
+00:36.920 --> 00:45.700
+so in the user model, we can add an add order method and this doesn't take any arguments because the cart
+
+00:45.730 --> 00:51.610
+which will be passed as an order or as the data for the order is already registered on this user,
+
+00:51.790 --> 00:59.330
+so all I need to do here is I need to add the orders to my user or the other way around.
+
+00:59.410 --> 01:05.950
+You could also argue that you want to store the orders in a new collection because you might have thousands
+
+01:05.950 --> 01:11.230
+of orders and you don't want to embed them all into user objects because these objects will then
+
+01:11.230 --> 01:12.840
+get pretty quick,
+
+01:12.970 --> 01:16.310
+carts don't get that big but an order history,
+
+01:16.420 --> 01:22.390
+well often that can get very long so I will actually work with a new collection here.
+
+01:22.480 --> 01:30.910
+I'll still create order here as a method on my user though, so I'll reach out to my database client and
+
+01:30.910 --> 01:35.430
+then reach out to a new collection, orders. There
+
+01:35.440 --> 01:44.500
+I want to insert one new order now and I'll return the entire thing and that one new order will be well the
+
+01:44.500 --> 01:45.080
+cart
+
+01:45.220 --> 01:46.320
+I currently have, 
+
+01:46.360 --> 01:46.660
+right,
+
+01:46.660 --> 01:54.640
+that is essentially what I did before too when I added an order, I added my products in the order model,
+
+01:54.670 --> 01:56.600
+we had no special fields for that,
+
+01:56.620 --> 02:00.850
+we just had our products and then the quantity of every product
+
+02:00.850 --> 02:03.410
+and that is still the same I want to add here.
+
+02:03.610 --> 02:09.200
+So you could say I'll insert one and I'll insert my cart,
+
+02:09.290 --> 02:20.000
+so this cart which refers to the users cart. I insert this as an order and then when this succeeds, I set
+
+02:20.010 --> 02:24.390
+this cart equal to an object where items is an empty array,
+
+02:24.390 --> 02:27.970
+so I basically empty my cart at this point.
+
+02:28.230 --> 02:30.350
+Of course I don't just want to empty it here,
+
+02:30.360 --> 02:33.660
+I also want to clear it in the database,
+
+02:33.840 --> 02:40.170
+so we'll also copy that code for updating my user in the database and I will return that here in this
+
+02:40.180 --> 02:49.400
+then block and there, I will simply search for that user and set the cart equal to an object where
+
+02:49.460 --> 02:52.710
+items is an empty array.
+
+02:52.720 --> 02:57.860
+So now I cleared both in the user object as well as in the database
+
+02:57.940 --> 03:02.720
+but I also insert the cart into the orders collection before I clear it
+
+03:02.800 --> 03:06.130
+and that of course is the important part. With that,
+
+03:06.130 --> 03:09.110
+we already are adding the order. Now in shop.js,
+
+03:09.120 --> 03:21.600
+in post order where the order gets placed, I can therefore remove all the code up here and simply say
+
+03:22.230 --> 03:26.420
+add order, simply execute this method and then redirect
+
+03:26.430 --> 03:33.630
+once this is done and in add order, I will store my cart as a new order and you could of course also
+
+03:33.630 --> 03:37.530
+add some new fields like the total of value for example if you wanted to
+
+03:38.070 --> 03:39.410
+and that is it for now,
+
+03:39.600 --> 03:41.550
+so thereafter I redirect.
+
+03:41.550 --> 03:42.890
+Now let's see if that works
+
+03:44.300 --> 03:52.900
+by going to the shop.js file and re-adding that create order route and let's click order now here.
+
+03:53.350 --> 04:00.940
+Now I have page not found because orders, the orders page the route wasn't added again but let's refresh
+
+04:01.180 --> 04:02.570
+the entire page here
+
+04:02.830 --> 04:11.710
+and my items in the cart certainly are gone but I don't see new orders in the shop database,
+
+04:11.800 --> 04:15.370
+I don't see that collection here
+
+04:15.570 --> 04:22.430
+but here it is after updating this once with the update arrow in the top left corner and in orders,
+
+04:22.650 --> 04:29.870
+I have one order with indeed the items I had in my cart previously and the cart is now empty.
+
+04:29.870 --> 04:34.770
+So let's now make sure in the next lecture that we can see our orders page again.

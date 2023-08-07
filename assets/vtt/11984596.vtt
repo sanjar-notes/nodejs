@@ -1,0 +1,49 @@
+WEBVTT
+
+00:02.190 --> 00:03.440
+Editing fails here
+
+00:03.570 --> 00:06.520
+and do you have an idea why it fails?
+
+00:07.020 --> 00:08.930
+It fails because of my check here,
+
+00:08.940 --> 00:12.160
+I compare the product user ID to the request user ID.
+
+00:12.180 --> 00:18.390
+Now we have a type problem again, I should convert both to a string because I'm also checking for type
+
+00:18.390 --> 00:19.250
+equality.
+
+00:19.590 --> 00:27.770
+So with this change, both converted to a string and not this strange object id thing, with this in place,
+
+00:27.810 --> 00:31.440
+now if I login or if I'm logged in with the right account,
+
+00:31.660 --> 00:36.660
+now I can update this and I can also delete this.
+
+00:36.750 --> 00:40.330
+So this now all works with the right account,
+
+00:40.330 --> 00:42.370
+so with the account who created it
+
+00:45.600 --> 00:51.210
+but it will not work if I login with the wrong account because if I login there,
+
+00:51.240 --> 00:53.990
+so this is now the account which did not create it,
+
+00:54.210 --> 00:56.060
+I can view it on the normal pages,
+
+00:56.160 --> 01:00.980
+I can add it to my cart if I want to but under admin products, I do not see it
+
+01:01.020 --> 01:04.120
+and even if I would see it, I could not interact with it.

@@ -1,0 +1,354 @@
+WEBVTT
+
+1
+00:00:02.350 --> 00:00:04.470
+<v Presenter>So now we added the configuration.</v>
+
+2
+00:00:04.470 --> 00:00:05.730
+Now let's say,
+
+3
+00:00:05.730 --> 00:00:10.730
+we actually want to make add a bit more flexible.
+
+4
+00:00:10.780 --> 00:00:12.260
+It should work with numbers,
+
+5
+00:00:12.260 --> 00:00:14.750
+but it should also work with strings.
+
+6
+00:00:14.750 --> 00:00:18.070
+Of course I wanted to ensure that it works with numbers
+
+7
+00:00:18.070 --> 00:00:21.080
+to show you why TypeScript is awesome,
+
+8
+00:00:21.080 --> 00:00:23.080
+but still, this could be a use case
+
+9
+00:00:23.080 --> 00:00:25.130
+that you have in some app you are building.
+
+10
+00:00:25.130 --> 00:00:28.200
+You want to allow both numbers and strings
+
+11
+00:00:28.200 --> 00:00:33.200
+because maybe here, we want to have a string result as well.
+
+12
+00:00:33.260 --> 00:00:35.650
+And there, I want to be able to call add
+
+13
+00:00:35.650 --> 00:00:37.420
+with the string values.
+
+14
+00:00:37.420 --> 00:00:40.890
+And I want to get that concatenated result.
+
+15
+00:00:40.890 --> 00:00:45.890
+So I want to have that concatenated string of numbers.
+
+16
+00:00:46.050 --> 00:00:48.820
+Now, currently we are only accepting number here.
+
+17
+00:00:48.820 --> 00:00:50.700
+We could change this to any.
+
+18
+00:00:50.700 --> 00:00:53.230
+Now any kind of data is accepted.
+
+19
+00:00:53.230 --> 00:00:56.350
+But as a downside, we can now, for example,
+
+20
+00:00:56.350 --> 00:01:01.350
+also console.log add, and add true and false together.
+
+21
+00:01:02.910 --> 00:01:04.690
+Now I don't want to accept Booleans,
+
+22
+00:01:04.690 --> 00:01:07.310
+I want to accept strings and numbers.
+
+23
+00:01:07.310 --> 00:01:10.733
+That's where we can use a feature called the Union Type.
+
+24
+00:01:11.720 --> 00:01:14.250
+Often in code, you will have code that works
+
+25
+00:01:14.250 --> 00:01:16.130
+with more than one type.
+
+26
+00:01:16.130 --> 00:01:16.970
+Now in that case,
+
+27
+00:01:16.970 --> 00:01:20.550
+you can define multiple types, like number and string
+
+28
+00:01:20.550 --> 00:01:24.600
+separated with that single pipe symbol here.
+
+29
+00:01:24.600 --> 00:01:25.840
+This is a Union Type.
+
+30
+00:01:25.840 --> 00:01:29.740
+It means number num1 is either a number
+
+31
+00:01:29.740 --> 00:01:30.903
+or a string.
+
+32
+00:01:31.890 --> 00:01:35.370
+And we can do this here for num2 as well.
+
+33
+00:01:35.370 --> 00:01:38.250
+Now we get an error here because of that Union Type thing
+
+34
+00:01:38.250 --> 00:01:41.270
+because even though the plus operator does work
+
+35
+00:01:41.270 --> 00:01:43.150
+with both number and string,
+
+36
+00:01:43.150 --> 00:01:46.560
+TypeScript at the moment at least doesn't understand this.
+
+37
+00:01:46.560 --> 00:01:49.380
+And even though this here is a strange error
+
+38
+00:01:49.380 --> 00:01:51.800
+because the plus operator of course would work
+
+39
+00:01:51.800 --> 00:01:53.360
+for both numbers and strings,
+
+40
+00:01:53.360 --> 00:01:57.180
+it is also often the case that you accept multiple types,
+
+41
+00:01:57.180 --> 00:01:59.660
+but you wanna run slightly different code
+
+42
+00:01:59.660 --> 00:02:01.690
+depending on the type of data you get.
+
+43
+00:02:01.690 --> 00:02:04.770
+So that's actually great that we can do this here as well.
+
+44
+00:02:04.770 --> 00:02:07.750
+And we can do this with a traditional if check.
+
+45
+00:02:07.750 --> 00:02:11.460
+We can check if the typeof num1
+
+46
+00:02:11.460 --> 00:02:13.270
+is equal to number,
+
+47
+00:02:13.270 --> 00:02:15.700
+and this is regular JavaScript code now.
+
+48
+00:02:15.700 --> 00:02:17.627
+This is not TypeScript code.
+
+49
+00:02:17.627 --> 00:02:20.740
+The typeof operator exists in JavaScript
+
+50
+00:02:20.740 --> 00:02:25.270
+and it gives us back the types as strings, number and so on.
+
+51
+00:02:25.270 --> 00:02:27.500
+So we can check if num1 is a number
+
+52
+00:02:29.030 --> 00:02:31.483
+and if num2 is a number,
+
+53
+00:02:34.066 --> 00:02:36.943
+and if it is we return num1 plus num2
+
+54
+00:02:39.940 --> 00:02:40.850
+else if
+
+55
+00:02:42.763 --> 00:02:45.490
+typeof num1,
+
+56
+00:02:45.490 --> 00:02:47.840
+is let's say a string
+
+57
+00:02:49.050 --> 00:02:54.050
+and typeof num2 is a string,
+
+58
+00:02:55.100 --> 00:02:58.570
+then let's say we wanna return num1 plus
+
+59
+00:02:58.570 --> 00:03:00.570
+and then maybe some white space in between,
+
+60
+00:03:00.570 --> 00:03:02.090
+you don't have to add it though.
+
+61
+00:03:02.090 --> 00:03:04.290
+I'm just doing it here so that we see a difference
+
+62
+00:03:04.290 --> 00:03:06.273
+besides the different result, I guess.
+
+63
+00:03:07.550 --> 00:03:11.520
+Well, and else, if we have mixed types,
+
+64
+00:03:11.520 --> 00:03:14.020
+it theoretically would work, but in this case,
+
+65
+00:03:14.020 --> 00:03:17.010
+we maybe just want to force a conversion to a number
+
+66
+00:03:17.010 --> 00:03:19.380
+so that if we get a string and a number mixed,
+
+67
+00:03:19.380 --> 00:03:21.580
+we always convert both to a number.
+
+68
+00:03:21.580 --> 00:03:23.960
+If we have two numbers, we add them like this.
+
+69
+00:03:23.960 --> 00:03:26.530
+If we have two strings, we add them like this.
+
+70
+00:03:26.530 --> 00:03:28.520
+This is a so called Type Guard,
+
+71
+00:03:28.520 --> 00:03:30.130
+because we run different code
+
+72
+00:03:30.130 --> 00:03:34.193
+based on different types we're getting for our values.
+
+73
+00:03:35.650 --> 00:03:37.160
+And now you'll see that down there,
+
+74
+00:03:37.160 --> 00:03:39.850
+I'm not able to call this for Booleans
+
+75
+00:03:39.850 --> 00:03:42.200
+because this is neither a number or a string,
+
+76
+00:03:42.200 --> 00:03:45.030
+and I'm only allowing these two kinds of types
+
+77
+00:03:45.030 --> 00:03:48.510
+with my Union Type here, hence, we have to remove this.
+
+78
+00:03:48.510 --> 00:03:50.690
+And then we can compile this again.
+
+79
+00:03:50.690 --> 00:03:52.400
+It compiles without errors.
+
+80
+00:03:52.400 --> 00:03:54.570
+And in the generated JavaScript file,
+
+81
+00:03:54.570 --> 00:03:56.710
+of course, the Union Type is gone.
+
+82
+00:03:56.710 --> 00:03:58.670
+The if checks are still there though,
+
+83
+00:03:58.670 --> 00:04:01.890
+because as I mentioned that is regular JavaScript code.
+
+84
+00:04:01.890 --> 00:04:05.090
+And of course, we don't want that code to magically go away.
+
+85
+00:04:05.090 --> 00:04:08.300
+In the end it does yield different results.
+
+86
+00:04:08.300 --> 00:04:13.113
+So if we now return here and I enter five and 11,
+
+87
+00:04:13.970 --> 00:04:18.180
+you see we get both 16 as well as our concatenated string.
+
+88
+00:04:18.180 --> 00:04:21.393
+So Union Types are another key feature.
+

@@ -1,0 +1,28 @@
+WEBVTT
+
+00:02.170 --> 00:07.460
+In this module let's have a look at something you can't avoid, errors.
+
+00:07.500 --> 00:14.580
+There will be errors in the applications, in the webpages you create and some errors can of course be
+
+00:14.580 --> 00:17.460
+avoided by testing your code properly
+
+00:17.460 --> 00:20.380
+but some errors are due to happen.
+
+00:20.400 --> 00:26.910
+You will always have some bugs or issues in your code and even if you don't, your database server might be
+
+00:26.910 --> 00:30.260
+offline, users do send invalid data,
+
+00:30.360 --> 00:37.170
+so there will be errors and in this module, we'll have a look at different types of errors and how to handle
+
+00:37.170 --> 00:40.240
+these different types of errors in an elegant way
+
+00:40.260 --> 00:42.600
+in your node express application.

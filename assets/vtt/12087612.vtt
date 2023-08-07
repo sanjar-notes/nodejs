@@ -1,0 +1,205 @@
+WEBVTT
+
+00:02.210 --> 00:07.550
+So now that we know what a rest API generally is or which problem it solves,
+
+00:07.550 --> 00:10.290
+let me give you a big picture of how it works.
+
+00:10.310 --> 00:16.280
+We have a client in the server and the client is a mobile app or our single page application, on the server
+
+00:16.340 --> 00:18.220
+we build our API.
+
+00:18.410 --> 00:21.880
+So here we build an API for these apps we might be building
+
+00:21.950 --> 00:27.160
+and one advantage by the way is that we can use one and the same API for multiple clients.
+
+00:27.260 --> 00:32.310
+So we might be building a web app and a mobile app, not that uncommon these days,
+
+00:32.360 --> 00:39.110
+most companies have mobile apps and web apps but we can use one and the same API because both apps, mobile
+
+00:39.170 --> 00:41.820
+and web app use the same data of course,
+
+00:41.900 --> 00:47.390
+they might present it differently and that is what I was talking about, about the user interface being
+
+00:47.390 --> 00:49.520
+handled by the frontend, by the client.
+
+00:49.520 --> 00:53.180
+They might present it differently but they work with the same data,
+
+00:53.480 --> 00:59.600
+so that is our API we might be building or we have any kind of app including our traditional web app
+
+00:59.780 --> 01:06.750
+which just needs a service API or we might be building our own service API, maybe to also sell our service.
+
+01:06.800 --> 01:12.950
+Maybe we're building a stock API where any application which we might not even know is able to query
+
+01:12.950 --> 01:13.900
+data from
+
+01:13.950 --> 01:18.230
+and we just sell access to that API and that is our business model.
+
+01:18.230 --> 01:24.260
+So in all these cases, we obviously exchange something and this something we exchange is data
+
+01:24.260 --> 01:30.500
+as I mentioned before, only the data not the user interface. And that of course leads us to one important
+
+01:30.500 --> 01:34.290
+question, in which format do we exchange that data?
+
+01:34.430 --> 01:41.080
+We learned about html thus far but there are different kinds of data we could attach to a request and
+
+01:41.080 --> 01:49.130
+a response. We can send plain text for example, we could send xml or we could send json and there
+
+01:49.130 --> 01:50.210
+are other formats too
+
+01:50.210 --> 01:56.600
+but these are some well-known formats. Html of course look something like this so we can send
+
+01:56.660 --> 02:03.950
+html code and this is what we did thus far in the course. When we rendered an ejs view, what we essentially
+
+02:03.950 --> 02:10.580
+did is we sent html code to the browser because the view was rendered on the server and the result
+
+02:10.580 --> 02:16.640
+of that rendering process simply was a html page, simply was html code,
+
+02:16.730 --> 02:24.520
+so this is how we could send data. Html code contains both the data and the structure of course, the
+
+02:24.590 --> 02:31.370
+html elements, the css styles we might be adding, that all adds structure and design and what
+
+02:31.370 --> 02:34.210
+is between the html elements is our data.
+
+02:34.400 --> 02:37.020
+So therefore this also contains our user interface,
+
+02:37.070 --> 02:40.270
+it defines how our user interface should look like.
+
+02:40.310 --> 02:47.850
+Now the problem is of course that if we just want the data, we got all the overhead html content,
+
+02:47.850 --> 02:55.700
+it's unnecessarily difficult to parse because even though the html elements are of course kind of defined
+
+02:55.730 --> 03:04.460
+and regulated, how we use them and how we well structure our document is not really enforced onto us,
+
+03:04.730 --> 03:07.330
+so its unnecessarily difficult to parse
+
+03:07.370 --> 03:12.070
+if we just need the data. We can of course send plain text,
+
+03:12.320 --> 03:16.130
+the thing here is this is only data of course, there is no structure,
+
+03:16.130 --> 03:20.660
+there is no design element added and therefore, we make no UI
+
+03:20.870 --> 03:25.160
+and that is user interface of course, we make no UI assumptions.
+
+03:25.160 --> 03:31.430
+Still if you want to transfer data like this, it's unnecessarily difficult to parse because text is easy
+
+03:31.430 --> 03:35.110
+to understand for humans but for computers, it isn't,
+
+03:35.120 --> 03:41.280
+there is no clear pattern in the text and therefore this is not really a great way of exchanging data.
+
+03:41.500 --> 03:49.470
+Xml looks a lot like html and actually html is a special kind of xml you could say, the difference is
+
+03:49.670 --> 03:52.470
+xml allows you to use any tags
+
+03:52.610 --> 03:55.330
+and this of course allows you to transfer data
+
+03:55.610 --> 04:01.620
+and it's also not making any UI assumptions because it's not parsable by the browser,
+
+04:01.730 --> 04:04.770
+the xml elements are totally made up by you.
+
+04:04.820 --> 04:09.560
+The good thing is it's easier to read by machines than plain text,
+
+04:09.560 --> 04:16.940
+you can also of course define clear structures there but you will need a special xml parser because traversing
+
+04:16.940 --> 04:24.410
+through an xml node tree is kind of challenging, not impossible to solve but you need a special parser
+
+04:24.650 --> 04:28.530
+and all these elements of course add some overhead to the data you transfer,
+
+04:28.640 --> 04:33.060
+so there's a lot of extra text that is only required to read your data
+
+04:33.140 --> 04:35.390
+that is not really your core data though.
+
+04:36.240 --> 04:42.800
+The last data format and you might already guess it, that will be our winner is json. Looks like this
+
+04:42.850 --> 04:46.650
+and we already use that in the course when I had a look at asynchronous requests
+
+04:46.690 --> 04:51.260
+couple of modules ago. And now this also is just the data,
+
+04:51.280 --> 04:55.180
+it makes no UI assumptions and it's also machine readable.
+
+04:55.180 --> 04:58.700
+The good thing is it's a bit more concise than xml
+
+04:59.050 --> 05:05.800
+and it can easily be converted to javascript and that is of course a huge plus when working with nodejs
+
+05:05.800 --> 05:06.880
+on the server
+
+05:06.910 --> 05:12.880
+but also with well javascript in the browser which happens to be our only programming language we can
+
+05:12.880 --> 05:13.910
+use there.
+
+05:14.050 --> 05:20.340
+So therefore this is our winner data format, json is our winner data format
+
+05:20.410 --> 05:26.880
+if we just want to transfer data and it's the most common format in any API you are communicating with
+
+05:26.890 --> 05:32.630
+these days. All the other formats are not as great for transmitting data as
+
+05:32.710 --> 05:35.360
+json is, therefore this is what we will use
+
+05:35.440 --> 05:39.330
+but it's important for you to understand why we use it and I hope this became clear.

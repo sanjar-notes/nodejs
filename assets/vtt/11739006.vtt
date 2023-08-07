@@ -1,0 +1,169 @@
+WEBVTT
+
+00:02.290 --> 00:04.190
+We define the product model
+
+00:04.300 --> 00:09.250
+and I mentioned that we can now work with this model to create new products and so on
+
+00:09.370 --> 00:15.430
+but for this, we of course also need a product table in our database and there right now we got no tables
+
+00:15.430 --> 00:19.210
+because I deleted the products table earlier in this module.
+
+00:19.240 --> 00:26.800
+I also mentioned that sequelize can create these tables for you and it indeed can. Now to create tables
+
+00:26.800 --> 00:27.650
+for you,
+
+00:27.850 --> 00:31.490
+you just have to tell sequelize to do that
+
+00:31.630 --> 00:36.640
+and I'll do that in the app.js file. In there
+
+00:36.730 --> 00:45.760
+I want to ensure that all my models are basically transferred into tables or get a table that belongs
+
+00:45.760 --> 00:49.500
+to them whenever we start our application
+
+00:50.370 --> 00:54.960
+and if the table already exists, it will of course not override it by default though we can tell
+
+00:54.960 --> 00:56.490
+it to do so.
+
+00:56.760 --> 01:02.570
+Now in my app.js file which is the file execute when I do start my program,
+
+01:02.700 --> 01:08.970
+I want to import from the database file as I did it before, I'll just rename it to sequelize because
+
+01:08.970 --> 01:14.970
+I do import my sequelize object with a lower case s because I'm importing from my own utility database
+
+01:14.970 --> 01:18.800
+set up file and then towards the end of this file,
+
+01:19.190 --> 01:23.030
+let's say here, I want to call sequelize
+
+01:23.160 --> 01:31.440
+and then there's a special method, the sync method. The sync method has a look at all the models you defined
+
+01:31.890 --> 01:39.090
+and keep in mind you defined your models in your model files by calling sequelize defined on that same
+
+01:39.180 --> 01:40.820
+sequelize object,
+
+01:41.250 --> 01:45.720
+so it is aware of all your models and it then basically creates tables for them.
+
+01:45.720 --> 01:47.050
+That is what sync does, 
+
+01:47.100 --> 01:52.260
+it syncs your models to the database by creating the appropriate tables
+
+01:52.320 --> 02:01.410
+and if you have them, relations. So here I will call sync and then I can listen to the result of this,
+
+02:02.210 --> 02:08.760
+let's see what we get back as a response here or what we get back as a value here and we can also of
+
+02:08.760 --> 02:12.420
+course catch potential errors that occurred
+
+02:12.840 --> 02:20.160
+and if an error occurred here, well then we can essentially also log that and I only want to let's say
+
+02:20.160 --> 02:26.200
+start my server if we somehow made it into then, let's see what this gives us.
+
+02:26.370 --> 02:33.300
+If I now run npm start here, it starts up and we see there is some log output.
+
+02:33.490 --> 02:41.050
+If you scroll up quite a bit because we got back a complex object, you see that this is a default log
+
+02:41.140 --> 02:47.160
+thrown by sequelize, it executed this SQL query for us without us writing this query.
+
+02:47.250 --> 02:48.790
+It created a table
+
+02:48.820 --> 02:54.970
+if it did not exist yet which it named product, products and that is that automatically inferred name
+
+02:55.000 --> 03:02.010
+because we named our model product, it automatically pluralizes that and then it assigned a couple of
+
+03:02.790 --> 03:06.710
+fields there which it configured according to our model definition.
+
+03:07.080 --> 03:09.190
+And then this is the return value we get back,
+
+03:09.190 --> 03:12.150
+basically our sequelize object you can tell
+
+03:12.520 --> 03:21.680
+and if I now quit this server with control c, clear the console and rerun npm start, you'll see it runs
+
+03:21.680 --> 03:22.770
+this again
+
+03:22.910 --> 03:29.890
+but it does not overwrite the existing table because we have that if not exists check in there automatically.
+
+03:29.990 --> 03:33.150
+So we can run this again without issues
+
+03:33.350 --> 03:36.580
+and our server starts up even if this table already exists,
+
+03:36.590 --> 03:38.210
+we still make it into then.
+
+03:38.590 --> 03:44.390
+Now I will comment out that result log because I don't want to have this long object every time, in the
+
+03:44.390 --> 03:46.700
+console every time we start this.
+
+03:46.730 --> 03:53.480
+So now I just get MySQL query here and if we now have a look at the workbench and we right click
+
+03:53.540 --> 04:01.070
+on our database and click on refresh all, we see that under tables, we get a products table and if we inspect
+
+04:01.070 --> 04:08.840
+that with this icon, we see all the fields we defined and that is added by sequelize to new fields, created
+
+04:08.840 --> 04:10.540
+at and updated at.
+
+04:10.640 --> 04:13.340
+So it automatically manages some timestamps for us,
+
+04:13.340 --> 04:13.860
+we could
+
+04:14.080 --> 04:14.430
+disable this
+
+04:14.540 --> 04:16.220
+but I actually like this feature,
+
+04:16.220 --> 04:19.440
+so we get these automatically managed fields too.
+
+04:19.520 --> 04:24.910
+This is how we sync our tables to the database and what sequelize does for us,
+
+04:24.950 --> 04:27.710
+and with that, we're now ready to use that.

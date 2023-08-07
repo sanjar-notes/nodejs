@@ -1,0 +1,49 @@
+WEBVTT
+
+00:02.080 --> 00:07.560
+So everything works but when clicking add to cart, it would be nice if we don't get stuck here,
+
+00:07.630 --> 00:09.520
+so something seems to be wrong.
+
+00:09.760 --> 00:11.440
+If we have a look at post cart,
+
+00:11.830 --> 00:15.030
+well the thing is we never send a response here, 
+
+00:15.430 --> 00:19.970
+we do add our product to a cart but that's it.
+
+00:19.970 --> 00:26.820
+Now in the old code, we redirected to /cart and that is what we should do here too,
+
+00:26.830 --> 00:29.920
+so instead of returning this result which doesn't matter,
+
+00:29.920 --> 00:31.140
+no one's interested here,
+
+00:31.210 --> 00:34.320
+I just want to call res redirect here
+
+00:34.420 --> 00:36.910
+or not here but here
+
+00:36.910 --> 00:40.950
+and then I guess we can return this to see the result of that operation here if we wanted to
+
+00:41.020 --> 00:45.910
+but the important part is that we redirect at some point. With that,
+
+00:46.060 --> 00:51.200
+now if I click add to cart here, I'm redirected to the cart page,
+
+00:51.200 --> 00:52.070
+awesome.
+
+00:52.070 --> 00:55.040
+Now let's make sure we can delete cart items.
+
+00:55.040 --> 01:00.280
+As always feel free to try this on your own, in the next lecture and thereafter, we'll do this together.

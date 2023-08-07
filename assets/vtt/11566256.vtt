@@ -1,0 +1,193 @@
+WEBVTT
+
+00:02.160 --> 00:06.610
+Expressjs is all about middleware and you see a diagram here,
+
+00:06.730 --> 00:13.420
+in the end middleware means that an incoming request is automatically funneled through a bunch of functions
+
+00:13.480 --> 00:14.930
+by expressjs,
+
+00:14.950 --> 00:21.640
+so instead of just having one request handler, you will actually have a possibility of hooking in multiple
+
+00:21.640 --> 00:26.890
+functions which the request will go through until you send a response.
+
+00:26.890 --> 00:32.680
+This allows you to split your code into multiple blocks or pieces instead of having one huge function
+
+00:32.680 --> 00:34.030
+that does everything
+
+00:34.270 --> 00:40.870
+and this is the pluggable nature of expressjs, where you can easily add other third party packages
+
+00:41.200 --> 00:47.080
+which simply happen to give you such middleware functions that you can plug into expressjs and add
+
+00:47.080 --> 00:48.420
+certain functionalities
+
+00:48.490 --> 00:50.410
+but more on that later.
+
+00:50.410 --> 00:53.150
+So this is a core concept of expressjs,
+
+00:53.290 --> 01:00.120
+the middleware and we can use that by going here after we created the app object
+
+01:00.180 --> 01:06.550
+but before we passed it to create server and then we can use the app and call a method which is defined
+
+01:06.580 --> 01:08.180
+by the express framework,
+
+01:08.350 --> 01:16.390
+use. Use allows us to add a new middleware function, now the use method is pretty flexible,
+
+01:16.390 --> 01:23.530
+it accepts an array of so-called request handlers here and it has some other use cases too.
+
+01:23.560 --> 01:29.950
+Now one easy way of using it is that you simply pass a function to it and this function here, this function
+
+01:29.950 --> 01:39.760
+you pass to app use will be executed for every incoming request and this function will receive three arguments,
+
+01:40.080 --> 01:42.280
+the request and the response object
+
+01:42.400 --> 01:49.270
+as you already know it basically with some extra tricks learned though and a third argument which is
+
+01:49.270 --> 01:51.930
+the next argument.
+
+01:51.940 --> 01:55.860
+Now you can rename any of these arguments but what do they do?
+
+01:56.020 --> 02:01.420
+Request and response as I just mentioned are basically what you know with some extra features.
+
+02:01.450 --> 02:08.740
+Next is actually a function, a function that will be passed to this function by expressjs
+
+02:08.770 --> 02:15.430
+and this can be confusing because you are passing a function as an argument to the use method and
+
+02:15.430 --> 02:21.250
+this function you're passing is receiving yet another function here on the next argument
+
+02:21.580 --> 02:27.370
+and this next argument, basically this function you're receiving here has to be executed to allow the
+
+02:27.370 --> 02:31.480
+request to travel on to the next middleware.
+
+02:31.480 --> 02:33.370
+Now let me show you what I mean.
+
+02:33.370 --> 02:41.670
+We can simply console log in the middleware here, like this,
+
+02:41.720 --> 02:44.810
+now since I have nodemon this automatically restarts the server
+
+02:45.050 --> 02:50.140
+and let's now go to the browser and reload localhost 3000.
+
+02:51.160 --> 02:54.030
+Now actually this will keep on spinning, you see,
+
+02:54.130 --> 02:59.200
+so we don't get a response which makes sense because we've got no logic where we would send one, in the
+
+02:59.200 --> 03:02.880
+console here at the bottom, you see in the middleware though,
+
+03:03.130 --> 03:05.700
+so this did execute, this is what I meant,
+
+03:05.710 --> 03:10.820
+this allows us to hook into this funnel through which the request is sent.
+
+03:10.900 --> 03:20.220
+If I duplicate this and I add another use statement here in another middleware and I save this and
+
+03:20.220 --> 03:28.520
+let it restart therefore and I now reload this page here on localhost 3000, then I see in the middleware
+
+03:28.550 --> 03:33.180
+here again and I see it twice because I pressed reload twice in my case here
+
+03:33.340 --> 03:35.830
+but I don't see in another middleware.
+
+03:35.930 --> 03:44.140
+Now the reason for that is that we have to call next here to allow the request to travel on to the next
+
+03:44.140 --> 03:45.170
+middleware in line.
+
+03:45.220 --> 03:47.680
+So it basically goes from top to bottom
+
+03:47.710 --> 03:54.490
+through that file you could say, through all the middleware functions but only if we call next, if we don't call
+
+03:54.490 --> 03:56.010
+next it just dies,
+
+03:56.020 --> 04:02.170
+so if we don't call next, we should actually send back a response because otherwise the request can't
+
+04:02.170 --> 04:03.480
+continue its journey,
+
+04:03.550 --> 04:07.080
+so it will never reach a place where we might send a response
+
+04:07.270 --> 04:11.080
+but if we also don't send one here, well then we never send one.
+
+04:11.350 --> 04:17.110
+So now with this next call added, we actually make it into this middleware and we should therefore see this
+
+04:17.110 --> 04:18.260
+console log
+
+04:18.520 --> 04:24.310
+and here we could then even send a response. We'll do this as a next step because sending responses
+
+04:24.340 --> 04:25.850
+also changed a bit.
+
+04:25.900 --> 04:34.070
+So restarted the server, reload that page and now you see in the middleware and in another middleware
+
+04:34.430 --> 04:35.900
+thanks to next.
+
+04:35.900 --> 04:46.830
+So this allows the request to continue to the next middleware in, whoops middleware in line which is the middleware
+
+04:46.850 --> 04:49.070
+below this one.
+
+04:49.130 --> 04:52.500
+So this is a crucial concept, this ideas of middleware
+
+04:52.760 --> 05:00.140
+and you can use any function that has this format, so that receives request, response and next.
+
+05:00.230 --> 05:04.740
+And you should call next if you want to allow the request to go to the next function,
+
+05:04.820 --> 05:10.820
+you should send a response if you got other plans, so let's send a response in this middleware in
+
+05:10.850 --> 05:11.540
+the next lecture.

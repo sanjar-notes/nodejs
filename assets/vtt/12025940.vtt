@@ -1,0 +1,43 @@
+WEBVTT
+
+00:02.330 --> 00:05.650
+So now we added pagination to our application
+
+00:05.780 --> 00:08.840
+and of course you can now tweak this adjusted to your needs,
+
+00:08.840 --> 00:15.980
+change the items per page you want to display for example, if you switch that to two and you reload, you won't
+
+00:15.980 --> 00:19.740
+find items on page 4 but you will find items on page 1
+
+00:20.210 --> 00:26.840
+and now you got all that logic in place that should allow you to display the data you want to display
+
+00:26.880 --> 00:29.220
+and to not fetch all the data in one go.
+
+00:29.420 --> 00:33.470
+And it's important for you to understand that since find uses a cursor,
+
+00:33.470 --> 00:37.700
+it does only retrieve the items you need. Count documents does not retrieve all,
+
+00:37.730 --> 00:43.130
+it only counts them which is faster than retrieving them and skip and limit also manage
+
+00:43.400 --> 00:49.010
+or are managed by mongodb in a way that you only transfer the items over the wire which you
+
+00:49.010 --> 00:49.630
+really need,
+
+00:49.670 --> 00:54.980
+so this is not doing some server side filtering of the data, it really filters it on the database server
+
+00:55.070 --> 00:56.050
+already.
+
+00:56.090 --> 01:00.230
+So this is how you can add pagination to your node express application.

@@ -1,0 +1,338 @@
+WEBVTT
+
+1
+00:00:02.140 --> 00:00:04.350
+<v Instructor>So we got started with Deno here,</v>
+
+2
+00:00:04.350 --> 00:00:08.950
+we wrote some first basic Deno code to get good IDE support.
+
+3
+00:00:08.950 --> 00:00:11.630
+Again, I'll switch back to the extensions.
+
+4
+00:00:11.630 --> 00:00:13.880
+And there I'm just going to enable
+
+5
+00:00:13.880 --> 00:00:16.350
+my Deno extension again here.
+
+6
+00:00:16.350 --> 00:00:20.500
+And with that done, we can continue with development here.
+
+7
+00:00:20.500 --> 00:00:23.880
+Let's now dig a bit deeper into Deno.
+
+8
+00:00:23.880 --> 00:00:27.120
+And for that, it's important to understand how Deno code
+
+9
+00:00:27.120 --> 00:00:30.130
+and features are being organized.
+
+10
+00:00:30.130 --> 00:00:34.220
+We get those core APIs, the so called Namespace APIs.
+
+11
+00:00:34.220 --> 00:00:37.570
+Which are built-in core functionalities,
+
+12
+00:00:37.570 --> 00:00:39.680
+built-in utility functions as well
+
+13
+00:00:39.680 --> 00:00:44.680
+like set timeout, like right file, so all these core APIs,
+
+14
+00:00:45.950 --> 00:00:48.850
+which you can see here in those docs.
+
+15
+00:00:48.850 --> 00:00:51.913
+These are core APIs built into Deno.
+
+16
+00:00:53.080 --> 00:00:55.580
+Now, we also got the Standard Library,
+
+17
+00:00:55.580 --> 00:01:00.030
+which is a set of modules which you have to import
+
+18
+00:01:00.030 --> 00:01:02.190
+into your files in order to use them,
+
+19
+00:01:02.190 --> 00:01:05.320
+but which are still being maintained by the Deno team.
+
+20
+00:01:05.320 --> 00:01:07.790
+And then we got third party libraries
+
+21
+00:01:07.790 --> 00:01:09.690
+which are maintained by the community.
+
+22
+00:01:10.750 --> 00:01:14.840
+Now, the Deno Namespace APIs are stable,
+
+23
+00:01:14.840 --> 00:01:17.140
+so they shouldn't really change anymore.
+
+24
+00:01:17.140 --> 00:01:19.580
+And they are maintained by the core team.
+
+25
+00:01:19.580 --> 00:01:21.230
+The Standard Library modules
+
+26
+00:01:21.230 --> 00:01:23.510
+are also maintained by the team.
+
+27
+00:01:23.510 --> 00:01:25.970
+But they're not necessarily stable.
+
+28
+00:01:25.970 --> 00:01:30.910
+They're some things some features could still change.
+
+29
+00:01:30.910 --> 00:01:33.860
+For third party libraries, as the name suggests,
+
+30
+00:01:33.860 --> 00:01:36.880
+those are maintained by different community teams,
+
+31
+00:01:36.880 --> 00:01:38.790
+not by the official Deno team,
+
+32
+00:01:38.790 --> 00:01:42.190
+and therefore their stability and maturity also differs.
+
+33
+00:01:42.190 --> 00:01:45.250
+Some libraries are very new, some libraries
+
+34
+00:01:45.250 --> 00:01:48.323
+are heavily maintained and might be quite stable.
+
+35
+00:01:49.250 --> 00:01:53.450
+Now the Namespace APIs are built into Deno, no installation,
+
+36
+00:01:53.450 --> 00:01:57.610
+no imports are required to use those features,
+
+37
+00:01:57.610 --> 00:02:00.013
+as you see here, with our right file extension.
+
+38
+00:02:01.690 --> 00:02:03.180
+And that, of course is a difference
+
+39
+00:02:03.180 --> 00:02:06.890
+compared to the Node core APIs.
+
+40
+00:02:06.890 --> 00:02:10.650
+For those core APIs like the file system API,
+
+41
+00:02:10.650 --> 00:02:14.770
+we of course needed to add an import to use it.
+
+42
+00:02:14.770 --> 00:02:17.550
+That's a difference for these core Deno features,
+
+43
+00:02:17.550 --> 00:02:19.113
+no import is needed.
+
+44
+00:02:20.180 --> 00:02:22.380
+But if we then move a step further
+
+45
+00:02:22.380 --> 00:02:26.060
+towards the Standard Library, we will need to import
+
+46
+00:02:26.060 --> 00:02:28.280
+those modules in order to use them.
+
+47
+00:02:28.280 --> 00:02:30.520
+We still don't need to install anything.
+
+48
+00:02:30.520 --> 00:02:33.020
+But as you will see, installation is not really
+
+49
+00:02:33.020 --> 00:02:35.370
+a thing in Deno scripts anyways,
+
+50
+00:02:35.370 --> 00:02:38.810
+but we'll need to import those libraries to use them.
+
+51
+00:02:38.810 --> 00:02:40.370
+That brings up the question,
+
+52
+00:02:40.370 --> 00:02:41.920
+what is the Standard Library?
+
+53
+00:02:41.920 --> 00:02:43.663
+And what's the node equivalent?
+
+54
+00:02:44.540 --> 00:02:47.140
+Well, we can find out more about the Standard Library
+
+55
+00:02:47.140 --> 00:02:51.540
+on the Deno page, Deno.land,
+
+56
+00:02:51.540 --> 00:02:54.690
+and then there you find the Standard Library.
+
+57
+00:02:54.690 --> 00:02:56.970
+And these are simply a bunch of packages,
+
+58
+00:02:56.970 --> 00:03:00.630
+which in the end build up on the core APIs.
+
+59
+00:03:00.630 --> 00:03:03.960
+And make certain things easier to use.
+
+60
+00:03:03.960 --> 00:03:06.200
+You could build any kind of app
+
+61
+00:03:06.200 --> 00:03:09.400
+with just a core runtime API.
+
+62
+00:03:09.400 --> 00:03:13.720
+But it gets easier if you use some Standard Library modules,
+
+63
+00:03:13.720 --> 00:03:16.500
+or even also some third party modules,
+
+64
+00:03:16.500 --> 00:03:20.420
+which build up on those core APIs to make certain things
+
+65
+00:03:20.420 --> 00:03:23.690
+like listening to incoming requests easier.
+
+66
+00:03:23.690 --> 00:03:25.200
+And that's the whole idea.
+
+67
+00:03:25.200 --> 00:03:28.200
+The Standard Library builds up on those core APIs
+
+68
+00:03:28.200 --> 00:03:31.683
+and makes working with those APIs easier, you could say.
+
+69
+00:03:32.920 --> 00:03:35.540
+Third party libraries have the same idea.
+
+70
+00:03:35.540 --> 00:03:37.820
+There you also don't need to install anything,
+
+71
+00:03:37.820 --> 00:03:39.760
+but you need to import them to use them.
+
+72
+00:03:39.760 --> 00:03:42.380
+And they also build up on the core APIs.
+
+73
+00:03:42.380 --> 00:03:46.920
+So those Namespace or runtime APIs are built into Deno.
+
+74
+00:03:46.920 --> 00:03:51.150
+And they have a small set of low level core functionalities
+
+75
+00:03:51.150 --> 00:03:53.840
+with which you could build everything,
+
+76
+00:03:53.840 --> 00:03:56.390
+but doing so would be cumbersome, that's why we have
+
+77
+00:03:56.390 --> 00:03:59.290
+the Standard Library and third party libraries.
+
+78
+00:03:59.290 --> 00:04:03.680
+The third party modules that build up on those core APIs
+
+79
+00:04:03.680 --> 00:04:08.570
+to make the integration of certain features easier.
+
+80
+00:04:08.570 --> 00:04:12.510
+And therefore, let's now make the next logical step.
+
+81
+00:04:12.510 --> 00:04:16.270
+And let's start using some Standard Library features,
+
+82
+00:04:16.270 --> 00:04:20.420
+as this will also cover one important aspect of Deno.
+
+83
+00:04:20.420 --> 00:04:24.780
+It will show you how we integrate our modules
+
+84
+00:04:24.780 --> 00:04:26.633
+into our Deno code.
+

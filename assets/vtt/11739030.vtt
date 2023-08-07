@@ -1,0 +1,211 @@
+WEBVTT
+
+00:02.260 --> 00:10.540
+What do I mean by association? You could also say relation. let's say in our project and that is basically
+
+00:10.540 --> 00:11.040
+our project,
+
+00:11.050 --> 00:15.140
+we have products, users, carts and at some point also orders.
+
+00:15.430 --> 00:21.850
+Now if we want to connect all these things on and define how they work together, then a product would
+
+00:21.910 --> 00:27.070
+probably belong to many carts because our users will have carts
+
+00:27.070 --> 00:32.740
+therefore we have multiple users, multiple carts and therefore a product can belong to many carts because
+
+00:32.740 --> 00:36.350
+of course different users can add the same product to their carts.
+
+00:36.640 --> 00:38.960
+Each user only has one cart though,
+
+00:39.250 --> 00:42.440
+so this is how we could relate that, a product
+
+00:42.460 --> 00:49.690
+also can be part of multiple orders and a user can have multiple orders because you typically order more
+
+00:49.690 --> 00:53.870
+than one thing. A user can also own multiple products
+
+00:53.890 --> 01:00.170
+in a sense of this user created this product, so not own it in the sense of I bought it
+
+01:00.250 --> 01:06.670
+but in the sense of hey I offer this product, I created it in the shop.
+
+01:06.740 --> 01:12.380
+This is a rough outline of how we can communicate or relate different models
+
+01:12.590 --> 01:20.200
+and this is what we can also reflect in sequelize. There I'll go to my app.js file here,
+
+01:20.330 --> 01:21.800
+let's close the views,
+
+01:21.800 --> 01:31.250
+I'll go to my app.js file and before I sync all my data to the database, I want to define my models.
+
+01:31.250 --> 01:38.900
+So for this I will add more imports and I will import my product model by requiring this from the models
+
+01:38.900 --> 01:45.740
+file and there the product file, add a models folder in the product file and I'll import my user model from
+
+01:45.740 --> 01:52.100
+the user file in the models folder. With the two models imported, we can relate them and I will relate
+
+01:52.100 --> 01:55.370
+them here in the same place where I sync
+
+01:55.400 --> 01:56.560
+sequelize
+
+01:56.630 --> 02:07.170
+but before I sync it. Here I can basically say that a product belongs to a user.
+
+02:07.180 --> 02:13.530
+Now you can learn way more about these relations in the sequelize documentation.
+
+02:13.690 --> 02:21.430
+There, there is a whole article about associations, which kind of associations exist and how you define them
+
+02:21.700 --> 02:27.820
+in sequelize and which effect this has. I will show you some important implications in this model of course.
+
+02:27.820 --> 02:36.770
+So back to our code, we are now setting up that for sequelize, a product belongs to a user and this
+
+02:36.770 --> 02:39.970
+is now talking about a user created this product,
+
+02:40.130 --> 02:43.900
+we're not talking about purchases at this point.
+
+02:44.060 --> 02:48.960
+We can also configure this by passing a second argument which is optional, here
+
+02:49.000 --> 02:54.740
+we can define how this relationship be managed and very important, we can define so-called constraints,
+
+02:55.310 --> 02:56.570
+set them to true
+
+02:56.780 --> 02:59.370
+and for example say that on delete,
+
+02:59.600 --> 03:06.080
+so if a user is deleted, what should happen to any connected products? And here we can say cascade which
+
+03:06.080 --> 03:10.500
+simply means well the deletion would then also be executed for the product,
+
+03:10.580 --> 03:14.930
+so if we delete a user, any price related to the user would also be gone.
+
+03:14.930 --> 03:20.720
+This is totally optional and you definitely need to learn a bit more about SQL to fully understand
+
+03:20.720 --> 03:21.910
+your options here,
+
+03:21.920 --> 03:26.210
+this is beyond the scope of this course but this can all be done with sequelize
+
+03:26.300 --> 03:28.820
+and now we got this relation set up.
+
+03:28.820 --> 03:36.320
+You can also define the inverse and say that one user has many products because one user can of course
+
+03:36.410 --> 03:38.930
+add more than one product to the shop.
+
+03:38.960 --> 03:40.150
+Now this is optional,
+
+03:40.190 --> 03:41.440
+you don't need that,
+
+03:41.480 --> 03:45.400
+you can basically replace belongs to with a has many call
+
+03:45.530 --> 03:51.910
+but here I also like to define both directions to really make it clear how this relation works.
+
+03:52.790 --> 04:00.750
+Now with this being set up, sequelize sync will not just create tables for our models but also define
+
+04:00.810 --> 04:05.180
+the relations in our database as we define them here.
+
+04:05.180 --> 04:11.390
+The one problem we have right now is that we already created the products table and therefore will
+
+04:11.390 --> 04:19.130
+not override it with the new information and we can ensure that it will by setting force to true.
+
+04:19.130 --> 04:23.840
+Of course a setting you wouldn't really use in production because you don't always want to overwrite
+
+04:23.840 --> 04:25.240
+your tables all the time
+
+04:25.340 --> 04:31.610
+but here during development, I want to reflect my new changes so I'll set this to true and therefore
+
+04:31.610 --> 04:35.520
+after restarting, we indeed see a couple of statements were executed.
+
+04:35.750 --> 04:43.420
+First of all it dropped any existing tables and then it created a new table, users with all the set up
+
+04:43.580 --> 04:48.930
+and then it also creates a new products table and besides adding all the fields there,
+
+04:49.040 --> 04:56.990
+it also defined that there is a new field, the user id field which is an integer and which is a foreign
+
+04:56.990 --> 05:04.300
+key that references the ID field in the users table and that on delete, it should cascade
+
+05:04.400 --> 05:06.470
+and on update cascade is the default.
+
+05:06.740 --> 05:13.810
+So this is some meta setup in the database which sequelize now also added to connect our tables there
+
+05:13.800 --> 05:14.670
+too.
+
+05:14.870 --> 05:21.200
+And if we go to workbench and we right click on our database and set call refresh all, we see there
+
+05:21.200 --> 05:22.660
+are two tables now
+
+05:23.090 --> 05:29.630
+and indeed if we inspect products, we see that our product is gone because it recreated the table
+
+05:29.660 --> 05:33.740
+but now besides created at and updated at that were added by sequelize,
+
+05:33.800 --> 05:39.120
+there is a user ID field which was also added by sequelize and this will automatically be populated
+
+05:39.120 --> 05:40.370
+by sequelize too
+
+05:40.490 --> 05:44.090
+once we create products that are related to a user.
+
+05:44.120 --> 05:50.360
+So let's make sure that we have a user because right now that table is empty and that we then can connect
+
+05:50.450 --> 05:52.370
+users and products in our app.

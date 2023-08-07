@@ -1,0 +1,582 @@
+WEBVTT
+
+1
+00:00:02.340 --> 00:00:04.830
+<v Teacher>Now let's define how a todo should look like.</v>
+
+2
+00:00:04.830 --> 00:00:07.150
+And for that we can create a type alias
+
+3
+00:00:07.150 --> 00:00:10.470
+or since a todo for me here at least will be an object,
+
+4
+00:00:10.470 --> 00:00:13.073
+we can also define an interface Todo.
+
+5
+00:00:13.930 --> 00:00:16.250
+And actually, I don't wanna define this here,
+
+6
+00:00:16.250 --> 00:00:20.300
+but I'll create a new folder, the Models folder,
+
+7
+00:00:20.300 --> 00:00:23.440
+and in there my todo.ts file,
+
+8
+00:00:23.440 --> 00:00:25.330
+where I now to find this interface
+
+9
+00:00:25.330 --> 00:00:28.350
+and where I also export it.
+
+10
+00:00:28.350 --> 00:00:30.150
+Now if you add the export syntax
+
+11
+00:00:30.150 --> 00:00:31.870
+in front of something like this,
+
+12
+00:00:31.870 --> 00:00:34.500
+it's no longer the default export.
+
+13
+00:00:34.500 --> 00:00:37.170
+For that, you would need the default keyword,
+
+14
+00:00:37.170 --> 00:00:39.350
+but instead now it's a named export.
+
+15
+00:00:39.350 --> 00:00:42.450
+And I will show you how to import named things
+
+16
+00:00:42.450 --> 00:00:43.793
+in a second as well.
+
+17
+00:00:45.230 --> 00:00:47.950
+Now we can define our todo type here.
+
+18
+00:00:47.950 --> 00:00:50.730
+And for example, make it clear that we want an ID
+
+19
+00:00:50.730 --> 00:00:52.450
+which is a string, let's say
+
+20
+00:00:52.450 --> 00:00:55.253
+and the todo text which should also be a string.
+
+21
+00:00:56.350 --> 00:01:00.920
+And now with that exported, in the todo's routes file,
+
+22
+00:01:00.920 --> 00:01:02.183
+we can simply,
+
+23
+00:01:03.090 --> 00:01:06.670
+import todo in curly braces
+
+24
+00:01:06.670 --> 00:01:10.630
+from going up one level, and then into the Models folder
+
+25
+00:01:10.630 --> 00:01:12.240
+and then the todo file.
+
+26
+00:01:12.240 --> 00:01:13.550
+And as you also saw before,
+
+27
+00:01:13.550 --> 00:01:15.710
+you can omit the file extension here
+
+28
+00:01:15.710 --> 00:01:19.293
+when importing from .ts or .js files.
+
+29
+00:01:20.920 --> 00:01:22.580
+Now we need these curly braces here
+
+30
+00:01:22.580 --> 00:01:24.980
+because now we're dealing with a named export.
+
+31
+00:01:24.980 --> 00:01:26.500
+And for named exports,
+
+32
+00:01:26.500 --> 00:01:30.340
+you need to import with this named import syntax,
+
+33
+00:01:30.340 --> 00:01:32.240
+which simply uses curly braces,
+
+34
+00:01:32.240 --> 00:01:35.020
+and then between them the name which you wanna import.
+
+35
+00:01:35.020 --> 00:01:37.680
+If we had the default keyword here,
+
+36
+00:01:37.680 --> 00:01:40.150
+just as we're having it in the routes file,
+
+37
+00:01:40.150 --> 00:01:43.400
+then we could omit the curly braces when importing this
+
+38
+00:01:43.400 --> 00:01:45.800
+and just pick any name of our choice.
+
+39
+00:01:45.800 --> 00:01:48.410
+And that's just the default ES Modules,
+
+40
+00:01:48.410 --> 00:01:51.800
+Import Export syntax, nothing TypeScript specific.
+
+41
+00:01:51.800 --> 00:01:53.850
+It's just supported by TypeScript.
+
+42
+00:01:53.850 --> 00:01:56.580
+You can learn all the details about this syntax
+
+43
+00:01:56.580 --> 00:01:59.010
+and about modern JavaScript in general
+
+44
+00:01:59.010 --> 00:02:01.703
+in my JavaScript Complete Guide course of course.
+
+45
+00:02:02.560 --> 00:02:05.640
+So that's the todo model.
+
+46
+00:02:05.640 --> 00:02:07.900
+Simply an interface which I defined.
+
+47
+00:02:07.900 --> 00:02:09.810
+We're importing this in the routes file,
+
+48
+00:02:09.810 --> 00:02:13.310
+and therefore now we can make it clear that our todos here
+
+49
+00:02:13.310 --> 00:02:16.312
+is simply an array full have todos,
+
+50
+00:02:16.312 --> 00:02:18.403
+with this array type syntax here.
+
+51
+00:02:19.530 --> 00:02:21.930
+So now we're returning this on the get route.
+
+52
+00:02:21.930 --> 00:02:24.540
+We also wanna expose a route for adding a todo,
+
+53
+00:02:24.540 --> 00:02:27.110
+so let's say that's slash todo
+
+54
+00:02:27.110 --> 00:02:29.143
+for an incoming post request.
+
+55
+00:02:30.630 --> 00:02:33.410
+And there we of course, also get a request, a response
+
+56
+00:02:33.410 --> 00:02:35.360
+and this next function.
+
+57
+00:02:35.360 --> 00:02:38.810
+And here we wanna add a new todo to the todos array.
+
+58
+00:02:38.810 --> 00:02:43.330
+So my new todo here simply is a new object,
+
+59
+00:02:43.330 --> 00:02:46.490
+but I will set the type of it to todo
+
+60
+00:02:46.490 --> 00:02:49.000
+to force TypeScript to force me
+
+61
+00:02:49.000 --> 00:02:51.430
+to add the correct data to dissolve object.
+
+62
+00:02:51.430 --> 00:02:54.570
+Because for example, an empty object as I have it here,
+
+63
+00:02:54.570 --> 00:02:55.640
+would not be allowed
+
+64
+00:02:55.640 --> 00:02:59.170
+because this does not match the todo type I defined here
+
+65
+00:02:59.170 --> 00:03:00.720
+in the Todo model.
+
+66
+00:03:00.720 --> 00:03:02.560
+That's the whole idea of TypeScript.
+
+67
+00:03:02.560 --> 00:03:06.490
+Forcing yourself to write clean and clear code
+
+68
+00:03:06.490 --> 00:03:08.170
+where you don't omit data.
+
+69
+00:03:08.170 --> 00:03:10.520
+Because typically, if you omit data,
+
+70
+00:03:10.520 --> 00:03:12.630
+that might just be a mistake,
+
+71
+00:03:12.630 --> 00:03:16.240
+and we use TypeScript to avoid such mistakes.
+
+72
+00:03:16.240 --> 00:03:19.260
+So we can now set the ID property here,
+
+73
+00:03:19.260 --> 00:03:21.510
+and set this for example to,
+
+74
+00:03:21.510 --> 00:03:24.620
+the current date converted to an ISO string,
+
+75
+00:03:24.620 --> 00:03:27.590
+and set the text to some data we extract
+
+76
+00:03:27.590 --> 00:03:29.710
+from the incoming request.
+
+77
+00:03:29.710 --> 00:03:33.090
+And for that, of course, we need to parse the request body.
+
+78
+00:03:33.090 --> 00:03:35.510
+We wanna extract any data that's attached
+
+79
+00:03:35.510 --> 00:03:38.380
+to the incoming request from its body.
+
+80
+00:03:38.380 --> 00:03:39.610
+And we have learned that we can use
+
+81
+00:03:39.610 --> 00:03:42.240
+the body-parser package for that.
+
+82
+00:03:42.240 --> 00:03:45.340
+Thankfully, we already installed this.
+
+83
+00:03:45.340 --> 00:03:47.770
+So in app.ts we can now import it.
+
+84
+00:03:47.770 --> 00:03:50.070
+We can now import bodyParser from body-parser.
+
+85
+00:03:53.070 --> 00:03:56.350
+And we can then register a new middleware
+
+86
+00:03:56.350 --> 00:04:00.773
+where it call it bodyParser.Json like this.
+
+87
+00:04:02.330 --> 00:04:05.290
+Now you saw that here I got all the completion,
+
+88
+00:04:05.290 --> 00:04:07.250
+even though we haven't installed
+
+89
+00:04:07.250 --> 00:04:09.800
+the types package for body-parser.
+
+90
+00:04:09.800 --> 00:04:12.380
+Now, that's actually some extra convenience added
+
+91
+00:04:12.380 --> 00:04:15.100
+by TypeScript and this IDE here.
+
+92
+00:04:15.100 --> 00:04:18.230
+They even analyze JavaScript files.
+
+93
+00:04:18.230 --> 00:04:20.550
+So even if a library is not using TypeScript,
+
+94
+00:04:20.550 --> 00:04:23.000
+they analyze the JavaScript code in there,
+
+95
+00:04:23.000 --> 00:04:25.330
+and see if they can infer
+
+96
+00:04:25.330 --> 00:04:27.930
+which features you are allowed to use there.
+
+97
+00:04:27.930 --> 00:04:29.380
+And to a certain extent,
+
+98
+00:04:29.380 --> 00:04:33.550
+such inference can be made even with just a JavaScript code.
+
+99
+00:04:33.550 --> 00:04:36.560
+So for example, here TypeScript and my IDE were able
+
+100
+00:04:36.560 --> 00:04:38.560
+to find out that indeed
+
+101
+00:04:38.560 --> 00:04:42.760
+there is a JSON method exposed on the body-parser object
+
+102
+00:04:42.760 --> 00:04:45.810
+into JavaScript source code off that library.
+
+103
+00:04:45.810 --> 00:04:48.720
+For perfect TypeScript support,
+
+104
+00:04:48.720 --> 00:04:50.620
+where it understands everything,
+
+105
+00:04:50.620 --> 00:04:54.180
+including all arguments types you might be able to provide,
+
+106
+00:04:54.180 --> 00:04:58.290
+I still recommend that you always install types packages
+
+107
+00:04:58.290 --> 00:05:00.300
+for the libraries you're working with.
+
+108
+00:05:00.300 --> 00:05:02.770
+So here, I'm going to install the types package
+
+109
+00:05:02.770 --> 00:05:04.570
+for the body-parser library.
+
+110
+00:05:04.570 --> 00:05:07.300
+Just for this extra TypeScript safety,
+
+111
+00:05:07.300 --> 00:05:09.370
+even though I will admit that
+
+112
+00:05:09.370 --> 00:05:11.270
+for the purpose we're using it here,
+
+113
+00:05:11.270 --> 00:05:13.170
+we wouldn't need that.
+
+114
+00:05:13.170 --> 00:05:15.860
+Nonetheless, with that, I registered this middleware.
+
+115
+00:05:15.860 --> 00:05:19.550
+And now we're able to parse incoming JSON request bodies,
+
+116
+00:05:19.550 --> 00:05:23.180
+and use that data in our other middleware.
+
+117
+00:05:23.180 --> 00:05:26.393
+So for that, back here in the routes folder,
+
+118
+00:05:27.980 --> 00:05:32.520
+for the text, I will set my request, body, text.
+
+119
+00:05:32.520 --> 00:05:35.620
+So I simply expect that on the incoming request body,
+
+120
+00:05:35.620 --> 00:05:39.200
+we have a text field that holds the text we wanna add.
+
+121
+00:05:39.200 --> 00:05:41.960
+Of course, you might wanna add validation.
+
+122
+00:05:41.960 --> 00:05:44.190
+And you learned how to do that throughout the course.
+
+123
+00:05:44.190 --> 00:05:46.670
+And with TypeScript, it's really the same code,
+
+124
+00:05:46.670 --> 00:05:49.350
+you just might wanna install the extra types package
+
+125
+00:05:49.350 --> 00:05:51.080
+for the validation library.
+
+126
+00:05:51.080 --> 00:05:53.140
+But I will not implement all of that here
+
+127
+00:05:53.140 --> 00:05:56.080
+because I just wanna focus on the core TypeScript essentials
+
+128
+00:05:56.080 --> 00:05:57.210
+in this module.
+
+129
+00:05:57.210 --> 00:05:59.130
+Generally, the code you write,
+
+130
+00:05:59.130 --> 00:06:00.310
+as you can see here,
+
+131
+00:06:00.310 --> 00:06:03.000
+is not different from the code you wrote before.
+
+132
+00:06:03.000 --> 00:06:06.850
+You can just add the extra types like this todo type,
+
+133
+00:06:06.850 --> 00:06:10.000
+and then gain a lot just by doing that.
+
+134
+00:06:10.000 --> 00:06:13.320
+Anyways, with that we added the new todo.
+
+135
+00:06:13.320 --> 00:06:16.170
+Now we can reach out to the todos array
+
+136
+00:06:16.170 --> 00:06:18.890
+and push the new todo into it.
+
+137
+00:06:18.890 --> 00:06:20.900
+So now with that we added this
+
+138
+00:06:20.900 --> 00:06:23.100
+and we added our post route.
+
+139
+00:06:23.100 --> 00:06:27.050
+Let's now continue with a route for replacing a todo
+
+140
+00:06:27.050 --> 00:06:28.920
+and for deleting a todo,
+
+141
+00:06:28.920 --> 00:06:30.530
+before we then test this
+
+142
+00:06:30.530 --> 00:06:33.630
+and we talk about the general folder structure.
+
+143
+00:06:33.630 --> 00:06:36.010
+Which gets a bit clunky
+
+144
+00:06:36.010 --> 00:06:38.630
+with all those extra JavaScript files.
+
+145
+00:06:38.630 --> 00:06:40.423
+We'll come back to that later.
+

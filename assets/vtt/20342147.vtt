@@ -1,0 +1,882 @@
+WEBVTT
+
+1
+00:00:02.270 --> 00:00:04.160
+<v Tutor>So we get our app.js file,</v>
+
+2
+00:00:04.160 --> 00:00:05.720
+we get these configuration files.
+
+3
+00:00:05.720 --> 00:00:09.200
+Now it's time to convert this to a TypeScript file.
+
+4
+00:00:09.200 --> 00:00:12.740
+For this we can change the extension here to app dot ts,
+
+5
+00:00:12.740 --> 00:00:15.690
+and now we can use TypeScript features in here.
+
+6
+00:00:15.690 --> 00:00:16.610
+But automatically,
+
+7
+00:00:16.610 --> 00:00:18.610
+you see that I'm getting an error here
+
+8
+00:00:18.610 --> 00:00:21.290
+cannot find name require.
+
+9
+00:00:21.290 --> 00:00:25.780
+Now, we also thankfully get a suggestion on how to fix this.
+
+10
+00:00:25.780 --> 00:00:27.000
+You need to understand
+
+11
+00:00:27.000 --> 00:00:30.630
+that this require method is only available
+
+12
+00:00:30.630 --> 00:00:33.170
+when we're running this code with Node.
+
+13
+00:00:33.170 --> 00:00:35.650
+If we would want to run it in the browser,
+
+14
+00:00:35.650 --> 00:00:37.520
+this does not exist.
+
+15
+00:00:37.520 --> 00:00:39.870
+Now TypeScript does not know
+
+16
+00:00:39.870 --> 00:00:42.250
+where we plan to run this code,
+
+17
+00:00:42.250 --> 00:00:44.960
+and my IDE has built in TypeScript support
+
+18
+00:00:44.960 --> 00:00:46.440
+and therefore it detects
+
+19
+00:00:46.440 --> 00:00:50.370
+that TypeScript will not know whether it exists or not.
+
+20
+00:00:50.370 --> 00:00:54.070
+So to let TypeScript know that this exists,
+
+21
+00:00:54.070 --> 00:00:58.890
+we can simply run npm install dash dash save dash dev
+
+22
+00:00:58.890 --> 00:01:00.950
+to install something as a dependency
+
+23
+00:01:00.950 --> 00:01:05.950
+that's only used during development at types slash node.
+
+24
+00:01:07.040 --> 00:01:11.600
+Now this at types thing here is important.
+
+25
+00:01:11.600 --> 00:01:16.600
+On npm, you will find many at types packages.
+
+26
+00:01:16.830 --> 00:01:18.290
+These are packages
+
+27
+00:01:18.290 --> 00:01:21.860
+which provide TypeScript translations
+
+28
+00:01:21.860 --> 00:01:24.030
+for JavaScript features you could say.
+
+29
+00:01:24.030 --> 00:01:26.710
+They contain code that allows TypeScript
+
+30
+00:01:26.710 --> 00:01:29.070
+to understand a certain library,
+
+31
+00:01:29.070 --> 00:01:31.600
+a certain package or a certain commands,
+
+32
+00:01:31.600 --> 00:01:34.130
+and with at types node,
+
+33
+00:01:34.130 --> 00:01:36.580
+the thing is that if we install it,
+
+34
+00:01:36.580 --> 00:01:40.430
+we can use Node.js specific syntax
+
+35
+00:01:40.430 --> 00:01:42.730
+in our TypeScript files,
+
+36
+00:01:42.730 --> 00:01:45.940
+because this dependency will provide TypeScript
+
+37
+00:01:45.940 --> 00:01:49.600
+with the translation of this to JavaScript,
+
+38
+00:01:49.600 --> 00:01:50.433
+and in this case,
+
+39
+00:01:50.433 --> 00:01:54.010
+it will just let TypeScript know that this function here
+
+40
+00:01:54.010 --> 00:01:55.750
+will exist because we're building
+
+41
+00:01:55.750 --> 00:01:57.910
+a Node application you could say.
+
+42
+00:01:57.910 --> 00:01:59.430
+So we can hit enter here
+
+43
+00:01:59.430 --> 00:02:01.510
+and this will now it install this package,
+
+44
+00:02:01.510 --> 00:02:04.023
+and you see the error is now gone.
+
+45
+00:02:05.060 --> 00:02:06.330
+The reason for that is that
+
+46
+00:02:06.330 --> 00:02:09.390
+if we dig into this types node folder,
+
+47
+00:02:09.390 --> 00:02:11.330
+here in the end,
+
+48
+00:02:11.330 --> 00:02:13.210
+we got a dts file,
+
+49
+00:02:13.210 --> 00:02:15.450
+we get a bunch of dts files actually,
+
+50
+00:02:15.450 --> 00:02:19.090
+which provide all these core node modules
+
+51
+00:02:19.090 --> 00:02:21.230
+translated to TypeScript,
+
+52
+00:02:21.230 --> 00:02:23.650
+and it's really just translations
+
+53
+00:02:23.650 --> 00:02:26.130
+from TypeScript to JavaScript.
+
+54
+00:02:26.130 --> 00:02:28.980
+So here you don't find the entire node code
+
+55
+00:02:28.980 --> 00:02:30.420
+re-written in TypeScript.
+
+56
+00:02:30.420 --> 00:02:33.030
+Instead, these are really just instructions
+
+57
+00:02:33.030 --> 00:02:35.060
+which TypeScript is able to understand
+
+58
+00:02:35.060 --> 00:02:38.100
+so that it knows how to convert your TypeScript code
+
+59
+00:02:38.100 --> 00:02:40.330
+to valid JavaScript code.
+
+60
+00:02:40.330 --> 00:02:41.620
+In this example here,
+
+61
+00:02:41.620 --> 00:02:43.990
+it would simply keep the code as it is
+
+62
+00:02:43.990 --> 00:02:46.020
+because it would know that this code
+
+63
+00:02:46.020 --> 00:02:50.570
+is valid JavaScript code if executed with Node.
+
+64
+00:02:50.570 --> 00:02:53.840
+Will use more of those at types packages.
+
+65
+00:02:53.840 --> 00:02:57.060
+Because for example with Express the thing is,
+
+66
+00:02:57.060 --> 00:02:58.630
+if I add a dot here,
+
+67
+00:02:58.630 --> 00:03:00.460
+I get no auto completion.
+
+68
+00:03:00.460 --> 00:03:01.760
+My IDE doesn't know
+
+69
+00:03:01.760 --> 00:03:05.710
+that I can listen on the app here on this app object.
+
+70
+00:03:05.710 --> 00:03:07.300
+Now that's not horrible,
+
+71
+00:03:07.300 --> 00:03:08.930
+our code would run.
+
+72
+00:03:08.930 --> 00:03:12.530
+But it would be nice if we would get this extra support
+
+73
+00:03:12.530 --> 00:03:13.790
+by the IDE.
+
+74
+00:03:13.790 --> 00:03:16.240
+So if TypeScript would understand
+
+75
+00:03:16.240 --> 00:03:18.660
+that we have a listen method.
+
+76
+00:03:18.660 --> 00:03:19.970
+This would also ensure
+
+77
+00:03:19.970 --> 00:03:23.210
+that we can't pass in invalid data.
+
+78
+00:03:23.210 --> 00:03:26.650
+For example, if we think that listen works like this,
+
+79
+00:03:26.650 --> 00:03:29.780
+and it wants an object with the port here,
+
+80
+00:03:29.780 --> 00:03:32.870
+then this is an error we might wanna catch,
+
+81
+00:03:32.870 --> 00:03:36.910
+and currently, if I run tsc here to compile all files,
+
+82
+00:03:36.910 --> 00:03:38.810
+this compiles just fine.
+
+83
+00:03:38.810 --> 00:03:41.460
+Because TypeScript does not understand
+
+84
+00:03:41.460 --> 00:03:43.930
+how this listen method looks like,
+
+85
+00:03:43.930 --> 00:03:45.370
+which arguments it wants
+
+86
+00:03:45.370 --> 00:03:46.700
+and how it works,
+
+87
+00:03:46.700 --> 00:03:48.100
+and because of that,
+
+88
+00:03:48.100 --> 00:03:50.340
+it just accepts this code.
+
+89
+00:03:50.340 --> 00:03:54.140
+Now we can make TypeScript aware of the express package
+
+90
+00:03:54.140 --> 00:03:57.220
+just as we made it aware of the node runtime
+
+91
+00:03:57.220 --> 00:04:01.960
+in general by installing another types package
+
+92
+00:04:01.960 --> 00:04:06.490
+with npm install dash dash safe dash dev at types,
+
+93
+00:04:06.490 --> 00:04:08.920
+and now it's slash express,
+
+94
+00:04:08.920 --> 00:04:12.520
+and for a lot of popular third party libraries,
+
+95
+00:04:12.520 --> 00:04:14.700
+you will find such types packages.
+
+96
+00:04:14.700 --> 00:04:16.200
+We find it for Express,
+
+97
+00:04:16.200 --> 00:04:17.450
+but you essentially find it
+
+98
+00:04:17.450 --> 00:04:20.160
+for all major libraries out there.
+
+99
+00:04:20.160 --> 00:04:22.630
+There are TypeScript translations available
+
+100
+00:04:22.630 --> 00:04:25.120
+for all major JavaScript libraries
+
+101
+00:04:25.120 --> 00:04:28.310
+always under this at types slash,
+
+102
+00:04:28.310 --> 00:04:31.030
+and then the library name package.
+
+103
+00:04:31.030 --> 00:04:32.650
+So for now, it enter this installs
+
+104
+00:04:32.650 --> 00:04:34.890
+to types to type definitions
+
+105
+00:04:34.890 --> 00:04:36.973
+for the express library.
+
+106
+00:04:37.870 --> 00:04:40.430
+Now that alone won't do the trick though,
+
+107
+00:04:40.430 --> 00:04:41.400
+as you can tell,
+
+108
+00:04:41.400 --> 00:04:43.120
+I still don't get an error,
+
+109
+00:04:43.120 --> 00:04:45.460
+I still don't get auto completion.
+
+110
+00:04:45.460 --> 00:04:48.250
+Because installing the types like this is not enough.
+
+111
+00:04:48.250 --> 00:04:49.800
+It was enough for a Node
+
+112
+00:04:49.800 --> 00:04:52.570
+which is our general code we're writing.
+
+113
+00:04:52.570 --> 00:04:55.080
+But it's not enough for this third party library
+
+114
+00:04:55.080 --> 00:04:57.120
+which we're importing like this,
+
+115
+00:04:57.120 --> 00:04:59.430
+and the import syntax is the problem.
+
+116
+00:04:59.430 --> 00:05:03.670
+By default, TypeScript is tuned for web apps
+
+117
+00:05:03.670 --> 00:05:05.070
+running in the browser,
+
+118
+00:05:05.070 --> 00:05:08.440
+and they are this import syntax would not be available.
+
+119
+00:05:08.440 --> 00:05:11.660
+So that's not the default import syntax it expects
+
+120
+00:05:11.660 --> 00:05:14.630
+when it comes to combining multiple files.
+
+121
+00:05:14.630 --> 00:05:16.230
+We can change the expectations
+
+122
+00:05:16.230 --> 00:05:19.530
+by TypeScript in a tsconfig.json file.
+
+123
+00:05:19.530 --> 00:05:23.700
+Their module should indeed be set to commonjs.
+
+124
+00:05:23.700 --> 00:05:27.240
+But also add the module resolution config
+
+125
+00:05:27.240 --> 00:05:29.470
+and set this to node here,
+
+126
+00:05:29.470 --> 00:05:30.550
+and while we're at it,
+
+127
+00:05:30.550 --> 00:05:33.660
+let's also change the targets to es six
+
+128
+00:05:33.660 --> 00:05:37.410
+so that we compile our code to more modern JavaScript,
+
+129
+00:05:37.410 --> 00:05:40.473
+which Node.js is capable of executing.
+
+130
+00:05:42.410 --> 00:05:43.620
+Now with that,
+
+131
+00:05:43.620 --> 00:05:44.900
+let's go back to app.ts
+
+132
+00:05:44.900 --> 00:05:48.710
+and all the change code in one little other detail,
+
+133
+00:05:48.710 --> 00:05:50.400
+and that's here for the import.
+
+134
+00:05:50.400 --> 00:05:52.550
+Instead of this import syntax,
+
+135
+00:05:52.550 --> 00:05:57.080
+write import express equals require express
+
+136
+00:05:57.920 --> 00:06:01.480
+or alternatively, you can now also switch
+
+137
+00:06:01.480 --> 00:06:04.300
+to another import syntax,
+
+138
+00:06:04.300 --> 00:06:08.510
+which normally is not supported like this in Node.js,
+
+139
+00:06:08.510 --> 00:06:12.310
+you can import express from express.
+
+140
+00:06:12.310 --> 00:06:14.310
+Now this is a import syntax you know
+
+141
+00:06:14.310 --> 00:06:16.290
+from the client side,
+
+142
+00:06:16.290 --> 00:06:18.370
+you know from the browser in the end.
+
+143
+00:06:18.370 --> 00:06:21.530
+This is how you typically import files from other files
+
+144
+00:06:21.530 --> 00:06:25.040
+into this file in client side code.
+
+145
+00:06:25.040 --> 00:06:30.040
+In Node.js, by default you use that require syntax.
+
+146
+00:06:30.280 --> 00:06:32.220
+Now with TypeScript,
+
+147
+00:06:32.220 --> 00:06:34.420
+you can enable this syntax
+
+148
+00:06:34.420 --> 00:06:37.560
+and TypeScript accepts this syntax.
+
+149
+00:06:37.560 --> 00:06:39.500
+But if you then compile your code,
+
+150
+00:06:39.500 --> 00:06:41.080
+if you run tsc,
+
+151
+00:06:41.080 --> 00:06:43.740
+you will see that in the result in the end
+
+152
+00:06:43.740 --> 00:06:45.200
+does looks quite different.
+
+153
+00:06:45.200 --> 00:06:47.060
+But in the result here,
+
+154
+00:06:47.060 --> 00:06:48.990
+it still uses require.
+
+155
+00:06:48.990 --> 00:06:52.470
+Now it also transferred this code in a couple of other ways.
+
+156
+00:06:52.470 --> 00:06:54.960
+But that's just some internal stuff that it does.
+
+157
+00:06:54.960 --> 00:06:57.640
+It still uses require in the end here.
+
+158
+00:06:57.640 --> 00:07:00.020
+But we can write code like this.
+
+159
+00:07:00.020 --> 00:07:01.370
+Which is especially nice
+
+160
+00:07:01.370 --> 00:07:03.350
+if you're coming from the front end,
+
+161
+00:07:03.350 --> 00:07:06.210
+and you're used to this import syntax.
+
+162
+00:07:06.210 --> 00:07:07.260
+Now, of course,
+
+163
+00:07:07.260 --> 00:07:09.900
+in the modern JavaScript feature section,
+
+164
+00:07:09.900 --> 00:07:13.300
+I showed that this import from syntax
+
+165
+00:07:13.300 --> 00:07:15.380
+is also supported by Node.js
+
+166
+00:07:15.380 --> 00:07:18.400
+natively even if you're not using TypeScript,
+
+167
+00:07:18.400 --> 00:07:19.390
+and that's true,
+
+168
+00:07:19.390 --> 00:07:21.040
+and I showed you how to enable
+
+169
+00:07:21.040 --> 00:07:24.720
+and use it there in that separate course section.
+
+170
+00:07:24.720 --> 00:07:26.530
+But please note that here,
+
+171
+00:07:26.530 --> 00:07:28.850
+I didn't change the package json file
+
+172
+00:07:28.850 --> 00:07:31.290
+to enable this import syntax,
+
+173
+00:07:31.290 --> 00:07:35.300
+as we did have to do it in that other course section,
+
+174
+00:07:35.300 --> 00:07:36.840
+and with TypeScript here,
+
+175
+00:07:36.840 --> 00:07:39.510
+and that's something you'll see throughout this section,
+
+176
+00:07:39.510 --> 00:07:43.070
+we will also still be able to omit file extensions
+
+177
+00:07:43.070 --> 00:07:46.270
+for example, and other difference to the baked
+
+178
+00:07:46.270 --> 00:07:49.100
+in modern import export syntax.
+
+179
+00:07:49.100 --> 00:07:50.840
+I've written that it's pretty similar though,
+
+180
+00:07:50.840 --> 00:07:53.030
+but the difference that you need to understand
+
+181
+00:07:53.030 --> 00:07:56.210
+here essentially, just instead here in TypeScript
+
+182
+00:07:56.210 --> 00:07:57.880
+we always can
+
+183
+00:07:57.880 --> 00:08:01.600
+and actually should use this import from syntax,
+
+184
+00:08:01.600 --> 00:08:03.810
+and it is then still compiled down
+
+185
+00:08:03.810 --> 00:08:08.360
+to that require import syntax node uses by default.
+
+186
+00:08:08.360 --> 00:08:10.960
+So there will be a difference between the code we write
+
+187
+00:08:10.960 --> 00:08:14.530
+and decode that will actually run on the server,
+
+188
+00:08:14.530 --> 00:08:15.363
+and with that,
+
+189
+00:08:15.363 --> 00:08:17.550
+you now see that if I type a dot here,
+
+190
+00:08:17.550 --> 00:08:19.490
+I do get auto completion,
+
+191
+00:08:19.490 --> 00:08:22.180
+and now we also get help regarding the arguments
+
+192
+00:08:22.180 --> 00:08:24.420
+we can pass to listen,
+
+193
+00:08:24.420 --> 00:08:26.120
+and now for the argument,
+
+194
+00:08:26.120 --> 00:08:31.090
+we see that indeed listen has this handle argument
+
+195
+00:08:31.090 --> 00:08:33.290
+which it accepts which can be typed any,
+
+196
+00:08:33.290 --> 00:08:35.650
+and therefore it doesn't yell at us here.
+
+197
+00:08:35.650 --> 00:08:39.040
+But we can also see if we add lists
+
+198
+00:08:39.040 --> 00:08:40.350
+and for the first time
+
+199
+00:08:42.680 --> 00:08:45.090
+that there are various ways of calling it
+
+200
+00:08:45.090 --> 00:08:47.340
+we can cycle through these different ways here
+
+201
+00:08:47.340 --> 00:08:48.600
+with the arrow keys,
+
+202
+00:08:48.600 --> 00:08:52.330
+and that it typically one support which is a number.
+
+203
+00:08:52.330 --> 00:08:53.890
+So it gives us this hint here,
+
+204
+00:08:53.890 --> 00:08:56.440
+and that's some extra help we get in the IDE
+
+205
+00:08:56.440 --> 00:08:58.323
+because we're using TypeScript.
+
+206
+00:08:59.390 --> 00:09:01.530
+So here, I can then enter 3000,
+
+207
+00:09:01.530 --> 00:09:03.200
+and have valid code,
+
+208
+00:09:03.200 --> 00:09:05.310
+and this extra IDE support,
+
+209
+00:09:05.310 --> 00:09:07.500
+which we get thanks to TypeScript,
+
+210
+00:09:07.500 --> 00:09:09.790
+as well as this import syntax
+
+211
+00:09:09.790 --> 00:09:11.230
+which might be preferred
+
+212
+00:09:11.230 --> 00:09:12.490
+by some developers
+
+213
+00:09:12.490 --> 00:09:14.400
+since we're used to data import syntax
+
+214
+00:09:14.400 --> 00:09:15.460
+from the client,
+
+215
+00:09:15.460 --> 00:09:17.670
+these are already some advantages
+
+216
+00:09:17.670 --> 00:09:20.590
+we get from using TypeScript.
+
+217
+00:09:20.590 --> 00:09:22.520
+Now with that out of the way,
+
+218
+00:09:22.520 --> 00:09:25.040
+I promised you a simple REST API
+
+219
+00:09:25.040 --> 00:09:27.270
+built with Node, Express and TypeScript.
+
+220
+00:09:27.270 --> 00:09:29.203
+So let's now continue working on that.
+

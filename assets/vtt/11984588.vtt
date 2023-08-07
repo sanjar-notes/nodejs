@@ -1,0 +1,85 @@
+WEBVTT
+
+00:01.930 --> 00:05.050
+So we worked a lot on resetting passwords.
+
+00:05.080 --> 00:07.510
+Let's now work on authorization.
+
+00:07.510 --> 00:13.780
+And with that, I mean that not every authenticated user is allowed to do everything.
+
+00:14.140 --> 00:16.120
+A good example would be this one.
+
+00:16.300 --> 00:17.560
+I'm not logged in now.
+
+00:17.560 --> 00:19.630
+Let me log in with this user here.
+
+00:20.170 --> 00:21.520
+Test a test dot com.
+
+00:23.170 --> 00:30.130
+Here, I might be able to add a product and I can delete products, but right now I can delete all products
+
+00:30.130 --> 00:33.820
+no matter if I created them or if someone else created them.
+
+00:33.820 --> 00:35.890
+And the same is true for editing them.
+
+00:36.210 --> 00:44.770
+Authorization means that I restrict the permissions of a logged in user, so every user might be able
+
+00:44.770 --> 00:48.760
+to add anything to the card, including products created by the user.
+
+00:48.910 --> 00:53.620
+But you might not be able to delete and edit products which were not created by you.
+
+00:53.890 --> 01:00.370
+So for now, I can do that, but that's exactly what I want to work on next so that we can't do this.
+
+01:00.520 --> 01:02.620
+Now, how can we implement that?
+
+01:03.310 --> 01:09.520
+Well, when I create a new product and let me quickly do that, remember, I'm locked in with test at
+
+01:09.520 --> 01:10.970
+test com.
+
+01:12.150 --> 01:17.380
+This was created by test at test dotcom.
+
+01:17.400 --> 01:22.700
+When I create this product here, we have it here and we can see it in the product collection.
+
+01:22.710 --> 01:28.170
+Obviously it's linked to the user with an ID that ends with E five.
+
+01:28.170 --> 01:32.970
+And if we have a look at all our users, let me delete this one here.
+
+01:33.450 --> 01:35.300
+Then we see this is the one with E five.
+
+01:35.310 --> 01:37.260
+It is to test a test dot com user.
+
+01:37.590 --> 01:42.120
+Now if I log in with my test to account.
+
+01:43.080 --> 01:44.760
+So test to here.
+
+01:47.080 --> 01:49.510
+Then if I go to Avon products.
+
+01:50.380 --> 01:54.210
+I can also edit and delete that and that is exactly what I want to prevent.
+
+01:54.220 --> 01:56.110
+Let's do that in the next lecture.

@@ -1,0 +1,271 @@
+WEBVTT
+
+00:02.240 --> 00:08.480
+I added this throw new error in app.js and to show you what it does, let me go to another place,
+
+00:08.480 --> 00:08.650
+to
+
+00:08.650 --> 00:12.040
+admin.js, to the controller and change some code there.
+
+00:13.230 --> 00:20.310
+In there we of course have plenty of code to for example add a product and we do validate the user input
+
+00:20.400 --> 00:24.220
+which is also a form of error prevention or error handling,
+
+00:24.240 --> 00:30.870
+we do validate that input in admin.js in the routes folder, there we added all our validation logic.
+
+00:30.870 --> 00:34.430
+Now in admin.js, I'm extracting my logic.
+
+00:34.800 --> 00:42.360
+Now let me force an error by quickly looking into my database with compass, the graphical user interface
+
+00:42.380 --> 00:44.870
+we used before for interacting with the database
+
+00:45.090 --> 00:47.070
+and in there, in the shop database,
+
+00:47.160 --> 00:51.910
+let's go to products and let me pick up product ID here.
+
+00:52.350 --> 00:54.210
+Now when creating a new product, I
+
+00:54.360 --> 01:00.910
+will also add _id and I will temporarily import something from the mongoose package
+
+01:06.440 --> 01:15.590
+because I want to create a new object id here and I can use mongoose types object id here, pass my object
+
+01:15.590 --> 01:22.230
+id and add the new keyword and now I will basically create a new product with an ID that already exists
+
+01:22.230 --> 01:23.630
+and therefore this should fail.
+
+01:23.910 --> 01:29.620
+Now let me start my application and let's quickly log in with a user here
+
+01:31.950 --> 01:36.620
+and add a product and here you can enter anything.
+
+01:36.730 --> 01:38.490
+Let's click add product here 
+
+01:39.070 --> 01:40.060
+and now it will fail,
+
+01:40.060 --> 01:44.010
+you've got this infinitely spinning refresh icon
+
+01:44.190 --> 01:49.630
+and if you have a look at your code or at the terminal where you ran npm start, you will see that
+
+01:49.660 --> 01:56.170
+our server crashed because mongodb threw an error with a duplicate key problem which makes
+
+01:56.170 --> 02:00.760
+sense because we added a product with an existing ID and therefore everything crashed.
+
+02:00.760 --> 02:06.130
+Now of course this is a constructed scenario but just because I want to ensure that something goes wrong
+
+02:06.130 --> 02:10.340
+at this point because now I want to show you how you could handle such a problem.
+
+02:10.470 --> 02:15.060
+Now we are logging that error and I can confirm that this catch block
+
+02:15.060 --> 02:26.590
+is called by adding console log an error occured. So now if I save this, obviously our node server restarts,
+
+02:26.690 --> 02:29.630
+let's add a product again or let's try this again,
+
+02:29.630 --> 02:35.890
+it will fail again of course but if I click add product now and I go back to my code, we see an error
+
+02:35.890 --> 02:36.660
+occurred here,
+
+02:36.660 --> 02:38.940
+so this proves that this catch block gets fired
+
+02:39.000 --> 02:43.580
+but that's great because this means that we now have a chance of handling that error.
+
+02:43.590 --> 02:49.340
+Now what we could do here of course is we could return some 500 error page,
+
+02:49.350 --> 02:54.270
+we could also redirect the user to any other page or we could render the add product page again,
+
+02:54.300 --> 03:00.180
+we could even keep the old input and that might make sense if we expect this to be a temporary issue.
+
+03:00.450 --> 03:08.530
+So of course we could take our code from validating, copy all that and output it here or 
+
+03:08.530 --> 03:11.520
+use it here in the catch block, set a status code of 500
+
+03:11.530 --> 03:17.530
+which is a code indicating that a server side issue occurred and then we want to return added product
+
+03:17.640 --> 03:21.570
+with add product page title, add product in the path,
+
+03:21.640 --> 03:23.950
+by the way it should be fixed up there too,
+
+03:24.320 --> 03:27.700
+minor thing but make sure that the navigation item is selected.
+
+03:28.000 --> 03:30.430
+Editing set to false, has error
+
+03:30.550 --> 03:35.140
+can be set to true, the error message we can put our own error message here,
+
+03:35.140 --> 03:39.520
+something like database operation failed,
+
+03:39.550 --> 03:41.380
+please try again.
+
+03:41.830 --> 03:45.260
+Validation errors can be an empty array,
+
+03:45.310 --> 03:50.320
+we don't want to put a red border around anything and we want to keep the user input.
+
+03:50.320 --> 03:56.250
+If we save this and everything restarts, let's try this another time.
+
+03:56.350 --> 03:58.080
+So let's add a new product here
+
+04:01.130 --> 04:01.860
+like this
+
+04:01.880 --> 04:04.060
+and if I click add product, indeed
+
+04:04.100 --> 04:08.260
+now we have a better error handling because now I am returning that same page,
+
+04:08.270 --> 04:14.330
+I give the user some error message and the user can try again but of course this here will keep on failing
+
+04:14.390 --> 04:16.740
+because we have a fundamental problem in the code.
+
+04:16.880 --> 04:21.690
+But if that was a temporary network issue, this might be a fine way of handling this.
+
+04:21.710 --> 04:26.950
+Sometimes you got bigger problems though and you don't want to use this solution,
+
+04:26.960 --> 04:29.510
+you don't want to return the same page again,
+
+04:29.510 --> 04:34.520
+instead you really want to show an error page to show the user something bigger is wrong,
+
+04:34.520 --> 04:38.380
+we're working on it but for now you'll probably not be able to continue.
+
+04:38.870 --> 04:43.520
+And for such scenarios, I'll add a new view next to my 404.ejs file,
+
+04:43.520 --> 04:45.590
+I'll add a 500.ejs file.
+
+04:45.590 --> 04:50.210
+We actually already have a view for error handling, the 400 page, 404 page,
+
+04:50.210 --> 04:55.780
+now I'll add another page that will render error messages for bigger technical issues,
+
+04:55.790 --> 04:57.540
+not for not found routes.
+
+04:57.650 --> 05:06.630
+I'll copy the code from 404, include it in 500 and there I will say some error occurred and there may
+
+05:06.640 --> 05:11.510
+be some paragraph, we're working on fixing this,
+
+05:11.600 --> 05:14.430
+sorry for the inconvenience,
+
+05:14.700 --> 05:17.890
+something like that.
+
+05:17.920 --> 05:19.640
+You could add anything you want here.
+
+05:19.690 --> 05:26.410
+Now we have that 500.ejs route and that might be something you also want to do, in cases where you are
+
+05:26.410 --> 05:30.320
+not sure if you will be able to handle this otherwise.
+
+05:30.400 --> 05:32.980
+Now to return this 500 page,
+
+05:32.980 --> 05:34.090
+I'll go to my error.js
+
+05:34.200 --> 05:43.740
+controller and I'll duplicate my get 400 route and add the get 500 action here, with status code 500 we
+
+05:43.750 --> 05:52.870
+render the 500.ejs file with a page title of error or whatever you want, path can be /500 and 
+
+05:52.920 --> 05:53.860
+isAuthenticated,
+
+05:53.950 --> 05:56.410
+yeah we use our session information for that.
+
+05:57.220 --> 05:58.920
+Now we have get 500,
+
+05:58.960 --> 06:01.270
+we just need to add a route for that now.
+
+06:02.160 --> 06:10.930
+So let's go to the app.js because in there, I use get 404 for every page, for every middleware that does
+
+06:10.930 --> 06:12.940
+not get handled ahead of time.
+
+06:12.940 --> 06:19.060
+Now there is one extra route I will add with app get/500,
+
+06:19.080 --> 06:24.560
+here I want to use error controller get 500.
+
+06:24.630 --> 06:28.330
+So now I define a route like this, /500,
+
+06:28.500 --> 06:31.110
+I now just have to make sure that we do redirect to that route
+
+06:31.140 --> 06:36.900
+when a 500 error occurs and we want to show that page and therefore in the admin.js in the controller, in the
+
+06:36.900 --> 06:41.850
+catch block, I will indeed redirect to /500.
+
+06:42.180 --> 06:49.410
+And now if we save that and I try submitting this again, I end up on my 500 error page and this can be
+
+06:49.410 --> 06:52.540
+a decent way of handling this for bigger problems.

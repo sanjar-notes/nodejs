@@ -1,0 +1,130 @@
+WEBVTT
+
+00:02.560 --> 00:04.660
+So we get a result and that's great,
+
+00:04.660 --> 00:10.680
+now first of all that result had some cryptic body which was a readable stream.
+
+00:10.690 --> 00:16.030
+Now what we can do here in the then block is we can return result json which is a function that will
+
+00:16.030 --> 00:19.770
+throw a new promise or return a new promise, so I can add another
+
+00:19.770 --> 00:22.150
+then block and here I will have the data,
+
+00:22.170 --> 00:28.330
+so the response body. I don't necessarily need that but I want to show you how you could get that data
+
+00:28.360 --> 00:30.990
+that's getting returned by the server.
+
+00:31.000 --> 00:35.340
+More importantly, I know that either here or here, does not matter,
+
+00:35.380 --> 00:38.640
+I have a response so the item was deleted on the server
+
+00:38.770 --> 00:42.050
+and now I want to delete it here in the dom as well.
+
+00:42.050 --> 00:43.640
+Now how can we do that?
+
+00:44.170 --> 00:50.510
+Well we got access to the button on which we clicked right and the button is in the end inside of the
+
+00:50.520 --> 00:51.510
+whole dom element
+
+00:51.510 --> 00:52.400
+we want to delete,
+
+00:52.570 --> 00:55.600
+so it is this article which I want to delete.
+
+00:55.660 --> 01:02.350
+So therefore what I have to do is I have to find this article based on this button and that's relatively
+
+01:02.350 --> 01:03.630
+straightforward to do.
+
+01:05.070 --> 01:10.990
+My product element and you can name this constant however you want is basically my button
+
+01:11.100 --> 01:17.340
+and then there is a closest method provided by javascript and you pass a selector to closest which
+
+01:17.340 --> 01:23.160
+gives you the closest element with that selector and the closest ancestor element to be precise
+
+01:23.160 --> 01:29.220
+and there, I will simply use article because I only have one article in my ancestor history here for
+
+01:29.220 --> 01:30.280
+this button,
+
+01:30.360 --> 01:36.380
+so if I select my closest article, that should be the element I want to delete.
+
+01:36.420 --> 01:37.700
+So inside here
+
+01:37.740 --> 01:45.030
+let's say, I can call product element remove and that is a function that will not be supported in Internet
+
+01:45.030 --> 01:45.830
+Explorer,
+
+01:45.840 --> 01:52.620
+there you would have to access the parent node and then remove a child
+
+01:55.680 --> 01:59.700
+and that child would be the product element. So that is a code that works in every browser,
+
+01:59.700 --> 02:02.490
+remove would work in all modern browsers.
+
+02:02.670 --> 02:04.200
+Now with that in place,
+
+02:04.760 --> 02:07.150
+we can reload this page here and now
+
+02:07.150 --> 02:10.010
+if I click on delete, it will eventually be gone
+
+02:10.040 --> 02:12.880
+and here, we see our success message.
+
+02:12.900 --> 02:17.210
+And now just to validate that it really only deletes one element and not all elements,
+
+02:17.210 --> 02:21.810
+let me log in with my other user who also has two products I can delete,
+
+02:22.160 --> 02:23.560
+these two products
+
+02:23.720 --> 02:32.200
+and now let's go to admin product, delete the boat let's say and now only the duck is left.
+
+02:32.220 --> 02:33.300
+So this is great
+
+02:33.480 --> 02:39.500
+and indeed if I go to products, this data really is gone, I can't load it here.
+
+02:39.750 --> 02:42.650
+So this is how you can use asynchronous requests.
+
+02:42.660 --> 02:48.480
+Now of course there is more you can do on the client side but this is not a client side javascript course.
+
+02:48.510 --> 02:55.470
+The important thing here is that you can send data to your backend with the help, with these asynchronous
+
+02:55.470 --> 02:59.520
+requests and how you can include data and how you can handle that on the backend.

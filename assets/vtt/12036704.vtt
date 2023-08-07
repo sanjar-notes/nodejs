@@ -1,0 +1,175 @@
+WEBVTT
+
+00:02.270 --> 00:09.940
+So how can we ensure that all our beautiful images are also served to the client, that they are downloaded?
+
+00:09.950 --> 00:15.650
+We got multiple options for serving files and I will walk you through all of them. Now
+
+00:15.710 --> 00:20.840
+option number one which you would typically use for a scenario like this where you have files that are
+
+00:20.840 --> 00:22.670
+publicly available to everyone,
+
+00:22.700 --> 00:29.220
+like our product images is that we simply serve our images folder in a static way.
+
+00:29.270 --> 00:30.530
+What does this mean?
+
+00:30.530 --> 00:37.850
+This means you go to app.js and there we already are statically serving a folder, we are serving the public
+
+00:37.850 --> 00:40.820
+folder with the express static middleware.
+
+00:40.820 --> 00:46.550
+Now we can serve more than one folder statically and remember, statically serving a folder simply means
+
+00:46.790 --> 00:52.500
+that requests to files in that folder will be handled automatically and the files will be returned,
+
+00:52.640 --> 00:58.850
+so all the heavy lifting is done behind the scenes by express then. I can duplicate this middleware and
+
+00:58.850 --> 01:02.630
+now also serve the images folder, just like this
+
+01:02.780 --> 01:08.360
+and with this little change if I save that and the server therefore restarts, if we reload this page,
+
+01:09.420 --> 01:11.680
+we still fail.
+
+01:12.150 --> 01:18.280
+Well if we inspect that failing request, we see that it tried to get the image from admin/images,
+
+01:18.330 --> 01:21.570
+the reason for that is that I'm on the admin route here,
+
+01:21.690 --> 01:23.480
+admin products to be precise,
+
+01:24.190 --> 01:29.070
+so it's only replacing the last part of my path with that image
+
+01:29.080 --> 01:32.780
+url and the solution for that is pretty straightforward.
+
+01:33.100 --> 01:42.460
+In our view products.ejs where I do show my image, we simply need to add a slash at the beginning
+
+01:42.520 --> 01:44.610
+which will turn this into an absolute path,
+
+01:44.650 --> 01:51.280
+so it will not append it to the current path but rather create a new path with only our domain and then
+
+01:51.370 --> 01:54.770
+the path which gets rendered here and I do this in products
+
+01:54.850 --> 01:57.400
+and of course also on my shop pages,
+
+01:57.470 --> 01:58.970
+so on index.ejs,
+
+01:59.200 --> 02:04.180
+so basically everywhere where I do render an image, I add a slash at the beginning.
+
+02:04.210 --> 02:09.430
+The alternative would be to store that path in a database with a slash at the beginning of course, might
+
+02:09.430 --> 02:10.150
+have been easier
+
+02:10.180 --> 02:12.050
+but I want to show you both ways
+
+02:12.070 --> 02:17.080
+so here I'll add it in my views, also here in the product list.ejs file,
+
+02:19.790 --> 02:23.280
+like this and also in the product detail file of course,
+
+02:23.280 --> 02:25.050
+there we also have an image.
+
+02:25.160 --> 02:34.340
+If we change all of that and I now reload this page, I still fail and now the reason for that is something
+
+02:34.340 --> 02:35.440
+different.
+
+02:35.450 --> 02:41.690
+The reason for that is that the path now is correct but my images here in the images folder are served
+
+02:41.720 --> 02:45.720
+incorrectly. In app.js where I set up this static middleware,
+
+02:46.070 --> 02:53.520
+keep in mind what I taught you earlier in this course, we basically point to a folder there like public and
+
+02:53.550 --> 03:01.100
+images and we then tell express serve the files from inside that folder as if they were on the root
+
+03:01.220 --> 03:02.310
+folder.
+
+03:02.540 --> 03:08.050
+So we would see that image if we go there and we see the path under which I try to find that,
+
+03:08.060 --> 03:15.050
+if we open that in a new tab, we can't find it of course but we will see it if I remove images there
+
+03:15.050 --> 03:21.110
+and the reason for that is that express assumes that the files in the images folder are served as if
+
+03:21.110 --> 03:22.570
+they were in the root folder,
+
+03:22.580 --> 03:24.060
+so slash nothing.
+
+03:24.200 --> 03:28.240
+Of course we want to keep them in the images folder and keep the path like this
+
+03:28.400 --> 03:34.220
+and for this, we can simply adjust our middleware here and say if we have a request that goes to
+
+03:34.280 --> 03:43.310
+/images, that starts with /images, then serve these files statically and now /images is the folder
+
+03:43.400 --> 03:46.010
+we assume for this static serving
+
+03:46.040 --> 03:50.380
+and now with that if we save that and we reload, we see our image here.
+
+03:50.660 --> 03:56.870
+So now we got that working and now we got a static way of serving our files and that is a great way
+
+03:56.870 --> 03:58.660
+of serving them.
+
+03:58.730 --> 04:01.340
+Now I want to do something different though,
+
+04:01.640 --> 04:09.230
+I want to add this to the cart, order it so that I have an order and I want to download an invoice
+
+04:09.380 --> 04:15.590
+for that order and that will now work differently because invoices will not be public files that everyone
+
+04:15.590 --> 04:16.970
+should be able to access,
+
+04:17.000 --> 04:19.050
+I want to be able to access my invoice
+
+04:19.130 --> 04:20.580
+but no one else should be.
+
+04:20.730 --> 04:22.940
+So let's focus on this in the next lectures.

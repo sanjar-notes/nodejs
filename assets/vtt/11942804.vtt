@@ -1,0 +1,145 @@
+WEBVTT
+
+00:02.220 --> 00:05.430
+So now that we're able to add, fetch and update products,
+
+00:05.460 --> 00:10.200
+let's work on deleting them. Now for deleting, you could implement different approaches,
+
+00:10.200 --> 00:17.370
+you could add a method to the product class so that you can create a new product object and call delete
+
+00:17.430 --> 00:20.020
+on it just as you called save on it
+
+00:20.070 --> 00:25.710
+but I will go with a static method and I'll add a static method which I'll name delete by id and where
+
+00:25.710 --> 00:28.940
+I expect a product ID as an argument.
+
+00:28.980 --> 00:33.200
+Now in here, of course again we need access to the database,
+
+00:33.240 --> 00:38.730
+so let's call get db to get access to that one central database connection we configured at the start
+
+00:39.510 --> 00:46.020
+and then on the db, again it's time to reach out to the products collection and on that collection,
+
+00:46.020 --> 00:48.990
+we want to delete an element.
+
+00:49.070 --> 00:54.310
+Now as always, you'll find more in the official docs in the crud operations,
+
+00:54.480 --> 00:59.300
+if you click on the documents you see that just as we had insert one, insert many and so on,
+
+00:59.340 --> 01:02.750
+we also have delete many and delete one. Now
+
+01:02.760 --> 01:09.510
+I don't want to delete many products but exactly one, so I'll delete one product here and you need to
+
+01:09.570 --> 01:11.370
+specify a filter now,
+
+01:11.370 --> 01:16.050
+so again pass an object where you describe how to find that product
+
+01:16.050 --> 01:21.030
+and again it will be our boring ID equal to check here.
+
+01:21.210 --> 01:23.140
+Now here product ID is an argument,
+
+01:23.250 --> 01:30.230
+so we need to convert it to an objectid manually again by passing it to the objectid constructor
+
+01:30.390 --> 01:33.860
+and now mongodb will go ahead and delete the first element
+
+01:33.870 --> 01:37.690
+it finds that has this criteria fulfilled.
+
+01:37.880 --> 01:39.430
+So I will return here
+
+01:39.660 --> 01:48.270
+and of course just as before, we can add then and catch here if we want, we can catch any error and console
+
+01:48.360 --> 01:54.630
+log it and we can also work with the result of this operation,
+
+01:54.780 --> 02:01.940
+we could console log it, I'll just console log deleted and that will be it.
+
+02:01.940 --> 02:04.370
+So now we have the delete by id method, 
+
+02:04.400 --> 02:05.720
+now we just need to add it.
+
+02:05.840 --> 02:06.440
+So in the admin.js
+
+02:06.470 --> 02:11.920
+controller file, here the post delete product route, let's comment it back in
+
+02:11.960 --> 02:12.680
+or not route,
+
+02:12.710 --> 02:15.960
+the action I mean of course. We extract the product ID
+
+02:16.340 --> 02:18.260
+and then here we had a different flow,
+
+02:18.270 --> 02:20.610
+I first of all found the product here,
+
+02:20.630 --> 02:22.520
+now we don't do that anymore,
+
+02:22.670 --> 02:30.020
+we just call product delete by ID instead, we pass the prod ID as a string and then we just have our then
+
+02:30.020 --> 02:33.250
+block here which won't receive an argument
+
+02:33.500 --> 02:36.820
+and yeah that is it, we redirect thereafter.
+
+02:36.860 --> 02:40.350
+So let's go back to our application,
+
+02:40.520 --> 02:50.840
+let's quickly add a new dummy product with totally invalid and uninteresting data and that fails,
+
+02:51.240 --> 02:53.020
+that's an interesting behavior,
+
+02:53.040 --> 02:54.360
+let's fix that in a second.
+
+02:54.360 --> 03:02.620
+Let's first of all check if deleting works, I get redirected to a page that is not found, yeah makes sense
+
+03:02.620 --> 03:05.290
+because obviously working in a controller is not enough,
+
+03:05.290 --> 03:09.770
+I need to go to my admin routes and comment in the post delete product route.
+
+03:10.000 --> 03:16.670
+So after changing this, let's now click delete and now I get no products here.
+
+03:16.930 --> 03:23.150
+Let's confirm in compass by quickly refreshing that page and our product is gone,
+
+03:23.200 --> 03:24.260
+so deleting works.
+
+03:24.310 --> 03:28.010
+Let's now see what's going wrong when I tried to add that product.

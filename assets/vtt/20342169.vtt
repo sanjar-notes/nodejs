@@ -1,0 +1,250 @@
+WEBVTT
+
+1
+00:00:02.160 --> 00:00:04.350
+<v Instructor>And that's it for this module.</v>
+
+2
+00:00:04.350 --> 00:00:06.570
+Now we learned how to use TypeScript
+
+3
+00:00:06.570 --> 00:00:08.840
+together with "node.js."
+
+4
+00:00:08.840 --> 00:00:11.340
+And that can really be an amazing combination
+
+5
+00:00:11.340 --> 00:00:14.900
+because TypeScript adds many useful features
+
+6
+00:00:14.900 --> 00:00:18.850
+which simply allow us, as a developer, to write better
+
+7
+00:00:18.850 --> 00:00:21.090
+less error prone code.
+
+8
+00:00:21.090 --> 00:00:24.610
+Which has a lot of built in checks during compilation
+
+9
+00:00:24.610 --> 00:00:26.040
+and during development.
+
+10
+00:00:26.040 --> 00:00:28.820
+Which avoids errors at runtime,
+
+11
+00:00:28.820 --> 00:00:31.310
+when we then execute our code.
+
+12
+00:00:31.310 --> 00:00:34.070
+It is important to understand that node itself
+
+13
+00:00:34.070 --> 00:00:36.970
+is not able to execute TypeScript code.
+
+14
+00:00:36.970 --> 00:00:39.470
+So the code we write in the source folder here,
+
+15
+00:00:39.470 --> 00:00:42.400
+is not directly the code we're going to execute.
+
+16
+00:00:42.400 --> 00:00:44.533
+This is just our source code.
+
+17
+00:00:44.533 --> 00:00:47.610
+To execute it, we need to compile it first
+
+18
+00:00:47.610 --> 00:00:49.960
+and we do that with the "tsc" command,
+
+19
+00:00:49.960 --> 00:00:53.600
+which invokes the TypeScript compiler in this project,
+
+20
+00:00:53.600 --> 00:00:55.830
+thanks to the "tsconfig.json" file
+
+21
+00:00:55.830 --> 00:00:58.080
+and of course adhering to the configuration
+
+22
+00:00:58.080 --> 00:01:00.060
+we set up in this file.
+
+23
+00:01:00.060 --> 00:01:02.250
+This generates the "dist" folder
+
+24
+00:01:02.250 --> 00:01:05.060
+and it's now the "dist" folder that holds the code,
+
+25
+00:01:05.060 --> 00:01:07.150
+which we want to execute.
+
+26
+00:01:07.150 --> 00:01:10.270
+So in "package.json" if I would wanna add a script
+
+27
+00:01:10.270 --> 00:01:12.330
+that runs my node server,
+
+28
+00:01:12.330 --> 00:01:14.640
+I would add a "start" script in there,
+
+29
+00:01:14.640 --> 00:01:18.800
+where I run "node dist/app.js".
+
+30
+00:01:18.800 --> 00:01:20.930
+And now we could run "npm start"
+
+31
+00:01:20.930 --> 00:01:23.170
+to speed up that node server based
+
+32
+00:01:23.170 --> 00:01:25.313
+on our compiled JavaScript code.
+
+33
+00:01:26.340 --> 00:01:28.060
+Now whether you wanna use TypeScript
+
+34
+00:01:28.060 --> 00:01:30.340
+or not is entirely up to you.
+
+35
+00:01:30.340 --> 00:01:32.100
+You absolutely don't have to
+
+36
+00:01:32.100 --> 00:01:34.020
+and as you saw throughout this course,
+
+37
+00:01:34.020 --> 00:01:36.350
+I used just JavaScript.
+
+38
+00:01:36.350 --> 00:01:39.000
+I would argue that probably the majority
+
+39
+00:01:39.000 --> 00:01:43.090
+of node expressed projects use just JavaScript.
+
+40
+00:01:43.090 --> 00:01:46.550
+But you see how easy it is to use TypeScript as well.
+
+41
+00:01:46.550 --> 00:01:49.580
+And if you like TypeScript, if you like this syntax,
+
+42
+00:01:49.580 --> 00:01:51.760
+if you like the features it has,
+
+43
+00:01:51.760 --> 00:01:53.890
+definitely consider using it.
+
+44
+00:01:53.890 --> 00:01:55.970
+It's super simple and in the end
+
+45
+00:01:55.970 --> 00:01:59.360
+you get a regular node expressed JavaScript app
+
+46
+00:01:59.360 --> 00:02:02.070
+of course just with the extra TypeScript
+
+47
+00:02:02.070 --> 00:02:04.690
+features during development.
+
+48
+00:02:04.690 --> 00:02:06.460
+Now what you'll learn throughout the course
+
+49
+00:02:06.460 --> 00:02:10.514
+about validation, authentication, databases, error handling.
+
+50
+00:02:10.514 --> 00:02:14.320
+That all applies to this application as well.
+
+51
+00:02:14.320 --> 00:02:16.960
+You see it here, we write the same code
+
+52
+00:02:16.960 --> 00:02:20.050
+we wrote over and over again throughout the course.
+
+53
+00:02:20.050 --> 00:02:22.750
+The only difference is the extra
+
+54
+00:02:22.750 --> 00:02:24.910
+TypeScript syntax which we can add.
+
+55
+00:02:24.910 --> 00:02:28.120
+Extra TypeScript features like type assignments
+
+56
+00:02:28.120 --> 00:02:32.200
+or type conversions which act as extra type safety,
+
+57
+00:02:32.200 --> 00:02:34.070
+TypeScript is all about.
+
+58
+00:02:34.070 --> 00:02:36.960
+But that's east to add to the existing code.
+
+59
+00:02:36.960 --> 00:02:39.040
+So you don't need to learn a new language
+
+60
+00:02:39.040 --> 00:02:41.910
+and you don't need to use libraries in a new way.
+
+61
+00:02:41.910 --> 00:02:44.580
+You use everything as you learned it throughout the course
+
+62
+00:02:44.580 --> 00:02:48.023
+just if you want to, with the extra TypeScript features.
+

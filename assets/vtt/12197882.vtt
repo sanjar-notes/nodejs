@@ -1,0 +1,352 @@
+WEBVTT
+
+00:02.180 --> 00:05.880
+Now what is graphql? To really explain it,
+
+00:05.950 --> 00:10.360
+let's compare it to a rest API which we already learned about. A rest
+
+00:10.390 --> 00:15.060
+API is a stateless client independent API for exchanging data,
+
+00:15.280 --> 00:21.250
+so it's a node express application or a node with any framework application of course that we build
+
+00:21.430 --> 00:22.590
+to exchange data.
+
+00:22.660 --> 00:27.270
+We don't render views, we don't store sessions, we don't care about the client,
+
+00:27.400 --> 00:32.390
+we only get requests, parse the data and return responses with data,
+
+00:32.410 --> 00:38.110
+typically json data. A Graphql API is generally not that different,
+
+00:38.140 --> 00:42.410
+it's also a stateless client independent API for exchanging data
+
+00:42.490 --> 00:50.240
+but and that's the important part of course, with higher query flexibility and to understand that, let's
+
+00:50.440 --> 00:57.340
+look at some rest API limitations. Let's say in our rest API, we have an endpoint that looks like that,
+
+00:57.850 --> 01:00.760
+we can send a get request to /post
+
+01:00.760 --> 01:06.550
+and as you might imagine this would fetch us a post, let's say from the database but could also be
+
+01:06.550 --> 01:08.900
+from a file or anything like that of course
+
+01:09.100 --> 01:11.380
+and this is how a post might look like.
+
+01:11.380 --> 01:14.440
+Now we returned that to the client and everyone is happy
+
+01:14.650 --> 01:19.310
+but what if we actually only need the title and ID on the client?
+
+01:19.480 --> 01:26.440
+What if we don't need the content or we don't need the creator data? We can of course have many scenarios
+
+01:26.710 --> 01:30.550
+where we use one and the same endpoint in our frontend application,
+
+01:30.610 --> 01:38.410
+so in our single page application or our mobile application and in one place, on one page, we might need
+
+01:38.500 --> 01:45.520
+title and content, on the other page, we might need content and creator. How can we solve that?
+
+01:45.850 --> 01:51.950
+Well solution one is of course to simply create more endpoints that return the different types of data.
+
+01:52.150 --> 01:59.200
+We can create a new rest API endpoint, for example sending a get request to post-slim to only return
+
+01:59.200 --> 02:00.530
+title and ID.
+
+02:00.970 --> 02:06.640
+Now obviously by the way, you could also of course use the same endpoint all the time and just parse or
+
+02:06.730 --> 02:09.060
+filter out the data you need on the frontend
+
+02:09.160 --> 02:14.860
+but then you sending a lot of unnecessary data over the wire which is an issue, especially when working
+
+02:14.860 --> 02:16.600
+with mobile devices.
+
+02:16.630 --> 02:23.440
+So our solution could be to simply create more endpoints that simply return the data you need for each
+
+02:23.440 --> 02:24.550
+of these endpoints.
+
+02:25.400 --> 02:32.530
+The problem is you'll have a lot of endpoints and you'll have to update them continuously and you also
+
+02:32.560 --> 02:40.280
+have a very unflexible solution here. If your frontend engineers and in bigger projects you typically
+
+02:40.280 --> 02:44.960
+work in different teams, if they need more data on a new page,
+
+02:44.990 --> 02:50.720
+they come to you as a backend developer and ask you to give them an endpoint that returns that data
+
+02:51.200 --> 02:58.550
+and they're stuck in their frontend development until you edit this. So fast iteration on the frontend
+
+02:58.730 --> 02:59.960
+is made harder
+
+03:00.170 --> 03:06.020
+and on the other hand, you on the backend continuously have to add new endpoints to cater for the needs
+
+03:06.020 --> 03:08.020
+of your frontend engineers.
+
+03:08.030 --> 03:15.860
+So this is not really ideal, solution two could be to use query parameters. On your existing endpoints,
+
+03:15.890 --> 03:19.690
+you could accept query parameters like data equals slim.
+
+03:19.700 --> 03:26.930
+Now obviously that is an option but just as with the first solution, you always have to add it so that
+
+03:26.930 --> 03:32.460
+your frontend engineers can continue and you have this dependency between frontend and backend.
+
+03:32.750 --> 03:38.720
+Additionally your API might become pretty hard to understand because it might not be clear which query
+
+03:38.720 --> 03:42.950
+parameters can I set, which values can I set on these query parameters,
+
+03:42.950 --> 03:51.560
+so this is also not ideal. Ideal for apps where you often have different data requirements on different
+
+03:51.560 --> 03:55.420
+pages is to use graphql. There
+
+03:55.460 --> 04:01.370
+you don't have the problems I described before because there as you will learn, you have a rich query
+
+04:01.370 --> 04:08.440
+language that you use in your frontend to send it to the backend which is then parsed on the backend
+
+04:08.690 --> 04:11.630
+and dynamically retrieves just the data you need,
+
+04:11.660 --> 04:17.810
+so it's almost like a database query language which you use on the backend like SQL or mongodb
+
+04:18.050 --> 04:22.230
+query language, almost like something like this for the frontend,
+
+04:22.310 --> 04:25.810
+so which you put into the request you send to the backend.
+
+04:26.300 --> 04:30.600
+Now that is the idea but how does graphql work then?
+
+04:30.620 --> 04:36.200
+Well we get our client, we got our server and on the server, you generally have your logic for interacting
+
+04:36.200 --> 04:38.360
+with the database, with files,
+
+04:38.360 --> 04:39.840
+anything like that.
+
+04:39.860 --> 04:44.920
+Now what do you send from client to server? In a graphql world,
+
+04:44.990 --> 04:51.450
+you only send one kind of request and that is a post request to graphql, /graphql.
+
+04:51.680 --> 04:59.660
+So you only have one single endpoint where you send your http requests to, even for getting data
+
+04:59.660 --> 05:00.770
+and why is that?
+
+05:01.040 --> 05:07.860
+Well for a post request, you can add a request body and that request body will contain the query expression,
+
+05:08.000 --> 05:13.790
+graphql defines its own query language and I will show you where to learn more throughout this module
+
+05:13.790 --> 05:20.720
+of course and you use that query language, you put it into a request body and you just can't send request
+
+05:20.720 --> 05:22.810
+bodies on get requests for example,
+
+05:23.060 --> 05:29.630
+so you put your query language expression into that request body and that will be parsed on the server
+
+05:29.810 --> 05:33.900
+to then do some magic on it and return you just the data you want.
+
+05:33.940 --> 05:35.770
+That is the idea behind graphql.
+
+05:35.780 --> 05:40.870
+Now such a graphql would typically look something like this,
+
+05:40.910 --> 05:48.170
+it's a json object-like structure where you have an operation type, query would be for getting data,
+
+05:48.170 --> 05:55.070
+you also have other types like mutation for editing or deleting or inserting data or subscriptions for
+
+05:55.070 --> 05:59.410
+setting up real time data subscriptions using web sockets.
+
+05:59.450 --> 06:01.480
+You also have the endpoints
+
+06:01.520 --> 06:06.680
+you could call them or the commands you can execute and you define them as a developer on your backend,
+
+06:06.680 --> 06:13.520
+the available endpoints and then the fields you want to extract and that is the flexible part because
+
+06:13.730 --> 06:19.790
+you could in one place get the user with just a name and in another place, you could get name, age and
+
+06:19.800 --> 06:20.440
+email,
+
+06:20.480 --> 06:25.900
+so that is exactly what you put into your query which you send to your backend which is then parsed
+
+06:25.910 --> 06:32.400
+there. Now regarding these three operation types, as I mentioned we got a query, there
+
+06:32.430 --> 06:36.370
+we retrieve data and we use a post request for that
+
+06:36.390 --> 06:42.540
+but if we want to compare it to the rest API world, then this would be your equivalent to sending a get
+
+06:42.540 --> 06:44.690
+request to some path there.
+
+06:45.090 --> 06:50.240
+We also got mutations which basically are used for everything that changes data,
+
+06:50.250 --> 06:56.280
+so what you previously handled with post, put, patch and delete requests and subscriptions as I mentioned
+
+06:56.280 --> 06:57.720
+set up real time connections
+
+06:57.780 --> 07:00.030
+via web sockets, we'll not focus on that
+
+07:00.030 --> 07:05.680
+in this module because this is no graphql course and indeed you can create whole courses on graphql,
+
+07:05.690 --> 07:06.870
+here
+
+07:06.930 --> 07:10.080
+I want to focus on the core features.
+
+07:10.080 --> 07:17.220
+So to sum it up, in a big picture, we have our client, we send a request to that single graphql
+
+07:17.220 --> 07:18.690
+endpoint on our server
+
+07:18.930 --> 07:23.220
+and then there and this is the part you will do with me in this module,
+
+07:23.310 --> 07:31.900
+there you set up your definitions for queries, mutations and possibly also subscriptions. In these definitions,
+
+07:32.230 --> 07:38.950
+you use type definitions because graphql uses a typed query language which means you define the
+
+07:38.950 --> 07:44.210
+types of data you work with, the types of data you return in a query and so on
+
+07:44.660 --> 07:47.710
+and these endpoints you define here,
+
+07:47.710 --> 07:53.540
+so these queries and mutations and subscriptions you define, these are connected to so-called resolvers
+
+07:54.010 --> 08:00.360
+which are functions that contain your server side logic. And if you compare that to a rest API, the definitions
+
+08:00.370 --> 08:06.190
+would be your routes and the resolvers would be your controllers and that is how you can look at
+
+08:06.210 --> 08:08.910
+graphql and this is how we will implement it.
+
+08:08.920 --> 08:13.220
+So to sum it up, it's a normal node and possibly express server,
+
+08:13.240 --> 08:18.400
+of course you are also not limited to using expressjs, you're also not limited to using node by the
+
+08:18.400 --> 08:25.900
+way, the graphql language approach can be used with any programming language
+
+08:25.990 --> 08:29.310
+just as rest APIs could but this is a node course of course
+
+08:29.320 --> 08:31.100
+so we'll focus on that.
+
+08:31.210 --> 08:32.620
+You have one single endpoint,
+
+08:32.650 --> 08:36.340
+typically /graphql though you could change this of course.
+
+08:36.610 --> 08:43.720
+You only use post requests because you put that query expression into the request body and you have
+
+08:43.720 --> 08:50.710
+resolvers on the server side that analyze that request body and then do something with your data based
+
+08:50.710 --> 08:56.410
+on the query expression you had in that body and we'll use third party packages for that parsing and
+
+08:56.410 --> 08:57.720
+so on.
+
+08:57.730 --> 09:03.060
+So posting for getting data, that is the most confusing thing you typically have when diving into
+
+09:03.070 --> 09:03.540
+graphql,
+
+09:03.730 --> 09:05.500
+yes this is what we do,
+
+09:05.500 --> 09:06.940
+this is what is ok here
+
+09:07.000 --> 09:12.460
+because we describe that data we want to get in the request body.
+
+09:12.490 --> 09:13.950
+Now that was a lot of theory,
+
+09:14.050 --> 09:15.160
+let's see it in action.
