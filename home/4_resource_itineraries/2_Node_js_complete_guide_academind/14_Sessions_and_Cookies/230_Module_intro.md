@@ -10,6 +10,7 @@ We'll look at 3 things in this section:
 2. What are Sessions?
 3. Using Session and Cookies
 
+https://github.com/sanjar-notes/web-dev-backend/blob/main/home/3_Resources/2_Cookies_Hussein_Nasser/1_HTTP_Cookies_Crash_Course.md - all about cookies.
 ## Cookies (fundam)
 ![](/assets/230_Module_intro-image-1.svg)
 
