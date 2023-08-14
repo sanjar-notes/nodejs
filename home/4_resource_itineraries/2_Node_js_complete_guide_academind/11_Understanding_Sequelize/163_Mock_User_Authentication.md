@@ -11,7 +11,7 @@ app.use((req, res, next) => {
 	next();	
 })
 ```
-Note, the convention way to store user data for the duration of the request is to store it inside `req.user`. A more general construct for storing data to be used by upcoming middlewares is to add attributes to `req.locals`.
+Note, the convention way to store user data for the duration of the request is to store it inside `req.user`. A more general construct for storing data to be used by upcoming middlewares is to add attributes to `res.locals`.
 
 At an endpoint, the code will be something like this
 ```js
