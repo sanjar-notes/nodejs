@@ -1,6 +1,11 @@
 {
   "strategy": "default",
+  "cedictPath": "./cedict_ts.u8",
   "matchStrategy": "prefix",
+  "fuzzyMatch": true,
+  "minFuzzyMatchScore": 0.5,
+  "matchingWithoutEmoji": true,
+  "treatAccentDiacriticsAsAlphabeticCharacters": false,
   "maxNumberOfSuggestions": 5,
   "maxNumberOfWordsAsPhrase": 3,
   "minNumberOfCharactersTriggered": 0,
@@ -10,6 +15,11 @@
   "disableSuggestionsDuringImeOn": false,
   "insertAfterCompletion": true,
   "firstCharactersDisableSuggestions": ":/^",
+  "useCommonPrefixCompletionOfSuggestion": false,
+  "patternsToSuppressTrigger": [
+    "^~~~.*",
+    "^```.*"
+  ],
   "showMatchStrategy": true,
   "showComplementAutomatically": true,
   "showIndexingStatus": true,
@@ -38,54 +48,22 @@
   "enableInternalLinkComplement": true,
   "suggestInternalLinkWithAlias": false,
   "excludeInternalLinkPathPrefixPatterns": "",
+  "updateInternalLinksOnSave": true,
+  "insertAliasTransformedFromDisplayedInternalLink": {
+    "enabled": false,
+    "beforeRegExp": "",
+    "after": ""
+  },
+  "frontMatterKeyForExclusionInternalLink": "",
   "enableFrontMatterComplement": true,
   "frontMatterComplementMatchStrategy": "inherit",
   "insertCommaAfterFrontMatterCompletion": false,
   "intelligentSuggestionPrioritization": {
+    "historyFilePath": "",
     "maxDaysToKeepHistory": 30,
     "maxNumberOfHistoryToKeep": 0
   },
+  "disableOnMobile": false,
   "showLogAboutPerformanceInConsole": false,
-  "selectionHistoryTree": {
-    "world": {
-      "world": {
-        "customDictionary": {
-          "count": 1,
-          "lastUpdated": 1691527487564
-        }
-      }
-    },
-    "Apple": {
-      "Apple": {
-        "customDictionary": {
-          "count": 1,
-          "lastUpdated": 1691527607780
-        }
-      }
-    },
-    "SET": {
-      "SET": {
-        "customDictionary": {
-          "count": 1,
-          "lastUpdated": 1691527705913
-        }
-      }
-    },
-    "Hello": {
-      "Hello": {
-        "customDictionary": {
-          "count": 1,
-          "lastUpdated": 1692019556935
-        }
-      }
-    },
-    "Value": {
-      "Value": {
-        "customDictionary": {
-          "count": 1,
-          "lastUpdated": 1692019567757
-        }
-      }
-    }
-  }
+  "selectionHistoryTree": {}
 }
