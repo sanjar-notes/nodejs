@@ -47,51 +47,43 @@
   },
   "showLogAboutPerformanceInConsole": false,
   "selectionHistoryTree": {
-    "ECMAScript": {
-      "ECMAScript": {
-        "currentFile": {
-          "count": 4,
-          "lastUpdated": 1674400809973
-        }
-      }
-    },
-    "explosion": {
-      "explosion": {
+    "world": {
+      "world": {
         "customDictionary": {
           "count": 1,
-          "lastUpdated": 1674400452036
+          "lastUpdated": 1691527487564
         }
       }
     },
-    "epic": {
-      "epic": {
+    "Apple": {
+      "Apple": {
         "customDictionary": {
           "count": 1,
-          "lastUpdated": 1674400455157
+          "lastUpdated": 1691527607780
         }
       }
     },
-    "interchangeable": {
-      "interchangeable": {
-        "customDictionary": {
-          "count": 2,
-          "lastUpdated": 1674400800269
-        }
-      }
-    },
-    "interchangeably": {
-      "interchangeably": {
+    "SET": {
+      "SET": {
         "customDictionary": {
           "count": 1,
-          "lastUpdated": 1674400801965
+          "lastUpdated": 1691527705913
         }
       }
     },
-    "Netflix": {
-      "Netflix": {
-        "currentVault": {
+    "Hello": {
+      "Hello": {
+        "customDictionary": {
           "count": 1,
-          "lastUpdated": 1674400815150
+          "lastUpdated": 1692019556935
+        }
+      }
+    },
+    "Value": {
+      "Value": {
+        "customDictionary": {
+          "count": 1,
+          "lastUpdated": 1692019567757
         }
       }
     }
