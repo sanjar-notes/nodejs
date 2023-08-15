@@ -1,7 +1,6 @@
 # 289. Validation, why and how
 Created Monday 14 August 2023 at 11:17 pm
 
-
 ## What and why validation
 - What - Validation in context of backend app means making sure that the data accepted from the client is correct and in the expected format.
 - Why - to make sure the database (app data) is in the correct state.
