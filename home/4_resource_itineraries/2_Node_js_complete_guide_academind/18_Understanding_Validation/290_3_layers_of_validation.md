@@ -11,6 +11,12 @@ Validation can be done at multiple layers of an app - the intent and effect vari
 - atleast one of server side or database level is mandatory. 
 - prefer server side.
 
+&nbsp;
+&nbsp;
+
+![](/assets/290_3_layers_of_validation-image-1.png)
+
+
 ## 1. Client-side validation
 This is just a UX thing.
 
@@ -40,7 +46,6 @@ This is not preferred if the database may be changed in the future.
 It is OK to do this if the app is small and requirements shall stay stable in the future.
 
 It's not recommended. It's not required (assuming there's server side validation).
-
 
 ---
 
