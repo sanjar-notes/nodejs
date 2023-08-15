@@ -19,12 +19,3 @@ The server gets some input in a request, it checks (validates) the data, the dat
 
 ## What happens if validation is absent
 - Validation is important since wrong data can lead to the system/app (BE + FE) being in the wrong state - this can be a minor issue or a very big problem (if lots of data is in bad state, and corrective data has been lost).
-
-
-![Current state of our app](/assets/289_Validation_why_and_how-image-1.png)Current state of our app
-
-&nbsp;
-&nbsp;
-&nbsp;
-
-![After adding validation](/assets/289_Validation_why_and_how-image-2.png)After adding validation
