@@ -39,14 +39,16 @@ Works with `.router()`, `method('', )` too.
 
 
 ## Doubt (ignorable)
-Q: It could work with this notation of comma, or array if we can write a wrapper with a loop?
+Q: Could it work with this notation of comma, or array if we can write a wrapper with a loop?
 A: It would work, but not properly or for call cases:
 1. For middleware that don't respond. 
 	1. It would *seem* to work. Since each middleware in the loop would call `next()`, but the first iteration would end the wrapper (which is a middleware itself). So the others in the loop would run (but not in the queue - they will run independently). **Doesn't work**
-2. If they respond - won't work. 
+2. If they respond - **won't work**, see why: 
 	- If the first one is a non-responding middleware, point 1 happens (out of order exec) - not acceptable.
 	- If we ignore out of order/independent execution. Let's see what happens, the responding middleware runs... fine, no. When the next middleware (be it responding or non-responding), we would get headers set error - since it would reach the 404.
 
 I know, we can update `res.locals` and catch that in 404, but the out of exec order is till not solved.
 
-Conclusion: Construct of arrays/comma separated middleware is a REQUIRED feature.
+Construct of arrays/comma separated middleware is a REQUIRED feature.
+
+It makes it easy to develop Express apps.
