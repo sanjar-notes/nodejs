@@ -1,22 +1,23 @@
 {
-  "obsidian-completr:completr-open-suggestion-popup": [
-    {
-      "modifiers": [
-        "Mod"
-      ],
-      "key": " "
-    }
-  ],
   "app:toggle-right-sidebar": [
     {
       "modifiers": [
         "Mod",
         "Shift"
       ],
-      "key": "O"
+      "key": "M"
     }
   ],
-  "app:toggle-left-sidebar": [
+  "workspace:split-vertical": [
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
+      ],
+      "key": "\\"
+    }
+  ],
+  "file-explorer:open": [
     {
       "modifiers": [
         "Mod",
@@ -25,13 +26,13 @@
       "key": "E"
     }
   ],
-  "command-palette:open": [
+  "app:toggle-left-sidebar": [
     {
       "modifiers": [
         "Mod",
         "Shift"
       ],
-      "key": "P"
+      "key": "B"
     }
   ]
 }
