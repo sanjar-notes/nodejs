@@ -56,3 +56,4 @@ router.post("/edit-product/some-path",
 	);
 	```
 - Of course `check().check()` *doesn't make sense*, and won't work since `check` just plucks a path and accumulates errors if any.
+- If both `throw` (or return falsy) and `withMessage` are used, `withMessage`'s message will override the throw Error's message.
