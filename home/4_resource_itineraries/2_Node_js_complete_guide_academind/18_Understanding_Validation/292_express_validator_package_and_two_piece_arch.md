@@ -37,6 +37,7 @@ What it wants to us do is simple:
 
 Note: 
 - Look at specific part of request - Just like `check`, the package exposes methods like `body`, `param`, `query`, `cookie`, `header` etc to decrease the check area (make validation precise). Rest is the same - provide a key.
+	- There are still more constructs like `checkExact` and `oneOf`, see [docs](https://express-validator.github.io/docs/api/check).
 - Validators - I know, the validators  like `isEmail()` are the 3rd of functions here. Btw, some of these do take arguments - usually an argument that configures them, example - `isLength({min:5})`
 - Nested paths (check argument) is supported. Example: body is JSON where we wish to validate "address.country" (JSON path). `check('address.country')` would work in this case.
 
