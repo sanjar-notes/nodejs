@@ -9,4 +9,4 @@ It's:
 
 But there are more solutions to validation in express apps, explore them.
 
-I'm not updating the code - since it'll take too long.
+I'm not updating the code - since it'll take too long. Branch: https://github.com/exemplar-codes/online-shop-nodejs-branches/tree/18_data_validation ("18_data_validation")
