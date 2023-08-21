@@ -55,5 +55,6 @@ router.post("/edit-product/some-path",
 	  adminController.postEditProduct
 	);
 	```
+- If multiple chained validator fail (i.e. value is invalid), `express-validator` will still successfully accumulate the errors and let the remaining middlewares run. It does not crash the app.
 - Of course `check().check()` *doesn't make sense*, and won't work since `check` just plucks a path and accumulates errors if any.
 - If both `throw` (or return falsy) and `withMessage` are used, `withMessage`'s message will override the throw Error's message.
