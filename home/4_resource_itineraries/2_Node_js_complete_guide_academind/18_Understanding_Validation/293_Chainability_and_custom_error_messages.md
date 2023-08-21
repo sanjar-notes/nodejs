@@ -40,6 +40,19 @@ router.post("/edit-product/some-path",
 ```
 
 
+### Error message shorthand for first validator (ignorable)
+Small note: For the first validator, the `withMessage` may be omitted - by passing the error message into the accumulator middleware. If a `withMessage` is still given, it will take preference. This affects only the first validator, others will need to have their `withMessage` of course.
+```js
+check("adhocEmail", "adhoc email had an error")
+.isLength({ min: 8 }); // will work fine
+
+
+check("adhocEmail", "1st way of error message")
+.isLength({ min: 8 }); // will work fine
+.withMessage("2nd way of error message"); // this will be printed
+```
+
+
 ## Note
 - A chain of validators (chained to `check`) will still generate a single middleware.
 - Multiple chained validators could have a single `withMessage`. Example:
