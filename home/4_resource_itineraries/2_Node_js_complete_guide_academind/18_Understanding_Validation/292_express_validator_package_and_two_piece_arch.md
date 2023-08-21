@@ -9,7 +9,7 @@ Created Tuesday 15 August 2023
 For in-built validators, we will most be refering to validatorJS package docs, https://www.npmjs.com/package/validator
 
 
-## Installing
+## Installation
 ```sh
 npm install express-validator
 ```
@@ -20,8 +20,8 @@ That's it.
 
 ## Two piece behavior of express validator
 The package exposes two (kinds) of functions:
-1. `check`
-2. `validatationResult`
+1. `check` - the "accumulator"
+2. `validatationResult` - the "collector"
 
 What it wants to us do is simple:
 1. Use the `check('')` as a middleware somewhere before final middlewares. 
@@ -40,8 +40,49 @@ Note:
 - Validators - I know, the validators  like `isEmail()` are the 3rd of functions here. Btw, some of these do take arguments - usually an argument that configures them, example - `isLength({min:5})`
 
 
-## Why the two piece approach is good
+## Why the two piece approach is good (ignorable)
 I like this approach, since:
 1. If it was one function, we'd have to move the response code inside the check call somehow - breaking DRY and locality of behavior.
 2. Since they are void - they can be ignored for the success case.
 3. Since they are 'accumulative', we can get all errors instead of of just the first one - which would make for a less helpful error message.
+
+
+## Code example (usage)
+I added a mock field and wrote some code that checks the field.
+
+```js
+// set up the error accumulator(s)
+router.post(
+  "/edit-product/:productId",
+  check("adhocEmail")
+    .isEmail()
+    .isLength({ min: 5 })
+    .withMessage("thoda bada email bhejo"),
+  adminController.postEditProduct
+);
+
+```
+
+```js
+// use the collector when responding (btw, can be used before too)
+
+/* two ways - array or map
+i. array - prefer array if the key is duplicated (i.e. could be in both body and params, or header)
+ii. prefer map if key is unique across body, params, header
+*/
+
+const postEditProduct = async (req, res, next) => {
+  const errors = validationResult(req);
+  const errorsArray = errors.array();
+	
+  const adhocEmailError = errorsArray.find(item => item.param)
+
+  // remaining response code
+}
+```
+
+Commit - https://github.com/exemplar-codes/online-shop-nodejs-branches/commit/93ae7bd5171adec71345b9850468293615d1ad6c
+## More (validators)
+For more in-built validators, checkout the official docs of validator.js package. Why? The "express-validator" package is based (uses) on this package (which was installed implicitly of course).
+
+Link (docs): https://www.npmjs.com/package/validator
