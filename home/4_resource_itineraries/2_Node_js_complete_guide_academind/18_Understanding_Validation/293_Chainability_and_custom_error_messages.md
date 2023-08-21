@@ -41,7 +41,7 @@ router.post("/edit-product/some-path",
 
 
 ## Note
-- A chain of validators (chained to `check`) will still generate a single middleware. 
+- A chain of validators (chained to `check`) will still generate a single middleware.
 - Multiple chained validators could have a single `withMessage`. Example:
 	```js
 	// usage example
@@ -55,3 +55,4 @@ router.post("/edit-product/some-path",
 	  adminController.postEditProduct
 	);
 	```
+- Of course `check().check()` *doesn't make sense*, and won't work since `check` just plucks a path and accumulates errors if any.
