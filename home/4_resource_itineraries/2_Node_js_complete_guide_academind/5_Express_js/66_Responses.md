@@ -39,7 +39,7 @@ res.set({
 ```
 
 Note:
-- The HTTP spec requires headers to be sent first, and completely, before the body can be sent. See [Headers send first - ChatGPT converastion, PDF](../../../../assets/gpt3-headers-first-even-if-chunked.pdf).
+- The HTTP spec requires headers to be sent first, and completely, before the body can be sent. See [Headers send first - ChatGPT converastion, PDF](/assets/gpt3-headers-first-even-if-chunked.pdf).
 - Just like with `node:http`, there's no way to send headers explicitly. There're sent (once, and before anything else) when a body (or portion) of it is sent.
 
 ### 3. Body
@@ -55,7 +55,7 @@ Note:
 - If using `res.write()`, don't use `res.send()` or `res.json()` etc. Either send body using `node:http` methods or Express methods, but not both, otherwise it leads to errors. FIXME: why does this happen?
 
 ### 4. Convenience functions
-1. Redirect - `res.redirect([statusCode=302], "my_absolute_or_relative_location")`.
+1. Redirect - `res.redirect([statusCode=302], "/my_absolute_or_relative_location")`.
 2. Set the content-type header - `res.type("content_type_value")`. Partial arguments are fine - i.e. if "/" is absent in the argument, for example "html", it'll set the type correctly (i.e. "text/html"), else will set it to same as passed argument.
 
 
