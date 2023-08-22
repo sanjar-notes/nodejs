@@ -32,3 +32,10 @@ Note:
 
 Picture - left side is the sink, right side are the checks (and it's two variants).
 ![](assets/306_Module_intro_and_the_error_sink-image-2.png)
+
+
+## How to throw errors in JS (ignorable)
+already learnt in core Node playlist (Codevolution). But still:
+```js
+throw new Error('error message here') // btw, behaves like `return`
+```
