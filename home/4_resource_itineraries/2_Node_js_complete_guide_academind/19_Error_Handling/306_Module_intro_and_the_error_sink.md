@@ -20,7 +20,8 @@ There are two things usually done for dealing with errors:
 1. The error "sink" - Have a function whose job is to catch error for any unhandled error. This could is essentially like a `try catch` for the whole app.
 	- It's the job of this sink to build and send at-least a generic error response using the bubbled Error object (e.g. `Error` in JS).
 	- sometimes errors are deliberately thrown by us, so that this "sink" catches it and responds to the user with the message.
-2. Semantic checks - these are pieces of code that deliberately throw an error when something goes wrong semantically (as opposed to syntax error, development error or external errors). Of course, the "sink" catches these too.
+	- This also prevents a hard-crash of our app (i.e. the Node process dying).
+1. Semantic checks - these are pieces of code that deliberately throw an error when something goes wrong semantically (as opposed to syntax error, development error or external errors). Of course, the "sink" catches these too.
 	- Sometimes, the semantic checks may formulate the response themselves, instead of throwing an error. Example - username is taken (request is sign up) isn't a generic error, and may need special handling - like redirecting to the login page (since the user may be trying to log in, instead of sign up).
 	- These are usually found inside the context or flow of a feature.
 
@@ -29,4 +30,5 @@ Note:
 - The sink has to take care of two things no matter what - the error message and the action (redirect from a invalid form is bad UX) it takes.
 - Express.js does provide a built-in feature for error handling.
 
+Picture - left side is the sink, right side are the checks (and it's two variants).
 ![](assets/306_Module_intro_and_the_error_sink-image-2.png)
