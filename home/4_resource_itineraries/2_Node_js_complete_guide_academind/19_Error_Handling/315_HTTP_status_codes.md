@@ -1,8 +1,10 @@
 # 315.  HTTP status codes
 Created Wednesday 23 August 2023
 
-## What are status codes?
-These are codes sent in the response (by the server).
+## What and why are status codes?
+- These are codes sent in the response (by the server).
+- They help the browser know what's going on, in showing error popups.
+- They also help with general web app debugging, logging etc.
 
 
 ## Classes of status codes
