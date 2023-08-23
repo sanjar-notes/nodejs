@@ -76,6 +76,8 @@ Once bubbling starts, all remaining normal middlewares - will be ignored. The bu
 	- Doing `next()` (without params) inside an error middleware stops the chain. The app will hang - no response is sent. *Don't do this*.
 
 
-note: `(new Error('someMessageee')).message` is possible (in case I need to `.send` the message)
+note: 
+- The term "bubbling" may be misleading here - since the first error isn't automatically passed to the error handling middlewares (except the first). You decide what to pass to the next.
+- `(new Error('someMessageee')).message` is possible (in case I need to `.send` the message)
 
 [Code (commit)](https://github.com/exemplar-codes/online-shop-nodejs-branches/commit/77ce492c8c822d692c70fb4b57cfeb040a78cc9e)
