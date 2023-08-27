@@ -1,6 +1,7 @@
 # 312. Express default error handler middleware
 Created Wednesday 23 August 2023
 
+Express docs: https://expressjs.com/en/guide/error-handling.html
 ## Situation
 Suppose an error occurs in a middleware, or we throw one deliberately. Result: the app crashes, unless the error is handled `try catch` in the same middleware.
 
