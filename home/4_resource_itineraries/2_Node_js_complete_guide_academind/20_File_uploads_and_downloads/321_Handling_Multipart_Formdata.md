@@ -7,7 +7,9 @@ Unfortunately, Express doesn't have a parser that could be used with file payloa
 
 
 ## Using `multer`
-`"multer"` is an npm package that can interpret request bodies containing files.
+Multer is a node.js middleware for handling multipart/form-data, which is primarily used for uploading files. It's mentioned at Express (http://expressjs.com/en/resources/middleware/multer.html)
+
+for us, `"multer"` is an npm package that can interpret request bodies containing files.
 
 Installation: `npm install multer`
 
