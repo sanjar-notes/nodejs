@@ -19,9 +19,9 @@ In addition to the `<input type="file" />` that we added to our form, we need to
 
 This is done by using the `"enctype"` attribute on the form, with value `"multipart/form-data"`.
 
-
 note: setting this will help Express know the content type, so it can ignore the `urlencoded` middleware, and `multer` will take it up. Already learnt this btw.
 
+I added it globally (code): https://github.com/exemplar-codes/online-shop-nodejs-branches/commit/94dc6cc8bead1d08ebb6ccf291fbdf3ea4d9478f
 
 ## What happens to other form fields
 No change in `req.body`, except type file ones are removed. Multer takes care of this.
