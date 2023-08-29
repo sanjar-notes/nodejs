@@ -34,6 +34,10 @@ app.use(
   .single('myFormFieldId')
 );
 ```
+[Code (commit)](https://github.com/exemplar-codes/online-shop-nodejs-branches/commit/377fd1dd1fcca8be4837f8995b4597a2ccf0905f)
+
+Note:
+1. If there are multiple files, these functions are called for all of them (depending on `multer().array`, `multer.any()` etc of course). Expected behavior. [Code](https://github.com/exemplar-codes/online-shop-nodejs-branches/commit/06b4fde4beb384f5a93c65e6951a83352334233d)
 
 FIXMEs - 
 1. how to prevent saving, i.e. check the file for harmful content. Is there a function like `rejectFile() => bool`
