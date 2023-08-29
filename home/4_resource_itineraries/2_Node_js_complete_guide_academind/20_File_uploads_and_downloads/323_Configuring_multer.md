@@ -40,7 +40,7 @@ Note:
 1. If there are multiple files, these functions are called for all of them (depending on `multer().array`, `multer.any()` etc of course). Expected behavior. [Code](https://github.com/exemplar-codes/online-shop-nodejs-branches/commit/06b4fde4beb384f5a93c65e6951a83352334233d)
 
 FIXMEs - 
-1. how to prevent saving, i.e. check the file for harmful content. Is there a function like `rejectFile() => bool`
+1. ~~how to prevent saving, i.e. check the file for harmful content. Is there a function like `rejectFile() => bool`~~ done, see next page (filter file types).
 2. delegate save to a web service - how to set destination to a URL, or access a hook multer defines so we can use a cloud service SDK (to save file on the cloud), instead of on disk.
 	1. Is this irrelevant?
 	2. If an error occurs from the cloud service, how to relay errors back to Express middleware chain (since process is async and we don't have access to `next`)
