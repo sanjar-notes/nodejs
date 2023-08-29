@@ -1,11 +1,12 @@
 # 323. Configuring multer
 Created Sunday 27 August 2023
 
-Currently, the most config we have done is to use the `dest` option for specifying the destination. <details><summary>But this isn't enough</summary> - since the destination is either static. Almost it could have some mostly static logic, since we have no access to request parameters (`req`)</details>
+## Can't access `req`
+Currently, the most config we have done is to use the `dest` option for specifying the destination. <details><summary>But this isn't enough</summary> the destination (or logic of) is static and any rename logic will also be static, since we don't have `req` </details>
 
----
 
-Not to worry, multer accepts a much more powerful config. This config has to be created in a certain format, the config key is 'storage'. Code:
+## Accessing `req` with `diskStorage`
+In addition to the simple `dest`, multer accepts a much more powerful config. This config has to be created in a certain format, the config key is 'storage'. Code:
 ```js
 const multer = require('multer');
 
