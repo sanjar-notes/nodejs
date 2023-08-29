@@ -34,3 +34,9 @@ app.use(
   .single('myFormFieldId')
 );
 ```
+
+FIXMEs - 
+1. how to prevent saving, i.e. check the file for harmful content. Is there a function like `rejectFile() => bool`
+2. delegate save to a web service - how to set destination to a URL, or access a hook multer defines so we can use a cloud service SDK (to save file on the cloud), instead of on disk.
+	1. Is this irrelevant?
+	2. If an error occurs from the cloud service, how to relay errors back to Express middleware chain (since process is async and we don't have access to `next`)
