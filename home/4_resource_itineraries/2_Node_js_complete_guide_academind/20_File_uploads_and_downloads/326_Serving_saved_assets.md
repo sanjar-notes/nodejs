@@ -38,6 +38,7 @@ app.get("/multer-uploads/:fileName", (req, res, next) => {
   res.sendFile(path.join(__dirname, "multer-uploads", req.params.fileName));
 });
 ```
+[Code(commit)](https://github.com/exemplar-codes/online-shop-nodejs-branches/commit/621b530e03a3e0d43e2078f708e3b96d54766dee)
 
 A little complex, right?
 
@@ -80,5 +81,5 @@ app.get("/multer-uploads/:fileName", (req, res, next) => {
 ```
 
 &nbsp;  
-[Code(commit)](https://github.com/exemplar-codes/online-shop-nodejs-branches/commit/621b530e03a3e0d43e2078f708e3b96d54766dee)
+[Code(commit)](https://github.com/exemplar-codes/online-shop-nodejs-branches/commit/d3998fdee97ab700ffb503229f8f17dd0e9bc187)
 note: I ignored file access authorization, server code access here to keep it simple.
