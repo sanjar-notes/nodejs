@@ -72,7 +72,7 @@ Asset response middleware (complexity contained):
 // simple
 app.use(express.static('multer-uploads'));
 
-// complex
+// complex - if needed
 app.get("/multer-uploads/:fileName", (req, res, next) => {
   res.sendFile(path.join(__dirname, "multer-uploads", req.params.fileName));
   // or call an external service if you want
