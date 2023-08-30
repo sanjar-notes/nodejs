@@ -48,6 +48,19 @@ Note:
 3. S*end* a file (not download) - `sendFiles("absolute_file_path")` or alternatively `sendFiles("relative_path", {root: ""})`. Zip files will be automatically be downloaded in the browser, as they're not consumable directly. **Intended for small files only, since it doesn't use chunking**.
 4. Send a file (for download) - `res.download(...)`. Same as `res.sendFiles`, except sends proper headers and causes download on the browser.
 5. Send file efficiently - create a read stream, pipe it through to `res`, just like with vanilla `http` module.
+	```js
+	const fs = require('node:fs');
+	const path = require('node:path');
+
+	app.get('/some-path', (req, res, next) => {
+	
+	  const fileStream = fs.createReadStream(path.join('/path-of-file'));
+	  res.statusCode = 200;
+	  fileStream.pipe(res);
+
+	  // that's it !!
+	})
+	```
 
 Note: 
 - There's auto content-type inference, for variables and files both. It's binary level for files (so wrong extension is also handled properly). [Code](https://github.com/exemplar-codes/express-app-academind/commit/60e88a6d4bf1524c789749811c72076b0fae48da)
