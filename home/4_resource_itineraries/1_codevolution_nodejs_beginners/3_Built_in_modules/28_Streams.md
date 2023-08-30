@@ -2,6 +2,8 @@
 Created Sunday 29 January 2023 at 06:42 pm
 
 // FIXME: rough - done. Not immediately important. Just for fundamentals
+// will probably help in completion - https://medium.freecodecamp.org/node-js-streams-everything-you-need-to-know-c9141306be93
+
 Let's learn about streams using the fs module.
 
 A stream is a sequence of data that is being moved from one point to another over time.
