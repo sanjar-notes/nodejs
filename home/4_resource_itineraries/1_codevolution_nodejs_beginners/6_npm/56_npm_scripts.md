@@ -76,3 +76,14 @@ npm run myNodemon app.js # OK
 ```
 
 Note: if a module is installed both globally and locally, the local one will be preferred if used in npm scripts.
+
+
+## Run npm script from anywhere
+Suppose I am at `~`, and I wish to run a script for project at `~/my-work/my-app`.
+This can be done in one go without `cd`, like so:
+```sh
+npm run COMMAND --prefix ~/my-work/my-app
+
+# or in general
+npm run COMMAND --prefix some-location
+```
