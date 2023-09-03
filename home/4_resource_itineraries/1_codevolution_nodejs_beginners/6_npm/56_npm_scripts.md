@@ -87,3 +87,4 @@ npm run COMMAND --prefix ~/my-work/my-app
 # or in general
 npm run COMMAND --prefix some-location
 ```
+source - [StackOverflow](https://stackoverflow.com/questions/36172442/how-can-i-get-npm-start-at-a-different-directory)
