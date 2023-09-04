@@ -23,11 +23,13 @@ const fs = require("node:fs");
 	- callback: has two parameters - error and data. Error is null if no error occurs. data is a buffer or a string (if encoding "UTF-8" was specified).
 - `writeFile("some_path", content [, option, callback])` - just like `writeFileSync` but executes asynchronously. 
 	- callback has one parameter - error. Error is null if no error occurs.
+- `unlink("some_path", callbackCompulsory)` - delete single file.
 
 Note:
 - All these function accepts both relative and absolute paths.
 - In case of writing, Node.js creates a file if it does not exist.
 - Async modes follow "error first pattern" for callbacks, i.e. the first param is the error, second is the data (if any).
 - "utf-8" and "UTF-8" can be used interchangeably.
+- Deletions (rmdir, unlink etc): https://hackernoon.com/mastering-nodejs-how-to-delete-files-inside-a-nested-folder
 
 [Code example](https://github.com/exemplar-codes/codevolution-nodejs/commit/68910a170d61be572cefe4dd07df832eee279702)
