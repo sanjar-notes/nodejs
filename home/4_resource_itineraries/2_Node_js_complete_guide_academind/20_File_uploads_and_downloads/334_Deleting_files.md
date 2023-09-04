@@ -25,7 +25,7 @@ fs.unlink(pathToFile, (err) => {});
 app.use((req, res, next) => {
   // code
   
-  fs.unlink(pathToFile, (err) => { next(err); });
+  fs.unlink(pathToFile, (err) => { if(err) next(err); });
   // doesn't trigger error mw if null (success), works for async mws too.
 })
 
