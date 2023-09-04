@@ -1,41 +1,83 @@
 # 334. Deleting files
 Created Thursday 31 August 2023
 
-// deleteing files is the only thing left. Add it to fs module pages. `fs.unlink` doesn't work for some reason. I may have solved the issue:
-
----
-The same was happening with me.
-
+## `fs.unlink`
+The fs modules's `unlink` function helps. Essence:
 ```js
-// doesn't work
-
-// some code
-fs.unlink(pathToFile);
+/**
+* @param {String} path
+* @param {Function} callback with first arg being error (null if success)
+* 
+*/
+function unlink(path, callback = (err) => {}) {}
 ```
 
-but
-```js
-// works fine
 
-// some code
-setTimeout(() => { 
-  fs.unlink(pathToFile); 
-}, 0);
+## Usage
+```js
+const fs = require('node:fs');
+
+// 1. General
+fs.unlink(pathToFile, (err) => {});
+
+
+// 2. in Express
+app.use((req, res, next) => {
+  // code
+  
+  fs.unlink(pathToFile, (err) => { next(err); });
+  // doesn't trigger error mw if null (success), works for async mws too.
+})
+
+
+// 3. in Express if deletion result is not needed (fire-n-forget)
+app.use((req, res, next) => {
+  // code
+  
+  fs.unlink(pathToFile);
+})
 ```
 
-My 'some code' part was creating the file using `createWriteStream`. I think the problem is that streams happen in the microtask (high priority queue), and the stream may have ended but the file is still on hold. Doing `setTimeout` moved the `unlink` code to a low priority queue. In other words, the order is guaranteed to be correct now, so it works.
 
-The error I was getting was essentially 'file not found'.
-
-
-A better, and more sensible way to fix the problem:
+## A minor bug I faced with stream and piping (ignorable)
+The problem:
 ```js
-const filePath = '';
-const fileBeingWrittenStream = fs.createWriteStream(filePath); // whatever
+app.use("/get-pdf", async (req, res, next) => {
+  // feature: generate PDF on disk, send it and then delete the generated file.
+  
+  const pdfDoc = new PDFDocument();
+  const mySaveFileStream = createWriteStream(filePath);
+  
+  pdfDoc.pipe(mySaveFileStream);
+  pdfDoc.pipe(res);
 
-fileBeingWrittenStream.on('end', (err) => {
-  if(err) console.log(err);
-  else fs.unlink(filePath);
+  // PDF gen code
+
+  pdfDoc.end(); // automatically fires `res.end()`
+
+  // I wish to remove the file now
+  fs.unlink(fileName); // FOCUS 1: does not work!!
 });
 ```
----
+
+The fix:
+```js
+...
+  pdfDoc.pipe(mySaveFileStream);
+  pdfDoc.pipe(res);
+
+  res.on('close', () => { fs.unlink(fileName); });
+
+  // PDF gen code
+
+  pdfDoc.end();
+});
+```
+
+Other hacky fixes (that work):
+```js
+  // pdf gen code
+  pdfDoc.end();
+  setTimeout(() => { fs.unlink(pathToFile); }, 0); // hack 1
+  nextTick(() => { fs.unlink(pathToFile); });      // hack 2
+```
