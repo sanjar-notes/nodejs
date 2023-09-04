@@ -81,3 +81,6 @@ Other hacky fixes (that work):
   setTimeout(() => { fs.unlink(pathToFile); }, 0); // hack 1
   nextTick(() => { fs.unlink(pathToFile); });      // hack 2
 ```
+
+
+Code - https://github.com/exemplar-codes/online-shop-nodejs-branches/commit/069100033b3d7a4bb66ce92205b8c00dd2a51d93
