@@ -1,4 +1,4 @@
-# Pagination general contract (contract)
+# Pagination general contract
 Created Monday 4 September 2023
 
 Pagination is meant for lists only. 
