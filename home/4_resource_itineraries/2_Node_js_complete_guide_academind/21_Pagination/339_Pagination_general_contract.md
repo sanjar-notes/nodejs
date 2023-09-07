@@ -1,9 +1,9 @@
-# Pagination general contract (contract)
+# Pagination general contract
 Created Monday 4 September 2023
 
 Pagination is meant for lists only. 
 There are a few standard params involved. 
-I'm assuming the client is an SPA.
+I'm assuming the client is an SPA (hardest case).
 
 ## Request params
 1. Page size - number of data items to be sent.
