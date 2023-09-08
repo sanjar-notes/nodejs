@@ -4,7 +4,7 @@ Created Monday 23 January 2023 at 11:18 pm
 - Local modules are modules we create. 
 - Each JavaScript file is a module.
 
-## Break a file into modules
+## Breaking a file into modules
 Suppose all our code is written into a single file `app.js`.
 ```js
 // file 1 - util code
