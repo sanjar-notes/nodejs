@@ -42,8 +42,8 @@ Note:
 1. **Names don't matter** - There's no need to use the same name for importing and exporting stuff. CommonJS uses a function (`require`) and an object `module` for import/export - so names don't matter.
 2. **Importing a module executes it** - A file will execute completely, if it exports something. i.e. you can't import stuff from a file without causing a full execution of that file.
 3. **Omit `.js` extension** - we can omit the `.js` extension in `require`. This is optional.
-4. **"Loading" a file** - `require`ing a module that exports nothing will just run the file. There will be no errors. This is also called "loading" a file, which is sometimes needed, e.g. we wish to do things in order but they are unrelated, so "exporting" doesn't make sense, but loading them from a single file is definitely better than providing multiple arguments to `node` in the correct order.
-5. **"Named" and "default" exports** - `module.exports` is the single source of exports from a file. So, if we need to export only one thing (a "default" export), one can directly write to it. But for importing multiple things, we just import an object or an array containing the things we wish to export. It works the same way.
+4. **"Loading" a file** - `require`ing a module that exports nothing will just run the file. There will be no errors. This is also called "loading" a file, which is sometimes needed, e.g. we wish to do (void function) things in order but they are unrelated, so "exporting" doesn't make sense, but loading them from a single file is definitely better than providing multiple arguments to `node` in the correct order.
+5. **"Named" and "default" exports** - `module.exports` is the single source of exports from a file. So, if we need to export only one thing (a "default" export), one can directly write to it. But for exporting multiple things, we just import an object or an array containing the things we wish to export. Imports work the same way.
 	```js
 	// mathFuncs.js
 	const add = (a, b) => a + b;
