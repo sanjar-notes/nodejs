@@ -2,6 +2,8 @@
 
 Code branch link (started a new one): https://github.com/exemplar-codes/online-shop-nodejs-branches/tree/19-error-handling ("19-error-handling")
 
+[height.app task link](https://height.app/OitGt6StRG/T-180)
+
 ---
 
 ## Errors - existence and mindset
