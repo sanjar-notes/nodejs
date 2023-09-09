@@ -10,7 +10,7 @@ Steps for render.com:
 - Step 2: Signup, login to Render.
 - Step 3: Create a new "Web Service" and connect the GitHub repository containing the app code.
 - Step 4: Fill out details. Defaults are fine. In our case, we'll need to set the branch, build command to `npm install` and start command to `node index.js`. Let the free plan be.
-- Step 5: Environment variables - continuing, click Advanced and set `PORT` to 3000.
+- Step 5: Environment variables and .npmrc - continuing, click Advanced and set `PORT` to 3000.
 - Step 6: Leave everything else as is.
 - Step 7: Click create web service. Done.
 
