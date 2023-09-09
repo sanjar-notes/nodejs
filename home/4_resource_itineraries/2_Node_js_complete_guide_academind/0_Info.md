@@ -13,7 +13,7 @@ Course info (JSON) - ![](/assets/nodejs-complete-guide-all.json)
 
 ## Progress
 On hold sections
-14. https://height.app/OitGt6StRG/T-61 (sessions + cookies)
-15. Auth - https://height.app/OitGt6StRG/T-93
-16. Sending emails - https://height.app/OitGt6StRG/T-99
-17. Advanced auth - https://height.app/OitGt6StRG/T-101
+14. Sessions & Cookies (minor left) [task link](https://height.app/OitGt6StRG/T-61)
+15. Authentication - [task link](https://height.app/OitGt6StRG/T-93)
+16. Sending emails - [task link](https://height.app/OitGt6StRG/T-99)
+17. Advanced authentication - [task link](https://height.app/OitGt6StRG/T-101)
