@@ -1,7 +1,8 @@
 {
   "pinned": [
     "app:open-vault",
-    "obsidian-timestamper:obsidian-fast-datestamp",
+    "templater-obsidian:templater/title_and_date.md",
+    "templater-obsidian:templater/w2h.md",
     "file-explorer:reveal-active-file"
   ]
 }
