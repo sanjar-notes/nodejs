@@ -1,7 +1,3 @@
-# <% newTitle %>
-<% tp.date.now("[Created] ddd ll [at] LT") %>
-
-<% tp.file.cursor() %>
 <%*
 retVal = tp.file.title;
 if (retVal.endsWith(".md")) retVal = retVal.slice(0, -3);
@@ -14,4 +10,7 @@ titleWithoutNumber = completeTitle.slice(potentialNumber.length + 1);
 newTitle = hasNumber
   ? `${potentialNumber}. ${titleWithoutNumber}`
   : completeTitle;
-%>
+%># <% newTitle %>
+<% tp.date.now("[Created] ddd ll [at] LT") %>
+
+<% tp.file.cursor() %>
