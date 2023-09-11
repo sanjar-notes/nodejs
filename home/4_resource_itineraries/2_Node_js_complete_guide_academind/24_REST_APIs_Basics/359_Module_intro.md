@@ -10,7 +10,7 @@ But:
 
 ![](/assets/359_Module_intro-image-1.png)
 
-
+![](/assets/359_Module_intro-image-2.png)
 ## APIs (Application Programming Interface)
 APIs in the context of web apps refer to backend apps that interact with a UI client, or another server. The expected inputs from the "client" are:
 1. URI (path and query params)
@@ -18,9 +18,15 @@ APIs in the context of web apps refer to backend apps that interact with a UI cl
 3. Headers
 
 
-## REST APIs term in the course
+## REST APIs term in the course (optional)
 This course uses the term "REST API" for server apps that don't send UI content. This is wrong, since REST is a disciplinary construct/recommendation about how to build APIs.
 
 I understand why it does so. Because REST APIs are the most common kind of web APIs, and most people are familiar with the term.
 
 fine.
+
+
+## Do I specially need to learn such APIs
+No, all we have learnt so far is mostly applicable as is. It's just that we'll:
+1. Send data without the UI
+2. Will need to design API endpoints a little smartly
