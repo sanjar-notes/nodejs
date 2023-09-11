@@ -5,8 +5,10 @@ Created Mon Sep 11, 2023 at 9:44 AM
 We have been sending whole pages (HTML using EJS) back as responses in this course. 
 
 But:
-1. SPAs and mobile apps - this is not how modern apps (SPA web apps, mobile) apps usually work. They (the client) get the UI inflating code at the start, and subsequent interactions with the server are mostly about data (not UI). This makes them fast and responsive.
+1. SPAs and mobile apps - this is not how modern apps (SPA web apps, mobile) apps usually work. They (the client) get the UI inflating code at the start, and subsequent interactions with the server are mostly about data (not UI). This makes them fast and responsive. Example - React web apps, Mobile apps - React Native, native Android apps
 2. Server side apps - servers don't run browsers (since UI is not a feature here), and so server to server communication doesn't involve pages. The messages sent back and forth are mostly objects, in various standardized formats.
+
+![](/assets/359_Module_intro-image-1.png)
 
 
 ## APIs (Application Programming Interface)
