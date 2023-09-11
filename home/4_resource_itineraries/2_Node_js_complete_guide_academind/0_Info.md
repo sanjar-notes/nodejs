@@ -17,3 +17,4 @@ On hold sections
 15. Authentication - [task link](https://height.app/OitGt6StRG/T-93)
 16. Sending emails - [task link](https://height.app/OitGt6StRG/T-99)
 17. Advanced authentication - [task link](https://height.app/OitGt6StRG/T-101)
+18. Sec 24 "Adding payments", [task link](https://height.app/OitGt6StRG/T-213), on hold, will do later.
