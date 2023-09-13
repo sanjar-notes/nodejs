@@ -13,10 +13,16 @@ So APIs are about exchanging data (as opposed to UI/UI+data). But in what format
 A comparison
 ![](../../../../assets/361_API_Data_formats-image-1.png)
 
-## Practically best format
-JSON is the simplest format and performance is good enough for common applications.
+## Practically best format - JSON
+JSON is the simplest format and performance is good enough for common applications. It's the goto format for user facing apps.
+
 Reasons:
 1. Human readable - helps with debugging
 2. Machine readable
 3. Simple syntax
-4. Works out of the box in browsers, and Node.js. It also works with most backend frameworks in other langs as well.
+4. Browser support by default. 
+5. Universal JS engine support - Node.js supports JSON (essentially any system with a JS engine). It also works with most backend frameworks in other langs as well.
+
+Cons (applicable for fast/high load systems):
+1. Serialization/deserialization cost - In fast and/or high traffic apps, this can become significant, since JSON is human readable. ProtoBuf are a binary format that are very fast in this regard.
+2. Size of payload - JSON has larger size than a binary format like Protobuf.
