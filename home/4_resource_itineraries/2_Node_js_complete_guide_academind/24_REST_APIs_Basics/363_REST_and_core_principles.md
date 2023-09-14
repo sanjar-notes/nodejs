@@ -13,7 +13,7 @@ REST is an *architecture style* to develop web services, which uses the HTTP pro
 ## Principles of REST
 A RESTful system should have these major traits:
 1. Uniform Interface - clearly defined endpoints, request structure and response structure. This means documentation of course.
-2. Resource over *commands* - the client specifies resources tob CRUD, instead of sending complete commands/code to the server.
+2. Resources over *commands* - the client specifies resources to be CRUD, instead of sending commands/code to the server. See  [SOAP](https://www.reddit.com/r/learnprogramming/comments/u2erbr/comment/i4j8f6d/?utm_source=share&utm_medium=web2x&context=3).
 3. Statelessness
    
 Minor:
