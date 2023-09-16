@@ -21,9 +21,9 @@ Ruby on Rails has 7 general kinds of actions. These apply per exposed model. [Li
 | Action  | HTTP verb | Path             | Comment                                      | Used in API server |
 | ------- | --------- | ---------------- | -------------------------------------------- | ------------------ |
 | index   | GET       | /photos          | display a list of all photos                 | yes                |
-| new     | GET       | /photos/new      | return an HTML form for creating a new photo | no                 |
-| create  | POST      | /photos          | create a new photo                           | yes                |
 | show    | GET       | /photos/:id      | display a specific photo                     | yes                |
-| edit    | GET       | /photos/:id/edit | return an HTML form for editing a photo      | no                 |
+| create  | POST      | /photos          | create a new photo                           | yes                |
 | update  | PATCH/PUT | /photos/:id      | update a specific photo                      | yes                |
-| destroy | DELETE    | /photos/:id      | delete a specific photo                      | no                 |
+| destroy | DELETE    | /photos/:id      | delete a specific photo                      | yes                |
+| new     | GET       | /photos/new      | return an HTML form for creating a new photo | no                 |
+| edit    | GET       | /photos/:id/edit | return an HTML form for editing a photo      | no                 |
