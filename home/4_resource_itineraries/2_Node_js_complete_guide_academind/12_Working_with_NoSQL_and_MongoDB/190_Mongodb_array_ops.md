@@ -1,10 +1,10 @@
-## 190. MongoDB array ops
+# 190. MongoDB array ops
 Created Saturday 10 June 2023 at 05:49 pm
 
 ## Arrays in MongoDB
-Arrays are first class structure in MongoDB unlike SQL databases. This means that values in documents can be arrays. This provides a lot of flexibility.
+Arrays are a first class structure in MongoDB unlike SQL databases. This means that values in documents can be arrays. This provides a lot of flexibility.
 
-However, the array should be bounded, otherwise it will hurt performance. If an array is too large, it may be better to create a new collection altogether with each array element storing a reference (via an attribute) to the original document.
+However, try to enforce limits to array array size, otherwise it could hurt performance. If an array is too large, it may be better to create a new collection altogether with each array element storing as a reference (via an attribute) to the original document.
 
 ## 1. Update element in array
 Suppose we have the following situation
@@ -25,6 +25,7 @@ const productId = ...// given
 ```
 
 ### 1.1 Update element in array - if position is known
+Use the index (number) in path (dot notation )
 ```js
 // change the 2nd version, i.e. arr[1]
 
@@ -89,7 +90,7 @@ Note:
 
 
 ## 3. Delete from array - `$pull`
-Fetching, mutating and `.save` is a way to do this, but it may be expensive or impractical to do.
+Fetching, mutating and `.updateOne` is a way to do this, but it may be expensive or impractical to do.
 
 `$set` won't help here. We need to use the `$pull` operator for this.
 ```js

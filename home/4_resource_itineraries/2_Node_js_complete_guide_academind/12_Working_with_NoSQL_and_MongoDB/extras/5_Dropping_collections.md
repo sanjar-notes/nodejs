@@ -18,7 +18,9 @@ Note:
 
 
 ## Delete all collections (Node.js)
-Example:
+Get list of collection and drop each one individually.
+
+Example code:
 ```js
 const db = getDb();
 

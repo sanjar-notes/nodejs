@@ -2,14 +2,14 @@
 Created Sunday 7 May 2023 at 08:47 pm (binge)
 Created Monday 29 May 2023 at 04:08 am (code)
 
-The model code in our controllers will most remain the same. There are a few changes we'll need though:
+The model code in our controllers will most remain the same. Few changes are needed though:
 ```js
 const Product = require('../models/Product');
 
 
 const newProduct = new Product(title, price, description, imageUrl);
 // will change to
-const newProduct = new Product({ title, price, description, imageUrl});
+const newProduct = new Product({ title, price, description, imageUrl });
 
 
 // save remains unchanged, since Mongoose adds a .save for instances
