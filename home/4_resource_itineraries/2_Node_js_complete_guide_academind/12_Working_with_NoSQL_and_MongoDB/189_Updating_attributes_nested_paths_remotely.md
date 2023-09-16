@@ -1,8 +1,10 @@
 # Updating attributes, nested paths remotely
 Created Saturday 10 June 2023 at 04:45 pm
 
+By remote, I mean we never fetch the document from the DB. We just make a call to update.
+
 ## 1. Update some (or just one) attribute
-We've already seen this, using instance with `.save`. The following is a way to update without the need for an instance.
+Nothing new here. Just that `updateOne` does "merged updation", so partial attributes are OK.
 ```js
 const sampleProduct = {
   _id: 'someId...',
@@ -25,7 +27,7 @@ await db.collection("products")
 
 
 ## 2. Update nested/embedded attribute
-Use path
+Use dot path as key
 ```js
 const sampleProduct = {
   _id: 'someId...',
