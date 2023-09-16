@@ -12,5 +12,6 @@ Created Friday 19 May 2023 at 01:10 am
 - Check IP whitelist etc, and add your PC's IP address. We'll need to do this for exploring MongoDB in our Node.js apps locally.
 
 
-## Local (project) setup
+## Local (project) setup - `mongodb` driver package
 - Install the mongoDB driver, by running `npm install mongodb`
+- This handles the network connections to MongoDB Atlas for us, and also provides simple API methods to do so.

@@ -1,7 +1,8 @@
 # 184. Creating the models
 Created Tuesday 23 May 2023 at 12:59 am
 
-Since we don't have a SQL database now, the Sequelize models will not work. Let's create the Product model again (we'll use a class again, just like we did earlier when using files for storage):
+## Use a `class` for models
+Since we don't have a SQL database now, the Sequelize models won't work. Let's create the Product model again (we'll use a `class` again, just like we did earlier when using files (`fs`) for storage):
 ```js
 class Product {
 	constructor(price, title, description, ...)
@@ -18,7 +19,8 @@ class Product {
 ```
 
 
-## Using the database connection/creating products
+## Create model instances
+Just add "create" method to model `class`. The method will use database util (`getDb`) and interact with the database.
 ```js
 const getDb = require('./util/database.js').getDb;
 
@@ -37,7 +39,7 @@ class Product {
 	}
 }
 ```
-[Code/commit](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/0adc534cb2c0e40538fdb51b5c3dd7b01fbcf605) - uses `findOne`
+[Code/commit](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/0adc534cb2c0e40538fdb51b5c3dd7b01fbcf605) - uses `findOne` (to check for existing to avoid duplicate).
 
 We used `insertOne`, `findOne` here. 
 Learn more about CRUD ops - https://www.mongodb.com/docs/manual/crud/

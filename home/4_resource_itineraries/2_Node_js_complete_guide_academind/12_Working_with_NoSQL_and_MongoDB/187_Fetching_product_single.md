@@ -2,7 +2,7 @@
 Created Tuesday 30 May 2023 at 02:07 am
 
 
-## Fetching a single product
+## `findOne`
 Use `.findOne(criteriaOr_id)`
 
 ```js
@@ -30,7 +30,7 @@ const product = await db.collection('products').findOne({ _id: prodId });
 **This doesn't work, though. Let's explore why.**
 
 
-### `_id` object
+## `_id`argument should be an object
 This code doesn't work because `_id` stored inside a MongoDB document is not of type string, and therefore comparison (equal) won't work. 
 
 `_id` is actually a special object called `ObjectId`, specified by MongoDB. It's not a native JS feature. 
@@ -42,14 +42,16 @@ Why is the `_id` like this? Reasons:
 3. `_id` generated after (in time) has higher alphabetical rank than ones created before.
 4. And more..
 
+*In short, you need to pass `_id` of type `ObjectId` for `findOne` to work.*
 
-### Fixing the code
+## Fixing the code - `mongodb.ObjectId`
 - MongoDB provides a utility method to create `_id` (i.e. `ObjectId`) objects.
 ```js
 ...find({ _id: prodId }) // doesn't work
 // example prodId: "646a3b5193d6e61bddc26c17"
 
 
+// fix: new mongodb.ObjectId()
 const mongodb = require("mongodb");
 ...find({ _id: new mongodb.ObjectId(prodId)}); // works now
 ```
@@ -60,32 +62,36 @@ const mongodb = require("mongodb");
 [Product details page](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/800c8de7b75f875d77e382d80eddf7cb4696a148)
 
 
-### Passing `_id` directly if it's the only criteria
+## Pass `_id` directly
 If the criteria is only `_id`, passing it directly (instead of in an object) is also OK. `find` and `findOne` both support this.
 
 Avoid this if possible, since explicit is better. Otherwise the code will be hard to work with for new comers like my experience with Rails.
 
 Example:
 ```js
-// .find with _id in object
+// .find
+// _id in object
 const allProducts = await db
         .collection("products")
         .find({_id: new mongodb.ObjectId("6474f8ae83090103435e19d2") }) // as object
         .toArray();
 
-// is the same as - .find with _id passed directly
+// is the same as - _id passed directly
 const allProducts = await db
         .collection("products")
         .find(new mongodb.ObjectId("6474f8ae83090103435e19d2")) // direct
         .toArray();
 
+```
 
-// .findOne with _id in object
+```js
+// .fineOne
+// _id in object
 const product = await db
       .collection("products")
       .findOne({ _id: new mongodb.ObjectId(prodId) }); // object
 
-// is the same as - .find with _id passed directly
+// is the same as - _id passed directly
  const product = await db
       .collection("products")
       .findOne(new mongodb.ObjectId(prodId)); // direct
