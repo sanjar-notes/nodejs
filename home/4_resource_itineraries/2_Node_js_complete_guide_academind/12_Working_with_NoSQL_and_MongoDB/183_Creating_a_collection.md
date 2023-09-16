@@ -1,7 +1,7 @@
-# 183. Using the database connection
+# 183. Creating a collection
 Created Friday 19 May 2023 at 01:30 am
 
-## Using the database connection
+## Using `insertOne` create a collection
 [Code](https://github.com/exemplar-codes/online-shop-with-nosql-mongodb/commit/f9e55013b1b4b11597552fff9e5848b17a958702)
 ```js
 const { mongoConnect, getDb } = require("./util/database.js");
