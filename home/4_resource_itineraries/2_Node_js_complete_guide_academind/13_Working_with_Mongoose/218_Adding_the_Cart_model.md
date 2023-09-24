@@ -1,3 +1,8 @@
+---
+tags:
+  - nested-schemas
+  - mongoose
+---
 # 218. Adding the Cart model
 Created Thursday 11 May 2023 at 06:45 am
 
