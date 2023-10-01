@@ -1,4 +1,4 @@
-# 233. Cookie CRUD
+# 233. Cookie code
 Created Wednesday 9 August 2023 at 02:41 am
 
 1. Create (set) - both work with express (without package)

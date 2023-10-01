@@ -13,6 +13,9 @@ We'll look at 3 things in this section:
 3. Using Session and Cookies
 
 https://github.com/sanjar-notes/backend/blob/d7878820f76ec345fdfd5aa0ff69b5f5f0305516/home/4_resource_itineraries/2_Cookies_Hussein_Nasser/1_HTTP_Cookies_Crash_Course.md - all about cookies.
+
+
+Know that Cookies and sessions are unrelated principally, but they are used in conjunction.
 ## Cookies (fundam)
 1. What are cookies - client side storage for a site without need of JS. Cookies are data sent on every relevant request automatically by the browser as a header. mAid: Think of them as convenience data that's expendable.
 2. Setting cookies:
