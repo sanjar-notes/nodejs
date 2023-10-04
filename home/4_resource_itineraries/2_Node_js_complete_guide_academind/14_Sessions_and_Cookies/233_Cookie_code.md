@@ -4,16 +4,16 @@ Created Wednesday 9 August 2023 at 02:41 am
 ## Server
 Requirements - *Needs the `cookie-parser` package installed and added as middleware.*
 
-1. Create (set) - both work with express (without package)
+1. Create (set). There are two ways, both work without extra packages.
 	1. `res.setHeader('set-cookie', 'cookieKey=cookieVal; confK=confV;')`
-	2. `res.cookie('cookieName', 'cookieValue' | Object)`
-2. Read
+	2. `res.cookie('cookieName', 'cookieValue', config?)` [docs](https://expressjs.com/en/4x/api.html#res.cookie)
+2. Read. Two ways to do it. Second one is parsed (but needs a package).
 	1. `res.headers.cookie` - key value string, need to add parse logic.
-	2. `res.cookies` object and `res.cookies['cookieName']`. *Needs the 'cookie-parser' package installed and added as middleware.*
+	2. `res.cookies` object and `res.cookies['cookieName']`. *Needs the ['cookie-parser'](https://www.npmjs.com/package/cookie-parser) package installed and added as middleware.* [docs](https://expressjs.com/en/4x/api.html#req.cookies)
 3. Update - same as set.
 4. Delete - set with `max-age:0`
 	1. `res.setHeader('set-cookie', 'cookieKey=cookieVal; max-age=0;')`
-	2. `res.clearCookie('cookieName')`
+	2. `res.clearCookie('cookieName')` [docs](https://expressjs.com/en/4x/api.html#res.clearCookie)
 
 Note: only reading requires a package `cookie-parser`, writing `res.cookie` is supported by Express by default. Strange but ok.
 
