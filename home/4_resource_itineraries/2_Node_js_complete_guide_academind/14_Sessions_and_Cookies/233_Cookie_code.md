@@ -18,8 +18,9 @@ Requirements - *Needs the `cookie-parser` package installed and added as middlew
 Note: only reading requires a package `cookie-parser`, writing `res.cookie` is supported by Express by default. Strange but ok.
 
 
-## Browser
-- It's quite simple, but really a pain. There's no parser.
+## In browser JS console
+- Read/write is quite simple. Use `document.cookie`.
+- But there's no parser, one needs to be cognizant of string logic.
 - Cookies with config 'HttpOnly' cannot be edited by JS. They can still be edited manually (using browser UI - the Application tab in DevTools).
 ```js
 document.cookies = 'key1=value1; key2=value2;'
