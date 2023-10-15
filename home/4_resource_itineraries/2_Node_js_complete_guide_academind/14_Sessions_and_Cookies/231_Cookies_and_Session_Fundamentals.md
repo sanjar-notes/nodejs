@@ -26,7 +26,7 @@ Know that Cookies and sessions are unrelated principally, but they are used in c
 ## Sessions (fundam)
 1. Definition - A way to implement auth without need for credentials (password) on each request.
 2. USP - basic principle of defense against auth stealing (cookies, token)
-3. Flow - ![](/assets/230_Module_intro-image-2.svg)
+3. Flow - ![](/assets/231_Cookies_and_Session_Fundamentals-image-3.svg)
 ### Implementation
 The current (above) flow involves a database call, which is expensive to do for each and every request
 
