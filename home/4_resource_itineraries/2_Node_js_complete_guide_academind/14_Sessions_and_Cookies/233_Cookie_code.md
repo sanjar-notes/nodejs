@@ -13,9 +13,11 @@ Requirements - *Needs the `cookie-parser` package installed and added as middlew
 3. Update - same as set.
 4. Delete - set with `max-age:0`
 	1. `res.setHeader('set-cookie', 'cookieKey=cookieVal; max-age=0;')`
-	2. `res.clearCookie('cookieName')` [docs](https://expressjs.com/en/4x/api.html#res.clearCookie)
+	2. `res.clearCookie('cookieName', config?)` [docs](https://expressjs.com/en/4x/api.html#res.clearCookie)
 
-Note: only reading requires a package `cookie-parser`, writing `res.cookie` is supported by Express by default. Strange but ok.
+Note: 
+- only reading cookies requires a package `cookie-parser`, writing `res.cookie` is supported by Express by default. Strange but ok.
+- There's no one liner to delete all cookies. Loop through received cookies and call `res.clearCookie(key)` for each.
 
 
 ## In browser JS console
