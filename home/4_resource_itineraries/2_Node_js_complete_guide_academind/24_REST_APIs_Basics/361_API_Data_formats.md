@@ -11,7 +11,7 @@ So APIs are about exchanging data (as opposed to UI/UI+data). But in what format
 5. ProtoBuf (Protocol Buffer) - binary format, structured. Meant for high traffic, realtime stuff where payload size and/or speed matters. Some setup needed, like XML.
 
 A comparison
-![](../../../../assets/361_API_Data_formats-image-1.png)
+![](../../../../assets/361_API_Data_formats-image-1-1d84a321.png)
 
 ## Practically best format - JSON
 JSON is the simplest format and performance is good enough for common applications. It's the goto format for user facing apps.

@@ -14,7 +14,7 @@ There are many types of errors
 
 ## Types of errors
 Types of errors with examples of reason and how to deal with them:
-![](assets/306_Module_intro_and_the_error_sink-image-1.png)
+![](../../../../assets/306_Module_intro_and_the_error_sink-image-1-5ab009ef.png)
 
 
 ## Dealing with errors - app wide structure
@@ -33,7 +33,7 @@ Note:
 - Express.js does provide a built-in feature for error handling.
 
 Picture - left side is the sink, right side are the checks (and it's two variants).
-![](assets/306_Module_intro_and_the_error_sink-image-2.png)
+![](../../../../assets/306_Module_intro_and_the_error_sink-image-2-5ab009ef.png)
 
 
 ## How to throw errors in JS (ignorable)

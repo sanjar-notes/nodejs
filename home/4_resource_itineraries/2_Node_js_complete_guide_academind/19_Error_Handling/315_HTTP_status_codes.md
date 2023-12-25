@@ -14,7 +14,7 @@ The 4 most important classes of status codes are:
 3. 4xx - client-side error
 4. 5xx - server-side error
 
-![](/assets/315_HTTP_status_codes-image-1.png)
+![](../../../../assets/315_HTTP_status_codes-image-1-5ab009ef.png)
 
 For the complete list of codes, see https://httpstatuses.com/
 

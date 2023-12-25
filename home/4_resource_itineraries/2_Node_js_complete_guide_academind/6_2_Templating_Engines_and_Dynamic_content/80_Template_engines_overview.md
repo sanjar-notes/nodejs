@@ -3,7 +3,7 @@ Created Sunday 5 March 2023 at 10:01 pm
 
 ## What's a templating engine.
 I was right here, just read it - [78_Module_introduction](78_Module_introduction.md)
-![](/assets/80_Template_engines_overview-image-1.png)
+![](../../../../assets/80_Template_engines_overview-image-1-bb4042ab.png)
 
 
 ## Some popular templating engines
@@ -18,7 +18,7 @@ Engines:
 2. Pug (aka Jade) - uses a minimized version of HTML, hashtag-curly brace syntax for placeholders. Special constructs for control flow.
 3. Handlebars - normal HTML for markup, double curly brace syntax for placeholder. Similar to EJS, but has less features and different philosophy.
 
-![](/assets/80_Template_engines_overview-image-2.png)
+![](../../../../assets/80_Template_engines_overview-image-2-bb4042ab.png)
 
 
 ## Installing a template engine

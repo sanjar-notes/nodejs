@@ -17,16 +17,16 @@ Know that Cookies and sessions are unrelated principally, but they are used in c
 3. Getting cookies (at the server) -  Cookies may be set by the client such that client side JS cannot access it (access through browser internal UI is still possible)
 4. Learnings
 	1. Browser UI (tabs, pages, components) - components (tags) interact with their own cookies, and have nothing to do with the page src
-		   ![](/assets/231_Cookies_and_Session_Fundamentals-image-1.svg)
+		   ![](../../../../assets/231_Cookies_and_Session_Fundamentals-image-1-510c7988.svg)
 	2. Omni-bar src is a special case of course. This needs protection, since everyone has access to `open(someLink`) in JS (CSRF). More: It's feels like an exception, where we shouldn't "send" the cookies. But, it's still within the "src" primary identifier realm, since the link component or .open (the page console) can be treated as a component. And components shouldn't be able to create a situation where they affect cookie get/set for other src. Of course, if the components came in the HTML, that's fine. However, since anchor tag is a major component, we should be able to relax this rule (which was the default). But strict mode is now available.
 	3. Browser cookie manager - For the cookie manager, the primary identifier is "src"
-		![](/assets/231_Cookies_and_Session_Fundamentals-image-2.svg)
+		![](../../../../assets/231_Cookies_and_Session_Fundamentals-image-2-510c7988.svg)
 
 
 ## Sessions (fundam)
 1. Definition - A way to implement auth without need for credentials (password) on each request.
 2. USP - basic principle of defense against auth stealing (cookies, token)
-3. Flow - ![](/assets/231_Cookies_and_Session_Fundamentals-image-3.svg)
+3. Flow - ![](../../../../assets/231_Cookies_and_Session_Fundamentals-image-3-510c7988.svg)
 ### Implementation
 The current (above) flow involves a database call, which is expensive to do for each and every request
 

@@ -8,6 +8,6 @@ The core concepts are
 2. Instances - `const user = new User()`
 3. Queries - `User.find()`
 
-![](/assets/210_Core_concepts_in_Mongoose-image-1.png)
+![](../../../../assets/210_Core_concepts_in_Mongoose-image-1-a636de25.png)
 
 So it's very similar to how Sequelize helps with SQL databases.

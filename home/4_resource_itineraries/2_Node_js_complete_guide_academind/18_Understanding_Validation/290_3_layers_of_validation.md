@@ -14,7 +14,7 @@ Validation can be done at multiple layers of an app - the intent and effect vari
 &nbsp;
 &nbsp;
 
-![](/assets/290_3_layers_of_validation-image-1.png)
+![](../../../../assets/290_3_layers_of_validation-image-1-0473ea29.png)
 
 
 ## 1. Client-side validation

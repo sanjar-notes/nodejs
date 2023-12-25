@@ -16,7 +16,7 @@ already_know
 5. How call reaches from client to server (simplified layers of server)
 
 HTTP verbs and expectations
-![](/assets/362_Routing_and_HTTP_methods-image-1.png)
+![](../../../../assets/362_Routing_and_HTTP_methods-image-1-1d84a321.png)
 
 simplified layers of server, and route determines resource.
-![](/assets/362_Routing_and_HTTP_methods-image-2.png)
+![](../../../../assets/362_Routing_and_HTTP_methods-image-2-1d84a321.png)

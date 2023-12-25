@@ -108,7 +108,7 @@ Note:
 
 ## Almost all EJS functionality
 I know the syntax already, adding this for the sake of exhaustiveness.
-![](/assets/84_EJS-image-1.png)
+![](../../../../assets/84_EJS-image-1-bb4042ab.png)
 
 
 ## Global props - `locals` (Express.js)

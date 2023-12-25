@@ -5,7 +5,7 @@ Created Tuesday 2 May 2023 at 03:50 am
 MongoDB is a NoSQL database created by the company of the same name.
 
 The 'mongo' in the name implies 'Humongous'.
-![](/assets/177_What_is_MongoDB-image-1.png)
+![](../../../../assets/177_What_is_MongoDB-image-1-6f05df1a.png)
 
 ## Why
 - To store and work with large amounts of data
@@ -14,4 +14,4 @@ The 'mongo' in the name implies 'Humongous'.
 
 
 ## How it works
-![](/assets/177_What_is_MongoDB-image-2.png)
+![](../../../../assets/177_What_is_MongoDB-image-2-6f05df1a.png)

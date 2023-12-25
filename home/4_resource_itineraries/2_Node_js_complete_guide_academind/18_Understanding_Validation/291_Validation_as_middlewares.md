@@ -6,9 +6,9 @@ Data validation is simple to structure into a backend app, especially Express.js
 
 Just add it as a middleware.
 
-![Current state of our app](/assets/291_Validation_as_middlewares-image-1.png)Current state of our app
+![Current state of our app](../../../../assets/291_Validation_as_middlewares-image-1-0473ea29.png)Current state of our app
 
 &nbsp;
 &nbsp;
 
-![After adding validation](/assets/291_Validation_as_middlewares-image-2.png)After adding validation
+![After adding validation](../../../../assets/291_Validation_as_middlewares-image-2-0473ea29.png)After adding validation

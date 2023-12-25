@@ -64,7 +64,7 @@ Note: the option argument (2nd argument) here is referring to the `target`. e.g.
 /rough end
 
 We wish to have the following relations between the model, in this project.
-![](/assets/162_Associations-image-1.png)
+![](../../../../assets/162_Associations-image-1-7ec65c1f.png)
 
 - [User and Product association code](https://github.com/exemplar-codes/online-shop-express-ejs-mvc/commit/d7e46fbcef2b5a7e9d91702001c4fd11c1f0322b)
 - [Populating each model, individually - code](https://github.com/exemplar-codes/online-shop-express-ejs-mvc/commit/8dad6ea2abe25bdf2956949d5da6c991b5d07a8d) `afterSync` at model level.

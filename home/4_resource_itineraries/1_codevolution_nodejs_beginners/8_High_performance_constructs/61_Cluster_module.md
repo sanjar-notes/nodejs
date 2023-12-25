@@ -34,14 +34,14 @@ Why does the fast page slow down (3 ms --> 6 s)? The reason is quite obvious, be
 - All created workers share the same server port.
 - Each worker has it's own runtime (FIXME: mostly), as it's a process.
 
-![](/assets/61_Cluster_module-image-1.png)
+![](../../../../assets/61_Cluster_module-image-1-1460c03c.png)
 
 More details:
 - When we run a script in Node.js, it is run as a "cluster master".
 - The "master" is only in-charge of managing "workers", i.e. it's responsibility is starting and stopping "workers". It doesn't (not supposed to?) run the app code.
 - Workers are in charge of handling app code - handling  requests, reading files etc.
 - Each worker gets it's own **event loop**, **memory** and **V8 instance**. Running 4 workers (with a master, obviously).
-![](/assets/61_Cluster_module-image-2.png)
+![](../../../../assets/61_Cluster_module-image-2-1460c03c.png)
 
 Let's play with this. [Code](https://github.com/exemplar-codes/codevolution-nodejs/commit/0bc07a91b3c124d4b1ca1a41046183920f81ffee).
 

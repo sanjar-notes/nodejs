@@ -7,4 +7,4 @@ The idea is the same - focus on the app code, and not the query language and dat
 
 https://www.mongodb.com/developer/languages/javascript/mongoose-versus-nodejs-driver/
 
-![](/assets/209_Module_Introduction-image-1.png)
+![](../../../../assets/209_Module_Introduction-image-1-a636de25.png)

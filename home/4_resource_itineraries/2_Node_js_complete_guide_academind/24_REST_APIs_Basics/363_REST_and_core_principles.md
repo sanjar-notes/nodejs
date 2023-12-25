@@ -21,7 +21,7 @@ Minor:
 5. Cacheable
 6. Layered system - the server could actually be a group of servers working together (including delegation)
 7. Code on demand - the server may sent executable code to the client.
-![](/assets/363_REST_and_core_principles-image-1.png)
+![](../../../../assets/363_REST_and_core_principles-image-1-1d84a321.png)
 note: **statelessness** is the only non-trivial thing here. I knew other things already.
 ### 2. Client and server separation
 In the REST architectural style, the implementation of the client and the implementation of the server can be done independently without each knowing about the other.

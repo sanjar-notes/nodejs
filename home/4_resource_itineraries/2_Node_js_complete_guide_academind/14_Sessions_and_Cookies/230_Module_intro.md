@@ -30,7 +30,7 @@ Suppose we have a web app which has user authentication (simple log in). The exp
 
 ## Cookie
 1. Cookies are browser level storage that can be controllable by servers (i.e. the website).
-![](/assets/230_Module_intro-image-1.png)
+![](../../../../assets/230_Module_intro-image-1-510c7988.png)
 - Cookies can be used for many purposes, one of which is persistent authentication ("logged in state"). Cookies uses for this are also called "authentication cookies".
 - Cookies can be manipulated by the user and front-end code too.
 2. Another important aspect of a cookie is that it is included in every request that's made to the website.
