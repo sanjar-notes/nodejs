@@ -1,6 +1,7 @@
 # 56. npm scripts
 Created Sunday 5 February 2023 at 10:50 am
 
+Docs - https://docs.npmjs.com/cli/v10/using-npm/scripts
 ## Why (have npm scripts)
 An "npm script" is a convenient way to bundle common commands for use in a project. Examples - start the server, start the dev server, start test runner, lint all files etc.
 
