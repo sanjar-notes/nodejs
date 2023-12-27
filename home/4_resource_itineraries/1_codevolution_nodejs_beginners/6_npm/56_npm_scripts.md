@@ -1,3 +1,10 @@
+---
+tags:
+  - npm
+  - npm-scripts
+  - scripts
+  - environment-variables
+---
 # 56. npm scripts
 Created Sunday 5 February 2023 at 10:50 am
 
@@ -96,3 +103,46 @@ node some-location/index.js
 
 Note: these two ways, and doing them from inside the folder behave the same (filename and dirname are also printed the same).
 source - [StackOverflow](https://stackoverflow.com/questions/36172442/how-can-i-get-npm-start-at-a-different-directory)
+
+
+## Access* package.json stuff in scripts/code
+*The \* - only some built-in things can be accessed, but there is a user managed key available.*
+
+See https://docs.npmjs.com/cli/v10/using-npm/scripts#packagejson-vars, [helpful article](https://dev.to/paulasantamaria/mastering-npm-scripts-2chd)
+
+Note here that:
+1. There are two modes here - you access variables inside scripts, or inside code. Mostly, the same thing works for both.
+	1. Inside script - `$variableName`. Example: `echo $npm_package_name`
+	2. Inside code - `process.env.variableName`. Example: `console.log(process.env.npm_package_name)`
+2. There are a lot of hidden variables also, which may not be useful, so I'll not discuss them here. Example: "npm_node_execpath"
+3. These variables are available only if code or script is run via `npm` command. Running via `node` command will not work, i.e. the variables will not exist.
+
+### `npm_package_` default
+3 values are available by default:
+1. `npm_package_name` - `'myproject'`
+2. `npm_package_version` - `'1.0.0'`
+3. `npm_package_json` - path to package.json
+
+### `npm_package_config_`
+This is a user managed object, key being `config`. 
+By default, it doesn't even exist. 
+
+The keys you add to this object become accessible in underscore notation (instead of the usual dot). Nesting is allowed, and again, underscore will be added. 
+
+All variable names and values are strings. BTW, this also means that the root, `npm_package_config`, by itself, isn't a valid variable.
+
+```js
+// package.json
+...
+
+ "config": {
+    "my-var": "🐥Some value",
+    "portx": "🐥1234"
+  }
+  
+...
+```
+
+`npm_package_config_portx` and `npm_package_config_my-var` are both available now.
+
+[Docs](https://docs.npmjs.com/cli/v10/configuring-npm/package-json#config)
