@@ -42,7 +42,7 @@ Note: The script name "start" is so common that one can omit "run" in this case,
 
 
 ## Passing arguments (optional)
-Everything after `--` when running the script is placed directly after the script value before execution. Example:
+Everything after `--` when using the script is placed directly after the script value before execution. Example:
 ```json
   "scripts": {
     "print": "echo",
@@ -55,24 +55,24 @@ Doing `npm run print -- -l` is equivalent to `ls -l`
 FIXME: there's no need for this `--`, appending stuff directly to "npm run <SCRIPT_NAME>" works out of the box?
 
 
-## Using commands exposed by 3rd-party  modules
+## Access local packages commands
 3rd party sometimes export commands, but these are not available in the terminal if the module is installed locally.
 
-e.g. "nodemon" if installed locally doesn't work using the "nodemon" command in the terminal. This can be solved by creating a script that calls the command, and it'll work.
-
-In other words, npm scripts *do* have access to commands exposed by local 3rd party modules.
+e.g. "nodemon" if installed locally, "nodemon" command in the terminal will still not work. But it *is made available inside a script*, i.e. npm injects all local dependencies of the project in the script's environment. Of course, global packages and all other system stuff is available as well.
 
 Assume nodemon is only install locally:
 ```json
   "scripts": {
-    "myNodemon": "nodemon"
+    "myNodemon": "nodemon --help",
+    "nodemonx": "nodemon" // ok to name the same, but want to show that any name is fine
   },
 ```
 
 ```sh
 nodemon app.js # ERROR, "nodemon" command not found
 
-npm run myNodemon app.js # OK
+npm run myNodemon # Ok
+npm run nodemonx -- app.js # OK
 ```
 
 Note: if a module is installed both globally and locally, the local one will be preferred if used in npm scripts.
@@ -87,4 +87,11 @@ npm run COMMAND --prefix ~/my-work/my-app
 # or in general
 npm run COMMAND --prefix some-location
 ```
+
+The following also works, identically
+```sh
+node some-location/index.js
+```
+
+Note: these two ways, and doing them from inside the folder behave the same (filename and dirname are also printed the same).
 source - [StackOverflow](https://stackoverflow.com/questions/36172442/how-can-i-get-npm-start-at-a-different-directory)
