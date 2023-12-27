@@ -7,6 +7,7 @@ tags:
 Created Mon Dec 25, 2023 at 9:57 PM
 
 ## No library (native) method
+[Docs](https://nodejs.org/en/learn/command-line/how-to-read-environment-variables-from-nodejs)
 ### Set envs
 There are two ways:
 1. inline - `SECRET1=hello node app.js`. Multiple can be added too `SECRET1=hello SECRET_2=world node app.js`. Works with npm scripts too.
