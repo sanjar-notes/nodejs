@@ -33,6 +33,8 @@ note: setting this will help Express know the content type, so it can ignore the
 
 I added it globally (code): https://github.com/exemplar-codes/online-shop-nodejs-branches/commit/94dc6cc8bead1d08ebb6ccf291fbdf3ea4d9478f
 
+If using fetch, axios in a JS app, make sure payload is either string or FormData. See https://github.com/sanjar-notes/web_dev_fundamentals/issues/108
+
 ## What happens to other form fields
 No change in `req.body`, except type file ones are removed. Multer takes care of this.
 So simple fields are still accessible via `req.body.myFormField`.
