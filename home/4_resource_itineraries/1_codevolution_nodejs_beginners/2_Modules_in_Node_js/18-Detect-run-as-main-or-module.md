@@ -33,3 +33,6 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   console.log('This ESM module is being imported as a module.');
 }
 ```
+
+## What's the use of this?
+I write Node.js scripts for personal use, and it's good to have usage examples that console.log something. If a script is being run directly, it'll print the usage examples, otherwise it'll stay silent.
