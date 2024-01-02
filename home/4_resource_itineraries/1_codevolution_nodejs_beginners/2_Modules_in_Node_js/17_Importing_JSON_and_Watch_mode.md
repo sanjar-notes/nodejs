@@ -20,7 +20,7 @@ const data = require("./data.json");
 console.log(data);      // works
 console.log(data.name); // works
 ```
-This is helpful for storing mock data.
+This is helpful for storing mock data, configs
 
 ## Watch mode
 An in-built feature like nodemon or LiveServer (the vscode extension). This was introduced in Node v18.

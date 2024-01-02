@@ -13,7 +13,7 @@ module.exports = add;
 // index.js
 const add = require('./add'); // imported code name can be anything
 ```
-2. Direct export of single thing. Makes sense - CommonJS is only concerns with objects (`module.exports`) and functions (`require`)
+2. Direct export of single thing. Makes sense - CommonJS is only concerned with objects (`module.exports`) and functions (`require`)
 ```js
 // add.js
 // const add = (a, b) => a + b;
@@ -23,7 +23,7 @@ module.exports = (a, b) => a + b; // export directly
 // index.js
 const add = require('./add'); // no change in import
 ```
-3. Export multiple things - assign an object containing stuff to `module.exports`. Or point to an array (not preferred but works).
+3. Export multiple things - assign an object containing stuff to `module.exports`. Or assign to an array (not preferred due to DX reasons but works).
 ```js
 // math.js
 const add = (a, b) => a + b;

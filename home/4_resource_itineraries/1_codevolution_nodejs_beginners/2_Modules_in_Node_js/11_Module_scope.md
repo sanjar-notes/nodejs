@@ -26,7 +26,7 @@ Batman
 Superman
 ```
 
-Result: Both names are logged, **there are no collisions, overrides or errors**.
+Result: Both names are logged, **there are no collisions, overrides or errors**, since both files (aka modules) are isolated.
 
 
 ## Module scope
@@ -45,7 +45,7 @@ The experiment's code can be edited to an equivalent form in a single file:
 })();
 ```
 
-So, before a module is exported, Node.js wraps all it's code in an IIFE, effectively creating the "module" scope. This is good for two reasons:
+So, before a module is exported, Node.js wraps all the code (of that module) in an IIFE, effectively creating the "module" scope. This is good for two reasons:
 1. We don't have to worry about conflicting variable or function names.
 2. We don't have to worry about unintended reads/writes to variables from other modules.
 3. This is proper encapsulation.

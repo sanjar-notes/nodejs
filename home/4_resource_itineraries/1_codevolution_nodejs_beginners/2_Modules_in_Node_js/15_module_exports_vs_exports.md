@@ -1,7 +1,7 @@
 # 15. `module.exports` vs `exports`
 Created Thursday 26 January 2023 at 05:25 pm
 
-Q:We another way to export stuff - using `exports` instead of `module.exports`.
+Q: We have another way to export stuff - using `exports` instead of `module.exports`.
 But `module.exports` is the recommended approach. Why?
 A: It's actually simple. There are two parts to it:
 1. `require()` returns `module.exports`, and not `exports`.

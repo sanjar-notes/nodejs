@@ -11,7 +11,7 @@ CommonJS works fine and is easy.
 "ES modules" is a new (since 2015) module system for JavaScript. 
 
 **Question, why do we need another module system?**
-Before 2015, Node.js had defaulted to CommonJS out of need, since JavaScript didn't have any module system at the time.
+Before 2015, Node.js defaulted to CommonJS out of need, since JavaScript didn't have any module system at the time.
 
 Note that CommonJS is not an ECMAScript specification.
 
@@ -21,10 +21,10 @@ It took a long time for Node.js and browser vendors to fully implement ESM.
 
 
 ## ESM details
-- File extensions for ES modules is `.mjs` (for both exporter and importer file).
+- File extension for an ES module is `.mjs` (for both exporter and importer file).
 - There are two types of exports:
-	1. **Default exports** - name doesn't have to match. Uses the keyword `default` for exporting. Only one entity can be imported.
-	2. **Named exports** - name has to match. Uses `const` in place of `default` for exporting. Multiple entities can be imported.
+	1. **Default exports** - name doesn't have to match. Uses the keyword `default` for exporting. Only one entity is exported this way, and a file (module) can have only one "default" export.
+	2. **Named exports** - name has to match (due to destructuring). Uses `const` in place of `default` for exporting. Multiple entities can be imported. Can be used multiple times in a module.
 - About the syntax - `ESM` uses a *sugary* syntax for exports and imports, instead of concrete object and function syntax like `module.exports` and `require`.
 - Support:
 	- Node.js - stable support since Node v14 (since 2020)
@@ -32,7 +32,7 @@ It took a long time for Node.js and browser vendors to fully implement ESM.
 - Usage
 	- Node.js - CommonJS is still popular for backend dev.
 	- Browsers - ESM is popular for frontend codebases.
-
+- Note: A file can have both default, named or both kind of exports at the same time.
 
 ## Patterns (default exports)
 1. Export a single thing

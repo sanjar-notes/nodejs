@@ -13,7 +13,7 @@ console.log(superHero);
 ```
 runs in a wrapper with 5 parameters, like so:
 ![](../../../../assets/12_Module_wrapper-image-1-6228faf7.png)
-In other words, `module`, `require` are not "magical" global variables. They are injected by Node.js at runtime as parameters of the module wrapper.
+In other words, `module`, `require` are not "magical" global variables. They are injected by Node.js at runtime as parameters of the module wrapper IIFE.
 
 
 ## About the parameters

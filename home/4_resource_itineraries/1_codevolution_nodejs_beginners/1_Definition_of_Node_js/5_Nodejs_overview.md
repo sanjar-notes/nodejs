@@ -10,7 +10,7 @@ Let's go back to the definition. Node.js is open-source, cross-platform JavaScri
 Since Node.js can run outside the browser, it opens a new world of possibilities. Some examples:
 1. Traditional websites <details><summary>(but Node.js runs only outside the browser, right?)</summary>Yes. But we can have frontend libraries/frameworks that spit out HTML, CSS, JS in an automated way. We can do this with any language, but it's easier to have a system in the same language (isn't that the primary reason why we made Node.js, 😅😂)</details>
 2. Backend services like APIs
-3. Real-time application
+3. Real-time applications
 4. Streaming services
 5. CLI tools
 6. Multiplayer games
@@ -22,7 +22,7 @@ The crux is that Node.js allows us to build complex and powerful applications.
 ## Components of Node.js (exploring the source code)
 - **deps** (dependencies - external code Node uses). Some are:
 	- V8 - JS engine
-	- libuv - provides Node.js access to OS features like filesystem, networking
+	- libuv - provides Node.js access to OS features like filesystem, networking. But the unique feature is a fully featured event loop. Also provides process constructs (IPC, child processes, thread pools, locks, sync primitives).
 	- crypto - cryptography tool library.
 
 ![](../../../../assets/5_Nodejs_overview-image-1-e0590904.png)
@@ -32,12 +32,12 @@ The crux is that Node.js allows us to build complex and powerful applications.
 - **lib** - contains JS code (functions, classes) that apps will use.
 	- OS level functions - `fs`, `http`
 	- utility functions
-	- This is the final component that faces the application code.
+	- This is the final component that faces the application (JS) code.
 
 ![](../../../../assets/5_Nodejs_overview-image-3-e0590904.png)
 
 Note:
-- Unlike the browser runtime, the Node.js does not implement `window`, `document` or other "browser APIs", since it's does no tasks of that need these.
+- Unlike the browser runtime, the Node.js does not implement `window`, `document` or other "browser APIs", since it's does no tasks of that could need these.
 
 
 ## Summary
