@@ -9,7 +9,7 @@ tags:
 # 18. Detect run as main or module
 Created Mon Jan 1, 2024 at 1:11 PM
 
-*There's a simple way in Python to know if current file is being run directly or as an import, using the `__main__` variable. Any such way in Node.js?*
+*There's a simple way in Python to know if current file is being run directly (via python command) or as an import, using the `__main__` variable. Any such way in Node.js?*
 
 Yes, there is.
 

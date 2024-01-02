@@ -3,10 +3,21 @@ Created Saturday 28 January 2023 at 02:08 pm
 
 This is a detour from learning about modules.
 
-Good to know: Character to character code in JS
+Good to know: Character <--> ASCII equivalent number in JS
 ```js
+// string to number
 "V".charCodeAt(); // 86
 "⚡️".charCodeAt(); // 9889
+
+'ABC'.charCodeAt(2); // 67. multi size string supported. 
+// Also, that means default param is 0.
+```
+
+```js
+// number to string
+String.fromCharCode(65); // 'A'
+
+String.fromCharCode(65, 66, 67); // 'ABC', comma separated supported
 ```
 
 

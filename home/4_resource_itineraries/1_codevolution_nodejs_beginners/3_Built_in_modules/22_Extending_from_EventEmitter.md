@@ -18,3 +18,6 @@ FIXME: compositions would have worked just as well.
 FIXME: learn how this is done systematically
 
 Core modules like `fs`, `streams` and `http` also inherit from the `events` module.
+
+## Alternative to inheritance
+If you don't prefer classes, or inheritance. Using a the factory function pattern is just fine. Discussed on the previous [page](./21_Events_module.md).

@@ -21,7 +21,7 @@ Path module has 14 properties and methods. We'll look at the 7 most used ones.
 - `path.format(pathObject)` - returns an absolute path string for given "path" like object.
 - `path.isAbsolute("my_path_here")` - boolean
 - `path.join()` - returns an absolute path by joining path segments. Additionally, it takes care of platform specific delimiters and does normalizing (ignoring, adding delimiters and process nesting delimiters if any). Delimiters - `/`, `\`, `.`, `..`
-- `path.resolve()` - behaves like `join()`, except the fact that the latest (right most argument) becomes the root if it has a `/`. If no argument has a `/`, the actual system root path becomes the root. Returns an absolute path in all cases.
+- `path.resolve()` - behaves like `join()`, except it is processed right to left. Also the latest (right most argument) becomes the root if it has a `/`. If no argument has a `/`, the actual system root path becomes the root. Returns an absolute path in all cases.
 
 Example:
 ```js

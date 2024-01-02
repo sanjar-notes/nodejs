@@ -1,6 +1,7 @@
 # 28. Streams
 Created Sunday 29 January 2023 at 06:42 pm
 
+## Thinking out loud
 // FIXME: rough - done. Not immediately important. Just for fundamentals
 // will probably help in completion - https://medium.freecodecamp.org/node-js-streams-everything-you-need-to-know-c9141306be93
 
@@ -66,3 +67,35 @@ Examples:
 - Reading, writing from a file are readable, writable streams respectively 
 - Sockets is a duplex stream
 - File compression where we can write compressed data and read de-compressed data to and from a file as a transform stream.
+
+## Streams concepts undiscussed (FIXME)
+source: [chatgpt](https://chat.openai.com/c/4346dd1f-eb30-44d0-a8fb-863472d483f5)
+> Streams are a powerful and efficient mechanism in Node.js for handling data, especially when dealing with large datasets or real-time processing. They provide a way to read or write data in chunks, making it memory-efficient and allowing for asynchronous processing.
+
+Here are some key concepts and features related to Node.js streams that you might find interesting:
+
+1. **Readable Streams:**
+   - Represent a source of data that you can read from.
+
+2. **Writable Streams:**
+   - Represent a destination for data that you can write to.
+
+3. **Transform Streams:**
+   - Act as both readable and writable streams, allowing for data transformation during the process.
+
+4. **Piping:**
+   - The `pipe` method allows you to easily connect readable and writable streams, creating a seamless data flow.
+
+5. **Events:**
+   - Streams emit events like 'data', 'end', and 'error', allowing you to respond to different phases of the streaming process.
+
+6. **Object Mode:**
+   - Streams can operate in object mode, where each chunk is treated as a discrete object, rather than a chunk of binary or string data.
+
+7. **Backpressure:**
+   - Streams handle backpressure automatically, ensuring that the producer doesn't overwhelm the consumer with data.
+
+8. **Custom Streams:**
+   - You can create custom streams by extending the `Transform`, `Writable`, or `Readable` classes, tailoring them to your specific needs.
+
+Node.js streams are an essential part of building scalable and performant applications, especially when dealing with I/O operations, network communication, or data processing. Feel free to ask any specific questions or explore more aspects of Node.js streams as you dive into learning and experimentation!

@@ -3,6 +3,9 @@ Created Saturday 28 January 2023 at 12:23 pm
 
 The events module is meant to help with the event driven programming paradigm, that's very popular in the Node.js ecosystem since Node.js focuses on non-blocking execution.
 
+In simple words, suppose your code (that you're going to write) is going to be used as part of an external entity. And your code has the responsibility to let the external entity know when certain events have occurred within your code. The external entity is most probably a high level system like a UI or or even a script, and your code is probably some low-level/domain-specific code being used as a system code or external library.
+
+This module, will help you write such a "piece of code", i.e. a JS module that emits events.
 
 ## Importing the events module
 - The module exposes a class.
@@ -11,8 +14,15 @@ The events module is meant to help with the event driven programming paradigm, t
 ```js
 const EventEmitter = require("node:events");
 const emitter = new EventEmitter(); // constructor syntax, no arguments needed by default
+
+// you'll export tangible functions, object etc, like usual
+//
+// you'll also export the `emitter` (above), so the importing file can add events that it wishes to listen for, i.e. the import module will subscribe to your module
 ```
 
+Note (FIXME - gpt ok, makes sense, check again): 
+- If only one instance of this module (which emits events) is going to be used, the above is fine.
+- if multiple instances of the module are needed, just create a class (or use factory function pattern) that contains both the work code, as well as the emitter. This way we don't generate any data in the module, and data and emitter instances belong to the usage scope, allowing for multiplicity with isolation, and safety from shared state or Node's cache on first run limitation.
 
 ## Registering and emitting events
 The class has the two functions:
@@ -65,7 +75,7 @@ emitter.on("order-pizza", () => console.log("Callback 2 called"));
 emitter.emit("order-pizza");
 ```
 ### 4. Emitting events from callbacks is allowed
-Nothing unusual, but this can be hard to reason about in a large codebase.
+Nothing unusual, but this can be hard to reason about in a large codebase. There's possibility of inadvertent infinite loops. Also, since separations of concern in software is preferred, the emitting module most likely doesn't call main "events" on its own.
 ```js
 emitter.on("pizza-ready", () => console.log("Order is ready!"));
 emitter.on("order-pizza", () => {
@@ -80,7 +90,7 @@ emitter.emit("order-pizza");
 
 ## Non-blocking nature of events
 - Registering an event is a non-blocking operation, obviously.
-- Emitting events is a blocking operation, since it triggers the registered callbacks to run.
+- Emitting events is a blocking operation, since it triggers the registered callbacks to run. *There is a possibility that callbacks themselves use promises, but anyway, atleast the queueing up is synchronous*.
 Example:
 ```js
 console.log("Sync 1");

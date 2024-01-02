@@ -2,13 +2,14 @@
 Created Saturday 28 January 2023 at 04:00 pm
 
 ## Stream
-A piece of data that is being moved from one point to another over time.
-Examples:
-1. File being transferred from one computer to another over the internet
-2. Data being transferred from one file to another within the same computer
+Meaning: pieces of data in transit, i.e. that is being moved from one point to another over time.
 
-The goal is to process streams of data in chunks as soon as they arrive, instead of waiting for the entire data to be available for before processing.
-This prevents unnecessary data downloads and memory usage.
+Examples:
+1. A file being transferred from one computer to another over the internet (or some other channel).
+2. Data being transferred from one file to another within the same computer.
+
+The reason behind the concept is to process/transport a large block of data in chunks, as soon as they arrive at the compute location (e.g. part of the program, memory, or physical system at a location), instead of waiting for the entire data to be available for before processing.
+This prevents unnecessary data downloads and optimizes memory usage.
 
 
 ## Buffer
@@ -22,20 +23,24 @@ Buffer is an area where data that's yet to be processed/consumed is kept. i.e. w
 
 
 ## Buffers in Node.js
-- The server (so Node.js) cannot control the pace at which data arrives in a connection stream.
-- It can only decide when is the right time to process the data.
-- If there's data already being processed or there's too little data, Node.js puts the arriving data in the buffer.
-- It is an intentionally small area that Node.js maintains in the runtime to process a stream of data
+- *Control of Data Arrival*: The server (so Node.js) cannot control the pace at which data arrives in a connection stream.
+- *Timing of data processing*: It can only decide when is the right time to process the data. Based on specified criteria or event.
+- *Buffer Usage*:
+	- If there's data already being processed or there's too little data, Node.js puts the arriving data in the buffer.
+	- It is an intentionally ~~small~~ *specified* area that Node.js maintains in the runtime to process a stream of data.
+	- Buffer max size can be specified, and Node.js auto handles *backpressure* and *wait-until-significant-size* controls if Buffers are working in tandem. See [chatgpt chat](https://chat.openai.com/c/4346dd1f-eb30-44d0-a8fb-863472d483f5)
 
 Examples: 
-1. Playing a video online. The client maintains a buffer where video chunks are kept. These chunks are processed and played at their given timestamp. This has many advantages:
+1. *Playing a video online*: The client (browser) maintains a buffer where video chunks are kept. These chunks are processed and played at their given timestamp. This has many advantages:
 	1. The user doesn't have to wait for the whole video to download completely.
 	2. The server doesn't have to load the whole video in RAM, as it sends chunks only.
-	3. The user can start a video from somewhere in the middle, and doesn't have to download the part before or after. This also makes the server efficient.
+	3. The user can start a video from somewhere in the middle, and doesn't have to download the part before or after. This also makes running the server efficient.
 	4. The client stops making requests when the buffer is full (say the next 5 minutes have been downloaded). It will start requests only when the buffer has 1 minute of remaining content. This is good for both client and server, since a user may stop watching a video after some time.
-2. Working with large files. Over a network or even locally, there are a lot of files that are quite large (w.r.t RAM) like database files, media, files in general. This is an bigger problem for servers. Buffers help with this.
+2. *Working with large files*: Over a network or even locally, there are a lot of files that are quite large (w.r.t RAM) like database files, media, files in general. This is an bigger problem for servers. Buffers help with this.
 
-
+Note: 
+- ECMAScript does has specs on Buffer
+- Browsers and Node have different APIs for buffers. Need to be stu
 ## Writing some code
 `Buffer` is available globally without importing.
 - [Code](https://github.com/exemplar-codes/codevolution-nodejs/commit/c5623674cad1bdb19fbca5e00dc31bf22c703166): using the "Buffer" class.
@@ -46,7 +51,7 @@ Examples:
 
 
 ## Opinion - BLOBs are not common in core business servers (FIXME: guess)
-Working with stream, buffers, receiving/sending large files is not a usual thing for most server side apps.
+Working with stream, buffers, receiving/sending large files is not a usual thing for most _CRUD_ server side apps.
 
 The reason is that core business web-apps (servers) work mostly with text data (JSON) etc. All images, videos, files in apps are not uploaded/downloaded from/to the server. Instead the server just provides "links" (text) with some authorization data to clients. Clients then download files from 3rd part cloud computing storage services, as needed. Uploads too, are handled this way, i.e. client side code directly uploads to the external service, and shows progress/success based on responses from the external service. Upon success, the client receives a URL and auth data from the external service, which is passed along to the core business server, which stores the link + data.
 
