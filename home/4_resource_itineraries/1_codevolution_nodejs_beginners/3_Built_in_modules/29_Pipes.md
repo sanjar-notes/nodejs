@@ -14,7 +14,7 @@ Similarly, in Node.js, the "pipe" method connects the readable stream to a writa
 
 [Code](https://github.com/exemplar-codes/codevolution-nodejs/commit/85f89e279119f9096eddea4882f445644a58aed5)
 
-Pipes, by their very nature are chain-able. However, only a non-writable stream can be changed. This is because all parts of a chain should update one by one, and not abruptly (i.e. its like mutating an array while traversing it, not a good idea). Here we are using writableStream, so we cannot pipe further.
+Pipes, by their very nature are chain-able. However, only a non-writable stream can be chained. This is because all parts of a chain should update one by one, and not abruptly (i.e. its like mutating an array while traversing it, not a good idea). Here we are using writableStream, so we cannot pipe further.
 
 To demonstrate piping, let's create a compressed file containing some text. [Code](https://github.com/exemplar-codes/codevolution-nodejs/commit/ef9cb9b25dc2ae09e63aedcad4ecbc4afa97fc42)
 
