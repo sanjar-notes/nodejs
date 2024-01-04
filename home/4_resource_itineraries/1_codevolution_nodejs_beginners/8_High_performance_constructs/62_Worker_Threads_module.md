@@ -43,7 +43,7 @@ parentPort.postMessage(msg);
 #### Notes (doubts): 
 1. The "worker_threads" module talks about threads alone, it doesn't care on which (or how many) cores they run.
 2. Also there's no constraint that one Node.js process use a single core (just like any other process - it can use as many threads and cores it wants). There are two doubt scenarios here: 
-	1. If not using "worker_threads": using multiple cores and threads is possible. Parallelism also possible (except with JS code). <details><summary> Explanation</summary>It definitely doesn't even if one does not use "worker_threads", since OS level file IO and networking code (except the callback) will run on threads other than the main thread anyway. The only limitation here is that there'll only be one *JS thread*</details>
+	1. If not using "worker_threads": using multiple cores and threads is possible. Parallelism also possible (except with JS code). <details><summary> Explanation</summary>Even if one does not use "worker_threads", the OS level file IO and networking code (except the callback) will run on threads other than the main thread anyway. The only limitation here is that there'll only be one *JS thread*</details>
 	2. Using "worker_threads" - same as \#1, except that the limitation of single JS thread is removed.
 3. The cluster module is even easier to understand, since it has whole instances of Node.js running.
 4. There's no guarantee that a worker will be run in parallel. It'll happen only if a thread, and more importantly a CPU core, is available.
