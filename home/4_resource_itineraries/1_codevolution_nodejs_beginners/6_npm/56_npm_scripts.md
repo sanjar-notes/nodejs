@@ -112,8 +112,8 @@ See https://docs.npmjs.com/cli/v10/using-npm/scripts#packagejson-vars, [helpful 
 
 Note here that:
 1. There are two modes here - you access variables inside scripts, or inside code. Mostly, the same thing works for both.
-	1. Inside script - `$variableName`. Example: `echo $npm_package_name`
-	2. Inside code - `process.env.variableName`. Example: `console.log(process.env.npm_package_name)`
+	1. Inside script - `$variable_name`. Example: `echo $npm_package_name`
+	2. Inside code - `process.env.variable_name`. Example: `console.log(process.env.npm_package_name)`
 2. There are a lot of hidden variables also, which may not be useful, so I'll not discuss them here. Example: "npm_node_execpath"
 3. These variables are available only if code or script is run via `npm` command. Running via `node` command will not work, i.e. the variables will not exist.
 
