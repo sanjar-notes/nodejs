@@ -1,4 +1,4 @@
-# 60. CLI prompts
+# 60. 2 CLI prompts
 Created Thursday 9 February 2023 at 03:38 am
 
 [inquirer](https://github.com/SBoudrias/Inquirer.js#readme) is an awesome package to create interactive CLIs.
