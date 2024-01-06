@@ -21,7 +21,7 @@ To start listening for requests (i.e. start the server), use the `myServer.liste
 So, it's very easy to get started with making servers with Node.js.
 
 ---
-Although not necessary, it is a a good practice to specify the "Content-Type" header. "Content-Type": "text/plain" is the one if `response.end(string)` is used. Technically, browsers guess (default being "text/plain") the response "Content-Type" is it's not specified.
+Although not necessary, it is a a good practice to specify the "Content-Type" header. "Content-Type": "text/plain" is the one if `response.end(string)` is used. Technically, browsers guess (default being "text/plain") the response "Content-Type" is it's not specified. HTML value is "text/html".
 
 [Code](https://github.com/exemplar-codes/codevolution-nodejs/commit/12f6d1c5c25c03695994fc6c8472a88d4c660221)
 
