@@ -2,7 +2,7 @@
 Created Sat Jan 6, 2024 at 1:25 PM
 
 The [readline](https://nodejs.org/api/readline.html) module can be used for reading input into programs.
-A promise version [readline/promises](https://nodejs.org/api/readline.html#promises-api) is it's marked experimental. Works by default in v20.
+A promise version [readline/promises](https://nodejs.org/api/readline.html#promises-api) is available (it's marked experimental), but works by default in v20.
 
 The APIs of the module allow for very granular control if needed - like position of cursor, row/column position, reading a line vs per character reads.
 
@@ -39,6 +39,17 @@ const prompt = async (message) => {
 
 Sample program
 ```js
+// copy code from above here
+async function simpleSum() {
+  const a = await prompt("Enter first number: ");
+  const b = await prompt("Enter second number: ");
+  console.log("Sum is", Number(a) + Number(b));
+}
+simpleSum();
+```
+
+A more interesting program
+```js
 async function getGitHubName() {
   const username = await prompt("GitHub username: ");
   const resp = await fetch(`https://api.github.com/users/${username}`);
@@ -58,7 +69,6 @@ async function getGitHubName() {
   }
 }
 
-// lameSum();
 getGitHubName();
 ```
 
