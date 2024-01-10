@@ -1,4 +1,4 @@
-# 0. info
+# 2. Node js complete guide academind
 Created Monday 13 February 2023 at 05:40 am
 
 ## Purpose/intent
