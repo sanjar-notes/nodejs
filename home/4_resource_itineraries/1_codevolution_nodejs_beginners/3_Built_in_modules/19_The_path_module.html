@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      /*! ADAPTED
+    Typeplate : Starter Kit
+    URL ........... http://typeplate.com
+    Version ....... 3.0.2
+    Github ........ https://github.com/typeplate/starter-kit
+    Authors ....... Dennis Gaebel (@gryghostvisuals) & Zachary Kain (@zakkain)
+    License ....... Creative Commmons Attribution 3.0
+    License URL ... https://github.com/typeplate/starter-kit/blob/master/license.txt
+    */
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        text-rendering: optimizeLegibility;
+        line-height: 1;
+        margin-top: 0;
+        color: #222;
+      }
+
+      blockquote + figcaption cite {
+        display: block;
+        font-size: inherit;
+        text-align: right;
+      }
+
+      body {
+        word-wrap: break-word;
+      }
+
+      pre code {
+        word-wrap: normal;
+      }
+
+      body {
+        -webkit-hyphens: auto;
+        -ms-hyphens: auto;
+        hyphens: auto;
+        color: #444;
+      }
+
+      h1 {
+        font-size: 2em;
+        /* 2*16 = 32 */
+      }
+
+      h2 {
+        font-size: 1.5em;
+        /* 1.5*16 = 24 */
+      }
+
+      h3 {
+        font-size: 1.17em;
+        /* 1.17*16 = 18.72 */
+      }
+
+      h4 {
+        font-size: 1em;
+        /* 1*16 = 16 */
+      }
+
+      h5 {
+        font-size: 0.83em;
+        /* 0.83*16 = 13.28 */
+      }
+
+      h6 {
+        font-size: 0.75em;
+        /* 0.75*16 = 12 */
+      }
+
+      h1 {
+        margin: 2.42424rem 0 1.454544rem;
+      }
+
+      h2 {
+        margin: 2.0202rem 0 1.21212rem;
+      }
+
+      h3 {
+        margin: 1.61616rem 0 1rem;
+      }
+
+      h4 {
+        margin: 1.21212rem 0 1;
+      }
+
+      h5 {
+        margin: 0.80808rem 0;
+      }
+
+      h6 {
+        margin: 0.70707rem 0;
+      }
+
+      p {
+        margin: auto auto 1.5rem;
+      }
+
+      small {
+        font-size: 65%;
+      }
+
+      input,
+      abbr,
+      acronym,
+      blockquote,
+      code,
+      kbd,
+      q,
+      samp,
+      var {
+        -webkit-hyphens: none;
+        -ms-hyphens: none;
+        hyphens: none;
+      }
+
+      pre {
+        white-space: pre;
+      }
+
+      pre code {
+        white-space: -moz-pre-wrap;
+        white-space: pre-wrap;
+      }
+
+      code {
+        white-space: pre;
+        font-family: SF Mono, Consolas, Dejavu Sans Mono, Menlo, monospace;
+      }
+
+      abbr {
+        -webkit-font-variant: small-caps;
+        -moz-font-variant: small-caps;
+        -ms-font-variant: small-caps;
+        font-variant: small-caps;
+        font-weight: 600;
+        text-transform: lowercase;
+        color: gray;
+      }
+
+      abbr[title]:hover {
+        cursor: help;
+      }
+
+      /* FROM http://purecss.io/layouts/side-menu/  adapted to remove pure classes*/
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+          "Segoe UI Symbol";
+        color: #444;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: auto;
+      }
+
+      code,
+      pre {
+        background-color: #f5f5f5;
+        color: #444;
+        border-radius: 2px;
+        text-shadow: 0px 1px 0px white;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+      }
+
+      pre code {
+        border: none;
+        box-shadow: none;
+      }
+
+      pre {
+        padding: 0.5em;
+      }
+
+      code {
+        display: inline-block;
+        padding: 0 0.5em;
+        line-height: 1.4;
+        font-size: 0.9em;
+      }
+
+      table {
+        border-spacing: 0;
+        margin-bottom: 1.5rem;
+      }
+
+      table th,
+      table td {
+        padding: 0.3em 0.7em;
+      }
+
+      table th {
+        background-color: #f4f4f4;
+        border-bottom: 2px solid #444;
+      }
+
+      table td {
+        border: 1px solid #f5f5f5;
+      }
+
+      /* Add transition to containers so they can push in and out. */
+
+      #layout,
+      #menu,
+      .menu-link {
+        -webkit-transition: all 0.2s ease-out;
+        -moz-transition: all 0.2s ease-out;
+        -ms-transition: all 0.2s ease-out;
+        -o-transition: all 0.2s ease-out;
+        transition: all 0.2s ease-out;
+      }
+
+      /* This is the parent `<div>` that contains the menu and the content area. */
+
+      #layout {
+        position: relative;
+        padding-left: 0;
+      }
+
+      #layout.active #menu {
+        left: 250px;
+        width: 250px;
+      }
+
+      #layout.active .menu-link {
+        left: 250px;
+      }
+
+      /* The content `<div>` is where all your content goes. */
+
+      .content {
+        margin: 50px auto;
+        padding: 0 2em;
+        max-width: 80ex;
+        line-height: 1.6em;
+      }
+
+      /*
+      The `#menu` `<div>` is the parent `<div>` that contains the menu that
+      appears on the left side of the page.
+      */
+
+      #menu {
+        margin-left: -250px;
+        /* "#menu" width */
+        width: 250px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 1000;
+        /* so the menu or its navicon stays above all content */
+        background: #f4f4f4;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        font-size: 0.9em;
+      }
+
+      @media print {
+        #menu,
+        .menu-link {
+          display: none !important;
+        }
+      }
+
+      a,
+      a * {
+        text-decoration: none;
+        color: #2483cc;
+      }
+
+      a:visited {
+        text-decoration: none;
+        color: #2483cc;
+      }
+
+      /* All anchors inside the menu should be styled like this. */
+
+      #menu a {
+        display: block;
+        padding: 0.5em 0.5em;
+      }
+
+      #menu a:first-letter {
+        text-transform: capitalize;
+      }
+
+      #menu ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 1em 0.5em;
+      }
+
+      #menu ul ul {
+        margin-top: 0.5em;
+        margin-left: 0.5em;
+        border-left: 4px solid rgba(255, 255, 255, 0.5);
+      }
+
+      /* Change color of the anchor links on hover/focus. */
+
+      #menu li a:hover,
+      #menu li a:focus {
+        background: rgba(255, 255, 255, 0.4);
+      }
+
+      /* This styles the selected menu item `<li>`. */
+
+      #menu li a.active {
+        background: rgba(0, 0, 0, 0.05);
+      }
+
+      /* This styles a link within a selected menu item `<li>`. */
+
+      #menu li a.active {
+        color: #222;
+      }
+
+      /* This styles the menu heading. */
+
+      #menu li.heading {
+        font-size: 0.9em;
+        text-transform: uppercase;
+        color: #000;
+      }
+
+      #menu li.heading > * {
+        padding: 0.5em;
+        display: block;
+      }
+
+      #menu li.heading a {
+        color: #0c68af;
+      }
+
+      /* -- Dynamic Button For Responsive Menu -------------------------------------*/
+
+      /*
+      `.menu-link` represents the responsive menu toggle that shows/hides on
+      small screens.
+      */
+
+      .menu-link {
+        position: fixed;
+        display: block;
+        /* show this only on small screens */
+        top: 0;
+        left: 0;
+        /* "#menu width" */
+        font-size: 10px;
+        /* change this value to increase/decrease button size */
+        z-index: 10;
+        width: 2em;
+        height: auto;
+        padding: 1.6em 1.2em;
+        border-radius: 0 2px 2px 0;
+      }
+
+      .menu-link:hover {
+        background: #f4f4f4;
+      }
+
+      .menu-link span {
+        position: relative;
+        display: block;
+      }
+
+      .menu-link span,
+      .menu-link span:before,
+      .menu-link span:after {
+        background-color: #555;
+        width: 100%;
+        height: 0.2em;
+        border-radius: 1em;
+      }
+
+      .menu-link span:before,
+      .menu-link span:after {
+        position: absolute;
+        margin-top: -0.6em;
+        content: " ";
+      }
+
+      .menu-link span:after {
+        margin-top: 0.6em;
+      }
+
+      /* Hides the menu at `48em`, but modify this based on your app's needs. */
+
+      @media (min-width: 48em) {
+        .header,
+        .content {
+          padding-left: 2em;
+          padding-right: 2em;
+        }
+
+        #layout {
+          padding-left: 250px;
+          /* left col width "#menu" */
+          left: 0;
+        }
+        #menu {
+          left: 250px;
+        }
+
+        .menu-link {
+          position: fixed;
+          left: 250px;
+          display: none;
+        }
+
+        #layout.active .menu-link {
+          left: 250px;
+        }
+      }
+
+      @media (max-width: 48em) {
+        /* Only apply this when the window is small. Otherwise, the following case results in extra padding on the left:
+         * Make the window small.
+         * Tap the menu to trigger the active state.
+         * Make the window large again.
+         */
+        #layout.active {
+          position: relative;
+          left: 250px;
+        }
+      }
+
+      /* Heading anchors and permalinks */
+      h1[id],
+      h2[id],
+      h3[id],
+      h4[id],
+      h5[id],
+      h6[id] {
+        position: relative;
+      }
+      .heading-anchor-permalink {
+        /* Position the permalink to the left of the title */
+        position: absolute;
+        right: 100%;
+        /* Add some spacing as padding to not lose the hover */
+        padding-right: 0.6rem;
+        /* Make it only visible on heading hover, see below */
+        opacity: 0;
+      }
+      h1[id]:hover .heading-anchor-permalink,
+      h2[id]:hover .heading-anchor-permalink,
+      h3[id]:hover .heading-anchor-permalink,
+      h4[id]:hover .heading-anchor-permalink,
+      h5[id]:hover .heading-anchor-permalink,
+      h6[id]:hover .heading-anchor-permalink {
+        opacity: 0.5;
+      }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+  </head>
+
+  <body>
+    <div id="layout">
+      <!-- Menu toggle -->
+      <a href="#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+      </a>
+      <nav id="menu">
+        <ul>
+<li><a class="" href="../../../../README.html">README</a></li>
+<li class="heading"><span>home</span></li>
+<ul>
+<li><a class="" href="../../../1_motivation.html">1 motivation</a></li>
+<li><a class="" href="../../../2_resources.html">2 resources</a></li>
+<li><a class="" href="../../../3_roadmap.html">3 roadmap</a></li>
+<li class="heading"><span>4 resource itineraries</span></li>
+<ul>
+<li class="heading"><span>1 codevolution nodejs beginners</span></li>
+<ul>
+<li class="heading"><span>1 Definition of Node js</span></li>
+<ul>
+<li><a class="" href="../1_Definition_of_Node_js/1_Introduction.html">1 Introduction</a></li>
+<li><a class="" href="../1_Definition_of_Node_js/2_ECMAScript.html">2 ECMAScript</a></li>
+<li><a class="" href="../1_Definition_of_Node_js/3_Chrome_V8_engine.html">3 Chrome V8 engine</a></li>
+<li><a class="" href="../1_Definition_of_Node_js/4_JavaScript_Runtime.html">4 JavaScript Runtime</a></li>
+<li><a class="" href="../1_Definition_of_Node_js/5_Nodejs_overview.html">5 Nodejs overview</a></li>
+<li><a class="" href="../1_Definition_of_Node_js/6_Hello_world_and_setup.html">6 Hello world and setup</a></li>
+<li><a class="" href="../1_Definition_of_Node_js/7_Browser_vs_Nodejs.html">7 Browser vs Nodejs</a></li>
+</ul>
+<li class="heading"><span>2 Modules in Node js</span></li>
+<ul>
+<li><a class="" href="../2_Modules_in_Node_js/11_Module_scope.html">11 Module scope</a></li>
+<li><a class="" href="../2_Modules_in_Node_js/12_Module_wrapper.html">12 Module wrapper</a></li>
+<li><a class="" href="../2_Modules_in_Node_js/13_Module_caching.html">13 Module caching</a></li>
+<li><a class="" href="../2_Modules_in_Node_js/14_Import_Export_patterns.html">14 Import Export patterns</a></li>
+<li><a class="" href="../2_Modules_in_Node_js/15_module_exports_vs_exports.html">15 module exports vs exports</a></li>
+<li><a class="" href="../2_Modules_in_Node_js/16_ES_modules.html">16 ES modules</a></li>
+<li><a class="" href="../2_Modules_in_Node_js/17_Importing_JSON_and_Watch_mode.html">17 Importing JSON and Watch mode</a></li>
+<li><a class="" href="../2_Modules_in_Node_js/18-Detect-run-as-main-or-module.html">Detect run as main or module</a></li>
+<li><a class="" href="../2_Modules_in_Node_js/8_Definition_and_types_of_modules.html">8 Definition and types of modules</a></li>
+<li><a class="" href="../2_Modules_in_Node_js/9_Local_modules.html">9 Local modules</a></li>
+</ul>
+<li class="heading"><span>3 Built in modules</span></li>
+<ul>
+<li><a class="" href="18_Built_in_modules.html">18 Built in modules</a></li>
+<li><a class="active" href="19_The_path_module.html">19 The path module</a></li>
+<li><a class="" href="20_Callback_pattern.html">20 Callback pattern</a></li>
+<li><a class="" href="21_Events_module.html">21 Events module</a></li>
+<li><a class="" href="22_Extending_from_EventEmitter.html">22 Extending from EventEmitter</a></li>
+<li><a class="" href="23_Character_sets_and_encoding.html">23 Character sets and encoding</a></li>
+<li><a class="" href="24_Streams_and_Buffers.html">24 Streams and Buffers</a></li>
+<li><a class="" href="25_Asynchronous_JavaScript.html">25 Asynchronous JavaScript</a></li>
+<li><a class="" href="26_fs_module.html">26 fs module</a></li>
+<li><a class="" href="27_fs_with_Promises.html">27 fs with Promises</a></li>
+<li><a class="" href="28_Streams.html">28 Streams</a></li>
+<li><a class="" href="29_Pipes.html">29 Pipes</a></li>
+</ul>
+<li class="heading"><span>4 HTTP module</span></li>
+<ul>
+<li><a class="" href="../4_HTTP_module/30_HTTP_module.html">30 HTTP module</a></li>
+<li><a class="" href="../4_HTTP_module/31_Creating_a_Node_server.html">31 Creating a Node server</a></li>
+<li><a class="" href="../4_HTTP_module/32_JSON_response.html">32 JSON response</a></li>
+<li><a class="" href="../4_HTTP_module/33_HTML_response.html">33 HTML response</a></li>
+<li><a class="" href="../4_HTTP_module/34_HTML_templates.html">34 HTML templates</a></li>
+<li><a class="" href="../4_HTTP_module/35_HTTP_routing.html">35 HTTP routing</a></li>
+<li><a class="" href="../4_HTTP_module/36_Web_frameworks.html">36 Web frameworks</a></li>
+</ul>
+<li class="heading"><span>5 Nodejs internals</span></li>
+<ul>
+<li><a class="" href="../5_Nodejs_internals/37_Nodejs_Runtime_recap.html">37 Nodejs Runtime recap</a></li>
+<li><a class="" href="../5_Nodejs_internals/38_libuv.html">38 libuv</a></li>
+<li><a class="" href="../5_Nodejs_internals/39_Thread_pool_deferring_till_48.html">39 Thread pool deferring till 48</a></li>
+<li><a class="" href="../5_Nodejs_internals/40_Thread_pool_size_DEFER.html">40 Thread pool size DEFER</a></li>
+<li><a class="" href="../5_Nodejs_internals/41_The_Event_loop_DEFER.html">41 The Event loop DEFER</a></li>
+</ul>
+<li class="heading"><span>6 npm</span></li>
+<ul>
+<li><a class="" href="../6_npm/49_What_is_npm.html">49 What is npm</a></li>
+<li><a class="" href="../6_npm/50_package_json.html">50 package json</a></li>
+<li><a class="" href="../6_npm/51_Installing_packages.html">51 Installing packages</a></li>
+<li><a class="" href="../6_npm/52_Using_packages.html">52 Using packages</a></li>
+<li><a class="" href="../6_npm/53_Dependencies.html">53 Dependencies</a></li>
+<li><a class="" href="../6_npm/54_Versioning.html">54 Versioning</a></li>
+<li><a class="" href="../6_npm/55_global_packages.html">55 global packages</a></li>
+<li><a class="" href="../6_npm/56_npm_scripts.html">56 npm scripts</a></li>
+<li><a class="" href="../6_npm/57_Publishing_an_npm_package.html">57 Publishing an npm package</a></li>
+</ul>
+<li class="heading"><span>7 Creating CLI apps</span></li>
+<ul>
+<li><a class="" href="../7_Creating_CLI_apps/58_Building_CLI_tools.html">58 Building CLI tools</a></li>
+<li><a class="" href="../7_Creating_CLI_apps/59_1_CLI_options.html">59 1 CLI options</a></li>
+<li><a class="" href="../7_Creating_CLI_apps/59_2_process_variable.html">59 2 process variable</a></li>
+<li><a class="" href="../7_Creating_CLI_apps/60_1_Keyboard-input-readline-module.html">60 1 Keyboard input readline module</a></li>
+<li><a class="" href="../7_Creating_CLI_apps/60_2_CLI_prompts.html">60 2 CLI prompts</a></li>
+</ul>
+<li class="heading"><span>8 High performance constructs</span></li>
+<ul>
+<li><a class="" href="../8_High_performance_constructs/61_Cluster_module.html">61 Cluster module</a></li>
+<li><a class="" href="../8_High_performance_constructs/62_Worker_Threads_module.html">62 Worker Threads module</a></li>
+</ul>
+<li class="heading"><span>9 Miscellaneous</span></li>
+<ul>
+<li><a class="" href="../9_Miscellaneous/63_Deploying_Node_js_apps.html">63 Deploying Node js apps</a></li>
+<li><a class="" href="../9_Miscellaneous/64_Wrapping_up.html">64 Wrapping up</a></li>
+</ul>
+<li><a class="" href="../info.html">info</a></li>
+<li><a class="" href="../todo.html">todo</a></li>
+</ul>
+<li class="heading"><a class="" href="../../2_Node_js_complete_guide_academind/index.html">2 Node js complete guide academind</a></li>
+<ul>
+<li class="heading"><span>10 SQL Introduction</span></li>
+<ul>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/10_SQL_Introduction/135_Module_introduction.html">135 Module introduction</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/10_SQL_Introduction/136_Choosing_a_Database.html">136 Choosing a Database</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/10_SQL_Introduction/138_Comparison_overview.html">138 Comparison overview</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/10_SQL_Introduction/139_Setting_up_MySQL.html">139 Setting up MySQL</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/10_SQL_Introduction/140_Connecting_our_App_to_the_SQL_database.html">140 Connecting our App to the SQL database</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/10_SQL_Introduction/141_Running_queries_in_our_app.html">141 Running queries in our app</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/10_SQL_Introduction/142_General_SQL_questions.html">142 General SQL questions</a></li>
+</ul>
+<li class="heading"><span>11 Understanding Sequelize</span></li>
+<ul>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/11_Understanding_Sequelize/149_What_is_an_ORM.html">149 What is an ORM</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/11_Understanding_Sequelize/150_Sequelize_concepts.html">150 Sequelize concepts</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/11_Understanding_Sequelize/151_Connecting_to_the_Database.html">151 Connecting to the Database</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/11_Understanding_Sequelize/152_Defining_a_Model.html">152 Defining a Model</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/11_Understanding_Sequelize/153_Syncing_Models_to_the_Database.html">153 Syncing Models to the Database</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/11_Understanding_Sequelize/154_Queries.html">154 Queries</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/11_Understanding_Sequelize/161_Creating_a_User_model.html">161 Creating a User model</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/11_Understanding_Sequelize/162_Associations.html">162 Associations</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/11_Understanding_Sequelize/163_Mock_User_Authentication.html">163 Mock User Authentication</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/11_Understanding_Sequelize/164_More_Sequelize_methods.html">164 More Sequelize methods</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/11_Understanding_Sequelize/165_Heuristics_for_associations_and_ORM_usage.html">165 Heuristics for associations and ORM usage</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/11_Understanding_Sequelize/166_Moving_on_with_the_project.html">166 Moving on with the project</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/11_Understanding_Sequelize/173_Resetting_the_cart.html">173 Resetting the cart</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/11_Understanding_Sequelize/174_Wrap_up.html">174 Wrap up</a></li>
+</ul>
+<li class="heading"><span>12 Working with NoSQL and MongoDB</span></li>
+<ul>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/12_Working_with_NoSQL_and_MongoDB/176_Module_Introduction.html">176 Module Introduction</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/12_Working_with_NoSQL_and_MongoDB/177_What_is_MongoDB.html">177 What is MongoDB</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/12_Working_with_NoSQL_and_MongoDB/178_Relations_in_NoSQL_MongoDB.html">178 Relations in NoSQL MongoDB</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/12_Working_with_NoSQL_and_MongoDB/179_Setting_up_MongoDB.html">179 Setting up MongoDB</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/12_Working_with_NoSQL_and_MongoDB/181_Creating_and_managing_the_connection.html">181 Creating and managing the connection</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/12_Working_with_NoSQL_and_MongoDB/183_Creating_a_collection.html">183 Creating a collection</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/12_Working_with_NoSQL_and_MongoDB/184_Creating_models_and_instances.html">184 Creating models and instances</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/12_Working_with_NoSQL_and_MongoDB/185_MongoDB_Compass.html">185 MongoDB Compass</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/12_Working_with_NoSQL_and_MongoDB/186_Fetching_products_multiple.html">186 Fetching products multiple</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/12_Working_with_NoSQL_and_MongoDB/187_Fetching_product_single.html">187 Fetching product single</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/12_Working_with_NoSQL_and_MongoDB/188_2_Getting_selected_attributes_only.html">188 2 Getting selected attributes only</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/12_Working_with_NoSQL_and_MongoDB/188_Edit_and_delete_product.html">188 Edit and delete product</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/12_Working_with_NoSQL_and_MongoDB/189_Updating_attributes_nested_paths_remotely.html">189 Updating attributes nested paths remotely</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/12_Working_with_NoSQL_and_MongoDB/190_Mongodb_array_ops.html">190 Mongodb array ops</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/12_Working_with_NoSQL_and_MongoDB/194_Creating_the_User_model.html">194 Creating the User model</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/12_Working_with_NoSQL_and_MongoDB/195_Storing_associated_User_in_Product.html">195 Storing associated User in Product</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/12_Working_with_NoSQL_and_MongoDB/196_The_Cart_model.html">196 The Cart model</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/12_Working_with_NoSQL_and_MongoDB/199_Get_cart_page.html">199 Get cart page</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/12_Working_with_NoSQL_and_MongoDB/201_Cart_actions.html">201 Cart actions</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/12_Working_with_NoSQL_and_MongoDB/202_Adding_the_Order_features.html">202 Adding the Order features</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/12_Working_with_NoSQL_and_MongoDB/204_Getting_orders.html">204 Getting orders</a></li>
+<li class="heading"><span>extras</span></li>
+<ul>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/12_Working_with_NoSQL_and_MongoDB/extras/1_limit_sort_and_count.html">1 limit sort and count</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/12_Working_with_NoSQL_and_MongoDB/extras/2_query_operators.html">2 query operators</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/12_Working_with_NoSQL_and_MongoDB/extras/3_in_oneOf.html">3 in oneOf</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/12_Working_with_NoSQL_and_MongoDB/extras/4_Get_all_collections.html">4 Get all collections</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/12_Working_with_NoSQL_and_MongoDB/extras/5_Dropping_collections.html">5 Dropping collections</a></li>
+</ul>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/12_Working_with_NoSQL_and_MongoDB/tempREADME_archived.html">tempREADME archived</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/12_Working_with_NoSQL_and_MongoDB/todo_archived.html">todo archived</a></li>
+</ul>
+<li class="heading"><span>13 Working with Mongoose</span></li>
+<ul>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/13_Working_with_Mongoose/209_Module_Introduction.html">209 Module Introduction</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/13_Working_with_Mongoose/210_Core_concepts_in_Mongoose.html">210 Core concepts in Mongoose</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/13_Working_with_Mongoose/211_Connection_in_Mongoose.html">211 Connection in Mongoose</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/13_Working_with_Mongoose/211_Using_MongoDB_and_Mongoose_together.html">211 Using MongoDB and Mongoose together</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/13_Working_with_Mongoose/212_Creating_Schemas_and_Models.html">212 Creating Schemas and Models</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/13_Working_with_Mongoose/213_Saving_data_through_Mongoose.html">213 Saving data through Mongoose</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/13_Working_with_Mongoose/214_Fetching_products.html">214 Fetching products</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/13_Working_with_Mongoose/215_lean_and__doc_in_Mongoose.html">215 lean and  doc in Mongoose</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/13_Working_with_Mongoose/216_Editing_and_deleting_Products.html">216 Editing and deleting Products</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/13_Working_with_Mongoose/217_Updating_attributes_nested_paths_remotely_in_Mongoose.html">217 Updating attributes nested paths remotely in Mongoose</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/13_Working_with_Mongoose/218_Adding_the_Cart_model.html">218 Adding the Cart model</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/13_Working_with_Mongoose/219_Using_relations_ref_in_Mongoose.html">219 Using relations ref in Mongoose</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/13_Working_with_Mongoose/220_How_the_3_relations_work_in_NoSQL.html">220 How the 3 relations work in NoSQL</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/13_Working_with_Mongoose/221_select_and_populate.html">221 select and populate</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/13_Working_with_Mongoose/222_1_Add_custom_model_methods.html">222 1 Add custom model methods</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/13_Working_with_Mongoose/222_2_Query_helpers.html">222 2 Query helpers</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/13_Working_with_Mongoose/223_exec_and_execPopulate_in_Mongoose.html">223 exec and execPopulate in Mongoose</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/13_Working_with_Mongoose/224_Adding_the_Order_model_and_features.html">224 Adding the Order model and features</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/13_Working_with_Mongoose/228_timestamps.html">228 timestamps</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/13_Working_with_Mongoose/229_Wrap_up.html">229 Wrap up</a></li>
+<li class="heading"><span>extras</span></li>
+<ul>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/13_Working_with_Mongoose/extras/1_limit_sort_and_count_Mongoose.html">1 limit sort and count Mongoose</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/13_Working_with_Mongoose/extras/2_query_operators_in_Mongoose.html">2 query operators in Mongoose</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/13_Working_with_Mongoose/extras/3_in_oneOf_in_Mongoose.html">3 in oneOf in Mongoose</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/13_Working_with_Mongoose/extras/4_ObjectId_in_Mongoose.html">4 ObjectId in Mongoose</a></li>
+</ul>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/13_Working_with_Mongoose/tempREADME_archived.html">tempREADME archived</a></li>
+</ul>
+<li class="heading"><span>14 Sessions and Cookies</span></li>
+<ul>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/14_Sessions_and_Cookies/230_Module_intro.html">230 Module intro</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/14_Sessions_and_Cookies/231_Cookies_and_Session_Fundamentals.html">231 Cookies and Session Fundamentals</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/14_Sessions_and_Cookies/232_Add_login_flow.html">232 Add login flow</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/14_Sessions_and_Cookies/233_Cookie_code.html">233 Cookie code</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/14_Sessions_and_Cookies/234_Sessions_code.html">234 Sessions code</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/14_Sessions_and_Cookies/235_Cookie_experiments.html">235 Cookie experiments</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/14_Sessions_and_Cookies/info.html">info</a></li>
+</ul>
+<li class="heading"><span>18 Understanding Validation</span></li>
+<ul>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/18_Understanding_Validation/289_Validation_why_and_how.html">289 Validation why and how</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/18_Understanding_Validation/290_3_layers_of_validation.html">290 3 layers of validation</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/18_Understanding_Validation/291_Validation_as_middlewares.html">291 Validation as middlewares</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/18_Understanding_Validation/292_express_validator_package_and_two_piece_arch.html">292 express validator package and two piece arch</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/18_Understanding_Validation/293_Chainability_and_custom_error_messages.html">293 Chainability and custom error messages</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/18_Understanding_Validation/294_Custom_validators.html">294 Custom validators</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/18_Understanding_Validation/295_More_validators.html">295 More validators</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/18_Understanding_Validation/296_Validating_multiple_fields_mutually.html">296 Validating multiple fields mutually</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/18_Understanding_Validation/297_Async_validation.html">297 Async validation</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/18_Understanding_Validation/298_Save_users_work_UX.html">298 Save users work UX</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/18_Understanding_Validation/301_Sanitization.html">301 Sanitization</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/18_Understanding_Validation/304_Wrap_up.html">304 Wrap up</a></li>
+</ul>
+<li class="heading"><span>19 Error Handling</span></li>
+<ul>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/19_Error_Handling/306_Module_intro_and_the_error_sink.html">306 Module intro and the error sink</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/19_Error_Handling/311_Throw_error_page.html">311 Throw error page</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/19_Error_Handling/312_Express_default_error_handler_middleware.html">312 Express default error handler middleware</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/19_Error_Handling/313_Creating_the_error_sink.html">313 Creating the error sink</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/19_Error_Handling/315_HTTP_status_codes.html">315 HTTP status codes</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/19_Error_Handling/316_Unhandled_async_errors_missing_await.html">316 Unhandled async errors missing await</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/19_Error_Handling/317_wrap_up.html">317 wrap up</a></li>
+</ul>
+<li class="heading"><span>1 Introduction</span></li>
+<ul>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/1_Introduction/5_Understanding_the_role_and_usage_of_Node.js.html">5 Understanding the role and usage of Node.js</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/1_Introduction/6_Course_Outline.html">6 Course Outline</a></li>
+</ul>
+<li class="heading"><span>20 File uploads and downloads</span></li>
+<ul>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/20_File_uploads_and_downloads/319_Module_intro.html">319 Module intro</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/20_File_uploads_and_downloads/320_Adding_a_file_picker_on_the_frontend.html">320 Adding a file picker on the frontend</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/20_File_uploads_and_downloads/321_Handling_Multipart_Formdata.html">321 Handling Multipart Formdata</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/20_File_uploads_and_downloads/322_Handling_body_with_multer.html">322 Handling body with multer</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/20_File_uploads_and_downloads/323_Configuring_multer.html">323 Configuring multer</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/20_File_uploads_and_downloads/324_Filter_file_types.html">324 Filter file types</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/20_File_uploads_and_downloads/325_Storing_File_in_database.html">325 Storing File in database</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/20_File_uploads_and_downloads/326_Serving_saved_assets.html">326 Serving saved assets</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/20_File_uploads_and_downloads/328_Downloading_files_with_Authentication.html">328 Downloading files with Authentication</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/20_File_uploads_and_downloads/329_Setting_file_type_during_send.html">329 Setting file type during send</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/20_File_uploads_and_downloads/331_Streaming_vs_preloading_data.html">331 Streaming vs preloading data</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/20_File_uploads_and_downloads/332_PDFKit_runtime_PDF_generation.html">332 PDFKit runtime PDF generation</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/20_File_uploads_and_downloads/334_Deleting_files.html">334 Deleting files</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/20_File_uploads_and_downloads/336_Wrap_up.html">336 Wrap up</a></li>
+</ul>
+<li class="heading"><span>21 Pagination</span></li>
+<ul>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/21_Pagination/338_Module_intro.html">338 Module intro</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/21_Pagination/339_Pagination_general_contract.html">339 Pagination general contract</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/21_Pagination/340_Implementing_pagination.html">340 Implementing pagination</a></li>
+</ul>
+<li class="heading"><span>22 Understanding Async Requests AJAX</span></li>
+<ul>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/22_Understanding_Async_Requests_AJAX/347_Just_AJAX.md.html">347 Just AJAX.md</a></li>
+</ul>
+<li class="heading"><span>23 Adding Payments</span></li>
+<ul>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/23_Adding_Payments/info.md.html">info.md</a></li>
+</ul>
+<li class="heading"><span>24 REST APIs Basics</span></li>
+<ul>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/24_REST_APIs_Basics/359_Module_intro.html">359 Module intro</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/24_REST_APIs_Basics/360_API_general_flow.html">360 API general flow</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/24_REST_APIs_Basics/361_API_Data_formats.html">361 API Data formats</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/24_REST_APIs_Basics/362_Routing_and_HTTP_methods.html">362 Routing and HTTP methods</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/24_REST_APIs_Basics/363_REST_and_core_principles.html">363 REST and core principles</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/24_REST_APIs_Basics/365_CORS_error.html">365 CORS error</a></li>
+</ul>
+<li class="heading"><span>25 Making API app</span></li>
+<ul>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/25_Making_API_app/370_Module_Intro.html">370 Module Intro</a></li>
+</ul>
+<li class="heading"><span>3 Understanding the basics</span></li>
+<ul>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/3_Understanding_the_basics/25_How_the_Web_works.html">25 How the Web works</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/3_Understanding_the_basics/27_The_Node_lifecycle_and_Event_loop.html">27 The Node lifecycle and Event loop</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/3_Understanding_the_basics/29_Understanding_Requests.html">29 Understanding Requests</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/3_Understanding_the_basics/30_Sending_Responses.html">30 Sending Responses</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/3_Understanding_the_basics/32_Routing_requests.html">32 Routing requests</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/3_Understanding_the_basics/33_Redirecting_requests.html">33 Redirecting requests</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/3_Understanding_the_basics/34_Parsing_Request_bodies.html">34 Parsing Request bodies</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/3_Understanding_the_basics/39_Wrap_up.html">39 Wrap up</a></li>
+</ul>
+<li class="heading"><span>4 Improved Development Workflow and Debugging</span></li>
+<ul>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/4_Improved_Development_Workflow_and_Debugging/51_Using_the_Debugger.html">51 Using the Debugger</a></li>
+</ul>
+<li class="heading"><span>5 Express js</span></li>
+<ul>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/5_Express_js/57_Module_introduction.html">57 Module introduction</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/5_Express_js/58_What_is_Express_js.html">58 What is Express js</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/5_Express_js/59. Installing Express.js.html">59. Installing Express.js</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/5_Express_js/60_Adding_Middlewares.html">60 Adding Middlewares</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/5_Express_js/61_1_Handling_routes.html">61 1 Handling routes</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/5_Express_js/61_2_Handling_HTTP_methods.html">61 2 Handling HTTP methods</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/5_Express_js/62_Express_Router.html">62 Express Router</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/5_Express_js/63_Chain_of_middlewares.html">63 Chain of middlewares</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/5_Express_js/64_Conditional_middlewares.html">64 Conditional middlewares</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/5_Express_js/66_Responses.html">66 Responses</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/5_Express_js/67_Requests.html">67 Requests</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/5_Express_js/todo.html">todo</a></li>
+</ul>
+<li class="heading"><span>6 1 Sending vanilla HTML</span></li>
+<ul>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/6_1_Sending_vanilla_HTML/69_Creating_HTML_pages.html">69 Creating HTML pages</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/6_1_Sending_vanilla_HTML/70_Adding_404_page.html">70 Adding 404 page</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/6_1_Sending_vanilla_HTML/71_Serving_Files_Statically.html">71 Serving Files Statically</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/6_1_Sending_vanilla_HTML/75_Assignment_3.html">75 Assignment 3</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/6_1_Sending_vanilla_HTML/76_Section_5_wrap_up.html">76 Section 5 wrap up</a></li>
+</ul>
+<li class="heading"><span>6 2 Templating Engines and Dynamic content</span></li>
+<ul>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/6_2_Templating_Engines_and_Dynamic_content/78_Module_introduction.html">78 Module introduction</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/6_2_Templating_Engines_and_Dynamic_content/79_Sharing_Data_across_Requests_and_Users.html">79 Sharing Data across Requests and Users</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/6_2_Templating_Engines_and_Dynamic_content/80_Template_engines_overview.html">80 Template engines overview</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/6_2_Templating_Engines_and_Dynamic_content/81_Installing_Pug_and_using_it.html">81 Installing Pug and using it</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/6_2_Templating_Engines_and_Dynamic_content/82_Layouts_in_Pug.html">82 Layouts in Pug</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/6_2_Templating_Engines_and_Dynamic_content/83_Handlebars_skipping.html">83 Handlebars skipping</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/6_2_Templating_Engines_and_Dynamic_content/84_EJS.html">84 EJS</a></li>
+</ul>
+<li class="heading"><span>7 The MVC pattern</span></li>
+<ul>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/7_The_MVC_pattern/104_Wrap_up.html">104 Wrap up</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/7_The_MVC_pattern/96_Module_intro.html">96 Module intro</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/7_The_MVC_pattern/97_What_is_MVC.html">97 What is MVC</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/7_The_MVC_pattern/98_Adding_controllers.html">98 Adding controllers</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/7_The_MVC_pattern/99_Adding_models.html">99 Adding models</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/7_The_MVC_pattern/defer.html">defer</a></li>
+</ul>
+<li class="heading"><span>8 Enhancing the shop app optional</span></li>
+<ul>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/8_Enhancing_the_shop_app_optional/107_Create_the_Shop_structure.html">107 Create the Shop structure</a></li>
+</ul>
+<li class="heading"><span>9 Dynamic routes and Advanced Models</span></li>
+<ul>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/9_Dynamic_routes_and_Advanced_Models/115_Module_introduction.html">115 Module introduction</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/9_Dynamic_routes_and_Advanced_Models/118_Adding_Product_ID_to_the_path.html">118 Adding Product ID to the path</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/9_Dynamic_routes_and_Advanced_Models/119_Extracting_Dynamic_Params.html">119 Extracting Dynamic Params</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/9_Dynamic_routes_and_Advanced_Models/122_Passing_data_with_POST_Requests.html">122 Passing data with POST Requests</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/9_Dynamic_routes_and_Advanced_Models/123_Adding_a_Cart_Model.html">123 Adding a Cart Model</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/9_Dynamic_routes_and_Advanced_Models/124_Continuing_on.html">124 Continuing on</a></li>
+<li><a class="" href="../../2_Node_js_complete_guide_academind/9_Dynamic_routes_and_Advanced_Models/133_Wrap_up.html">133 Wrap up</a></li>
+</ul>
+
+</ul>
+</ul>
+<li><a class="" href="../../../5_projects.html">5 projects</a></li>
+<li><a class="" href="../../../6_setup.html">6 setup</a></li>
+</ul>
+<li class="heading"><span>tooling</span></li>
+<ul>
+<li><a class="" href="../../../../tooling/README.html">README</a></li>
+<li class="heading"><span>obsidian templates</span></li>
+<ul>
+<li><a class="" href="../../../../tooling/obsidian-templates/README.html">README</a></li>
+<li class="heading"><span>templater</span></li>
+<ul>
+<li><a class="" href="../../../../tooling/obsidian-templates/templater/timestamp.html">timestamp</a></li>
+<li><a class="" href="../../../../tooling/obsidian-templates/templater/title_and_date.html">title and date</a></li>
+<li><a class="" href="../../../../tooling/obsidian-templates/templater/w2h.html">w2h</a></li>
+</ul>
+</ul>
+</ul>
+<li class="heading"><span>vault</span></li>
+<ul>
+<li class="heading"><span>1 Setup</span></li>
+<ul>
+<li><a class="" href="../../../../vault/1_Setup/Environment_variables.html">Environment variables</a></li>
+<li><a class="" href="../../../../vault/1_Setup/Node_versions.html">Node versions</a></li>
+<li><a class="" href="../../../../vault/1_Setup/fetch-available-v18.html">fetch available v18</a></li>
+</ul>
+</ul>
+</ul>
+      </nav>
+      <article id="main" class="content">
+        <h1 id="19.-the-path-module">19. The path module <a class="heading-anchor-permalink" href="#19.-the-path-module">#</a></h1>
+<p>Created Friday 27 January 2023 at 12:16 am</p>
+<h2 id="path-module">path module <a class="heading-anchor-permalink" href="#path-module">#</a></h2>
+<p>Meant for manipulating paths (filesystem locations).
+I doesn’t <em>do</em> anything - for that you’ll need the “fs” module.</p>
+<h2 id="two-path-related-convenience-variables">Two path related convenience variables <a class="heading-anchor-permalink" href="#two-path-related-convenience-variables">#</a></h2>
+<p>Node.js provides two convenience variables that are available by default (no import needed). They are:</p>
+<ol>
+<li><code>__dirname</code> - absolute path current directory .</li>
+<li><code>__filename</code> - absolute path of current module (file).</li>
+</ol>
+<p>In short, if you just need these, there’s no need to use the <code>path</code> module.</p>
+<h2 id="path-api">Path API <a class="heading-anchor-permalink" href="#path-api">#</a></h2>
+<p>Path module has 14 properties and methods. We’ll look at the 7 most used ones.</p>
+<ul>
+<li><code>path.basename(&quot;my_path_here&quot;)</code> - last portion of a given path</li>
+<li><code>path.extname(&quot;my_path_here&quot;)</code> - extension of the file at path. Returns empty string otherwise - for a directory or invalid path.</li>
+<li><code>path.parse(&quot;my_path_here&quot;)</code> - an object containing useful information about the path.</li>
+<li><code>path.format(pathObject)</code> - returns an absolute path string for given “path” like object.</li>
+<li><code>path.isAbsolute(&quot;my_path_here&quot;)</code> - boolean</li>
+<li><code>path.join()</code> - returns an absolute path by joining path segments. Additionally, it takes care of platform specific delimiters and does normalizing (ignoring, adding delimiters and process nesting delimiters if any). Delimiters - <code>/</code>, <code>\</code>, <code>.</code>, <code>..</code></li>
+<li><code>path.resolve()</code> - behaves like <code>join()</code>, except it is processed right to left. Also the latest (right most argument) becomes the root if it has a <code>/</code>. If no argument has a <code>/</code>, the actual system root path becomes the root. Returns an absolute path in all cases.</li>
+</ul>
+<p>Example:</p>
+<pre><code class="language-js">const path = require(&quot;node:path&quot;);
+
+const currentDirectoryConvenienceVariable = __dirname;
+console.log(currentDirectoryConvenienceVariable);
+const currentModuleConvenienceVariable = __filename;
+console.log(currentModuleConvenienceVariable);
+
+
+console.log(&quot;\n# basename&quot;);
+console.log(path.basename(__dirname));
+
+
+console.log(&quot;\n# extname&quot;);
+console.log(path.extname(__filename));
+
+
+console.log(&quot;\n# parse&quot;);
+console.log(path.parse(__filename));
+console.log(path.parse(__dirname));
+
+
+console.log(&quot;\n# format&quot;);
+const obj1 = path.parse(__filename);
+const obj2 = path.parse(__dirname);
+console.log(path.format(obj1));
+console.log(path.format(obj2));
+
+
+console.log(&quot;\n# path.join&quot;);
+console.log(path.join(&quot;folder1&quot;, &quot;folder2&quot;, &quot;index.html&quot;)); // simple join
+console.log(path.join(&quot;/folder1&quot;, &quot;folder2&quot;, &quot;index.html&quot;)); // simple join
+console.log(path.join(&quot;/folder1&quot;, &quot;//folder2&quot;, &quot;index.html&quot;)); // smartly ignores redundant
+console.log(path.join(&quot;/folder1&quot;, &quot;//folder2&quot;, &quot;../index.html&quot;)); // smartly ignores redundant, processes nesting
+console.log(path.join(__dirname, &quot;data.json&quot;));
+
+
+console.log(&quot;\n# path.resolve&quot;);
+console.log(path.resolve(&quot;folder1&quot;, &quot;folder2&quot;, &quot;index.html&quot;)); // no root like argument, so actual root becomes root
+console.log(path.resolve(&quot;/folder1&quot;, &quot;folder2&quot;, &quot;index.html&quot;)); // has a root like argument, so it becomes root
+
+console.log(path.resolve(&quot;/folder1&quot;, &quot;//folder2&quot;, &quot;index.html&quot;));
+// has multiple root like arguments, the latest one becomes root, smartly ignores redundant delimiter
+
+console.log(path.resolve(&quot;/folder1&quot;, &quot;//folder2&quot;, &quot;../index.html&quot;));
+// has multiple root like arguments, the latest one becomes root, smartly ignores redundant delimiter, processes nesting
+
+console.log(path.resolve(__dirname, &quot;data.json&quot;));
+</code></pre>
+
+      </article>
+    </div>
+    <script>
+      // Load contents.json if you need it
+    </script>
+    <script>
+      // FROM http://purecss.io/js/ui.js
+      (function(window, document) {
+        var layout = document.getElementById("layout"),
+          menu = document.getElementById("menu"),
+          menuLink = document.getElementById("menuLink");
+
+        function toggleClass(element, className) {
+          var classes = element.className.split(/\s+/),
+            length = classes.length,
+            i = 0;
+
+          for (; i < length; i++) {
+            if (classes[i] === className) {
+              classes.splice(i, 1);
+              break;
+            }
+          }
+          // The className is not found
+          if (length === classes.length) {
+            classes.push(className);
+          }
+
+          element.className = classes.join(" ");
+        }
+
+        menuLink.onclick = function(e) {
+          var active = "active";
+
+          e.preventDefault();
+          toggleClass(layout, active);
+          toggleClass(menu, active);
+          toggleClass(menuLink, active);
+        };
+      })(this, this.document);
+    </script>
+  </body>
+</html>
